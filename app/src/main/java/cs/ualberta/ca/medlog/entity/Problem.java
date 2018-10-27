@@ -10,7 +10,7 @@ public class Problem {
     private String description;
     ArrayList<Record> records = new ArrayList<Record>();
 
-    Problem(String title, Date date, String description){
+    public Problem(String title, Date date, String description){
         this.title = title;
         this.date = date;
         this.description = description;

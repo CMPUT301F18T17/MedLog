@@ -13,7 +13,7 @@ public class Record {
     private ArrayList<Photo> photos;
 
 
-    Record(Date timeStamp){
+    public Record(Date timeStamp){
 
     }
 

@@ -4,7 +4,7 @@ public class BodyLocation {
     private Photo photo;
     private int x, y;
 
-    BodyLocation(Photo photo, int x, int y){
+    public BodyLocation(Photo photo, int x, int y){
         this.photo = photo;
         this.x = x;
         this.y = y;

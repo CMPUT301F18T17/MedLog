@@ -3,7 +3,7 @@ package cs.ualberta.ca.medlog.entity;
 public class Photo {
     private int identifier;
 
-    Photo(int id){
+    public Photo(int id){
         identifier = id;
     }
 
