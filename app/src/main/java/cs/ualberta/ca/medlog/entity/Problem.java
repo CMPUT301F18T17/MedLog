@@ -16,35 +16,35 @@ public class Problem {
         this.description = description;
     }
 
-    void setTitle(String newTitle){
+    public void setTitle(String newTitle){
         title = newTitle;
     }
 
-    String getTitle(){
+    public String getTitle(){
         return title;
     }
 
-    void setDate(Date newDate){
+    public void setDate(Date newDate){
         date = newDate;
     }
 
-    Date getDate(){
+    public Date getDate(){
         return date;
     }
 
-    void setDescription(String newDescription){
+    public void setDescription(String newDescription){
         description = newDescription;
     }
 
-    String getDescription(){
+    public String getDescription(){
         return description;
     }
 
-    void addRecord(Record newRecord){
+    public void addRecord(Record newRecord){
         records.add(newRecord);
     }
 
-    ArrayList<Record> getRecords(){
+    public ArrayList<Record> getRecords(){
         return records;
     }
 }
