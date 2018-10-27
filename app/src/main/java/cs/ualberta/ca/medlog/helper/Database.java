@@ -1,6 +1,12 @@
-package cs.ualberta.ca.medlog.entity;
+package cs.ualberta.ca.medlog.helper;
 
 import java.util.ArrayList;
+
+import cs.ualberta.ca.medlog.entity.BodyLocation;
+import cs.ualberta.ca.medlog.entity.MapLocation;
+import cs.ualberta.ca.medlog.entity.Problem;
+import cs.ualberta.ca.medlog.entity.user.CareProvider;
+import cs.ualberta.ca.medlog.entity.user.Patient;
 
 public class Database {
 

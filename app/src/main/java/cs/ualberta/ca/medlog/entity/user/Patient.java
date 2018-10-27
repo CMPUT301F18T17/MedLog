@@ -1,7 +1,9 @@
-package cs.ualberta.ca.medlog.entity;
+package cs.ualberta.ca.medlog.entity.user;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+
+import cs.ualberta.ca.medlog.entity.Photo;
+import cs.ualberta.ca.medlog.entity.Problem;
 
 public class Patient extends User{
 

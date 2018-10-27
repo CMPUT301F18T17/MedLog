@@ -1,4 +1,4 @@
-package cs.ualberta.ca.medlog.entity;
+package cs.ualberta.ca.medlog.entity.user;
 
 import java.util.ArrayList;
 
