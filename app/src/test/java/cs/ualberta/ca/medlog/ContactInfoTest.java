@@ -24,4 +24,35 @@ public class ContactInfoTest {
         assertEquals(ct.getPhoneNumber(), "9876543210");
     }
 
+    @Test
+    public void invalidEmailTest(){
+        ContactInfo ct;
+        try{
+            ct = new ContactInfo("1234567890", "test");
+        }catch(Exception e){
+            ct = new ContactInfo("1234567890", "test@test.com");
+        }
+        assertEquals(ct.getEmail(), "test@test.com");
+    }
+
+    @Test
+    public void invalidPhoneTest(){
+        ContactInfo ct;
+
+        try{
+            ct = new ContactInfo("1234", "test");
+        }catch(Exception e){
+            ct = new ContactInfo("1234567890", "test@test.com");
+        }
+        assertEquals(ct.getPhoneNumber(), "1234567890");
+
+        try{
+            ct = new ContactInfo("wow", "test");
+        }catch(Exception e){
+            ct = new ContactInfo("1234567890", "test@test.com");
+        }
+        assertEquals(ct.getPhoneNumber(), "1234567890");
+    }
+
+
 }
