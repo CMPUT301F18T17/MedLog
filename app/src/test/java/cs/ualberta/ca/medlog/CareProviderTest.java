@@ -10,8 +10,13 @@ package cs.ualberta.ca.medlog;
 
 import org.junit.Test;
 import java.util.ArrayList;
-import cs.ualberta.ca.medlog.entity.user.*;
-import static org.junit.Assert.*;
+
+import cs.ualberta.ca.medlog.entity.user.CareProvider;
+import cs.ualberta.ca.medlog.entity.user.ContactInfo;
+import cs.ualberta.ca.medlog.entity.user.Patient;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 
 public class CareProviderTest {
