@@ -11,7 +11,7 @@ public class MapLocationTest {
     @Test
     public void testMapLocation(){
         MapLocation ml = new MapLocation(15, 516);
-        assertEquals(ml.getX(),15);
-        assertEquals(ml.getY(), 516);
+        assertEquals(ml.getLatitude(),15);
+        assertEquals(ml.getLongitude(), 516);
     }
 }

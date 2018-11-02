@@ -5,6 +5,7 @@ import java.util.Date;
 
 public class Record {
 
+    private String creatorUsername;
     private Date timestamp;
     private String title;
     private String comment;
@@ -13,13 +14,14 @@ public class Record {
     private ArrayList<Photo> photos;
 
 
-    public Record(Date timeStamp){
-
+    public Record(String creatorUsername){
+        this.creatorUsername = creatorUsername;
     }
 
 
     void setTitleComment(String title, String comment){
-
+        this.title = title;
+        this.comment = comment;
     }
 
     String getTitle(){
@@ -49,6 +51,10 @@ public class Record {
 
     public void addPhoto(Photo photo){
         photos.add(photo);
+    }
+
+    public void removePhoto(Photo photo) {
+        photos.remove(photo);
     }
 
     public ArrayList<Photo> getPhotos(){

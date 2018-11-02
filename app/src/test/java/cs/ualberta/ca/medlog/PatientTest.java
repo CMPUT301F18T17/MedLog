@@ -58,7 +58,7 @@ public class PatientTest {
         Patient patient = new Patient(info, "Test Patient");
 
         for (int i = 0; i < 5; i++) {
-            Photo photo = new Photo(100 + i);
+            Photo photo = new Photo(100 + i, null);
             patient.addBodyPhoto(photo);
             assertEquals(photo, patient.getBodyPhotos().get(i));
         }
@@ -71,7 +71,7 @@ public class PatientTest {
 
         assertEquals(0, patient.getBodyPhotos().size());
 
-        Photo photo = new Photo(00000000);
+        Photo photo = new Photo(00000000, null);
         patient.addBodyPhoto(photo);
 
         assertEquals(photo, patient.getBodyPhotos().get(0));

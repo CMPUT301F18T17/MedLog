@@ -1,18 +1,18 @@
 package cs.ualberta.ca.medlog.entity;
 
 public class MapLocation{
-    private int x,y;
+    private double latitude, longitude;
 
-    public MapLocation(int x, int y){
-        this.x = x;
-        this.y = y;
+    public MapLocation(double latitude, double longitude){
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
-    public int getX() {
-        return x;
+    public double getLatitude() {
+        return latitude;
     }
 
-    public int getY() {
-        return y;
+    public double getLongitude() {
+        return longitude;
     }
 }
