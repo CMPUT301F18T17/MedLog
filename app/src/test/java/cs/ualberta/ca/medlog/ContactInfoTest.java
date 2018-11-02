@@ -10,15 +10,15 @@ public class ContactInfoTest {
 
     @Test
     public void emailTests(){
-        ContactInfo ct = new ContactInfo("1234567890", "test@test.com");
-        assertEquals(ct.getEmail(), "test@test.com");
-        ct.setEmail("superTest@test.com");
-        assertEquals(ct.getEmail(), "superTest@test.com");
+        ContactInfo ct = new ContactInfo("1234567890", "sam@gmail.com");
+        assertEquals(ct.getEmail(), "sam@gmail.com");
+        ct.setEmail("john@shaw.ca");
+        assertEquals(ct.getEmail(), "john@shaw.ca");
     }
 
     @Test
     public void phoneTests(){
-        ContactInfo ct = new ContactInfo("1234567890", "test@test.com");
+        ContactInfo ct = new ContactInfo("1234567890", "sam@gmail.com");
         assertEquals(ct.getPhoneNumber(), "1234567890");
         ct.setPhoneNumber("9876543210");
         assertEquals(ct.getPhoneNumber(), "9876543210");
@@ -28,11 +28,11 @@ public class ContactInfoTest {
     public void invalidEmailTest(){
         ContactInfo ct;
         try{
-            ct = new ContactInfo("1234567890", "test");
+            ct = new ContactInfo("1234567890", "sam");
         }catch(RuntimeException e){
-            ct = new ContactInfo("1234567890", "test@test.com");
+            ct = new ContactInfo("1234567890", "sam@gmail.com");
         }
-        assertEquals(ct.getEmail(), "test@test.com");
+        assertEquals(ct.getEmail(), "sam@gmail.com");
     }
 
     @Test
@@ -40,9 +40,9 @@ public class ContactInfoTest {
         ContactInfo ct;
 
         try{
-            ct = new ContactInfo("1234", "test@test.com");
+            ct = new ContactInfo("1234", "sam@gmail.com");
         }catch(RuntimeException e){
-            ct = new ContactInfo("1234567890", "test@test.com");
+            ct = new ContactInfo("1234567890", "sam@gmail.com");
         }
         assertEquals(ct.getPhoneNumber(), "1234567890");
     }

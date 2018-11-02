@@ -18,16 +18,16 @@ public class RecordTest {
 
     @Test
     public void testRecordCreation(){
-        String username = "John";
+        String username = "John Doe";
         Record testRecord = new Record(username);
         assertEquals(testRecord.getUsername(), username);
     }
 
     @Test
     public void testTitleComment(){
-        Record testRecord = new Record("John");
+        Record testRecord = new Record("John Does");
 
-        String title = "Title";
+        String title = "Title for a Record";
         String comment = "This is a record comment.";
         testRecord.setTitleComment(title, comment);
         assertEquals(testRecord.getTitle(), title);
@@ -36,7 +36,7 @@ public class RecordTest {
 
     @Test
     public void testTimestamp(){
-        Record testRecord = new Record("John");
+        Record testRecord = new Record("John Doe");
 
         Date timestamp = new Date();
         assertNull(testRecord.getTimestamp());
@@ -46,7 +46,7 @@ public class RecordTest {
 
     @Test
     public void testBodyLocation(){
-        Record testRecord = new Record("John");
+        Record testRecord = new Record("John Doe");
         Photo photo = new Photo(1, null);
 
         BodyLocation bodyLocation = new BodyLocation(photo, 10, 20);
@@ -57,7 +57,7 @@ public class RecordTest {
 
     @Test
     public void testMapLocation(){
-        Record testRecord = new Record("John");
+        Record testRecord = new Record("John Doe");
 
         MapLocation mapLocation = new MapLocation(100, 200);
         assertNull(testRecord.getMapLocation());
@@ -67,7 +67,7 @@ public class RecordTest {
 
     @Test
     public void testPhotos() {
-        Record testRecord = new Record("John");
+        Record testRecord = new Record("John Doe");
 
         ArrayList<Photo> photoList = new ArrayList<Photo>();
         assertTrue(testRecord.getPhotos().isEmpty());

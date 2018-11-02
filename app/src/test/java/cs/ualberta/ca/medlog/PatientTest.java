@@ -24,21 +24,21 @@ public class PatientTest {
 
     @Test
     public void testUsername() {
-        ContactInfo info = new ContactInfo("0000000000", "email@email.ca");
-        Patient patient = new Patient(info, "Test Patient");
-        assertEquals(patient.getUsername(), "Test Patient");
+        ContactInfo info = new ContactInfo("1234567890", "sam@gmail.com");
+        Patient patient = new Patient(info, "Sam Smith");
+        assertEquals(patient.getUsername(), "Sam Smith");
     }
 
     @Test
     public void getProblemsTest() {
-        ContactInfo info = new ContactInfo("0000000000", "email@email.ca");
-        Patient patient = new Patient(info, "Test Patient");
+        ContactInfo info = new ContactInfo("1234567890", "sam@gmail.com");
+        Patient patient = new Patient(info, "Sam Smith");
         ArrayList<Problem> problemList = new ArrayList<Problem>();
 
         assertEquals(0, patient.getProblems().size());
 
         for (int i = 0; i < 5; i++) {
-            Problem problem = new Problem("Test Problem " + i, new Date(), "description");
+            Problem problem = new Problem("Test Problem " + i, new Date(), "Description of test problem.");
             problemList.add(problem);
             patient.addProblem(problem);
             assertEquals(problemList, patient.getProblems());
@@ -48,9 +48,9 @@ public class PatientTest {
 
     @Test
     public void addProblemTest() {
-        ContactInfo info = new ContactInfo("0000000000", "email@email.ca");
-        Patient patient = new Patient(info, "Test Patient");
-        Problem problem = new Problem("Test Problem", new Date(), "description");
+        ContactInfo info = new ContactInfo("1234567890", "sam@gmail.com");
+        Patient patient = new Patient(info, "Sam Smith");
+        Problem problem = new Problem("Test Problem", new Date(), "Description of test problem.");
 
         assertEquals(0, patient.getProblems().size());
 
@@ -60,12 +60,12 @@ public class PatientTest {
 
     @Test
     public void getBodyPhotosTest() {
-        ContactInfo info = new ContactInfo("0000000000", "email@email.ca");
-        Patient patient = new Patient(info, "Test Patient");
+        ContactInfo info = new ContactInfo("1234567890", "sam@gmail.com");
+        Patient patient = new Patient(info, "Sam Smith");
 
         assertEquals(0, patient.getBodyPhotos().size());
 
-        Photo photo = new Photo(00000000, null);
+        Photo photo = new Photo(1, null);
         patient.addBodyPhoto(photo);
 
         assertEquals(photo, patient.getBodyPhotos().get(0));
@@ -74,8 +74,8 @@ public class PatientTest {
 
     @Test
     public void addBodyPhotoTest() {
-        ContactInfo info = new ContactInfo("0000000000", "email@email.ca");
-        Patient patient = new Patient(info, "Test Patient");
+        ContactInfo info = new ContactInfo("1234567890", "sam@gmail.com");
+        Patient patient = new Patient(info, "Sam Smith");
 
         for (int i = 0; i < 5; i++) {
             Photo photo = new Photo(100 + i, null);
@@ -87,8 +87,8 @@ public class PatientTest {
 
     @Test
     public void getContactInfoTest() {
-        ContactInfo info = new ContactInfo("0000000000", "email@email.ca");
-        Patient patient = new Patient(info, "Test Patient");
+        ContactInfo info = new ContactInfo("1234567890", "sam@gmail.com");
+        Patient patient = new Patient(info, "Sam Smith");
 
         assertEquals(patient.getContactInfo(), info);
     }

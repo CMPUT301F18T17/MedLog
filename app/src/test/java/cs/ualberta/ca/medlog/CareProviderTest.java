@@ -23,32 +23,32 @@ public class CareProviderTest {
 
     @Test
     public void testUsername() {
-        CareProvider careProvider = new CareProvider("Test Provider");
-        assertEquals(careProvider.getUsername(), "Test Provider");
+        CareProvider careProvider = new CareProvider("John Doe");
+        assertEquals(careProvider.getUsername(), "John Doe");
     }
 
     @Test
     public void addPatientTest() {
-        ContactInfo info = new ContactInfo("0000000000", "email@email.ca");
-        Patient patient = new Patient(info, "Test Patient");
+        ContactInfo info = new ContactInfo("1234567890", "sam@gmail.com");
+        Patient patient = new Patient(info, "Sam Smith");
 
-        CareProvider careProvider = new CareProvider("Test Provider");
+        CareProvider careProvider = new CareProvider("John Doe");
         careProvider.addPatient(patient);
         assertEquals(careProvider.getPatients().get(0), patient);
     }
 
     @Test
     public void getPatientsTest() {
-        CareProvider careProvider = new CareProvider("Test Provider");
+        CareProvider careProvider = new CareProvider("John Doe");
         assertTrue(careProvider.getPatients().isEmpty());
 
         ArrayList<Patient> patientList = new ArrayList<>();
-        ContactInfo info = new ContactInfo("0000000000", "email@email.ca");
+        ContactInfo info = new ContactInfo("1234567890", "sam@gmail.com");
 
         assertEquals(0, careProvider.getPatients().size());
 
         for (int i = 0; i < 5; i++) {
-            Patient patient = new Patient(info, "Test Patient " + i);
+            Patient patient = new Patient(info, "Sam Smith " + i);
             patientList.add(patient);
             careProvider.addPatient(patient);
 

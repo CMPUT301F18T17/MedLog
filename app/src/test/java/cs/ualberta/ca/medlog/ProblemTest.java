@@ -15,23 +15,23 @@ public class ProblemTest {
 
     @Test
     public void testProblemTitle(){
-        String title = "ProblemTitleString";
+        String title = "Title for a Problem";
         Date date = new Date();
-        String description = "ProblemDescriptionString";
+        String description = "Description of a problem.";
 
         Problem testProblem = new Problem(title, date, description);
         assertEquals(testProblem.getTitle(), title);
 
-        String title2 = "ProblemTitleString2";
+        String title2 = "Title for Another Problem";
         testProblem.setTitle(title2);
         assertEquals(testProblem.getTitle(), title2);
     }
 
     @Test
     public void testProblemDate(){
-        String title = "ProblemTitleString";
+        String title = "Title for a Problem";
         Date date = new Date();
-        String description = "ProblemDescriptionString";
+        String description = "Description of a problem.";
 
         Problem testProblem = new Problem(title, date, description);
         assertEquals(testProblem.getDate(), date);
@@ -43,23 +43,23 @@ public class ProblemTest {
 
     @Test
     public void testProblemDescription(){
-        String title = "ProblemTitleString";
+        String title = "Title for a Problem";
         Date date = new Date();
-        String description = "ProblemDescriptionString";
+        String description = "Description of a problem.";
 
         Problem testProblem = new Problem(title, date, description);
         assertEquals(testProblem.getDescription(), description);
 
-        String description2 = "ProblemDescriptionString2";
+        String description2 = "Description of another problem.";
         testProblem.setTitle(description2);
         assertEquals(testProblem.getTitle(), description2);
     }
 
     @Test
     public void testProblemRecords() {
-        String title = "ProblemTitleString";
+        String title = "Title for a Problem";
         Date date = new Date();
-        String description = "ProblemDescriptionString";
+        String description = "Description of a problem.";
 
         ArrayList<Record> recordList = new ArrayList<Record>();
         Problem testProblem = new Problem(title, date, description);
