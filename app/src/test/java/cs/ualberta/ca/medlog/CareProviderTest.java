@@ -16,7 +16,7 @@ import cs.ualberta.ca.medlog.entity.user.ContactInfo;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 
 public class CareProviderTest {
@@ -40,7 +40,7 @@ public class CareProviderTest {
     @Test
     public void getPatientsTest() {
         CareProvider careProvider = new CareProvider("Test Provider");
-        assertNull(careProvider.getPatients());
+        assertTrue(careProvider.getPatients().isEmpty());
 
         ArrayList<Patient> patientList = new ArrayList<>();
         ContactInfo info = new ContactInfo("0000000000", "email@email.ca");

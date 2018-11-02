@@ -13,9 +13,7 @@
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MedLog.iml" beforeDir="false" afterPath="$PROJECT_DIR$/MedLog.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/test/java/cs/ualberta/ca/medlog/CareProviderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/test/java/cs/ualberta/ca/medlog/CareProviderTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/test/java/cs/ualberta/ca/medlog/PatientTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/test/java/cs/ualberta/ca/medlog/PatientTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -41,10 +39,10 @@
       <file leaf-file-name="CareProviderTest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/test/java/cs/ualberta/ca/medlog/CareProviderTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="401">
-              <caret line="39" column="9" selection-start-line="39" selection-start-column="9" selection-end-line="39" selection-end-column="9" />
+            <state>
+              <caret line="6" column="3" selection-start-line="6" selection-start-column="3" selection-end-line="6" selection-end-column="3" />
               <folding>
-                <element signature="e#0#1640#0" expanded="true" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -2327,8 +2325,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane" />
-      <pane id="Scope" />
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -2372,7 +2368,9 @@
           <select />
         </subPane>
       </pane>
+      <pane id="ProjectPane" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2534,15 +2532,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="medlog_in_app - 2018.11.01 at 20h 48m 57s.xml">
-      <configuration name="medlog in app" configurationId="AndroidJUnit" />
-    </history-entry>
-    <history-entry file="medlog_in_app - 2018.11.01 at 20h 49m 27s.xml">
-      <configuration name="medlog in app" configurationId="AndroidJUnit" />
-    </history-entry>
-    <history-entry file="medlog_in_app - 2018.11.01 at 20h 50m 10s.xml">
-      <configuration name="medlog in app" configurationId="AndroidJUnit" />
-    </history-entry>
     <history-entry file="medlog_in_app - 2018.11.01 at 20h 55m 50s.xml">
       <configuration name="medlog in app" configurationId="AndroidJUnit" />
     </history-entry>
@@ -2564,6 +2553,15 @@
     <history-entry file="medlog_in_app - 2018.11.01 at 20h 58m 11s.xml">
       <configuration name="medlog in app" configurationId="AndroidJUnit" />
     </history-entry>
+    <history-entry file="medlog_in_app - 2018.11.01 at 21h 04m 33s.xml">
+      <configuration name="medlog in app" configurationId="AndroidJUnit" />
+    </history-entry>
+    <history-entry file="medlog_in_app - 2018.11.01 at 21h 05m 01s.xml">
+      <configuration name="medlog in app" configurationId="AndroidJUnit" />
+    </history-entry>
+    <history-entry file="medlog_in_app - 2018.11.01 at 21h 06m 23s.xml">
+      <configuration name="medlog in app" configurationId="AndroidJUnit" />
+    </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="960" y="0" width="960" height="1040" extended-state="0" />
@@ -2575,8 +2573,8 @@
       <window_info id="Build Variants" order="2" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32929516" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info anchor="bottom" id="Logcat" order="7" />
       <window_info id="Captures" order="2" weight="0.25" />
@@ -2588,8 +2586,8 @@
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Device File Explorer" order="3" side_tool="true" />
       <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -2603,6 +2601,16 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/app/src/test/java/cs/ualberta/ca/medlog/CareProviderTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="663">
+          <caret line="39" column="9" selection-start-line="39" selection-start-column="9" selection-end-line="39" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/test/java/cs/ualberta/ca/medlog/PatientTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -2618,7 +2626,7 @@
         <state relative-caret-position="119">
           <caret line="21" column="31" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="31" />
           <folding>
-            <element signature="e#0#1640#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2627,12 +2635,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="14" selection-start-line="14" selection-end-line="14" />
-          <folding>
-            <element signature="e#136#137#0" expanded="true" />
-            <element signature="e#176#177#0" expanded="true" />
-            <element signature="e#211#212#0" expanded="true" />
-            <element signature="e#242#243#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2678,12 +2680,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="14" selection-start-line="14" selection-end-line="14" />
-          <folding>
-            <element signature="e#136#137#0" expanded="true" />
-            <element signature="e#176#177#0" expanded="true" />
-            <element signature="e#211#212#0" expanded="true" />
-            <element signature="e#242#243#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2755,10 +2751,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/test/java/cs/ualberta/ca/medlog/CareProviderTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="401">
-          <caret line="39" column="9" selection-start-line="39" selection-start-column="9" selection-end-line="39" selection-end-column="9" />
+        <state>
+          <caret line="6" column="3" selection-start-line="6" selection-start-column="3" selection-end-line="6" selection-end-column="3" />
           <folding>
-            <element signature="e#0#1640#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
