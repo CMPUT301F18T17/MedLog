@@ -40,14 +40,14 @@ public class ContactInfoTest {
         ContactInfo ct;
 
         try{
-            ct = new ContactInfo("1234", "test");
+            ct = new ContactInfo("1234", "test@test.com");
         }catch(Exception e){
             ct = new ContactInfo("1234567890", "test@test.com");
         }
         assertEquals(ct.getPhoneNumber(), "1234567890");
 
         try{
-            ct = new ContactInfo("wow", "test");
+            ct = new ContactInfo("wow", "test@test.com");
         }catch(Exception e){
             ct = new ContactInfo("1234567890", "test@test.com");
         }

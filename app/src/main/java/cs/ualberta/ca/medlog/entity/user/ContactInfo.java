@@ -8,6 +8,13 @@ public class ContactInfo {
     public ContactInfo(String phone, String email){
         this.phoneNumber = phone;
         this.email = email;
+
+        if (this.phoneNumber.length() < 7) { // Phone numbers are at least 10 digits long
+            throw new RuntimeException();
+        }
+        if (!this.email.contains("@")) { // An email must include the "@" symbol
+            throw new RuntimeException();
+        }
     }
 
     public String getEmail() {
