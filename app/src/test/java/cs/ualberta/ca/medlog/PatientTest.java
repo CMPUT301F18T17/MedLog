@@ -23,6 +23,13 @@ import static junit.framework.TestCase.assertEquals;
 public class PatientTest {
 
     @Test
+    public void testUsername() {
+        ContactInfo info = new ContactInfo("0000000000", "email@email.ca");
+        Patient patient = new Patient(info, "Test Patient");
+        assertEquals(patient.getUsername(), "Test Patient");
+    }
+
+    @Test
     public void getProblemsTest() {
         ContactInfo info = new ContactInfo("0000000000", "email@email.ca");
         Patient patient = new Patient(info, "Test Patient");

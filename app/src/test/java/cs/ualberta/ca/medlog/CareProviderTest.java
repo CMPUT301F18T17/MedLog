@@ -22,6 +22,12 @@ import static org.junit.Assert.assertNull;
 public class CareProviderTest {
 
     @Test
+    public void testUsername() {
+        CareProvider careProvider = new CareProvider("Test Provider");
+        assertEquals(careProvider.getUsername(), "Test Provider");
+    }
+
+    @Test
     public void addPatientTest() {
         ContactInfo info = new ContactInfo("0000000000", "email@email.ca");
         Patient patient = new Patient(info, "Test Patient");
