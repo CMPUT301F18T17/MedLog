@@ -13,7 +13,6 @@ import cs.ualberta.ca.medlog.entity.user.ContactInfo;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.entity.Problem;
 import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.Date;
 
