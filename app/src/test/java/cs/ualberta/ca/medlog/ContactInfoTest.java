@@ -23,12 +23,6 @@ public class ContactInfoTest {
     }
 
     @Test
-    public void testGetPhoneNumber(){
-        ContactInfo ct = new ContactInfo("1234567890", "test@test.com");
-        assertEquals(ct.getPhoneNumber(), "1234567890");
-    }
-
-    @Test
     public void testSetEmail() {
         ContactInfo ct = new ContactInfo("1234567890", "test@test.com");
         assertEquals(ct.getEmail(), "test@test.com");
@@ -36,16 +30,6 @@ public class ContactInfoTest {
         ct.setEmail("superTest@test.com");
         assertEquals(ct.getEmail(), "superTest@test.com");
     }
-
-    @Test
-    public void testSetPhoneNumber() {
-        ContactInfo ct = new ContactInfo("1234567890", "test@test.com");
-        assertEquals(ct.getPhoneNumber(), "1234567890");
-
-        ct.setPhoneNumber("9876543210");
-        assertEquals(ct.getPhoneNumber(), "9876543210");
-    }
-
 
     @Test
     public void testInvalidEmail(){
@@ -59,18 +43,33 @@ public class ContactInfoTest {
     }
 
     @Test
+    public void testGetPhoneNumber(){
+        ContactInfo ct = new ContactInfo("1234567890", "test@test.com");
+        assertEquals(ct.getPhoneNumber(), "1234567890");
+    }
+
+    @Test
+    public void testSetPhoneNumber() {
+        ContactInfo ct = new ContactInfo("1234567890", "test@test.com");
+        assertEquals(ct.getPhoneNumber(), "1234567890");
+
+        ct.setPhoneNumber("9876543210");
+        assertEquals(ct.getPhoneNumber(), "9876543210");
+    }
+
+    @Test
     public void testInvalidPhoneNumber(){
         ContactInfo ct;
 
         try {
-            ct = new ContactInfo("1234", "test@test.com");
+            ct = new ContactInfo("1234", "test");
         } catch(Exception e) {
             ct = new ContactInfo("1234567890", "test@test.com");
         }
         assertEquals("1234567890", ct.getPhoneNumber());
 
         try {
-            ct = new ContactInfo("wow", "test@test.com");
+            ct = new ContactInfo("wow", "test");
         } catch(Exception e) {
             ct = new ContactInfo("1234567890", "test@test.com");
         }
