@@ -17,22 +17,21 @@ import static org.junit.Assert.assertNull;
 public class PhotoTest {
 
     @Test
-    public void testPhoto(){
-        Photo p = new Photo(34, null);
-        assertEquals(p.getIdentifier(), 34);
-    }
+    public void testGetIdentifier() {
 
-    @Test
-    public void testNegId(){
-        Photo p;
+        // With a positive identifier
+        Photo p1 = new Photo(100, null);
+        assertEquals(p1.getIdentifier(), 100);
+
+        // With a negative identifier
+        Photo p2;
 
         try {
-            p = new Photo(-1, null);
+            p2 = new Photo(-100, null);
         } catch(RuntimeException e) {
-            p = null;
+            p2 = null;
         }
-
-        assertNull(p);
+        assertNull(p2);
     }
 
     @Test
