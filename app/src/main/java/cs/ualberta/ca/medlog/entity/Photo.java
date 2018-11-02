@@ -11,11 +11,11 @@ public class Photo {
     public Photo(int id, Bitmap bitmap){
         photoBitmap = bitmap;
 
-        try {
+        if (id > 0) {
             identifier = id;
-        } catch (IllegalArgumentException e) {
-            System.out.println("ERROR: IDs must be unique, non-negative integers");
-            System.out.println("Converting ID into a positive integer...");
+        } else {
+            System.out.println("WARNING: IDs must be unique, non-negative integers");
+            System.out.println("ID was converted into it's absolute value");
             identifier = Math.abs(id);
         }
     }

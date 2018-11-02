@@ -19,11 +19,11 @@ public class PhotoTest {
     public void testPhoto(){
         // Positive ID (works as expected)
         Photo p1 = new Photo(1000, null);
-        assertEquals(p1.getIdentifier(), 1000);
+        assertEquals(1000, p1.getIdentifier());
 
         // Negative ID (Uses the absolute value of that ID)
         Photo p2 = new Photo(-1000, null);
-        assertEquals(p2.getIdentifier(), 1000);
+        assertEquals(1000, p2.getIdentifier());
     }
 
     @Test
