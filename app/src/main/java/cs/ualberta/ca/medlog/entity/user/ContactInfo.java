@@ -13,7 +13,7 @@ public class ContactInfo {
     private String email;
     private String phoneNumber;
 
-    public ContactInfo(String phone, String email){
+    public ContactInfo(String phone, String email) {
         this.phoneNumber = phone;
         this.email = email;
 
