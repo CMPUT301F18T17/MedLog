@@ -23,7 +23,7 @@ public class ProblemTest {
     public void testGetTitle() {
         String title = "ProblemTitleString";
         Date date = new Date();
-        String description = "ProblemDescriptionString";
+        String description = "This is a problem description.";
 
         Problem testProblem = new Problem(title, date, description);
         assertEquals(title, testProblem.getTitle());
@@ -33,7 +33,7 @@ public class ProblemTest {
     public void testGetDate() {
         String title = "ProblemTitleString";
         Date date = new Date();
-        String description = "ProblemDescriptionString";
+        String description = "This is a problem description.";
 
         Problem testProblem = new Problem(title, date, description);
         assertEquals(date, testProblem.getDate());
@@ -43,7 +43,7 @@ public class ProblemTest {
     public void testGetDescription() {
         String title = "ProblemTitleString";
         Date date = new Date();
-        String description = "ProblemDescriptionString";
+        String description = "This is a problem description.";
 
         Problem testProblem = new Problem(title, date, description);
         assertEquals(description, testProblem.getDescription());
@@ -53,7 +53,7 @@ public class ProblemTest {
     public void testGetRecords() {
         String title = "ProblemTitleString";
         Date date = new Date();
-        String description = "ProblemDescriptionString";
+        String description = "This is a problem description.";
 
         Problem testProblem = new Problem(title, date, description);
         assertEquals(0, testProblem.getRecords().size());
@@ -72,7 +72,7 @@ public class ProblemTest {
     public void testSetTitle() {
         String title = "ProblemTitleString";
         Date date = new Date();
-        String description = "ProblemDescriptionString";
+        String description = "This is a problem description.";
 
         Problem testProblem = new Problem(title, date, description);
         assertEquals(title, testProblem.getTitle());
@@ -86,7 +86,7 @@ public class ProblemTest {
     public void testSetDate() {
         String title = "ProblemTitleString";
         Date date = new Date();
-        String description = "ProblemDescriptionString";
+        String description = "This is a problem description.";
 
         Problem testProblem = new Problem(title, date, description);
         assertEquals(title, testProblem.getTitle());
@@ -100,7 +100,7 @@ public class ProblemTest {
     public void testSetDescription() {
         String title = "ProblemTitleString";
         Date date = new Date();
-        String description = "ProblemDescriptionString";
+        String description = "This is a problem description.";
 
         Problem testProblem = new Problem(title, date, description);
         assertEquals(title, testProblem.getTitle());
@@ -114,7 +114,7 @@ public class ProblemTest {
     public void testAddRecords() {
         String title = "ProblemTitleString";
         Date date = new Date();
-        String description = "ProblemDescriptionString";
+        String description = "This is a problem description.";
 
         Problem testProblem = new Problem(title, date, description);
         assertTrue(testProblem.getRecords().isEmpty());
