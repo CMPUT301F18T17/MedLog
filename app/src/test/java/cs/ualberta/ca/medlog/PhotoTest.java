@@ -9,7 +9,7 @@
 package cs.ualberta.ca.medlog;
 
 import cs.ualberta.ca.medlog.entity.Photo;
-import android.graphics.Bitmap;
+
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -25,17 +25,18 @@ public class PhotoTest {
     @Test
     public void testNegId(){
         Photo p;
+
         try {
             p = new Photo(-1, null);
-        }catch(RuntimeException e){
+        } catch(RuntimeException e) {
             p = null;
         }
+
         assertNull(p);
     }
 
     @Test
     public void testGetPhotoBitmap() {
-        Bitmap bitmap = null;
         Photo p = new Photo(1000, null);
         assertNull(p.getPhotoBitmap());
     }

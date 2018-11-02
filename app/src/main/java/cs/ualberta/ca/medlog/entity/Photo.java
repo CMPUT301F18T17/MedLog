@@ -1,6 +1,6 @@
 package cs.ualberta.ca.medlog.entity;
 
-        import android.graphics.Bitmap;
+import android.graphics.Bitmap;
 
 public class Photo {
     private int identifier;
