@@ -1,3 +1,11 @@
+/*
+ * Class file for the Problem entity
+ *
+ * Authors: Thomas Roskewich, Tem Tamre
+ * Contact: roskewic@ualberta.ca, ttamre@ualberta.ca
+ * Created: October 27, 2018
+ */
+
 package cs.ualberta.ca.medlog.entity;
 
 import java.util.ArrayList;
@@ -16,35 +24,38 @@ public class Problem {
         this.description = description;
     }
 
-    public void setTitle(String newTitle){
-        title = newTitle;
-    }
-
     public String getTitle(){
         return title;
-    }
-
-    public void setDate(Date newDate){
-        date = newDate;
     }
 
     public Date getDate(){
         return date;
     }
 
-    public void setDescription(String newDescription){
-        description = newDescription;
-    }
-
     public String getDescription(){
         return description;
+    }
+
+    public ArrayList<Record> getRecords(){
+        return records;
+    }
+
+
+    public void setTitle(String newTitle){
+        title = newTitle;
+    }
+
+    public void setDate(Date newDate){
+        date = newDate;
+    }
+
+    public void setDescription(String newDescription){
+        description = newDescription;
     }
 
     public void addRecord(Record newRecord){
         records.add(newRecord);
     }
 
-    public ArrayList<Record> getRecords(){
-        return records;
-    }
+
 }
