@@ -1,3 +1,11 @@
+/*
+ * Class file for the MapLocation entity
+ *
+ * Authors: Thomas Roskewich, Calvin Chomyc, Tem Tamre
+ * Contact: roskewic@ualberta.ca, chomyc1@ualberta.ca, ttamre@ualberta.ca
+ * Created: October 30, 2018
+ */
+
 package cs.ualberta.ca.medlog.entity;
 
 public class MapLocation{
@@ -14,5 +22,13 @@ public class MapLocation{
 
     public double getLongitude() {
         return longitude;
+    }
+
+    public void setLatutude(double newLat) {
+        latitude = newLat;
+    }
+
+    public void setLongitude(double newLon) {
+        longitude = newLon;
     }
 }

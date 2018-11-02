@@ -11,7 +11,7 @@ public class Record {
     private String comment;
     private MapLocation mapLocation;
     private BodyLocation bodyLocation;
-    private ArrayList<Photo> photos;
+    private ArrayList<Photo> photos = new ArrayList<Photo>();
 
 
     public Record(String creatorUsername){
@@ -19,19 +19,30 @@ public class Record {
     }
 
 
-    void setTitleComment(String title, String comment){
+    public void setTitleComment(String title, String comment){
         this.title = title;
         this.comment = comment;
     }
 
-    String getTitle(){
+    public String getUsername(){
+        return creatorUsername;
+    }
+
+    public String getTitle(){
         return title;
     }
 
-    String getComment(){
+    public String getComment(){
         return comment;
     }
 
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Date date) {
+        this.timestamp = date;
+    }
 
     public MapLocation getMapLocation() {
         return mapLocation;

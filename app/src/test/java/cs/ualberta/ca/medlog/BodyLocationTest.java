@@ -1,33 +1,43 @@
+/*
+ * Test class for the BodyLocation entity
+ *
+ * Authors: Thomas Roskewich, Tem Tamre
+ * Contact: roskewic@ualberta.ca, ttamre@ualberta.ca
+ * Created: October 30, 2018
+ */
+
 package cs.ualberta.ca.medlog;
 
 import org.junit.Test;
 
 import cs.ualberta.ca.medlog.entity.BodyLocation;
 import cs.ualberta.ca.medlog.entity.Photo;
-
 import static junit.framework.TestCase.assertEquals;
 
 public class BodyLocationTest {
 
     @Test
-    public void testBodyLocationPhoto(){
-        Photo p = new Photo(0, null);
-        BodyLocation bl = new BodyLocation(p, 10, 5);
-        assertEquals(bl.getPhoto().getIdentifier(), p.getIdentifier());
+    public void testGetPhoto(){
+        Photo photo = new Photo(0, null);
+        BodyLocation location = new BodyLocation(photo, 10, 5);
+
+        assertEquals(photo, location.getPhoto());
     }
 
     @Test
-    public void testBodyLocationX(){
-        Photo p = new Photo(0, null);
-        BodyLocation bl = new BodyLocation(p, 10, 5);
-        assertEquals(bl.getX(), 10);
+    public void testGetX(){
+        Photo photo = new Photo(0, null);
+        BodyLocation location = new BodyLocation(photo, 10, 5);
+
+        assertEquals(location.getX(), 10);
     }
 
     @Test
-    public void testBodyLocationY(){
-        Photo p = new Photo(0, null);
-        BodyLocation bl = new BodyLocation(p, 10, 5);
-        assertEquals(bl.getY(), 5);
+    public void testGetY(){
+        Photo photo = new Photo(0, null);
+        BodyLocation location = new BodyLocation(photo, 10, 5);
+
+        assertEquals(location.getY(), 5);
     }
 
 }
