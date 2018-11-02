@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
+  </component>
   <component name="CMakeSettings">
     <configurations>
       <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
@@ -14,7 +17,8 @@
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/test/java/cs/ualberta/ca/medlog/MapLocationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/test/java/cs/ualberta/ca/medlog/MapLocationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/cs/ualberta/ca/medlog/entity/Photo.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cs/ualberta/ca/medlog/entity/Photo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/test/java/cs/ualberta/ca/medlog/PhotoTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/test/java/cs/ualberta/ca/medlog/PhotoTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -37,11 +41,53 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MapLocationTest.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MapLocationTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/test/java/cs/ualberta/ca/medlog/MapLocationTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+            <state relative-caret-position="68">
+              <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PatientTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/test/java/cs/ualberta/ca/medlog/PatientTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="374">
+              <caret line="67" column="36" selection-start-line="67" selection-start-column="36" selection-end-line="67" selection-end-column="36" />
+              <folding>
+                <element signature="e#1002#1011#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BodyLocationTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/test/java/cs/ualberta/ca/medlog/BodyLocationTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="19" column="36" selection-start-line="19" selection-start-column="36" selection-end-line="19" selection-end-column="36" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PhotoTest.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/test/java/cs/ualberta/ca/medlog/PhotoTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="9" column="24" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Photo.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/cs/ualberta/ca/medlog/entity/Photo.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="8" column="46" selection-start-line="8" selection-start-column="46" selection-end-line="8" selection-end-column="46" />
             </state>
           </provider>
         </entry>
@@ -2306,13 +2352,13 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/test/java/cs/ualberta/ca/medlog/BodyLocationTest.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/cs/ualberta/ca/medlog/entity/user/User.java" />
         <option value="$PROJECT_DIR$/app/src/test/java/cs/ualberta/ca/medlog/PatientTest.java" />
         <option value="$PROJECT_DIR$/app/src/test/java/cs/ualberta/ca/medlog/CareProviderTest.java" />
-        <option value="$PROJECT_DIR$/app/src/test/java/cs/ualberta/ca/medlog/PhotoTest.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/cs/ualberta/ca/medlog/entity/Photo.java" />
         <option value="$PROJECT_DIR$/app/src/test/java/cs/ualberta/ca/medlog/MapLocationTest.java" />
+        <option value="$PROJECT_DIR$/app/src/test/java/cs/ualberta/ca/medlog/BodyLocationTest.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/cs/ualberta/ca/medlog/entity/Photo.java" />
+        <option value="$PROJECT_DIR$/app/src/test/java/cs/ualberta/ca/medlog/PhotoTest.java" />
       </list>
     </option>
   </component>
@@ -2326,9 +2372,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
-      <pane id="ProjectPane" />
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -2360,16 +2403,13 @@
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="medlog" type="cbb59c9e:AndroidPsiDirectoryNode" />
             </path>
-            <path>
-              <item name="MedLog" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="medlog" type="cbb59c9e:AndroidPsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="ProjectPane" />
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2390,7 +2430,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Android JUnit.MapLocationTest">
+  <component name="RunManager" selected="Android JUnit.medlog in app">
     <configuration name="MapLocationTest" type="AndroidJUnit" factoryName="Android JUnit" temporary="true" nameIsGenerated="true">
       <module name="app" />
       <extension name="coverage">
@@ -2413,10 +2453,6 @@
         <value defaultName="singleModule" />
       </option>
       <patterns />
-      <method>
-        <option name="Make" enabled="false" />
-        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-      </method>
     </configuration>
     <configuration name="PatientTest" type="AndroidJUnit" factoryName="Android JUnit" temporary="true" nameIsGenerated="true">
       <module name="app" />
@@ -2440,10 +2476,6 @@
         <value defaultName="singleModule" />
       </option>
       <patterns />
-      <method>
-        <option name="Make" enabled="false" />
-        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-      </method>
     </configuration>
     <configuration name="PhotoTest" type="AndroidJUnit" factoryName="Android JUnit" temporary="true" nameIsGenerated="true">
       <module name="app" />
@@ -2467,10 +2499,6 @@
         <value defaultName="singleModule" />
       </option>
       <patterns />
-      <method>
-        <option name="Make" enabled="false" />
-        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-      </method>
     </configuration>
     <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -2597,10 +2625,10 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Android JUnit.medlog in app" />
+        <item itemvalue="Android JUnit.PhotoTest" />
         <item itemvalue="Android JUnit.MapLocationTest" />
         <item itemvalue="Android JUnit.PatientTest" />
-        <item itemvalue="Android JUnit.PhotoTest" />
-        <item itemvalue="Android JUnit.medlog in app" />
       </list>
     </recent_temporary>
   </component>
@@ -2618,15 +2646,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="PhotoTest - 2018.11.01 at 22h 49m 35s.xml">
-      <configuration name="PhotoTest" configurationId="AndroidJUnit" />
-    </history-entry>
-    <history-entry file="PhotoTest - 2018.11.01 at 22h 49m 43s.xml">
-      <configuration name="PhotoTest" configurationId="AndroidJUnit" />
-    </history-entry>
-    <history-entry file="PhotoTest - 2018.11.01 at 22h 49m 50s.xml">
-      <configuration name="PhotoTest" configurationId="AndroidJUnit" />
-    </history-entry>
     <history-entry file="PhotoTest - 2018.11.01 at 22h 52m 18s.xml">
       <configuration name="PhotoTest" configurationId="AndroidJUnit" />
     </history-entry>
@@ -2648,45 +2667,70 @@
     <history-entry file="MapLocationTest - 2018.11.01 at 22h 54m 21s.xml">
       <configuration name="MapLocationTest" configurationId="AndroidJUnit" />
     </history-entry>
+    <history-entry file="PhotoTest - 2018.11.01 at 23h 25m 59s.xml">
+      <configuration name="PhotoTest" configurationId="AndroidJUnit" />
+    </history-entry>
+    <history-entry file="PhotoTest - 2018.11.01 at 23h 26m 27s.xml">
+      <configuration name="PhotoTest" configurationId="AndroidJUnit" />
+    </history-entry>
+    <history-entry file="medlog_in_app - 2018.11.01 at 23h 26m 31s.xml">
+      <configuration name="medlog in app" configurationId="AndroidJUnit" />
+    </history-entry>
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="960" y="0" width="960" height="1040" extended-state="0" />
     <layout>
       <window_info anchor="bottom" id="Android Profiler" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32929516" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Build Variants" order="2" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.32929516" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32929516" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info anchor="bottom" id="Logcat" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32929516" />
+      <window_info anchor="bottom" id="Logcat" order="7" weight="0.32929516" />
       <window_info id="Captures" order="2" weight="0.25" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.28111112" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28111112" />
       <window_info anchor="bottom" id="Build" order="7" weight="0.35132158" />
+      <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="right" id="Gradle" order="3" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Device File Explorer" order="3" side_tool="true" />
       <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/app/src/test/java/cs/ualberta/ca/medlog/MapLocationTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/test/java/cs/ualberta/ca/medlog/CareProviderTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
@@ -2772,27 +2816,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/test/java/cs/ualberta/ca/medlog/ExampleUnitTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="16" column="1" lean-forward="true" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/cs/ualberta/ca/medlog/entity/user/User.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="14" selection-start-line="14" selection-end-line="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/test/java/cs/ualberta/ca/medlog/ContactInfoTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="28" column="23" lean-forward="true" selection-start-line="28" selection-start-column="23" selection-end-line="28" selection-end-column="23" />
         </state>
       </provider>
     </entry>
@@ -2810,6 +2837,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/cs/ualberta/ca/medlog/entity/MapLocation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/test/java/cs/ualberta/ca/medlog/CareProviderTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -2820,48 +2854,61 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/cs/ualberta/ca/medlog/entity/Photo.java">
+    <entry file="file://$PROJECT_DIR$/app/src/test/java/cs/ualberta/ca/medlog/ContactInfoTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="31" selection-start-line="6" selection-start-column="31" selection-end-line="6" selection-end-column="31" />
+        <state relative-caret-position="408">
+          <caret line="28" column="23" lean-forward="true" selection-start-line="28" selection-start-column="23" selection-end-line="28" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/test/java/cs/ualberta/ca/medlog/ExampleUnitTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="16" column="1" lean-forward="true" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/test/java/cs/ualberta/ca/medlog/MapLocationTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/test/java/cs/ualberta/ca/medlog/PatientTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="25" column="32" lean-forward="true" selection-start-line="25" selection-start-column="32" selection-end-line="25" selection-end-column="32" />
+        <state relative-caret-position="374">
+          <caret line="67" column="36" selection-start-line="67" selection-start-column="36" selection-end-line="67" selection-end-column="36" />
           <folding>
             <element signature="e#1002#1011#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/test/java/cs/ualberta/ca/medlog/PhotoTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="18" column="16" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/test/java/cs/ualberta/ca/medlog/BodyLocationTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="23" column="5" lean-forward="true" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
+        <state relative-caret-position="238">
+          <caret line="19" column="36" selection-start-line="19" selection-start-column="36" selection-end-line="19" selection-end-column="36" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/cs/ualberta/ca/medlog/entity/MapLocation.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/cs/ualberta/ca/medlog/entity/Photo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        <state relative-caret-position="136">
+          <caret line="8" column="46" selection-start-line="8" selection-start-column="46" selection-end-line="8" selection-end-column="46" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/test/java/cs/ualberta/ca/medlog/MapLocationTest.java">
+    <entry file="file://$PROJECT_DIR$/app/src/test/java/cs/ualberta/ca/medlog/PhotoTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+        <state relative-caret-position="153">
+          <caret line="9" column="24" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
