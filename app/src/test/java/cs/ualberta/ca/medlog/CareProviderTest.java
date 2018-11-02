@@ -34,7 +34,6 @@ public class CareProviderTest {
 
         CareProvider careProvider = new CareProvider("Test Provider");
         careProvider.addPatient(patient);
-
         assertEquals(careProvider.getPatients().get(0), patient);
     }
 
@@ -46,12 +45,15 @@ public class CareProviderTest {
         ArrayList<Patient> patientList = new ArrayList<>();
         ContactInfo info = new ContactInfo("0000000000", "email@email.ca");
 
+        assertEquals(0, careProvider.getPatients().size());
+
         for (int i = 0; i < 5; i++) {
             Patient patient = new Patient(info, "Test Patient " + i);
             patientList.add(patient);
             careProvider.addPatient(patient);
 
             assertEquals(careProvider.getPatients(), patientList);
+            assertEquals(i+1, careProvider.getPatients().size());
         }
     }
 }

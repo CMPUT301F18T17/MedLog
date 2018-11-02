@@ -41,10 +41,9 @@ public class PatientTest {
             Problem problem = new Problem("Test Problem " + i, new Date(), "description");
             problemList.add(problem);
             patient.addProblem(problem);
-
             assertEquals(problemList, patient.getProblems());
+            assertEquals(i+1, patient.getProblems().size());
         }
-
     }
 
     @Test
@@ -60,18 +59,6 @@ public class PatientTest {
     }
 
     @Test
-    public void addBodyPhotoTest() {
-        ContactInfo info = new ContactInfo("0000000000", "email@email.ca");
-        Patient patient = new Patient(info, "Test Patient");
-
-        for (int i = 0; i < 5; i++) {
-            Photo photo = new Photo(100 + i, null);
-            patient.addBodyPhoto(photo);
-            assertEquals(photo, patient.getBodyPhotos().get(i));
-        }
-    }
-
-    @Test
     public void getBodyPhotosTest() {
         ContactInfo info = new ContactInfo("0000000000", "email@email.ca");
         Patient patient = new Patient(info, "Test Patient");
@@ -83,6 +70,19 @@ public class PatientTest {
 
         assertEquals(photo, patient.getBodyPhotos().get(0));
 
+    }
+
+    @Test
+    public void addBodyPhotoTest() {
+        ContactInfo info = new ContactInfo("0000000000", "email@email.ca");
+        Patient patient = new Patient(info, "Test Patient");
+
+        for (int i = 0; i < 5; i++) {
+            Photo photo = new Photo(100 + i, null);
+            patient.addBodyPhoto(photo);
+            assertEquals(photo, patient.getBodyPhotos().get(i));
+            assertEquals(i+1, patient.getBodyPhotos().size());
+        }
     }
 
     @Test
