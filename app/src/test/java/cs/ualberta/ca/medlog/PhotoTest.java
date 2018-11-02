@@ -11,8 +11,7 @@ public class PhotoTest {
 
     @Test
     public void testPhoto(){
-        Photo p;
-        p = new Photo(34, null);
+        Photo p = new Photo(34, null);
         assertEquals(p.getIdentifier(), 34);
     }
 
