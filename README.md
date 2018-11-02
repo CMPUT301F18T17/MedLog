@@ -1,5 +1,7 @@
 # MedLog
 CMPUT301 F18 T17 project
+
+
 Our project helps patients to record their problems on their bodies.
 Patients can record what happened with their bodies.
 There will be a paper-doll-cut-out-like image in our application, 
