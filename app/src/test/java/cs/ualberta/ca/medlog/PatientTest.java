@@ -25,6 +25,7 @@ public class PatientTest {
     public void testUsername() {
         ContactInfo info = new ContactInfo("0000000000", "email@email.ca");
         Patient patient = new Patient(info, "Test Patient");
+
         assertEquals(patient.getUsername(), "Test Patient");
     }
 
@@ -32,7 +33,7 @@ public class PatientTest {
     public void getProblemsTest() {
         ContactInfo info = new ContactInfo("0000000000", "email@email.ca");
         Patient patient = new Patient(info, "Test Patient");
-        ArrayList<Problem> problemList = new ArrayList<Problem>();
+        ArrayList<Problem> problemList = new ArrayList<>();
 
         assertEquals(0, patient.getProblems().size());
 
@@ -40,6 +41,7 @@ public class PatientTest {
             Problem problem = new Problem("Test Problem " + i, new Date(), "description");
             problemList.add(problem);
             patient.addProblem(problem);
+
             assertEquals(problemList, patient.getProblems());
             assertEquals(i+1, patient.getProblems().size());
         }
@@ -64,7 +66,7 @@ public class PatientTest {
 
         assertEquals(0, patient.getBodyPhotos().size());
 
-        Photo photo = new Photo(00000000, null);
+        Photo photo = new Photo(1000, null);
         patient.addBodyPhoto(photo);
 
         assertEquals(photo, patient.getBodyPhotos().get(0));

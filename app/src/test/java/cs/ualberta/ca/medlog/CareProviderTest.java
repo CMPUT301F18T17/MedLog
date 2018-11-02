@@ -23,8 +23,8 @@ public class CareProviderTest {
 
     @Test
     public void testUsername() {
-        CareProvider careProvider = new CareProvider("Test Provider");
-        assertEquals(careProvider.getUsername(), "Test Provider");
+        CareProvider careProvider = new CareProvider("Test Patient");
+        assertEquals("Test Patient", careProvider.getUsername());
     }
 
     @Test
@@ -34,7 +34,8 @@ public class CareProviderTest {
 
         CareProvider careProvider = new CareProvider("Test Provider");
         careProvider.addPatient(patient);
-        assertEquals(careProvider.getPatients().get(0), patient);
+
+        assertEquals(patient, careProvider.getPatients().get(0));
     }
 
     @Test
