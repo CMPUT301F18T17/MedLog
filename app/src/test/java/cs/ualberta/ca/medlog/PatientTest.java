@@ -93,14 +93,4 @@ public class PatientTest {
 
         assertEquals(patient.getContactInfo(), info);
     }
-    @ Test
-    public void setContactInfoTest() {
-        ContactInfo info = new ContactInfo("0000000000", "email@email.ca");
-        ContactInfo newInfo = new ContactInfo("1111111111", "newemail@email.ca");
-        Patient patient = new Patient(info, "Test Patient");
-
-        patient.setContactInfo("1111111111", "newemail@email.ca");
-        assertEquals(patient.getContactInfo(), newInfo);
-
-    }
 }

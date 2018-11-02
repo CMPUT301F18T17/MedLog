@@ -36,8 +36,4 @@ public class Patient extends User{
     public ContactInfo getContactInfo() {
         return contactInfo;
     }
-    public void setContactInfo(String phone, String email) {
-        contactInfo.setPhoneNumber(phone);
-        contactInfo.setEmail(email);
-    }
 }
