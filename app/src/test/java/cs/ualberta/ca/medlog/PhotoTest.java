@@ -5,6 +5,7 @@ import org.junit.Test;
 import cs.ualberta.ca.medlog.entity.Photo;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class PhotoTest {
 
@@ -19,9 +20,9 @@ public class PhotoTest {
         Photo p;
         try {
             p = new Photo(-1, null);
-        }catch(Exception e){
-            p = new Photo(1234, null);
+        }catch(RuntimeException e){
+            p = null;
         }
-        assertEquals(p.getIdentifier(), 1234);
+        assertNull(p);
     }
 }
