@@ -29,7 +29,7 @@ public class ContactInfoTest {
         ContactInfo ct;
         try{
             ct = new ContactInfo("1234567890", "test");
-        }catch(Exception e){
+        }catch(RuntimeException e){
             ct = new ContactInfo("1234567890", "test@test.com");
         }
         assertEquals(ct.getEmail(), "test@test.com");
@@ -40,15 +40,8 @@ public class ContactInfoTest {
         ContactInfo ct;
 
         try{
-            ct = new ContactInfo("1234", "test");
-        }catch(Exception e){
-            ct = new ContactInfo("1234567890", "test@test.com");
-        }
-        assertEquals(ct.getPhoneNumber(), "1234567890");
-
-        try{
-            ct = new ContactInfo("wow", "test");
-        }catch(Exception e){
+            ct = new ContactInfo("1234", "test@test.com");
+        }catch(RuntimeException e){
             ct = new ContactInfo("1234567890", "test@test.com");
         }
         assertEquals(ct.getPhoneNumber(), "1234567890");
