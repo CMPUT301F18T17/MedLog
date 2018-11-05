@@ -1,3 +1,6 @@
-<resources>
+<resources tools:ignore="ExtraTranslation" xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">MedLog</string>
+    <string name="activityStartScreen.HintText">Select Your Status</string>
+    <string name="activityStartScreen.PatientButton">Patient</string>
+    <string name="activityStartScreen.ProviderButton">Provider</string>
 </resources>

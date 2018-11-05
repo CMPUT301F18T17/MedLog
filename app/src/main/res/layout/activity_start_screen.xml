@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activityStartScreen.Base"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.activity_startScreen">
+
+    <TextView
+        android:id="@+id/activityStartScreen.AppNameView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textAlignment="center"
+        android:textColor="@color/boldTextColor"
+        android:textSize="75sp"
+        app:layout_constraintBottom_toTopOf="@+id/activityStartScreen.HintView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/activityStartScreen.HintView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/activityStartScreen.HintText"
+        android:textColor="@color/lightTextColor"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/activityStartScreen.PatientButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activityStartScreen.AppNameView" />
+
+    <Button
+        android:id="@+id/activityStartScreen.PatientButton"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="88dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/buttonColor"
+        android:text="@string/activityStartScreen.PatientButton"
+        app:layout_constraintBottom_toTopOf="@+id/activityStartScreen.ProviderScreen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activityStartScreen.HintView" />
+
+    <Button
+        android:id="@+id/activityStartScreen.ProviderScreen"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="88dp"
+        android:layout_marginBottom="32dp"
+        android:background="@color/buttonColor"
+        android:text="@string/activityStartScreen.ProviderButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activityStartScreen.PatientButton" />
+
+</android.support.constraint.ConstraintLayout>
