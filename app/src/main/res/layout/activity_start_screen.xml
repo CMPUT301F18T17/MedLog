@@ -5,7 +5,7 @@
     android:id="@+id/activityStartScreen.Base"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.activity_startScreen">
+    tools:context=".activity.StartScreenActivity">
 
     <TextView
         android:id="@+id/activityStartScreen.AppNameView"
@@ -18,7 +18,7 @@
         android:gravity="center"
         android:text="@string/app_name"
         android:textAlignment="center"
-        android:textColor="@color/boldTextColor"
+        android:textColor="@color/app_boldTextColour"
         android:textSize="75sp"
         app:layout_constraintBottom_toTopOf="@+id/activityStartScreen.HintView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,7 +34,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
         android:text="@string/activityStartScreen.HintText"
-        android:textColor="@color/lightTextColor"
+        android:textColor="@color/app_lightTextColour"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/activityStartScreen.PatientButton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,15 +50,15 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="88dp"
         android:layout_marginBottom="8dp"
-        android:background="@color/buttonColor"
+        android:background="@color/app_buttonColour"
         android:text="@string/activityStartScreen.PatientButton"
-        app:layout_constraintBottom_toTopOf="@+id/activityStartScreen.ProviderScreen"
+        app:layout_constraintBottom_toTopOf="@+id/activityStartScreen.ProviderButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activityStartScreen.HintView" />
 
     <Button
-        android:id="@+id/activityStartScreen.ProviderScreen"
+        android:id="@+id/activityStartScreen.ProviderButton"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -66,7 +66,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="88dp"
         android:layout_marginBottom="32dp"
-        android:background="@color/buttonColor"
+        android:background="@color/app_buttonColour"
         android:text="@string/activityStartScreen.ProviderButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

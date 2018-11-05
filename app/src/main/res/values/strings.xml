@@ -1,6 +1,14 @@
-<resources tools:ignore="ExtraTranslation" xmlns:tools="http://schemas.android.com/tools">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ExtraTranslation">
     <string name="app_name">MedLog</string>
     <string name="activityStartScreen.HintText">Select Your Status</string>
     <string name="activityStartScreen.PatientButton">Patient</string>
-    <string name="activityStartScreen.ProviderButton">Provider</string>
+    <string name="activityStartScreen.ProviderButton">Care Provider</string>
+    <string name="activityPatientLogin.TitleText">Patient Login</string>
+    <string name="activityPatientLogin.UsernameEditHint">Enter Username</string>
+    <string name="activityPatientLogin.LoginButton">Login</string>
+    <string name="activityPatientLogin.SignupButton">Signup</string>
+    <string name="activityProviderLogin.TitleText">Care Provider Login</string>
+    <string name="activityProviderLogin.UsernameEditHint">Enter Username</string>
+    <string name="activityProviderLogin.LoginButton">Login</string>
+    <string name="activityProviderLogin.RegisterButton">Register</string>
 </resources>
