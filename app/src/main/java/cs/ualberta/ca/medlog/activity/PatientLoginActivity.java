@@ -1,5 +1,6 @@
 package cs.ualberta.ca.medlog.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,14 +16,14 @@ import cs.ualberta.ca.medlog.R;
  * </p>
  * <p>
  *     Issues: <br>
- *         Connection to a Patient controller is required to validate and username.
+ *         Connection to a Patient controller is required to validate their username.
  *         Transfer to a Patient Main Menu must be added.
- *         Transfer to a Patient Sign Up must be added.
  * </p>
  *
  * @author Tyler Gobran
  * @version 0.1
  * @see StartScreenActivity
+ * @see PatientSignUpActivity
  */
 public class PatientLoginActivity extends AppCompatActivity {
 
@@ -53,6 +54,7 @@ public class PatientLoginActivity extends AppCompatActivity {
     }
 
     private void openPatientSignUp() {
-        //TODO Add transfer to Patient Sign Up Activity
+        Intent intent = new Intent(this, PatientSignUpActivity.class);
+        startActivity(intent);
     }
 }

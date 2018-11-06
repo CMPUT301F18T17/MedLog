@@ -11,4 +11,12 @@
     <string name="activityProviderLogin.UsernameEditHint">Enter Username</string>
     <string name="activityProviderLogin.LoginButton">Login</string>
     <string name="activityProviderLogin.RegisterButton">Register</string>
+    <string name="activityPatientSignUp.TitleText">Patient Sign Up</string>
+    <string name="activityPatientSignUp.UsernameEditHint">Enter a Username</string>
+    <string name="activityPatientSignUp.EmailEditHint">Enter your Email</string>
+    <string name="activityPatientSignUp.PhoneEditHint">Enter your Phone Number</string>
+    <string name="activityPatientSignUp.CompleteButton">Complete</string>
+    <string name="activityProviderRegistration.TitleText">Care Provider Registration</string>
+    <string name="activityProviderRegistration.UsernameEditHint">Enter a Username</string>
+    <string name="activityProviderRegistration.CompleteButton">Complete</string>
 </resources>

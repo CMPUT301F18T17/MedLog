@@ -26,6 +26,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.StartScreenActivity" />
         </activity>
+        <activity android:name=".activity.PatientSignUpActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.PatientLoginActivity" />
+        </activity>
+        <activity android:name=".activity.ProviderRegistrationActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.ProviderLoginActivity" />
+        </activity>
     </application>
 
 </manifest>
