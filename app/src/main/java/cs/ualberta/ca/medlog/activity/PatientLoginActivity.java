@@ -17,12 +17,12 @@ import cs.ualberta.ca.medlog.R;
  * <p>
  *     Issues: <br>
  *         Connection to a Patient controller is required to validate their username.
- *         Transfer to a Patient Main Menu must be added.
  * </p>
  *
  * @author Tyler Gobran
  * @version 0.1
  * @see StartScreenActivity
+ * @see PatientMenuActivity
  * @see PatientSignUpActivity
  */
 public class PatientLoginActivity extends AppCompatActivity {
@@ -50,7 +50,8 @@ public class PatientLoginActivity extends AppCompatActivity {
     private void attemptPatientLogin() {
         //TODO Connect to a Patient controller to check if the Patient exists
 
-        //TODO Add transfer to Patient Main Menu Activity
+        Intent intent = new Intent(this, PatientMenuActivity.class);
+        startActivity(intent);
     }
 
     private void openPatientSignUp() {

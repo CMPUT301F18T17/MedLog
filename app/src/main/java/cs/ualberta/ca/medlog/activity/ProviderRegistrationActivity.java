@@ -1,5 +1,6 @@
 package cs.ualberta.ca.medlog.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -16,12 +17,12 @@ import cs.ualberta.ca.medlog.R;
  * <p>
  *     Issues: <br>
  *         Connection to a Care Provider controller is required to validate the username isn't used.
- *         Transfer to a Care Provider Main Menu must be added.
  * </p>
  *
  * @author Tyler Gobran
  * @version 0.1
  * @see ProviderLoginActivity
+ * @see ProviderMenuActivity
  */
 public class ProviderRegistrationActivity extends AppCompatActivity {
 
@@ -41,6 +42,7 @@ public class ProviderRegistrationActivity extends AppCompatActivity {
     private void attemptProviderRegistration() {
         //TODO Connect to a Care Provider controller to check if the Provider already exists
 
-        //TODO Add transfer to Care Provider Main Menu Activity
+        Intent intent = new Intent(this, ProviderMenuActivity.class);
+        startActivity(intent);
     }
 }

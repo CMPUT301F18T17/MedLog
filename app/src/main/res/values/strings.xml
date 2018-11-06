@@ -19,4 +19,12 @@
     <string name="activityProviderRegistration.TitleText">Care Provider Registration</string>
     <string name="activityProviderRegistration.UsernameEditHint">Enter a Username</string>
     <string name="activityProviderRegistration.CompleteButton">Complete</string>
+    <string name="activityPatientMenu.PatientText">Patient</string>
+    <string name="activityPatientMenu.AddProblemButton">Add Problem</string>
+    <string name="activityPatientMenu.ViewProblemsButton">View Problems</string>
+    <string name="activityPatientMenu.SearchProblemsButton">Search Problems</string>
+    <string name="activityProviderMenu.SearchProblemsButton">Search Problems</string>
+    <string name="activityProviderMenu.ViewPatientsButton">View Patients</string>
+    <string name="activityProviderMenu.AddPatientButton">Add Patient</string>
+    <string name="activityProviderMenu.ProviderText">Care Provider</string>
 </resources>

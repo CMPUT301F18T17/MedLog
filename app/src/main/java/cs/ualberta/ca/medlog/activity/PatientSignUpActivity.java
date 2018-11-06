@@ -1,5 +1,6 @@
 package cs.ualberta.ca.medlog.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,12 +18,12 @@ import cs.ualberta.ca.medlog.R;
  * <p>
  *     Issues: <br>
  *         Connection to a Patient controller is required to validate the username isn't used.
- *         Transfer to a Patient Main Menu must be added.
  * </p>
  *
  * @author Tyler Gobran
  * @version 0.1
  * @see PatientLoginActivity
+ * @see PatientMenuActivity
  */
 public class PatientSignUpActivity extends AppCompatActivity {
 
@@ -42,6 +43,7 @@ public class PatientSignUpActivity extends AppCompatActivity {
     private void attemptPatientSignUp() {
         //TODO Connect to a Patient controller to check if the Patient already exists
 
-        //TODO Add transfer to Patient Main Menu Activity
+        Intent intent = new Intent(this, PatientMenuActivity.class);
+        startActivity(intent);
     }
 }

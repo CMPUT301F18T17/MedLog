@@ -17,12 +17,12 @@ import cs.ualberta.ca.medlog.R;
  * <p>
  *     Issues: <br>
  *         Connection to a Care Provider controller is required to validate their username.
- *         Transfer to a Care Provider Main Menu must be added.
  * </p>
  *
  * @author Tyler Gobran
  * @version 0.1
  * @see StartScreenActivity
+ * @see ProviderMenuActivity
  * @see ProviderRegistrationActivity
  */
 public class ProviderLoginActivity extends AppCompatActivity {
@@ -50,7 +50,8 @@ public class ProviderLoginActivity extends AppCompatActivity {
     private void attemptProviderLogin() {
         //TODO Connect to a Care Provider controller to check if the Provider exists
 
-        //TODO Add transfer to Care Provider Main Menu Activity
+        Intent intent = new Intent(this, ProviderMenuActivity.class);
+        startActivity(intent);
     }
 
     private void openProviderRegistration() {
