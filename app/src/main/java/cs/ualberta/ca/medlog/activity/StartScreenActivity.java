@@ -8,6 +8,21 @@ import android.widget.Button;
 
 import cs.ualberta.ca.medlog.R;
 
+/**
+ * <p>
+ *     Description: <br>
+ *         The Activity for the initial start screen, this presents the gui for a user to proceed
+ *         to Patient or Care Provider login/sign up.
+ * </p>
+ * <p>
+ *     Issues: <br>
+ *         None.
+ * </p>
+ *
+ * @author Tyler Gobran
+ * @version 0.1
+ * @see StartScreenActivity
+ */
 public class StartScreenActivity extends AppCompatActivity {
 
     @Override
@@ -35,6 +50,7 @@ public class StartScreenActivity extends AppCompatActivity {
         Intent intent = new Intent(this, PatientLoginActivity.class);
         startActivity(intent);
     }
+
     private void openProviderLogin() {
         Intent intent = new Intent(this, ProviderLoginActivity.class);
         startActivity(intent);

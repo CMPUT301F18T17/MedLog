@@ -6,7 +6,7 @@
     <string name="activityPatientLogin.TitleText">Patient Login</string>
     <string name="activityPatientLogin.UsernameEditHint">Enter Username</string>
     <string name="activityPatientLogin.LoginButton">Login</string>
-    <string name="activityPatientLogin.SignupButton">Signup</string>
+    <string name="activityPatientLogin.SignUpButton">Sign Up</string>
     <string name="activityProviderLogin.TitleText">Care Provider Login</string>
     <string name="activityProviderLogin.UsernameEditHint">Enter Username</string>
     <string name="activityProviderLogin.LoginButton">Login</string>

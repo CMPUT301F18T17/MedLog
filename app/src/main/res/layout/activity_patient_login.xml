@@ -8,7 +8,7 @@
     tools:context=".activity.PatientLoginActivity">
 
     <TextView
-        android:id="@+id/activityProviderLogin.TitleView"
+        android:id="@+id/activityPatientLogin.TitleView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -22,8 +22,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <EditText
+        android:id="@+id/activityPatientLogin.UsernameEditText"
+        style="@style/Widget.AppCompat.EditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="@string/activityPatientLogin.UsernameEditHint"
+        android:importantForAutofill="no"
+        android:inputType="textPersonName"
+        android:singleLine="false"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/activityPatientLogin.LoginButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activityPatientLogin.TitleView"
+        tools:targetApi="o" />
+
     <Button
-        android:id="@+id/activityProviderLogin.LoginButton"
+        android:id="@+id/activityPatientLogin.LoginButton"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -38,46 +60,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activityProviderLogin.UsernameEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/activityPatientLogin.UsernameEditText" />
 
     <Button
-        android:id="@+id/activityPatientLogin.SignupButton"
+        android:id="@+id/activityPatientLogin.SignUpButton"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@color/app_buttonColour"
-        android:text="@string/activityPatientLogin.SignupButton"
+        android:text="@string/activityPatientLogin.SignUpButton"
         android:textAlignment="center"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.973"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activityProviderLogin.TitleView"
+        app:layout_constraintTop_toBottomOf="@+id/activityPatientLogin.TitleView"
         app:layout_constraintVertical_bias="0.982" />
 
-    <EditText
-        android:id="@+id/activityProviderLogin.UsernameEditText"
-        style="@style/Widget.AppCompat.EditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="72dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:hint="@string/activityPatientLogin.UsernameEditHint"
-        android:importantForAutofill="no"
-        android:inputType="textPersonName"
-        android:singleLine="false"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/activityProviderLogin.LoginButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activityProviderLogin.TitleView"
-        tools:targetApi="o" />
 </android.support.constraint.ConstraintLayout>
