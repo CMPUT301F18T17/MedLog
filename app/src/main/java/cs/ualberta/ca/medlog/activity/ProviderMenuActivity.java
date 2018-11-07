@@ -1,7 +1,11 @@
 package cs.ualberta.ca.medlog.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -20,7 +24,7 @@ import cs.ualberta.ca.medlog.R;
  *         Transfer to a Care Provider Add Patient must be added.
  *         Transfer to a Care Provider View Patients must be added.
  *         Transfer to a Care Provider Search Problems must be added.
- *         Options menu must be added.
+ *         Actual handling of a logout must be added.
  * </p>
  *
  * @author Tyler Gobran
@@ -56,8 +60,24 @@ public class ProviderMenuActivity extends AppCompatActivity {
                 openProviderSearchProblems();
             }
         });
+    }
 
-        //TODO Add code for Care Provider options menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_provider_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuProviderMain_Logout:
+                logoutProvider();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void openProviderAddPatient() {
@@ -70,5 +90,12 @@ public class ProviderMenuActivity extends AppCompatActivity {
 
     private void openProviderSearchProblems() {
         //TODO Add transfer to Care Provider Search Problems Activity
+    }
+
+    private void logoutProvider() {
+        //TODO Add code to perform the Care Provider logout
+
+        Intent intent = new Intent(this, StartScreenActivity.class);
+        startActivity(intent);
     }
 }

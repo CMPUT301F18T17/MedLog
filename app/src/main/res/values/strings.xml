@@ -27,4 +27,7 @@
     <string name="activityProviderMenu.ViewPatientsButton">View Patients</string>
     <string name="activityProviderMenu.AddPatientButton">Add Patient</string>
     <string name="activityProviderMenu.ProviderText">Care Provider</string>
+    <string name="menuPatientMain.ViewProfile">View Profile</string>
+    <string name="menuPatientMain.Logout">Logout</string>
+    <string name="menuProviderMain.Logout">Logout</string>
 </resources>

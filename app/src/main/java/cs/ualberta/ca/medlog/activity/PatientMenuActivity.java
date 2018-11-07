@@ -1,7 +1,11 @@
 package cs.ualberta.ca.medlog.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -22,7 +26,8 @@ import cs.ualberta.ca.medlog.R;
  *         Transfer to a Patient Add Problem must be added.
  *         Transfer to a Patient View Problems must be added.
  *         Transfer to a Patient Search Problems must be added.
- *         Options menu must be added.
+ *         Transfer to a Patient Profile must be added
+ *         Actual handling of a logout must be added.
  *         Initial login body picture dialog must be added.
  * </p>
  *
@@ -60,9 +65,28 @@ public class PatientMenuActivity extends AppCompatActivity {
             }
         });
 
-        //TODO Add code for Patient options menu
-
         //TODO Add code for initial login body picture prompts
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_patient_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuPatientMain_ViewProfile:
+                openPatientProfile();
+                return true;
+            case R.id.menuPatientMain_Logout:
+                logoutPatient();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void openPatientAddProblem() {
@@ -75,5 +99,16 @@ public class PatientMenuActivity extends AppCompatActivity {
 
     private void openPatientSearchProblems() {
         //TODO Add transfer to Patient Search Problems Activity
+    }
+
+    private void openPatientProfile() {
+        //TODO Add transfer to the Patient Profile Activity
+    }
+
+    private void logoutPatient() {
+        //TODO Add code to perform the Patient logout
+
+        Intent intent = new Intent(this, StartScreenActivity.class);
+        startActivity(intent);
     }
 }
