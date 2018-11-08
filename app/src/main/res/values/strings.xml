@@ -35,4 +35,5 @@
     <string name="activityPatientAddProblem.DescriptionEditText">Enter a Description</string>
     <string name="activityPatientAddProblem.DateButtonDefault">YYYY/MM/DD</string>
     <string name="activityPatientAddProblem.AddButton">Add</string>
+    <string name="activityPatientViewProblems.TitleText">Problems</string>
 </resources>

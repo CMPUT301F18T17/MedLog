@@ -23,7 +23,6 @@ import cs.ualberta.ca.medlog.R;
  * </p>
  * <p>
  *     Issues: <br>
- *         Transfer to a Patient View Problems must be added.
  *         Transfer to a Patient Search Problems must be added.
  *         Transfer to a Patient Profile must be added
  *         Actual handling of a logout must be added.
@@ -94,7 +93,8 @@ public class PatientMenuActivity extends AppCompatActivity {
     }
 
     private void openPatientViewProblems() {
-        //TODO Add transfer to Patient View Problems Activity
+        Intent intent = new Intent(this, PatientViewProblemsActivity.class);
+        startActivity(intent);
     }
 
     private void openPatientSearchProblems() {
