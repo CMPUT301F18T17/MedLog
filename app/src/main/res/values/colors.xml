@@ -6,4 +6,5 @@
     <color name="app_buttonColour">#959595</color>
     <color name="app_boldTextColour">#3b3939</color>
     <color name="app_lightTextColour">#b5b2b2</color>
+    <color name="app_normalTextColour">#605d5d</color>
 </resources>

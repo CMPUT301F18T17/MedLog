@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menuPatientProblemView.EditTitle"
+        android:title="@string/menuPatientProblemView.EditTitle" />
+    <item
+        android:id="@+id/menuPatientProblemView.EditDate"
+        android:title="@string/menuPatientProblemView.EditDate" />
+    <item
+        android:id="@+id/menuPatientProblemView.EditDescription"
+        android:title="@string/menuPatientProblemView.EditDescription" />
+    <item
+        android:id="@+id/menuPatientProblemView.DeleteProblem"
+        android:title="@string/menuPatientProblemView.DeleteProblem" />
+</menu>

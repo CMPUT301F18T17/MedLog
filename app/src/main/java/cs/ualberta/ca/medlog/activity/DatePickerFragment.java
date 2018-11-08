@@ -28,13 +28,27 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
     OnNewDateSetListener mCallback;
 
     public interface OnNewDateSetListener {
-        public void onNewDateSet(int year, int month, int day);
+        void onNewDateSet(int year, int month, int day);
     }
 
     @Override
     public @NonNull Dialog onCreateDialog(Bundle savedInstanceState) {
-        Calendar cal = Calendar.getInstance();
-        return new DatePickerDialog(getActivity(),this,cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DAY_OF_MONTH));
+
+        Bundle dateData = getArguments();
+        final Calendar cal = Calendar.getInstance();
+        int year, month, day;
+        if (dateData != null) {
+            year = dateData.getInt("argYear", cal.get(Calendar.YEAR));
+            month = dateData.getInt("argMonth", cal.get(Calendar.MONTH));
+            day = dateData.getInt("argDay", cal.get(Calendar.DAY_OF_MONTH));
+        }
+        else {
+            year = cal.get(Calendar.YEAR);
+            month = cal.get(Calendar.MONTH);
+            day = cal.get(Calendar.DAY_OF_MONTH);
+        }
+
+        return new DatePickerDialog(getActivity(),this,year,month,day);
     }
 
 

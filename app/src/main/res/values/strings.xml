@@ -36,4 +36,21 @@
     <string name="activityPatientAddProblem.DateButtonDefault">YYYY/MM/DD</string>
     <string name="activityPatientAddProblem.AddButton">Add</string>
     <string name="activityPatientViewProblems.TitleText">Problems</string>
+    <string name="activityPatientProblemView.TitleText">Problem</string>
+    <string name="activityPatientProblemView.ViewRecordsButton">View Records</string>
+    <string name="activityPatientProblemView.SlideshowButton">Slideshow</string>
+    <string name="activityPatientProblemView.AddRecordButton">Add Record</string>
+    <string name="activityPatientProblemView.DescriptionDefault">DESCRIPTION</string>
+    <string name="activityPatientProblemView.DateDefault">Since: YYYY/MM/DD</string>
+    <string name="activityPatientProblemView.TitleDefault">TITLE</string>
+    <string name="menuPatientProblemView.EditTitle">Edit Title</string>
+    <string name="menuPatientProblemView.EditDate">Edit Date</string>
+    <string name="menuPatientProblemView.EditDescription">Edit Description</string>
+    <string name="menuPatientProblemView.DeleteProblem">Delete</string>
+    <string name="fragmentDescriptionEditor.EditHint">Enter a Description</string>
+    <string name="fragmentDescriptionEditor.ConfirmButton">Ok</string>
+    <string name="fragmentDescriptionEditor.CancelButton">Cancel</string>
+    <string name="fragmentTitleEditor.EditHint">Enter a Title</string>
+    <string name="fragmentTitleEditor.ConfirmButton">Ok</string>
+    <string name="fragmentTitleEditor.CancelButton">Cancel</string>
 </resources>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activityPatientProblemView.Base"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.PatientProblemViewActivity">
+
+    <TextView
+        android:id="@+id/activityPatientProblemView.TitleView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/activityPatientProblemView.TitleText"
+        android:textAlignment="center"
+        android:textColor="@color/app_boldTextColour"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/activityPatientProblemView.RecordTitleView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center"
+        android:text="@string/activityPatientProblemView.TitleDefault"
+        android:textColor="@color/app_boldTextColour"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/activityPatientProblemView.RecordDateView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activityPatientProblemView.TitleView" />
+
+    <TextView
+        android:id="@+id/activityPatientProblemView.RecordDescriptionView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/activityPatientProblemView.DescriptionDefault"
+        android:textColor="@color/app_normalTextColour"
+        app:layout_constraintBottom_toTopOf="@+id/activityPatientProblemView.ViewRecordsButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activityPatientProblemView.RecordDateView" />
+
+    <TextView
+        android:id="@+id/activityPatientProblemView.RecordDateView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:text="@string/activityPatientProblemView.DateDefault"
+        android:textColor="@color/app_lightTextColour"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/activityPatientProblemView.RecordDescriptionView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activityPatientProblemView.RecordTitleView" />
+
+    <Button
+        android:id="@+id/activityPatientProblemView.ViewRecordsButton"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/app_buttonColour"
+        android:text="@string/activityPatientProblemView.ViewRecordsButton"
+        app:layout_constraintBottom_toTopOf="@+id/activityPatientProblemView.AddRecordButton"
+        app:layout_constraintEnd_toStartOf="@+id/activityPatientProblemView.SlideshowButton"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/activityPatientProblemView.AddRecordButton"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/app_buttonColour"
+        android:text="@string/activityPatientProblemView.AddRecordButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/activityPatientProblemView.SlideshowButton"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:background="@color/app_buttonColour"
+        android:text="@string/activityPatientProblemView.SlideshowButton"
+        app:layout_constraintBaseline_toBaselineOf="@+id/activityPatientProblemView.ViewRecordsButton"
+        app:layout_constraintEnd_toEndOf="parent" />
+</android.support.constraint.ConstraintLayout>

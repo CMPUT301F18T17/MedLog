@@ -98,6 +98,8 @@ public class PatientMenuActivity extends AppCompatActivity {
     }
 
     private void openPatientSearchProblems() {
+        Intent intent = new Intent(this, PatientProblemViewActivity.class);
+        startActivity(intent);
         //TODO Add transfer to Patient Search Problems Activity
     }
 

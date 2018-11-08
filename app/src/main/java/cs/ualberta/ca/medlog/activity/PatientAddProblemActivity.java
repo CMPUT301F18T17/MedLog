@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import java.io.BufferedReader;
 import java.util.Calendar;
+import java.util.Locale;
 
 import cs.ualberta.ca.medlog.R;
 
@@ -50,7 +51,7 @@ public class PatientAddProblemActivity extends AppCompatActivity implements Date
         });
 
         Calendar cal = Calendar.getInstance();
-        changeDateButtonDisplay(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DAY_OF_MONTH));
+        setDateButtonDisplay(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DAY_OF_MONTH));
     }
 
     private void openDatePicker() {
@@ -63,15 +64,15 @@ public class PatientAddProblemActivity extends AppCompatActivity implements Date
         cal.set(Calendar.YEAR,newYear);
         cal.set(Calendar.MONTH,newMonth);
         cal.set(Calendar.DAY_OF_MONTH,newDay);
-        changeDateButtonDisplay(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DAY_OF_MONTH));
+        setDateButtonDisplay(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DAY_OF_MONTH));
 
         //TODO Add problem date value updating code
 
     }
 
-    private void changeDateButtonDisplay(int year, int month, int day) {
+    private void setDateButtonDisplay(int year, int month, int day) {
         Button dateButton = findViewById(R.id.activityPatientAddProblem_DateEditButton);
-        dateButton.setText(String.format("%04d-%02d-%02d",year,month,day));
+        dateButton.setText(String.format(Locale.getDefault(),"%04d/%02d/%02d",year,month,day));
     }
 
     private void finalizeAddingProblem() {
