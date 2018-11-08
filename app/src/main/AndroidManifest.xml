@@ -37,7 +37,12 @@
                 android:value=".activity.ProviderLoginActivity" />
         </activity>
         <activity android:name=".activity.PatientMenuActivity" />
-        <activity android:name=".activity.ProviderMenuActivity"></activity>
+        <activity android:name=".activity.ProviderMenuActivity" />
+        <activity android:name=".activity.PatientAddProblemActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.PatientMenuActivity" />
+        </activity>
     </application>
 
 </manifest>

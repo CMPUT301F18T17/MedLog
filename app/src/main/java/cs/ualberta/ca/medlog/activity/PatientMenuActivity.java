@@ -23,7 +23,6 @@ import cs.ualberta.ca.medlog.R;
  * </p>
  * <p>
  *     Issues: <br>
- *         Transfer to a Patient Add Problem must be added.
  *         Transfer to a Patient View Problems must be added.
  *         Transfer to a Patient Search Problems must be added.
  *         Transfer to a Patient Profile must be added
@@ -32,7 +31,7 @@ import cs.ualberta.ca.medlog.R;
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.1
+ * @version 0.2
  * @see StartScreenActivity
  * @see PatientLoginActivity
  * @see PatientSignUpActivity
@@ -90,7 +89,8 @@ public class PatientMenuActivity extends AppCompatActivity {
     }
 
     private void openPatientAddProblem() {
-        //TODO Add transfer to Patient Add Problem Activity
+        Intent intent = new Intent(this, PatientAddProblemActivity.class);
+        startActivity(intent);
     }
 
     private void openPatientViewProblems() {

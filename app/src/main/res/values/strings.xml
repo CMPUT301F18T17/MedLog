@@ -30,4 +30,9 @@
     <string name="menuPatientMain.ViewProfile">View Profile</string>
     <string name="menuPatientMain.Logout">Logout</string>
     <string name="menuProviderMain.Logout">Logout</string>
+    <string name="activityPatientAddProblem.TitleView">Add Problem</string>
+    <string name="activityPatientAddProblem.TitleHint">Enter a Title</string>
+    <string name="activityPatientAddProblem.DescriptionEditText">Enter a Description</string>
+    <string name="activityPatientAddProblem.DateButtonDefault">YYYY/MM/DD</string>
+    <string name="activityPatientAddProblem.AddButton">Add</string>
 </resources>
