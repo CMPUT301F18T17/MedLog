@@ -53,4 +53,7 @@
     <string name="fragmentTitleEditor.EditHint">Enter a Title</string>
     <string name="fragmentTitleEditor.ConfirmButton">Ok</string>
     <string name="fragmentTitleEditor.CancelButton">Cancel</string>
+    <string name="fragmentSlideshow.PreviousButton">Previous</string>
+    <string name="fragmentSlideshow.Image">Image</string>
+    <string name="fragmentSlideshow.NextButton">Next</string>
 </resources>

@@ -7,4 +7,6 @@
     <color name="app_boldTextColour">#3b3939</color>
     <color name="app_lightTextColour">#b5b2b2</color>
     <color name="app_normalTextColour">#605d5d</color>
+    <color name="app_popupBackgroundFillColour">#ffffff</color>
+    <color name="app_popupBackgroundStrokeColour">#b5b2b2</color>
 </resources>

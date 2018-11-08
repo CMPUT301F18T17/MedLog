@@ -1,13 +1,19 @@
 package cs.ualberta.ca.medlog.activity;
 
+import android.app.ActionBar;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import java.util.Calendar;
 import java.util.Locale;
@@ -28,9 +34,10 @@ import cs.ualberta.ca.medlog.R;
  *     Issues: <br>
  *         Transfer to a Patient Problem Records List must be added.
  *         Transfer to a Patient Add Record must be added.
- *         Opening of a slideshow fragment must be added.
+ *         Transfer to a slideshow view must be added
  *         Actual code to read a problem and present it must be added.
  *         Actual code to update problem details must be added.
+ *         Actual code to update fragments with problem data must be added.
  * </p>
  *
  * @author Tyler Gobran
@@ -102,7 +109,7 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
 
 
     private void openPhotoSlideshow() {
-        //TODO Add opening of record photo slideshow fragment Activity
+        //TODO Add transfer to slideshow view
     }
 
 
@@ -111,6 +118,8 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
     }
 
     private void openTitleEditor() {
+        //TODO Add arguments to send the existing title
+
         DialogFragment newFragment = new TitleEditorFragment();
         newFragment.show(getSupportFragmentManager(),"titleEditor");
     }
@@ -127,6 +136,8 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
     }
 
     private void openDatePicker() {
+        //TODO Add arguments to send the existing date
+
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getSupportFragmentManager(),"datePicker");
     }
@@ -148,6 +159,8 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
     }
 
     private void openDescriptionEditor() {
+        //TODO Add arguments to send the existing description
+
         DialogFragment newFragment = new DescriptionEditorFragment();
         newFragment.show(getSupportFragmentManager(),"descEditor");
     }
