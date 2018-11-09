@@ -2,12 +2,12 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragmentTitleEditor.Base"
+    android:id="@+id/fragmentTextEditor.Base"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/fragmentTitleEditor.EditText"
+        android:id="@+id/fragmentTextEditor.EditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -16,10 +16,11 @@
         android:layout_marginBottom="24dp"
         android:ems="10"
         android:gravity="top|start"
-        android:hint="@string/fragmentTitleEditor.EditHint"
+        android:hint="@string/fragmentTextEditor.EditHint"
         android:importantForAutofill="no"
         android:inputType="text"
         android:maxLength="100"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -53,6 +53,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.PatientViewProblemsActivity" />
         </activity>
+        <activity android:name=".activity.PatientProfileActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.PatientMenuActivity" />
+        </activity>
     </application>
 
 </manifest>

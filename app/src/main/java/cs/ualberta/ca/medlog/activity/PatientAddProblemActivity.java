@@ -1,5 +1,6 @@
 package cs.ualberta.ca.medlog.activity;
 
+import android.content.Intent;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,8 +27,9 @@ import cs.ualberta.ca.medlog.R;
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.1
+ * @version 0.2
  * @see PatientMenuActivity
+ * @see PatientProblemViewActivity
  */
 public class PatientAddProblemActivity extends AppCompatActivity implements DatePickerFragment.OnNewDateSetListener {
 
@@ -78,6 +80,8 @@ public class PatientAddProblemActivity extends AppCompatActivity implements Date
     private void finalizeAddingProblem() {
         //TODO Add code for finalizing problem addition
 
+        Intent intent = new Intent(this, PatientProblemViewActivity.class);
+        startActivity(intent);
     }
 
 

@@ -1,19 +1,14 @@
 package cs.ualberta.ca.medlog.activity;
 
-import android.app.ActionBar;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.LayoutInflater;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 import java.util.Calendar;
 import java.util.Locale;
@@ -27,7 +22,7 @@ import cs.ualberta.ca.medlog.R;
  *         to view one of their problems data, as well as the ability to proceed to screens to
  *         view all of the attached records to the problem, add a new record to the problem, and
  *         a fragment to view a slideshow of all the problems record photos.
- *         Additionally there is an options menu from which teh user can edit the details of the
+ *         Additionally there is an options menu from which the user can edit the details of the
  *         problem, or delete the problem.
  * </p>
  * <p>
@@ -41,11 +36,12 @@ import cs.ualberta.ca.medlog.R;
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.1
+ * @version 0.2
  * @see PatientViewProblemsActivity
  * @see PatientAddProblemActivity
+ * @see TextEditorFragment
  */
-public class PatientProblemViewActivity extends AppCompatActivity implements DatePickerFragment.OnNewDateSetListener, DescriptionEditorFragment.OnDescriptionSetListener, TitleEditorFragment.OnTitleSetListener {
+public class PatientProblemViewActivity extends AppCompatActivity implements DatePickerFragment.OnNewDateSetListener, TextEditorFragment.OnTextSetListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,19 +116,47 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
     private void openTitleEditor() {
         //TODO Add arguments to send the existing title
 
-        DialogFragment newFragment = new TitleEditorFragment();
+        DialogFragment newFragment = new TextEditorFragment();
+        Bundle editorData = new Bundle();
+        editorData.putInt("argTextId",0);
+        editorData.putString("argHint",getString(R.string.fragmentTextEditor_TitleHint));
+        newFragment.setArguments(editorData);
         newFragment.show(getSupportFragmentManager(),"titleEditor");
     }
 
-    public void onNewTitleSet(String newTitle) {
-        setTitleDisplay(newTitle);
+    private void openDescriptionEditor() {
+        //TODO Add arguments to send the existing description
 
-        //TODO Add problem title value updating code
+        DialogFragment newFragment = new TextEditorFragment();
+        Bundle editorData = new Bundle();
+        editorData.putInt("argTextId",1);
+        editorData.putString("argHint",getString(R.string.fragmentTextEditor_DescHint));
+        editorData.putInt("argInputType", InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+        newFragment.setArguments(editorData);
+        newFragment.show(getSupportFragmentManager(),"descEditor");
+    }
+
+    public void onTextSet(String newText, int editorId) {
+        switch(editorId) {
+            case 0:
+                //TODO Add problem title value updating code.
+                setTitleDisplay(newText);
+                break;
+            case 1:
+                //TODO Add problem description value updating code.
+                setDescriptionDisplay(newText);
+                break;
+        }
     }
 
     private void setTitleDisplay(String title) {
         TextView titleView = findViewById(R.id.activityPatientProblemView_RecordTitleView);
         titleView.setText(title);
+    }
+
+    private void setDescriptionDisplay(String description) {
+        TextView descView = findViewById(R.id.activityPatientProblemView_RecordDescriptionView);
+        descView.setText(description);
     }
 
     private void openDatePicker() {
@@ -156,24 +180,6 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
     private void setDateDisplay(int year, int month, int day) {
         TextView dateView = findViewById(R.id.activityPatientProblemView_RecordDateView);
         dateView.setText(String.format(Locale.getDefault(),"Since: %04d/%02d/%02d",year,month,day));
-    }
-
-    private void openDescriptionEditor() {
-        //TODO Add arguments to send the existing description
-
-        DialogFragment newFragment = new DescriptionEditorFragment();
-        newFragment.show(getSupportFragmentManager(),"descEditor");
-    }
-
-    public void onNewDescriptionSet(String newDesc) {
-        setDescriptionDisplay(newDesc);
-
-        //TODO Add problem description value updating code
-    }
-
-    private void setDescriptionDisplay(String description) {
-        TextView descView = findViewById(R.id.activityPatientProblemView_RecordDescriptionView);
-        descView.setText(description);
     }
 
     private void deleteProblem() {
