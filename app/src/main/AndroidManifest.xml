@@ -120,6 +120,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.ProviderPatientViewRecordsActivity" />
         </activity>
+        <activity android:name=".activity.SlideshowActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.ProviderProblemViewActivity" />
+        </activity>
     </application>
 
     <uses-feature android:name="android.hardware.camera"

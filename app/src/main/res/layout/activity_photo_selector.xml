@@ -2,12 +2,12 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragmentPhotoSelector.Base"
+    android:id="@+id/activityPhotoSelector.Base"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/fragmentPhotoSelector.GuideImage"
+        android:id="@+id/activityPhotoSelector.GuideImage"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
@@ -23,20 +23,20 @@
         app:srcCompat="@drawable/body_picture" />
 
     <GridView
-        android:id="@+id/fragmentPhotoSelector.PhotoGridView"
+        android:id="@+id/activityPhotoSelector.PhotoGridView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/fragmentPhotoSelector.TakeNewButton"
+        app:layout_constraintBottom_toTopOf="@+id/activityPhotoSelector.TakeNewButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentPhotoSelector.GuideImage" />
+        app:layout_constraintTop_toBottomOf="@+id/activityPhotoSelector.GuideImage" />
 
     <Button
-        android:id="@+id/fragmentPhotoSelector.TakeNewButton"
+        android:id="@+id/activityPhotoSelector.TakeNewButton"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -45,21 +45,21 @@
         android:backgroundTint="@color/app_buttonColour"
         android:text="@string/fragmentPhotoSelector.TakeNewButton"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/fragmentPhotoSelector.AddExistingButton"
+        app:layout_constraintEnd_toStartOf="@+id/activityPhotoSelector.AddExistingButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/fragmentPhotoSelector.AddExistingButton"
+        android:id="@+id/activityPhotoSelector.AddExistingButton"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:backgroundTint="@color/app_buttonColour"
         android:text="@string/fragmentPhotoSelector.AddExistingButton"
-        app:layout_constraintBaseline_toBaselineOf="@+id/fragmentPhotoSelector.TakeNewButton"
+        app:layout_constraintBaseline_toBaselineOf="@+id/activityPhotoSelector.TakeNewButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/fragmentPhotoSelector.TakeNewButton" />
+        app:layout_constraintStart_toEndOf="@+id/activityPhotoSelector.TakeNewButton" />
 
 </android.support.constraint.ConstraintLayout>

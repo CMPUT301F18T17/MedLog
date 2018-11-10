@@ -54,6 +54,7 @@
     <string name="fragmentTextEditor.DescHint">Enter a Description</string>
     <string name="fragmentTextEditor.EmailHint">Enter an Email</string>
     <string name="fragmentTextEditor.PhoneNumberHint">Enter a Phone Number</string>
+    <string name="fragmentTextEditor.CommentHint">Enter a Comment</string>
     <string name="fragmentSlideshow.PreviousButton">Previous</string>
     <string name="fragmentSlideshow.Image">Image</string>
     <string name="fragmentSlideshow.NextButton">Next</string>

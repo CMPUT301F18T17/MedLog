@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 
@@ -21,11 +22,11 @@ import cs.ualberta.ca.medlog.R;
  *         add any of the four different problem fields and once they have they can save the record
  *         to the problem.
  *         The problem fields are title & comment, map location, body location and additional
- *         photos, each of which are added using fragments.
+ *         photos, each of which are added using fragments or their own separate activities.
  * </p>
  * <p>
  *     Issues: <br>
- *         Transfer to a Title Comment Editor Fragment must be added.
+ *         Code to save changes to the title and comment must be added.
  *         Transfer to a Body Location Selector Fragment must be added.
  *         Transfer to a Map Location Selector Fragment must be added.
  *         Code for sending existing added photos when adding more must be added.
@@ -34,11 +35,13 @@ import cs.ualberta.ca.medlog.R;
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.2
+ * @version 0.4
  * @see PatientProblemViewActivity
- * @see PhotoSelectorFragment
+ * @see PhotoSelectorActivity
+ * @see TextEditorFragment
+ * @see PhotoSelectorActivity
  */
-public class PatientAddRecordActivity extends AppCompatActivity implements PhotoSelectorFragment.OnPhotosSetListener {
+public class PatientAddRecordActivity extends AppCompatActivity implements TextEditorFragment.OnTextSetListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +55,7 @@ public class PatientAddRecordActivity extends AppCompatActivity implements Photo
         titleCommentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openTitleCommentEditor();
+                openTitleEditor();
             }
         });
         bodyLocationButton.setOnClickListener(new View.OnClickListener() {
@@ -81,8 +84,40 @@ public class PatientAddRecordActivity extends AppCompatActivity implements Photo
         });
     }
 
-    private void openTitleCommentEditor() {
-        //TODO Add transfer to a title and comment editor fragment.
+    private void openTitleEditor() {
+        //TODO Add code to send any existing title.
+
+        DialogFragment newFragment = new TextEditorFragment();
+        Bundle editorData = new Bundle();
+        editorData.putInt("argEditorId",0);
+        editorData.putString("argHint",getString(R.string.fragmentTextEditor_TitleHint));
+        newFragment.setArguments(editorData);
+        newFragment.show(getSupportFragmentManager(),"titleEditor");
+    }
+
+    private void openCommentEditor() {
+        //TODO Add code to send any existing comment.
+
+        DialogFragment newFragment = new TextEditorFragment();
+        Bundle editorData = new Bundle();
+        editorData.putInt("argEditorId",1);
+        editorData.putString("argHint",getString(R.string.fragmentTextEditor_CommentHint));
+        editorData.putInt("argInputType", InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+        newFragment.setArguments(editorData);
+        newFragment.show(getSupportFragmentManager(),"commentEditor");
+    }
+
+    public void onTextSet(String text, int editorId) {
+        switch (editorId) {
+            case 0:
+                //TODO Add code to save the title
+                openCommentEditor();
+                break;
+
+            case 1:
+                //TODO Add code to save the comment
+                break;
+        }
     }
 
     private void openBodyLocationSelector() {
@@ -94,14 +129,12 @@ public class PatientAddRecordActivity extends AppCompatActivity implements Photo
     }
 
     private void openPhotosSelector() {
+
+        Intent intent = new Intent(this, PhotoSelectorActivity.class);
+
         //TODO Add code to transfer any existing photos.
 
-        DialogFragment newFragment = new PhotoSelectorFragment();
-        newFragment.show(getSupportFragmentManager(),"photoSelector");
-    }
-
-    public void onPhotoSet(ArrayList<Bitmap> photos, int editorId) {
-        //TODO Add code to add the following photos to the given record.
+        startActivity(intent);
     }
 
     private void completeRecord() {
@@ -109,11 +142,5 @@ public class PatientAddRecordActivity extends AppCompatActivity implements Photo
 
         Intent intent = new Intent(this, PatientProblemViewActivity.class);
         startActivity(intent);
-    }
-
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
     }
 }
