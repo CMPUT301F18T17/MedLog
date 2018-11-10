@@ -1,10 +1,15 @@
 package cs.ualberta.ca.medlog.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import java.util.ArrayList;
 
 import cs.ualberta.ca.medlog.R;
 
@@ -23,15 +28,17 @@ import cs.ualberta.ca.medlog.R;
  *         Transfer to a Title Comment Editor Fragment must be added.
  *         Transfer to a Body Location Selector Fragment must be added.
  *         Transfer to a Map Location Selector Fragment must be added.
- *         Transfer to a Photos Selector Fragment must be added.
+ *         Code for sending existing added photos when adding more must be added.
+ *         Code for adding the photos selected must be added.
  *         Must add code to add the record to the actual model.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.1
+ * @version 0.2
  * @see PatientProblemViewActivity
+ * @see PhotoSelectorFragment
  */
-public class PatientAddRecordActivity extends AppCompatActivity {
+public class PatientAddRecordActivity extends AppCompatActivity implements PhotoSelectorFragment.OnPhotosSetListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +94,14 @@ public class PatientAddRecordActivity extends AppCompatActivity {
     }
 
     private void openPhotosSelector() {
-        //TODO Add transfer to a photos selector fragment.
+        //TODO Add code to transfer any existing photos.
+
+        DialogFragment newFragment = new PhotoSelectorFragment();
+        newFragment.show(getSupportFragmentManager(),"photoSelector");
+    }
+
+    public void onPhotoSet(ArrayList<Bitmap> photos, int editorId) {
+        //TODO Add code to add the following photos to the given record.
     }
 
     private void completeRecord() {
@@ -95,5 +109,11 @@ public class PatientAddRecordActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, PatientProblemViewActivity.class);
         startActivity(intent);
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

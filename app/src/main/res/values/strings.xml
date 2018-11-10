@@ -118,4 +118,10 @@
     <string name="activityProviderRecordView.BodyLocationButton">Body Location</string>
     <string name="activityProviderRecordView.MapLocationButton">Map Location</string>
     <string name="activityProviderRecordView.SlideshowButton">Photos</string>
+    <string name="fragmentPhotoSelector.TakeNewButton">Take New Photo</string>
+    <string name="fragmentPhotoSelector.AddExistingButton">Add Existing Photo</string>
+    <string name="fragmentPhotoSelector.GuideImageDesc">Guide for taking photographs.</string>
+    <string name="fragmentPhotoSelector.ConfirmButton">Ok</string>
+    <string name="fragmentPhotoSelector.CancelButton">Cancel</string>
+    <string name="viewPhoto.Description">Photo</string>
 </resources>

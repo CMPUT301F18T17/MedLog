@@ -131,7 +131,7 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
 
         DialogFragment newFragment = new TextEditorFragment();
         Bundle editorData = new Bundle();
-        editorData.putInt("argTextId",0);
+        editorData.putInt("argEditorId",0);
         editorData.putString("argHint",getString(R.string.fragmentTextEditor_TitleHint));
         newFragment.setArguments(editorData);
         newFragment.show(getSupportFragmentManager(),"titleEditor");
@@ -142,7 +142,7 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
 
         DialogFragment newFragment = new TextEditorFragment();
         Bundle editorData = new Bundle();
-        editorData.putInt("argTextId",1);
+        editorData.putInt("argEditorId",1);
         editorData.putString("argHint",getString(R.string.fragmentTextEditor_DescHint));
         editorData.putInt("argInputType", InputType.TYPE_TEXT_FLAG_MULTI_LINE);
         newFragment.setArguments(editorData);

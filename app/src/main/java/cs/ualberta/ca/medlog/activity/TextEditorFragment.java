@@ -52,7 +52,7 @@ public class TextEditorFragment extends DialogFragment {
         final EditText textEdit = textEditorView.findViewById(R.id.fragmentTextEditor_EditText);
         Bundle arguments = getArguments();
         if (arguments != null) {
-            editorId = arguments.getInt("argTextId",0);
+            editorId = arguments.getInt("argEditorId",0);
 
             textEdit.setText(arguments.getString("argInitialText", ""));
             textEdit.setHint(arguments.getString("argHint",getString(R.string.fragmentTextEditor_EditHint)));

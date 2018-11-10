@@ -84,7 +84,7 @@ public class PatientProfileActivity extends AppCompatActivity implements TextEdi
     private void openEmailEditor() {
         DialogFragment newFragment = new TextEditorFragment();
         Bundle editorData = new Bundle();
-        editorData.putInt("argTextId",0);
+        editorData.putInt("argEditorId",0);
         editorData.putString("argHint",getString(R.string.fragmentTextEditor_EmailHint));
         editorData.putInt("argInputType", InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
         newFragment.setArguments(editorData);
@@ -94,7 +94,7 @@ public class PatientProfileActivity extends AppCompatActivity implements TextEdi
     private void openPhoneNumberEditor() {
         DialogFragment newFragment = new TextEditorFragment();
         Bundle editorData = new Bundle();
-        editorData.putInt("argTextId",1);
+        editorData.putInt("argEditorId",1);
         editorData.putString("argHint",getString(R.string.fragmentTextEditor_PhoneNumberHint));
         editorData.putInt("argInputType", InputType.TYPE_CLASS_PHONE);
         newFragment.setArguments(editorData);
