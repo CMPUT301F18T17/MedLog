@@ -20,7 +20,7 @@
  * </p>
  *
  * @author Tem Tamre, Thomas Roskewich
- * @contact ttamre@ualberta.ca
+ * @contact ttamre@ualberta.ca, roskewic@ualbeta.ca
  * @see cs.ualberta.ca.medlog.helper.FileSaver
  */
 
@@ -42,8 +42,34 @@ import cs.ualberta.ca.medlog.entity.user.Patient;
 
 public class Database {
     public Context context;
-    private String databaseAddress;
-    private int timeout = 3;
+    private String databaseAddress;  // "http://cmput301.softwareprocess.es:8080/cmput301f18t17"
+    private int timeout = 10;
+
+
+    public Context getDatabaseContext() {
+        return context;
+    }
+
+    public String getDatabaseAddress() {
+        return databaseAddress;
+    }
+
+    public int getTimeout() {
+        return timeout;
+    }
+
+
+    public void setDatabaseContext(Context newContext){
+        this.context = newContext;
+    }
+
+    public void setDatabaseAddress(String newDatabaseAddress) {
+        this.databaseAddress = newDatabaseAddress;
+    }
+
+    public void setTimeout(int newTimeout) {
+        this.timeout = newTimeout;
+    }
 
 
     /**
@@ -124,7 +150,7 @@ public class Database {
      * <p>Check if we can connect to the Elastisearch server</p>
      * @return True if a connection can be established, false otherwise
      */
-    private boolean checkConnectivity() {
+    public boolean checkConnectivity() {
         try {
             URL url = new URL(databaseAddress);
             URLConnection connection = url.openConnection();
