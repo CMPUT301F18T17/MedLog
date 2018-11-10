@@ -23,17 +23,19 @@ import cs.ualberta.ca.medlog.R;
  * </p>
  * <p>
  *     Issues: <br>
- *         Transfer to a Patient Search Problems must be added.
  *         Actual handling of a logout must be added.
  *         Initial login body picture dialog must be added.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.3
+ * @version 0.4
  * @see StartScreenActivity
  * @see PatientLoginActivity
  * @see PatientSignUpActivity
  * @see PatientProfileActivity
+ * @see PatientAddProblemActivity
+ * @see PatientViewProblemsActivity
+ * @see PatientSearchActivity
  */
 public class PatientMenuActivity extends AppCompatActivity {
 
@@ -98,9 +100,8 @@ public class PatientMenuActivity extends AppCompatActivity {
     }
 
     private void openPatientSearchProblems() {
-        Intent intent = new Intent(this, PatientProblemViewActivity.class);
+        Intent intent = new Intent(this, PatientSearchActivity.class);
         startActivity(intent);
-        //TODO Add transfer to Patient Search Problems Activity
     }
 
     private void openPatientProfile() {
