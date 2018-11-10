@@ -85,7 +85,7 @@
     <string name="activityPatientRecordView.TitleCommentButton"><![CDATA[Title & Comment]]></string>
     <string name="activityPatientRecordView.BodyLocationButton">Body Location</string>
     <string name="activityPatientRecordView.MapLocationButton">Map Location</string>
-    <string name="activityPatientRecordView.PhotosButton">Photos</string>
+    <string name="activityPatientRecordView.SlideshowButton">Photos</string>
     <string name="activityPatientRecordView.ProblemTitleDefault">PROBLEM TITLE</string>
     <string name="activityPatientRecordView.CreatorDefault">CREATOR USERNAME</string>
     <string name="activityPatientRecordView.TimestampDefault">ISO 1806</string>
@@ -100,4 +100,22 @@
     <string name="activityProviderSearch.SearchButton">Search</string>
     <string name="activityProviderSearch.BodyLocationButton">Body Location</string>
     <string name="activityProviderSearch.MapLocationButton">Map Location</string>
+    <string name="activityProviderPatientViewProblems.TitleText">Patient Problems</string>
+    <string name="activityProviderProblemView.TitleText">Patient Problem</string>
+    <string name="activityProviderProblemView.TitleDefault">TITLE</string>
+    <string name="activityProviderProblemView.PatientUsernameDefault">PATIENT USERNAME</string>
+    <string name="activityProviderProblemView.DateDefault">Since: YYYY/MM/DD</string>
+    <string name="activityProviderProblemView.DescriptionDefault">DESCRIPTION</string>
+    <string name="activityProviderProblemView.ViewRecordsButton">View Records</string>
+    <string name="activityProviderProblemView.SlideshowButton">Slideshow</string>
+    <string name="activityProviderProblemView.AddRecordButton">Add Comment Record</string>
+    <string name="activityProviderPatientViewRecords.TitleText">Records</string>
+    <string name="activityProviderRecordView.TitleText">Record</string>
+    <string name="activityProviderRecordView.ProblemTitleDefault">PROBLEM TITLE</string>
+    <string name="activityProviderRecordView.TimestampDefault">ISO 1806</string>
+    <string name="activityProviderRecordView.CreatorDefault">CREATOR USERNAME</string>
+    <string name="activityProviderRecordView.TitleCommentButton"><![CDATA[Title & Comment]]></string>
+    <string name="activityProviderRecordView.BodyLocationButton">Body Location</string>
+    <string name="activityProviderRecordView.MapLocationButton">Map Location</string>
+    <string name="activityProviderRecordView.SlideshowButton">Photos</string>
 </resources>

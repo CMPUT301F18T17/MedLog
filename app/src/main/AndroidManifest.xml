@@ -105,6 +105,21 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.ProviderViewPatientsActivity" />
         </activity>
+        <activity android:name=".activity.ProviderProblemViewActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.ProviderPatientViewProblemsActivity" />
+        </activity>
+        <activity android:name=".activity.ProviderPatientViewRecordsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.ProviderProblemViewActivity" />
+        </activity>
+        <activity android:name=".activity.ProviderRecordViewActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.ProviderPatientViewRecordsActivity" />
+        </activity>
     </application>
 
 </manifest>

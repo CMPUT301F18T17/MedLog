@@ -2,19 +2,19 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activityPatientRecordView.Base"
+    android:id="@+id/activityProviderRecordView.Base"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.PatientAddRecordActivity">
 
     <TextView
-        android:id="@+id/activityPatientRecordView.TitleView"
+        android:id="@+id/activityProviderRecordView.TitleView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/activityPatientRecordView.TitleText"
+        android:text="@string/activityProviderRecordView.TitleText"
         android:textAlignment="center"
         android:textColor="@color/app_boldTextColour"
         android:textSize="40sp"
@@ -23,52 +23,52 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/activityPatientRecordView.ProblemTitleView"
+        android:id="@+id/activityProviderRecordView.ProblemTitleView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/activityPatientRecordView.ProblemTitleDefault"
+        android:text="@string/activityProviderRecordView.ProblemTitleDefault"
         android:textColor="@color/app_normalTextColour"
-        app:layout_constraintBottom_toTopOf="@+id/activityPatientRecordView.CreatorView"
+        app:layout_constraintBottom_toTopOf="@+id/activityProviderRecordView.CreatorView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activityPatientRecordView.TitleView" />
+        app:layout_constraintTop_toBottomOf="@+id/activityProviderRecordView.TitleView" />
 
     <TextView
-        android:id="@+id/activityPatientRecordView.TimestampView"
+        android:id="@+id/activityProviderRecordView.TimestampView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/activityPatientRecordView.TimestampDefault"
+        android:text="@string/activityProviderRecordView.TimestampDefault"
         android:textColor="@color/app_lightTextColour"
-        app:layout_constraintBottom_toTopOf="@+id/activityPatientRecordView.TitleCommentButton"
+        app:layout_constraintBottom_toTopOf="@+id/activityProviderRecordView.TitleCommentButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activityPatientRecordView.CreatorView" />
+        app:layout_constraintTop_toBottomOf="@+id/activityProviderRecordView.CreatorView" />
 
     <TextView
-        android:id="@+id/activityPatientRecordView.CreatorView"
+        android:id="@+id/activityProviderRecordView.CreatorView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="@string/activityPatientRecordView.CreatorDefault"
+        android:text="@string/activityProviderRecordView.CreatorDefault"
         android:textColor="@color/app_normalTextColour"
-        app:layout_constraintBottom_toTopOf="@+id/activityPatientRecordView.TimestampView"
+        app:layout_constraintBottom_toTopOf="@+id/activityProviderRecordView.TimestampView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activityPatientRecordView.ProblemTitleView" />
+        app:layout_constraintTop_toBottomOf="@+id/activityProviderRecordView.ProblemTitleView" />
 
     <Button
-        android:id="@+id/activityPatientRecordView.TitleCommentButton"
+        android:id="@+id/activityProviderRecordView.TitleCommentButton"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -77,17 +77,17 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="24dp"
         android:backgroundTint="@color/app_buttonColour"
-        android:text="@string/activityPatientRecordView.TitleCommentButton"
+        android:text="@string/activityProviderRecordView.TitleCommentButton"
         android:textAlignment="center"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/activityPatientRecordView.MapLocationButton"
-        app:layout_constraintEnd_toStartOf="@+id/activityPatientRecordView.BodyLocationButton"
+        app:layout_constraintBottom_toTopOf="@+id/activityProviderRecordView.MapLocationButton"
+        app:layout_constraintEnd_toStartOf="@+id/activityProviderRecordView.BodyLocationButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activityPatientRecordView.TimestampView" />
+        app:layout_constraintTop_toBottomOf="@+id/activityProviderRecordView.TimestampView" />
 
     <Button
-        android:id="@+id/activityPatientRecordView.BodyLocationButton"
+        android:id="@+id/activityProviderRecordView.BodyLocationButton"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -96,17 +96,17 @@
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="24dp"
         android:backgroundTint="@color/app_buttonColour"
-        android:text="@string/activityPatientRecordView.BodyLocationButton"
+        android:text="@string/activityProviderRecordView.BodyLocationButton"
         android:textAlignment="center"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/activityPatientRecordView.SlideshowButton"
+        app:layout_constraintBottom_toTopOf="@+id/activityProviderRecordView.SlideshowButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/activityPatientRecordView.TitleCommentButton"
-        app:layout_constraintTop_toBottomOf="@+id/activityPatientRecordView.TimestampView" />
+        app:layout_constraintStart_toEndOf="@+id/activityProviderRecordView.TitleCommentButton"
+        app:layout_constraintTop_toBottomOf="@+id/activityProviderRecordView.TimestampView" />
 
     <Button
-        android:id="@+id/activityPatientRecordView.MapLocationButton"
+        android:id="@+id/activityProviderRecordView.MapLocationButton"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -115,18 +115,18 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="32dp"
         android:backgroundTint="@color/app_buttonColour"
-        android:text="@string/activityPatientRecordView.MapLocationButton"
+        android:text="@string/activityProviderRecordView.MapLocationButton"
         android:textAlignment="center"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/activityPatientRecordView.SlideshowButton"
+        app:layout_constraintEnd_toStartOf="@+id/activityProviderRecordView.SlideshowButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activityPatientRecordView.TitleCommentButton" />
+        app:layout_constraintTop_toBottomOf="@+id/activityProviderRecordView.TitleCommentButton" />
 
     <Button
-        android:id="@+id/activityPatientRecordView.SlideshowButton"
+        android:id="@+id/activityProviderRecordView.SlideshowButton"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -135,13 +135,13 @@
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
         android:backgroundTint="@color/app_buttonColour"
-        android:text="@string/activityPatientRecordView.SlideshowButton"
+        android:text="@string/activityProviderRecordView.SlideshowButton"
         android:textAlignment="center"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/activityPatientRecordView.MapLocationButton"
-        app:layout_constraintTop_toBottomOf="@+id/activityPatientRecordView.BodyLocationButton" />
+        app:layout_constraintStart_toEndOf="@+id/activityProviderRecordView.MapLocationButton"
+        app:layout_constraintTop_toBottomOf="@+id/activityProviderRecordView.BodyLocationButton" />
 
 </android.support.constraint.ConstraintLayout>

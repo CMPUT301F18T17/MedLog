@@ -22,7 +22,7 @@ import cs.ualberta.ca.medlog.R;
  *         The Activity for the Patient problem view screen, this presents the gui for the Patient
  *         to view one of their problems data, as well as the ability to proceed to screens to
  *         view all of the attached records to the problem, add a new record to the problem, and
- *         a fragment to view a slideshow of all the problems record photos.
+ *         a fragment to view a slideshow of all the problem's record photos.
  *         Additionally there is an options menu from which the user can edit the details of the
  *         problem, or delete the problem.
  * </p>

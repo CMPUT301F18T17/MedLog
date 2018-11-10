@@ -1,5 +1,6 @@
 package cs.ualberta.ca.medlog.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -19,14 +20,14 @@ import cs.ualberta.ca.medlog.R;
  * <p>
  *     Issues: <br>
  *         Transfer to a Map of all Records view must be added.
- *         Transfer to a Patient Problems List activity must be added.
  *         Actual code to read a users details must be added.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.1
+ * @version 0.2
  * @see ProviderViewPatientsActivity
  * @see ProviderAddPatientActivity
+ * @see ProviderPatientViewProblemsActivity
  */
 public class ProviderPatientProfileActivity extends AppCompatActivity {
 
@@ -57,6 +58,7 @@ public class ProviderPatientProfileActivity extends AppCompatActivity {
     }
 
     private void openPatientProblemsList() {
-        //TODO Add transfer to the Patient Problems List Activity
+        Intent intent = new Intent(this, ProviderPatientViewProblemsActivity.class);
+        startActivity(intent);
     }
 }
