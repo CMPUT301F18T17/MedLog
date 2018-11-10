@@ -8,22 +8,22 @@
     android:background="@drawable/popup_background">
 
     <Button
-        android:id="@+id/fragmentSlideshow.NextButton"
+        android:id="@+id/activitySlideshow.NextButton"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@color/app_buttonColour"
+        android:backgroundTint="@color/app_buttonColour"
         android:text="@string/fragmentSlideshow.NextButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/fragmentSlideshow.PreviousButton" />
+        app:layout_constraintStart_toEndOf="@+id/activitySlideshow.PreviousButton" />
 
     <ImageView
-        android:id="@+id/fragmentSlideshow.ImageView"
+        android:id="@+id/activitySlideshow.ImageView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
@@ -31,23 +31,23 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:contentDescription="@string/fragmentSlideshow.Image"
-        app:layout_constraintBottom_toTopOf="@+id/fragmentSlideshow.PreviousButton"
+        app:layout_constraintBottom_toTopOf="@+id/activitySlideshow.PreviousButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@drawable/body_picture" />
 
     <Button
-        android:id="@+id/fragmentSlideshow.PreviousButton"
+        android:id="@+id/activitySlideshow.PreviousButton"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:background="@color/app_buttonColour"
+        android:backgroundTint="@color/app_buttonColour"
         android:text="@string/fragmentSlideshow.PreviousButton"
-        app:layout_constraintBaseline_toBaselineOf="@+id/fragmentSlideshow.NextButton"
-        app:layout_constraintEnd_toStartOf="@+id/fragmentSlideshow.NextButton"
+        app:layout_constraintBaseline_toBaselineOf="@+id/activitySlideshow.NextButton"
+        app:layout_constraintEnd_toStartOf="@+id/activitySlideshow.NextButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 

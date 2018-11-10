@@ -15,8 +15,8 @@ import cs.ualberta.ca.medlog.R;
  *         The Activity for the Care Provider patient record view screen, this presents the gui for
  *         the Provider to view one of their patient's records data in terms of the problem that
  *         owns it, the timestamp of its creation and the user that created it.
- *         Further ability is present to open fragments to view the four fields a problem can
- *         contain of a title & comment, a body location, a map location and an attached
+ *         Further ability is present to open screens/fragments to view the four fields a problem can
+ *         contain of a title & comment, a body location, a map location and an attached photo
  *         slideshow.
  *         Additionally if the creator is a Patient the username can be clicked to travel to the
  *         patient profile.
@@ -27,16 +27,17 @@ import cs.ualberta.ca.medlog.R;
  *         Transfer to a title & comment fragment must be added
  *         Transfer to a body location fragment must be added
  *         Transfer to a map location fragment must be added
- *         Transfer to a photos slideshow fragment must be added
+ *         Actual code to send photos to the slideshow activity must be added.
  *         Actual code to pass the specific patient owner as an argument must be added on username click.
  *
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.1
+ * @version 0.2
  * @see ProviderPatientViewRecordsActivity
  * @see ProviderSearchActivity
  * @see ProviderPatientProfileActivity
+ * @see SlideshowActivity
  */
 public class ProviderRecordViewActivity extends AppCompatActivity {
 
@@ -97,7 +98,11 @@ public class ProviderRecordViewActivity extends AppCompatActivity {
     }
 
     private void openSlideshowFragment() {
-        //TODO Add transfer to slideshow fragment
+        Intent intent = new Intent(this, SlideshowActivity.class);
+
+        //TODO Add argument code to pass a photos list of all the records photos.
+
+        startActivity(intent);
     }
 
     private void openPatientProfile() {

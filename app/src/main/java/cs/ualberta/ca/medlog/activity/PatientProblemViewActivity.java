@@ -22,7 +22,7 @@ import cs.ualberta.ca.medlog.R;
  *         The Activity for the Patient problem view screen, this presents the gui for the Patient
  *         to view one of their problems data, as well as the ability to proceed to screens to
  *         view all of the attached records to the problem, add a new record to the problem, and
- *         a fragment to view a slideshow of all the problem's record photos.
+ *         to view a slideshow of all the problem's record photos.
  *         Additionally there is an options menu from which the user can edit the details of the
  *         problem, or delete the problem.
  * </p>
@@ -30,14 +30,14 @@ import cs.ualberta.ca.medlog.R;
  *     Issues: <br>
  *         Adding the records list as an argument for opening view records must be added.
  *         Adding the problem as an argument for opening add record must be added.
- *         Transfer to a slideshow fragment must be added
+ *         Actual code to send photos to the slideshow activity must be added.
  *         Actual code to read a problem and present it must be added.
  *         Actual code to update problem details must be added.
  *         Actual code to update fragments with problem data must be added.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.4
+ * @version 0.5
  * @see PatientViewProblemsActivity
  * @see PatientAddProblemActivity
  * @see PatientSearchActivity
@@ -45,6 +45,7 @@ import cs.ualberta.ca.medlog.R;
  * @see DatePickerFragment
  * @see PatientAddRecordActivity
  * @see PatientViewRecordsActivity
+ * @see SlideshowActivity
  */
 public class PatientProblemViewActivity extends AppCompatActivity implements DatePickerFragment.OnNewDateSetListener, TextEditorFragment.OnTextSetListener {
 
@@ -114,7 +115,11 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
 
 
     private void openPhotoSlideshow() {
-        //TODO Add transfer to slideshow fragment
+        Intent intent = new Intent(this, SlideshowActivity.class);
+
+        //TODO Add argument code to pass a photos list of all the records photos.
+
+        startActivity(intent);
     }
 
 
