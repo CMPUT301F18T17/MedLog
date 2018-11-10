@@ -90,7 +90,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.ProviderMenuActivity" />
         </activity>
-        <activity android:name=".activity.PatientRecordViewActivity"></activity>
+        <activity android:name=".activity.PatientRecordViewActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.PatientViewRecordsActivity" />
+        </activity>
+        <activity android:name=".activity.ProviderSearchActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.ProviderMenuActivity" />
+        </activity>
     </application>
 
 </manifest>
