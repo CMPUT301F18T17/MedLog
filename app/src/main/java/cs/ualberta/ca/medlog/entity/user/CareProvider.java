@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class CareProvider extends User{
 
-    ArrayList<Patient> patients = new ArrayList<Patient>();
+    ArrayList<Patient> patients = new ArrayList<>();
 
     public CareProvider(String username){
         super(username);
