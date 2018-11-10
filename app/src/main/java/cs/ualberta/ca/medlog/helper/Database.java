@@ -21,14 +21,12 @@
  *
  * @author Tem Tamre, Thomas Roskewich
  * @contact ttamre@ualberta.ca
- * @see cs.ualberta.ca.medlog.helper.LocalSaver
+ * @see cs.ualberta.ca.medlog.helper.FileSaver
  */
 
 package cs.ualberta.ca.medlog.helper;
 
 import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.util.Log;
 
 import java.io.IOException;
@@ -58,7 +56,7 @@ public class Database {
         if (checkConnectivity()) {
             // Database operations
         } else {
-            LocalSaver saver = new LocalSaver(context);
+            FileSaver saver = new FileSaver(context);
             patient = saver.loadPatient();
         }
 
@@ -76,7 +74,7 @@ public class Database {
         if (checkConnectivity()) {
             // Database operations
         } else {
-            LocalSaver saver = new LocalSaver(context);
+            FileSaver saver = new FileSaver(context);
             provider = saver.loadCareProvider();
         }
 
@@ -92,7 +90,7 @@ public class Database {
         if (checkConnectivity()) {
             // Database operations
         } else {
-            LocalSaver saver = new LocalSaver(context);
+            FileSaver saver = new FileSaver(context);
             saver.savePatient(patient);
         }
     }
@@ -106,7 +104,7 @@ public class Database {
         if (checkConnectivity()) {
             // Database operations
         } else {
-            LocalSaver saver = new LocalSaver(context);
+            FileSaver saver = new FileSaver(context);
             saver.saveCareProvider(provider);
         }
     }

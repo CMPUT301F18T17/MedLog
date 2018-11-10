@@ -69,25 +69,25 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
 
-public class LocalSaver {
+public class FileSaver {
     private String filename;
     private Context context;
 
     /**
-     * <p>Initialize a LocalSaver instance for the current context with the default filename</p>
+     * <p>Initialize a FileSaver instance for the current context with the default filename</p>
      * @param c current application context
      */
-    public LocalSaver(Context c) {
+    public FileSaver(Context c) {
         this.context = c;
         this.filename = "data.ser";
     }
 
     /**
-     * <p>Initialize a LocalSaver instance for the current context with the given filename</p>
+     * <p>Initialize a FileSaver instance for the current context with the given filename</p>
      * @param c current application context
      * @param filename filename to be used
      */
-    public LocalSaver(Context c, String filename) {
+    public FileSaver(Context c, String filename) {
         this.context = c;
         this.filename = filename;
     }
@@ -105,7 +105,7 @@ public class LocalSaver {
             osw.write(json);
             osw.close();
         } catch (IOException e) {
-            Log.d("LocalSaver", "IOException thrown in LocalSaver.savePatient(patient)");
+            Log.d("FileSaver", "IOException thrown in FileSaver.savePatient(patient)");
             e.printStackTrace();
         }
     }
@@ -123,7 +123,7 @@ public class LocalSaver {
             osw.write(json);
             osw.close();
         } catch (IOException e) {
-            Log.d("LocalSaver", "IOException thrown in LocalSaver.saveCareProvider(CareProvider)");
+            Log.d("FileSaver", "IOException thrown in FileSaver.saveCareProvider(CareProvider)");
             e.printStackTrace();
         }
     }
@@ -156,7 +156,7 @@ public class LocalSaver {
             }
 
         } catch (IOException e) {
-            Log.d("LocalSaver", "IOException thrown in LocalSaver.loadPatient(patient)");
+            Log.d("FileSaver", "IOException thrown in FileSaver.loadPatient(patient)");
             e.printStackTrace();
         }
 
@@ -191,7 +191,7 @@ public class LocalSaver {
             }
 
         } catch (IOException e) {
-            Log.d("LocalSaver", "IOException thrown in LocalSaver.loadPatient(patient)");
+            Log.d("FileSaver", "IOException thrown in FileSaver.loadPatient(patient)");
             e.printStackTrace();
         }
 
