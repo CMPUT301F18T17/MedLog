@@ -1,5 +1,6 @@
 package cs.ualberta.ca.medlog.activity;
 
+import android.content.Intent;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,7 +28,7 @@ import cs.ualberta.ca.medlog.R;
  * </p>
  * <p>
  *     Issues: <br>
- *         Transfer to a Patient Problem Records List must be added.
+ *         Adding the records list as an argument for opening view records must be added.
  *         Transfer to a Patient Add Record must be added.
  *         Transfer to a slideshow view must be added
  *         Actual code to read a problem and present it must be added.
@@ -36,10 +37,12 @@ import cs.ualberta.ca.medlog.R;
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.2
+ * @version 0.3
  * @see PatientViewProblemsActivity
  * @see PatientAddProblemActivity
  * @see TextEditorFragment
+ * @see DatePickerFragment
+ * @see PatientViewRecordsActivity
  */
 public class PatientProblemViewActivity extends AppCompatActivity implements DatePickerFragment.OnNewDateSetListener, TextEditorFragment.OnTextSetListener {
 
@@ -100,7 +103,11 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
     }
 
     private void openRecordsList() {
-        //TODO Add transfer to Patient Problem Records List Activity
+        Intent intent = new Intent(this, PatientViewRecordsActivity.class);
+
+        //TODO Add argument code to pass the problems record list.
+
+        startActivity(intent);
     }
 
 

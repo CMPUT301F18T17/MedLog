@@ -34,7 +34,7 @@ public class PatientViewProblemsActivity extends AppCompatActivity {
 
         //TODO Add code for an array adapter to connect to a provided problems list
 
-        ListView problemsList = findViewById(R.id.activityPatientViewProblems_ProblemsList);
+        ListView problemsList = findViewById(R.id.activityPatientViewProblems_ProblemsListView);
         problemsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

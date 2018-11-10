@@ -71,4 +71,5 @@
     <string name="activityPatientSearch.SearchButton">Search</string>
     <string name="activityPatientSearch.BodyLocationButton">Body Location</string>
     <string name="activityPatientSearch.MapLocationButton">Map Location</string>
+    <string name="activityPatientViewRecords.TitleText">Records</string>
 </resources>
