@@ -92,42 +92,8 @@ public class FileSaver {
         this.filename = filename;
     }
 
-    /**
-     * <p>Serialize a patient's data and save it to disc</p>
-     * @param patient patient to be saved to disc
-     */
-    public void savePatient(Patient patient) {
-        Gson gson = new Gson();
-        String json = gson.toJson(patient);
 
-        try {
-            OutputStreamWriter osw = new OutputStreamWriter(context.openFileOutput(filename, Context.MODE_PRIVATE));
-            osw.write(json);
-            osw.close();
-        } catch (IOException e) {
-            Log.d("FileSaver", "IOException thrown in FileSaver.savePatient(patient)");
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * <p>Serialize a CareProvider's data ands save it to disc</p>
-     * @param provider CareProvider to be saved to disc
-     */
-    public void saveCareProvider(CareProvider provider) {
-        Gson gson = new Gson();
-        String json = gson.toJson(provider);
-
-        try {
-            OutputStreamWriter osw = new OutputStreamWriter(context.openFileOutput(filename, Context.MODE_PRIVATE));
-            osw.write(json);
-            osw.close();
-        } catch (IOException e) {
-            Log.d("FileSaver", "IOException thrown in FileSaver.saveCareProvider(CareProvider)");
-            e.printStackTrace();
-        }
-    }
-
+    /* Loading methods */
 
     /**
      * <p>Load the JSON file into a string, then deserialize it and return it as a patient object</p>
@@ -163,7 +129,6 @@ public class FileSaver {
         return null;
     }
 
-
     /**
      * <p>Load the JSON file into a string, then deserialize it and return it as a CareProvider object</p>
      * @return CareProvider:CareProvider (the CareProvider represented in the JSON data)
@@ -196,6 +161,45 @@ public class FileSaver {
         }
 
         return null;
+    }
+
+
+    /* Saving methods */
+
+    /**
+     * <p>Serialize a patient's data and save it to disc</p>
+     * @param patient patient to be saved to disc
+     */
+    public void savePatient(Patient patient) {
+        Gson gson = new Gson();
+        String json = gson.toJson(patient);
+
+        try {
+            OutputStreamWriter osw = new OutputStreamWriter(context.openFileOutput(filename, Context.MODE_PRIVATE));
+            osw.write(json);
+            osw.close();
+        } catch (IOException e) {
+            Log.d("FileSaver", "IOException thrown in FileSaver.savePatient(patient)");
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * <p>Serialize a CareProvider's data ands save it to disc</p>
+     * @param provider CareProvider to be saved to disc
+     */
+    public void saveCareProvider(CareProvider provider) {
+        Gson gson = new Gson();
+        String json = gson.toJson(provider);
+
+        try {
+            OutputStreamWriter osw = new OutputStreamWriter(context.openFileOutput(filename, Context.MODE_PRIVATE));
+            osw.write(json);
+            osw.close();
+        } catch (IOException e) {
+            Log.d("FileSaver", "IOException thrown in FileSaver.saveCareProvider(CareProvider)");
+            e.printStackTrace();
+        }
     }
 
 }

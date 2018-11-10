@@ -1,7 +1,7 @@
 /**
  *
  * <h1>
- *     Test class for the Elastisearch database
+ *     DatabaseTest
  * </h1>
  *
  *  <p>
