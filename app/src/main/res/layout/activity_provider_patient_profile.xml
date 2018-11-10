@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activityProviderPatientProfile.Base"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.PatientProfileActivity">
+
+    <TextView
+        android:id="@+id/activityProviderPatientProfile.TitleView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/activityProviderPatientProfile.TitleText"
+        android:textAlignment="center"
+        android:textColor="@color/app_boldTextColour"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/activityProviderPatientProfile.UsernameView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/activityProviderPatientProfile.UsernameDefault"
+        android:textAlignment="center"
+        android:textColor="@color/app_normalTextColour"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/activityProviderPatientProfile.EmailView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activityProviderPatientProfile.TitleView" />
+
+    <TextView
+        android:id="@+id/activityProviderPatientProfile.EmailView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/activityProviderPatientProfile.EmailDefault"
+        android:textAlignment="center"
+        android:textColor="@color/app_lightTextColour"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/activityProviderPatientProfile.PhoneNumberView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activityProviderPatientProfile.UsernameView" />
+
+    <TextView
+        android:id="@+id/activityProviderPatientProfile.PhoneNumberView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/activityProviderPatientProfile.PhoneNumberDefault"
+        android:textAlignment="center"
+        android:textColor="@color/app_lightTextColour"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/activityProviderPatientProfile.RecordsMapButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activityProviderPatientProfile.EmailView" />
+
+    <Button
+        android:id="@+id/activityProviderPatientProfile.RecordsMapButton"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/app_buttonColour"
+        android:text="@string/activityProviderPatientProfile.RecordsMapButton"
+        android:textAllCaps="true"
+        app:layout_constraintBottom_toTopOf="@+id/activityProviderPatientProfile.ViewRecordsButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activityProviderPatientProfile.PhoneNumberView" />
+
+    <Button
+        android:id="@+id/activityProviderPatientProfile.ViewRecordsButton"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="28dp"
+        android:backgroundTint="@color/app_buttonColour"
+        android:text="@string/activityProviderPatientProfile.ViewRecordsButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activityProviderPatientProfile.RecordsMapButton" />
+</android.support.constraint.ConstraintLayout>

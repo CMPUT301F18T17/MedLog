@@ -65,7 +65,6 @@
     <string name="activityPatientProfile.UsernameDefault">USERNAME</string>
     <string name="menuPatientProfile.EditEmail">Edit Email</string>
     <string name="menuPatientProfile.EditPhoneNumber">Edit Phone Number</string>
-    <string name="title_activity_maps">Map</string>
     <string name="activityPatientSearch.TitleText">Search</string>
     <string name="activityPatientSearch.KeywordHint">Enter Keywords</string>
     <string name="activityPatientSearch.SearchButton">Search</string>
@@ -90,4 +89,15 @@
     <string name="activityPatientRecordView.ProblemTitleDefault">PROBLEM TITLE</string>
     <string name="activityPatientRecordView.CreatorDefault">CREATOR USERNAME</string>
     <string name="activityPatientRecordView.TimestampDefault">ISO 1806</string>
+    <string name="activityProviderPatientProfile.RecordsMapButton">Records Map</string>
+    <string name="activityProviderPatientProfile.ViewRecordsButton">View Records</string>
+    <string name="activityProviderPatientProfile.PhoneNumberDefault">#-(###)-###-####</string>
+    <string name="activityProviderPatientProfile.EmailDefault">NAME@ADDRESS.DOMAIN</string>
+    <string name="activityProviderPatientProfile.UsernameDefault">USERNAME</string>
+    <string name="activityProviderPatientProfile.TitleText">Patient Profile</string>
+    <string name="activityProviderSearch.TitleText">Search</string>
+    <string name="activityProviderSearch.KeywordHint">Enter Keywords</string>
+    <string name="activityProviderSearch.SearchButton">Search</string>
+    <string name="activityProviderSearch.BodyLocationButton">Body Location</string>
+    <string name="activityProviderSearch.MapLocationButton">Map Location</string>
 </resources>

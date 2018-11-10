@@ -27,8 +27,9 @@ import cs.ualberta.ca.medlog.R;
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.1
+ * @version 0.2
  * @see ProviderMenuActivity
+ * @see ProviderPatientProfileActivity
  */
 public class ProviderAddPatientActivity extends AppCompatActivity {
 
@@ -49,6 +50,9 @@ public class ProviderAddPatientActivity extends AppCompatActivity {
         //TODO Add code for assigning the chosen patient to the provider.
 
         //TODO Add opening of fragment for post addition navigation.
+
+        Intent intent = new Intent(this, ProviderPatientProfileActivity.class);
+        startActivity(intent);
     }
 
 
