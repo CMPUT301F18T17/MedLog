@@ -75,6 +75,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.PatientProblemViewActivity" />
         </activity>
+        <activity android:name=".activity.PatientAddRecordActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.PatientProblemViewActivity" />
+        </activity>
     </application>
 
 </manifest>

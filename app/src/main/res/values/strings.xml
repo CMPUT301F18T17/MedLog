@@ -72,4 +72,10 @@
     <string name="activityPatientSearch.BodyLocationButton">Body Location</string>
     <string name="activityPatientSearch.MapLocationButton">Map Location</string>
     <string name="activityPatientViewRecords.TitleText">Records</string>
+    <string name="activityPatientAddRecord.TitleText">Add Record</string>
+    <string name="activityPatientAddRecord.SaveButton">Save</string>
+    <string name="activityPatientAddRecord.TitleCommentButton"><![CDATA[Title & Comment]]></string>
+    <string name="activityPatientAddRecord.BodyLocationButton">Body Location</string>
+    <string name="activityPatientAddRecord.MapLocationButton">Map Location</string>
+    <string name="activityPatientAddRecord.PhotosButton">Photos</string>
 </resources>
