@@ -29,19 +29,21 @@ import cs.ualberta.ca.medlog.R;
  * <p>
  *     Issues: <br>
  *         Adding the records list as an argument for opening view records must be added.
- *         Transfer to a Patient Add Record must be added.
- *         Transfer to a slideshow view must be added
+ *         Adding the problem as an argument for opening add record must be added.
+ *         Transfer to a slideshow fragment must be added
  *         Actual code to read a problem and present it must be added.
  *         Actual code to update problem details must be added.
  *         Actual code to update fragments with problem data must be added.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.3
+ * @version 0.4
  * @see PatientViewProblemsActivity
  * @see PatientAddProblemActivity
+ * @see PatientSearchActivity
  * @see TextEditorFragment
  * @see DatePickerFragment
+ * @see PatientAddRecordActivity
  * @see PatientViewRecordsActivity
  */
 public class PatientProblemViewActivity extends AppCompatActivity implements DatePickerFragment.OnNewDateSetListener, TextEditorFragment.OnTextSetListener {
@@ -112,12 +114,16 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
 
 
     private void openPhotoSlideshow() {
-        //TODO Add transfer to slideshow view
+        //TODO Add transfer to slideshow fragment
     }
 
 
     private void openAddRecord() {
-        //TODO Add transfer to Add Record Activity
+        Intent intent = new Intent(this, PatientAddRecordActivity.class);
+
+        //TODO Add argument code to pass the problem.
+
+        startActivity(intent);
     }
 
     private void openTitleEditor() {

@@ -21,17 +21,17 @@ import cs.ualberta.ca.medlog.R;
  * </p>
  * <p>
  *     Issues: <br>
- *         Transfer to a Care Provider Add Patient must be added.
- *         Transfer to a Care Provider View Patients must be added.
  *         Transfer to a Care Provider Search Problems must be added.
  *         Actual handling of a logout must be added.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.1
+ * @version 0.2
  * @see StartScreenActivity
  * @see ProviderLoginActivity
  * @see ProviderRegistrationActivity
+ * @see ProviderAddPatientActivity
+ * @see ProviderViewPatientsActivity
  */
 public class ProviderMenuActivity extends AppCompatActivity {
 
@@ -81,11 +81,13 @@ public class ProviderMenuActivity extends AppCompatActivity {
     }
 
     private void openProviderAddPatient() {
-        //TODO Add transfer to Care Provider Add Patient Activity
+        Intent intent = new Intent(this, ProviderAddPatientActivity.class);
+        startActivity(intent);
     }
 
     private void openProviderViewPatients() {
-        //TODO Add transfer to Care Provider View Patients Activity
+        Intent intent = new Intent(this, ProviderViewPatientsActivity.class);
+        startActivity(intent);
     }
 
     private void openProviderSearchProblems() {

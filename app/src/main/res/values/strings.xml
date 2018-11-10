@@ -78,4 +78,16 @@
     <string name="activityPatientAddRecord.BodyLocationButton">Body Location</string>
     <string name="activityPatientAddRecord.MapLocationButton">Map Location</string>
     <string name="activityPatientAddRecord.PhotosButton">Photos</string>
+    <string name="activityProviderAddPatient.TitleText">Add Patient</string>
+    <string name="activityProviderAddPatient.UsernameHint">Enter Patient Username</string>
+    <string name="activityProviderAddPatient.AddButton">Add</string>
+    <string name="activityProviderViewPatients.TitleText">Patients</string>
+    <string name="activityPatientRecordView.TitleText">Record</string>
+    <string name="activityPatientRecordView.TitleCommentButton"><![CDATA[Title & Comment]]></string>
+    <string name="activityPatientRecordView.BodyLocationButton">Body Location</string>
+    <string name="activityPatientRecordView.MapLocationButton">Map Location</string>
+    <string name="activityPatientRecordView.PhotosButton">Photos</string>
+    <string name="activityPatientRecordView.ProblemTitleDefault">PROBLEM TITLE</string>
+    <string name="activityPatientRecordView.CreatorDefault">CREATOR USERNAME</string>
+    <string name="activityPatientRecordView.TimestampDefault">ISO 1806</string>
 </resources>

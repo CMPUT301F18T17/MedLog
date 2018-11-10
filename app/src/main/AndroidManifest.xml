@@ -80,6 +80,17 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.PatientProblemViewActivity" />
         </activity>
+        <activity android:name=".activity.ProviderAddPatientActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.ProviderMenuActivity" />
+        </activity>
+        <activity android:name=".activity.ProviderViewPatientsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.ProviderMenuActivity" />
+        </activity>
+        <activity android:name=".activity.PatientRecordViewActivity"></activity>
     </application>
 
 </manifest>
