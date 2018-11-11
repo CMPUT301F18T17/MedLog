@@ -26,6 +26,7 @@ import cs.ualberta.ca.medlog.R;
  *     Issues: <br>
  *         Call to a controller to add the given problem to the patient in the system must be added.
  *         Post problem navigation popup must be added.
+ *         Call to a controller to get the newly added problems index must be added.
  * </p>
  *
  * @author Tyler Gobran
@@ -106,6 +107,8 @@ public class PatientAddProblemActivity extends AppCompatActivity implements Date
 
         //This currently is a stand in for this popup navigation
         Intent intent = new Intent(this, PatientProblemViewActivity.class);
+        //TODO Add controller call to get the index for the added problem.
+        intent.putExtra("problemIndex",0);
         startActivity(intent);
     }
 }

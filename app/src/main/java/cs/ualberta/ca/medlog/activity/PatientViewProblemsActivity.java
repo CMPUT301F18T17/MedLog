@@ -16,7 +16,7 @@ import cs.ualberta.ca.medlog.entity.Problem;
 /**
  * <p>
  *     Description: <br>
- *         The patient view problems screen for the Application, this presents a gui for a Patient
+ *         The patient view problems screen for the Application, this presents a gui for a patient
  *         to view a list of their problems and proceed to view a given one further by clicking on
  *         them.
  * </p>
