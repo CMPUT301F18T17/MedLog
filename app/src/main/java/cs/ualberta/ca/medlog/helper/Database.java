@@ -29,6 +29,8 @@ package cs.ualberta.ca.medlog.helper;
 import android.content.Context;
 import android.util.Log;
 
+import com.searchly.jestdroid.JestDroidClient;
+
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -44,6 +46,7 @@ public class Database {
     public Context context;
     private String databaseAddress;  // "http://cmput301.softwareprocess.es:8080/cmput301f18t17"
     private int timeout = 10;
+    private JestDroidClient client = null;
 
 
     public Context getDatabaseContext() {
