@@ -33,7 +33,7 @@ import cs.ualberta.ca.medlog.entity.Record;
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.6
+ * @version 0.7
  * @see PatientProblemViewActivity
  * @see PhotoSelectorActivity
  * @see TextEditorFragment
@@ -109,15 +109,24 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
         newFragment.show(getSupportFragmentManager(),"commentEditor");
     }
 
-    public void onTextSet(String text, int editorId) {
+    public void onTextSet(String newText, int editorId) {
         switch (editorId) {
             case 0:
+                if (newText.isEmpty()) {
+                    Toast.makeText(this,"No title entered",Toast.LENGTH_SHORT);
+                    break;
+                }
                 //TODO Save the title to the record.
                 openCommentEditor();
                 break;
 
             case 1:
+                if (newText.isEmpty()) {
+                    Toast.makeText(this,"No comment entered",Toast.LENGTH_SHORT);
+                    break;
+                }
                 //TODO Save the comment to the record.
+                Toast.makeText(this,"Title & Comment added",Toast.LENGTH_SHORT);
                 break;
         }
     }

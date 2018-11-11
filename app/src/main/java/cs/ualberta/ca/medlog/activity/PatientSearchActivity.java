@@ -12,10 +12,11 @@ import cs.ualberta.ca.medlog.R;
 /**
  * <p>
  *     Description: <br>
- *         The Activity for a Patient problem searching screen, this presents the gui for the
- *         Patient to search through their problems and records using keywords.
- *         Additional functionality is present to assign a certain region or body location to
- *         search around with the given keywords.
+ *         The patient problem searching screen activity for the Application, this presents the
+ *         gui for the patient to search through their problems and records utilizing keywords.
+ *         Additional searching information in terms of searching around a specified region or body
+ *         location is also present through buttons to proceed to selection activities.
+ *         The results of these searches can be viewed by clicking on their entries.
  * </p>
  * <p>
  *     Issues: <br>
@@ -27,8 +28,10 @@ import cs.ualberta.ca.medlog.R;
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.1
+ * @version 0.2
  * @see PatientMenuActivity
+ * @see PatientProblemViewActivity
+ * @see PatientRecordViewActivity
  */
 public class PatientSearchActivity extends AppCompatActivity {
 

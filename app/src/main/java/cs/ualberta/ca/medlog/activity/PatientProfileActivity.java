@@ -1,5 +1,6 @@
 package cs.ualberta.ca.medlog.activity;
 
+import android.content.Context;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -26,14 +28,16 @@ import cs.ualberta.ca.medlog.R;
  * </p>
  * <p>
  *     Issues: <br>
- *         Transfer to a Body Pictures editing view must be added.
- *         Transfer to a Map of all Records view must be added.
- *         Actual code to read a users details must be added.
- *         Actual code to update a users details must be added.
+ *         Call to the system to recieve patient data must be added.
+ *         Initial patient data field setting must be added.
+ *         Transfer to a Body Pictures editing activity must be added.
+ *         Transfer to a Map of All Records activity must be added.
+ *         Arguments to send existing emails and phone numbers to editors must be added.
+ *         Contact info controller update calls must be added.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.2
+ * @version 0.3
  * @see PatientMenuActivity
  */
 public class PatientProfileActivity extends AppCompatActivity implements TextEditorFragment.OnTextSetListener {
@@ -42,6 +46,9 @@ public class PatientProfileActivity extends AppCompatActivity implements TextEdi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_profile);
+
+        //TODO Call system to receive the patient's data
+        //TODO Set the related activity fields using that data
 
         Button bodyPicturesButton = findViewById(R.id.activityPatientProfile_BodyPicturesButton);
         Button recordsMapButton = findViewById(R.id.activityPatientProfile_RecordsMapButton);
@@ -57,8 +64,6 @@ public class PatientProfileActivity extends AppCompatActivity implements TextEdi
                 openRecordsMap();
             }
         });
-
-        //TODO Add code to receive a provided patient object and set the related fields to its data.
     }
 
     @Override
@@ -88,6 +93,7 @@ public class PatientProfileActivity extends AppCompatActivity implements TextEdi
         editorData.putInt("argEditorId",0);
         editorData.putString("argHint",getString(R.string.fragmentTextEditor_EmailHint));
         editorData.putInt("argInputType", InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+        //TODO Argument to send existing email text.
         newFragment.setArguments(editorData);
         newFragment.show(getSupportFragmentManager(),"emailEditor");
     }
@@ -98,30 +104,38 @@ public class PatientProfileActivity extends AppCompatActivity implements TextEdi
         editorData.putInt("argEditorId",1);
         editorData.putString("argHint",getString(R.string.fragmentTextEditor_PhoneNumberHint));
         editorData.putInt("argInputType", InputType.TYPE_CLASS_PHONE);
+        //TODO Argument to send existing phone number text
         newFragment.setArguments(editorData);
         newFragment.show(getSupportFragmentManager(),"phoneNumberEditor");
     }
 
-
     public void onTextSet(String newText, int editorId) {
-        switch(editorId) {
+        switch (editorId) {
             case 0:
-                //TODO Add patient email value updating code.
-                setEmailDisplay(newText);
+                if (newText.isEmpty()) {
+                    Toast.makeText(this, "No email entered", Toast.LENGTH_SHORT);
+                    break;
+                }
+                //TODO Call controller to update patient email
+                updateEmailDisplay(newText);
                 break;
             case 1:
-                //TODO Add patient phone number value updating code.
-                setPhoneNumberDisplay(newText);
+                if (newText.isEmpty()) {
+                    Toast.makeText(this, "No phone number entered", Toast.LENGTH_SHORT);
+                    break;
+                }
+                //TODO Call controller to update patient phone number
+                updatePhoneNumberDisplay(newText);
                 break;
         }
     }
 
-    private void setEmailDisplay(String email) {
+    private void updateEmailDisplay(String email) {
         TextView titleView = findViewById(R.id.activityPatientProfile_EmailView);
         titleView.setText(email);
     }
 
-    private void setPhoneNumberDisplay(String phoneNumber) {
+    private void updatePhoneNumberDisplay(String phoneNumber) {
         TextView descView = findViewById(R.id.activityPatientProfile_PhoneNumberView);
         descView.setText(phoneNumber);
     }

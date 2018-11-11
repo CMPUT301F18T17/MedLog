@@ -11,6 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -156,10 +158,18 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
     public void onTextSet(String newText, int editorId) {
         switch(editorId) {
             case 0:
+                if (newText.isEmpty()) {
+                    Toast.makeText(this,"No title entered",Toast.LENGTH_SHORT);
+                    break;
+                }
                 //TODO Call to controller to update the problem title value.
                 updateTitleDisplay(newText);
                 break;
             case 1:
+                if (newText.isEmpty()) {
+                    Toast.makeText(this,"No description entered",Toast.LENGTH_SHORT);
+                    break;
+                }
                 //TODO Call to controller to update the problem description value.
                 updateDescriptionDisplay(newText);
                 break;
