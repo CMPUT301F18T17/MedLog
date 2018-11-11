@@ -18,11 +18,11 @@ import cs.ualberta.ca.medlog.R;
 /**
  * <p>
  *     Description: <br>
- *         The Activity for the Patient profile viewing screen, this presents the gui for the Patient
- *         to view their profile contact information, and to open screens to view and edit their
- *         body photos or to view a map of all their records with a map location.
- *         Additionally there is an options menu from which the user can edit their contact
- *         information.
+ *         The patient profile viewing screen activity for the Application, this presents the gui
+ *         for the patient to view their username and contact information. From here they can proceed
+ *         to screens to add additional body photos or ot view a map of all their records with a
+ *         map location.
+ *         An options menu is also present which allows patients to edit their contact information.
  * </p>
  * <p>
  *     Issues: <br>
@@ -33,7 +33,7 @@ import cs.ualberta.ca.medlog.R;
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.1
+ * @version 0.2
  * @see PatientMenuActivity
  */
 public class PatientProfileActivity extends AppCompatActivity implements TextEditorFragment.OnTextSetListener {
@@ -42,6 +42,7 @@ public class PatientProfileActivity extends AppCompatActivity implements TextEdi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_profile);
+
         Button bodyPicturesButton = findViewById(R.id.activityPatientProfile_BodyPicturesButton);
         Button recordsMapButton = findViewById(R.id.activityPatientProfile_RecordsMapButton);
         bodyPicturesButton.setOnClickListener(new View.OnClickListener() {
