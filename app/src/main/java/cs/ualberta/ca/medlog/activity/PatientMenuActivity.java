@@ -14,21 +14,22 @@ import cs.ualberta.ca.medlog.R;
 /**
  * <p>
  *     Description: <br>
- *         The Activity for the Patient main menu screen, this presents the gui for the Patient
- *         to proceed to screens to add a problem, view their problems or search their problems.
- *         Additionally there is an options menu from which the user can view their profile or
- *         logout from the application.
- *         Finally on the first login of a user an additional body pictures dialog is presented
- *         for the user to add body pictures to their account for use in body locations in records.
+ *         The patient main menu screen activity for the Application, this presents the gui
+ *         for the Patient to proceed to screens in which they can add new problems, view their
+ *         existing problems or search their problems.
+ *         An options menu is also present from which the user can proceed to a screen to view
+ *         their profile or logout and return back to the start screen.
+ *         On the first login of a user an additional popup asking the user if they want to proceed
+ *         to a screen to add body pictures is also displayed.
  * </p>
  * <p>
  *     Issues: <br>
- *         Actual handling of a logout must be added.
- *         Initial login body picture dialog must be added.
+ *         Contact of the system to inform it that the patient is logged out must be added.
+ *         Creation and handling of a body picture prompt on first login must be added.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.4
+ * @version 0.5
  * @see StartScreenActivity
  * @see PatientLoginActivity
  * @see PatientSignUpActivity
@@ -43,6 +44,7 @@ public class PatientMenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_menu);
+
         Button addProblemButton = findViewById(R.id.activityPatientMenu_AddProblemButton);
         Button viewProblemsButton = findViewById(R.id.activityPatientMenu_ViewProblemsButton);
         Button searchProblemsButton = findViewById(R.id.activityPatientMenu_SearchProblemsButton);
@@ -65,7 +67,9 @@ public class PatientMenuActivity extends AppCompatActivity {
             }
         });
 
-        //TODO Add code for initial login body picture prompts
+        if (getParent().getLocalClassName() == "PatientSignUpActivity") {
+            //TODO Add body pictures popup prompt code.
+        }
     }
 
     @Override
@@ -110,7 +114,7 @@ public class PatientMenuActivity extends AppCompatActivity {
     }
 
     private void logoutPatient() {
-        //TODO Add code to perform the Patient logout
+        //TODO Contact system to inform it the Patient is logged out.
 
         Intent intent = new Intent(this, StartScreenActivity.class);
         startActivity(intent);
