@@ -19,9 +19,15 @@ package cs.ualberta.ca.medlog;
 
 import junit.framework.TestCase;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
+
+import cs.ualberta.ca.medlog.entity.user.ContactInfo;
+import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.helper.Database;
+import cs.ualberta.ca.medlog.helper.ElasticSearchController;
 
-
+@RunWith(RobolectricTestRunner.class)
 public class DatabaseTest extends TestCase {
 
     /* Tests for getter methods */
@@ -31,7 +37,7 @@ public class DatabaseTest extends TestCase {
      */
     @Test
     public void testGetDatabaseContext() {
-        Database database = new Database();
+        Database database = new Database(null);
         assertNull(database.getDatabaseContext());
     }
 
@@ -40,7 +46,7 @@ public class DatabaseTest extends TestCase {
      */
     @Test
     public void testGetDatabaseAddress() {
-        Database database = new Database();
+        Database database = new Database(null);
         assertNull(database.getDatabaseAddress());
     }
 
@@ -49,7 +55,7 @@ public class DatabaseTest extends TestCase {
      */
     @Test
     public void testGetTimeout() {
-        Database database = new Database();
+        Database database = new Database(null);
         assertEquals(10, database.getTimeout());
     }
 
@@ -73,7 +79,7 @@ public class DatabaseTest extends TestCase {
         String addrA = "http://cmput301.softwareprocess.es:8080/cmput301f18t17";
         String addrB = "http://cmput300.softwareprocess.es:8080/cmput301f18t17";
 
-        Database database = new Database();
+        Database database = new Database(null);
         assertNull(database.getDatabaseAddress());
 
         database.setDatabaseAddress(addrA);
@@ -88,7 +94,7 @@ public class DatabaseTest extends TestCase {
      */
     @Test
     public void testSetTimeout() {
-        Database database = new Database();
+        Database database = new Database(null);
         assertEquals(10, database.getTimeout());
 
         database.setTimeout(3);
@@ -119,8 +125,31 @@ public class DatabaseTest extends TestCase {
     @Test
     public void testSavePatientLocal() {}
 
+
+    /**
+     * Added http://robolectric.org/ to support running async tasks.
+     */
     @Test
-    public void testSavePatientRemote() {}
+    public void testSavePatientRemote() {
+
+        Patient test = new Patient(new ContactInfo("18002672001", "alarm@force.com"), "testuser");
+        try {
+            boolean result = new ElasticSearchController.SavePatientTask().execute(test).get();
+            assertEquals("Could not save user", true, result);
+        }catch(Exception e){
+            e.printStackTrace();
+            assertTrue("Exception occurred saving user.", false);
+        }
+        Patient toLoad;
+        try {
+            toLoad = new ElasticSearchController.LoadPatientTask().execute("testuser").get();
+        }catch(Exception e){
+            e.printStackTrace();
+            assertTrue("Could not load user", false);
+            toLoad = null;
+        }
+        assertEquals(test, toLoad);
+    }
 
     @Test
     public void testSaveProviderLocal() {}
@@ -146,7 +175,7 @@ public class DatabaseTest extends TestCase {
      */
     @Test
     public void testCheckConnectivity() {
-        Database database = new Database();
+        Database database = new Database(null);
         String online = "http://cmput301.softwareprocess.es:8080/cmput301f18t17";
         String offline = "http://cmput300.softwareprocess.es:8080/cmput301f18t17";
 

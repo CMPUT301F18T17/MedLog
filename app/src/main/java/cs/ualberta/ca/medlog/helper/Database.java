@@ -20,7 +20,7 @@
  * </p>
  *
  * @author Tem Tamre, Thomas Roskewich
- * @contact ttamre@ualberta.ca, roskewic@ualbeta.ca
+ * @contact ttamre@ualberta.ca, roskewic@ualberta.ca
  * @see cs.ualberta.ca.medlog.helper.FileSaver
  */
 
@@ -28,14 +28,11 @@ package cs.ualberta.ca.medlog.helper;
 
 import android.content.Context;
 import android.util.Log;
-
 import com.searchly.jestdroid.JestDroidClient;
-
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
-
 import cs.ualberta.ca.medlog.entity.BodyLocation;
 import cs.ualberta.ca.medlog.entity.MapLocation;
 import cs.ualberta.ca.medlog.entity.Problem;
@@ -44,10 +41,12 @@ import cs.ualberta.ca.medlog.entity.user.Patient;
 
 public class Database {
     public Context context;
-    private String databaseAddress;  // "http://cmput301.softwareprocess.es:8080/cmput301f18t17"
+    private String databaseAddress;
     private int timeout = 10;
-    private JestDroidClient client = null;
 
+    public Database(Context c){
+        this.context = c;
+    }
 
     public Context getDatabaseContext() {
         return context;
@@ -79,11 +78,16 @@ public class Database {
      * <p>Get a patient from the database if a connection can be established, load from disc otherwise</p>
      * @return patient (Patient that was retrieved or loaded)
      */
-    public Patient LoadPatient(){
+    public Patient LoadPatient(String username){
         Patient patient = null;
 
         if (checkConnectivity()) {
-            // Database operations
+            try {
+                patient = new ElasticSearchController.LoadPatientTask().execute(username).get();
+            }catch(Exception e){
+                Log.d(Database.class.getName(), "Failed to load user: " + username);
+                e.printStackTrace();
+            }
         } else {
             FileSaver saver = new FileSaver(context);
             patient = saver.loadPatient();
@@ -101,7 +105,7 @@ public class Database {
         CareProvider provider = null;
 
         if (checkConnectivity()) {
-            // Database operations
+
         } else {
             FileSaver saver = new FileSaver(context);
             provider = saver.loadCareProvider();
@@ -117,7 +121,7 @@ public class Database {
      */
     public void SavePatient(Patient patient){
         if (checkConnectivity()) {
-            // Database operations
+            new ElasticSearchController.SavePatientTask().execute(patient);
         } else {
             FileSaver saver = new FileSaver(context);
             saver.savePatient(patient);
