@@ -2,29 +2,31 @@ package cs.ualberta.ca.medlog.helper;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.google.gson.Gson;
 import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
 import com.searchly.jestdroid.JestDroidClient;
 
-import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.search.builder.SearchSourceBuilder;
+import org.w3c.dom.Document;
 
 import java.io.IOException;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import io.searchbox.client.JestResult;
+import io.searchbox.core.Delete;
 import io.searchbox.core.DocumentResult;
+import io.searchbox.core.Get;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
 
 public class ElasticSearchController {
 
-    private static String databaseAddress = "http://cmput301.softwareprocess.es:8080/";
+    private static String databaseAddress = "http://cmput301.softwareprocess.es:8080";
     private static JestDroidClient client = null;
     private static final String INDEX_NAME = "cmput301f18t17";
 
 
-
+    /**
+     * Sets the ElasticSearch client if it has not been already set.
+     */
     private static void setClient(){
         if(client == null){
             DroidClientConfig config = new DroidClientConfig.Builder(databaseAddress).build();
@@ -35,22 +37,14 @@ public class ElasticSearchController {
     }
 
     /**
-     * <h1>
-     *     SavePatientTask
-     * </h1>
-     *
-     *  <p>
-     *     Description: <br>
-     *         The purpose of this class is to allow for asynchronous patient saving and user
-     *         control.
-     *
-     * </p>
-     *
-     * @author Thomas Roskewich
-     * @contact roskewic@ualberta.ca
-     * @see cs.ualberta.ca.medlog.helper.Database
+     *  Saves a patient to the Elastic Search Database
      */
     public static class SavePatientTask extends AsyncTask<Patient, Void, Boolean> {
+        /**
+         * Saves the patient provided asynchronously
+         * @param params the patient
+         * @return if the operation succeeded.
+         */
         @Override
         protected Boolean doInBackground(Patient... params) {
             setClient();
@@ -85,33 +79,20 @@ public class ElasticSearchController {
     }
 
     /**
-     * <h1>
-     *     LoadPatientTask
-     * </h1>
-     *
-     *  <p>
-     *     Description: <br>
-     *         The purpose of this class is to allow for asynchronous patent fetching and user
-     *         control.
-     *
-     * </p>
-     *
-     * @author Thomas Roskewich
-     * @contact roskewic@ualberta.ca
-     * @see cs.ualberta.ca.medlog.helper.Database
+     *  Load a patient from the Elastic Search database.
      */
     public static class LoadPatientTask extends AsyncTask<String, Void, Patient>{
+        /**
+         * Loads the patient provided asynchronously
+         * @param params the username of the patient
+         * @return the patient from the database, or null if invalid
+         */
         @Override
         protected Patient doInBackground(String... params) {
             setClient();
-            SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-            searchSourceBuilder.query(QueryBuilders.matchQuery("username", params[0]));
-            Search search = new Search.Builder(params[0])
-                    .addIndex(INDEX_NAME)
-                    .addType("patient")
-                    .build();
+            Get get = new Get.Builder(INDEX_NAME, params[0]).type("patient").build();
             try{
-                JestResult result = client.execute(search);
+                JestResult result = client.execute(get);
                 if(result.isSucceeded()){
                     Patient patient = result.getSourceAsObject(Patient.class);
                     return patient;
@@ -122,6 +103,33 @@ public class ElasticSearchController {
                 e.printStackTrace();
             }
             return null;
+        }
+    }
+
+    /**
+     *  Delete a patient from the Elastic Search database
+     */
+    public static class DeletePatientTask extends AsyncTask<String, Void, Boolean>{
+        /**
+         * Deletes the patient provided asynchronously
+         * @param strings The username of the patient.
+         * @return if the operation succeeded.
+         */
+        @Override
+        protected Boolean doInBackground(String... strings) {
+            setClient();
+            boolean success = false;
+            Delete delete = new Delete.Builder(strings[0]).index(INDEX_NAME).type("patient").build();
+            try{
+                DocumentResult result = client.execute(delete);
+                if(result.isSucceeded()){
+                    success = true;
+                }
+            }catch (IOException e){
+                e.printStackTrace();
+                Log.d(ElasticSearchController.class.getName(), "Failed to delete user with username: " + strings[0]);
+            }
+            return success;
         }
     }
 }

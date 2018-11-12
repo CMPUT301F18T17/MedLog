@@ -135,20 +135,30 @@ public class DatabaseTest extends TestCase {
         Patient test = new Patient(new ContactInfo("18002672001", "alarm@force.com"), "testuser");
         try {
             boolean result = new ElasticSearchController.SavePatientTask().execute(test).get();
-            assertEquals("Could not save user", true, result);
+            assertTrue("Could not save user", result);
         }catch(Exception e){
             e.printStackTrace();
-            assertTrue("Exception occurred saving user.", false);
+            fail("Exception occurred saving user.");
         }
         Patient toLoad;
         try {
             toLoad = new ElasticSearchController.LoadPatientTask().execute("testuser").get();
         }catch(Exception e){
             e.printStackTrace();
-            assertTrue("Could not load user", false);
+            fail("Could not load user");
             toLoad = null;
         }
         assertEquals(test, toLoad);
+
+        try {
+            boolean deleteResult = new ElasticSearchController.DeletePatientTask().execute(toLoad.getUsername()).get();
+            if(!deleteResult){
+                fail("Failed to delete the user");
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            fail("Failed to delete the user");
+        }
     }
 
     @Test
