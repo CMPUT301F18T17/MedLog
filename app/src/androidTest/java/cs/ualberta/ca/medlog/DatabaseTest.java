@@ -17,21 +17,28 @@
 
 package cs.ualberta.ca.medlog;
 
-import junit.framework.TestCase;
+import android.support.test.filters.LargeTest;
+import android.support.test.rule.ActivityTestRule;
+import android.support.test.runner.AndroidJUnit4;
+
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
 
+import cs.ualberta.ca.medlog.activity.PatientLoginActivity;
 import cs.ualberta.ca.medlog.entity.user.ContactInfo;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.helper.Database;
 import cs.ualberta.ca.medlog.helper.ElasticSearchController;
 
-@RunWith(RobolectricTestRunner.class)
-public class DatabaseTest extends TestCase {
+import static org.junit.Assert.*;
 
-    /* Tests for getter methods */
+@RunWith(AndroidJUnit4.class)
+@LargeTest
+public class DatabaseTest{
 
+    public ActivityTestRule<PatientLoginActivity> mActivityRule =
+            new ActivityTestRule(PatientLoginActivity.class);
     /**
      * <p>Ensure that the context of the database can be retrieved properly</p>
      */
@@ -111,9 +118,6 @@ public class DatabaseTest extends TestCase {
     public void testLoadPatientLocal() {}
 
     @Test
-    public void testLoadPatientRemote() {}
-
-    @Test
     public void testLoadProviderLocal() {}
 
     @Test
@@ -126,32 +130,38 @@ public class DatabaseTest extends TestCase {
     public void testSavePatientLocal() {}
 
 
-    /**
-     * Added http://robolectric.org/ to support running async tasks.
-     */
+    /* We need to delete test users from the db, so I combined the test cases into one. */
     @Test
-    public void testSavePatientRemote() {
-
+    public void testSaveLoadDeletePatientRemote() {
         Patient test = new Patient(new ContactInfo("18002672001", "alarm@force.com"), "testuser");
+        Database db = new Database(null);
+
+
+        // Try save the patient remotely
         try {
-            boolean result = new ElasticSearchController.SavePatientTask().execute(test).get();
+            boolean result = ElasticSearchController.savePatient(test);
             assertTrue("Could not save user", result);
         }catch(Exception e){
             e.printStackTrace();
             fail("Exception occurred saving user.");
         }
+
+        // Try load the patient
         Patient toLoad;
         try {
-            toLoad = new ElasticSearchController.LoadPatientTask().execute("testuser").get();
+            toLoad = ElasticSearchController.loadPatient(test.getUsername());
         }catch(Exception e){
             e.printStackTrace();
             fail("Could not load user");
             toLoad = null;
         }
-        assertEquals(test, toLoad);
+        assertEquals(test.getUsername(), toLoad.getUsername());
+        assertEquals(test.getBodyPhotos().size(), test.getBodyPhotos().size());
+        assertEquals(test.getContactInfo(), test.getContactInfo());
 
+        // Try and delete the patient
         try {
-            boolean deleteResult = new ElasticSearchController.DeletePatientTask().execute(toLoad.getUsername()).get();
+            boolean deleteResult = ElasticSearchController.deletePatient(test.getUsername());
             if(!deleteResult){
                 fail("Failed to delete the user");
             }
@@ -185,6 +195,7 @@ public class DatabaseTest extends TestCase {
      */
     @Test
     public void testCheckConnectivity() {
+
         Database database = new Database(null);
         String online = "http://cmput301.softwareprocess.es:8080/cmput301f18t17";
         String offline = "http://cmput300.softwareprocess.es:8080/cmput301f18t17";

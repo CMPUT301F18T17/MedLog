@@ -28,11 +28,12 @@ package cs.ualberta.ca.medlog.helper;
 
 import android.content.Context;
 import android.util.Log;
-import com.searchly.jestdroid.JestDroidClient;
 import java.io.IOException;
+import java.net.ConnectException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+
 import cs.ualberta.ca.medlog.entity.BodyLocation;
 import cs.ualberta.ca.medlog.entity.MapLocation;
 import cs.ualberta.ca.medlog.entity.Problem;
@@ -42,7 +43,7 @@ import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 
 public class Database {
     public Context context;
-    private String databaseAddress;
+    private String databaseAddress = ElasticSearchController.databaseAddress;
     private int timeout = 10;
 
     public Database(Context c){
@@ -61,11 +62,6 @@ public class Database {
         return timeout;
     }
 
-
-    public void setDatabaseContext(Context newContext){
-        this.context = newContext;
-    }
-
     public void setDatabaseAddress(String newDatabaseAddress) {
         this.databaseAddress = newDatabaseAddress;
     }
@@ -81,7 +77,7 @@ public class Database {
      */
     public Patient LoadPatient(String username) throws UserNotFoundException{
         Patient patient = null;
-
+        if(username.isEmpty()){ throw new UserNotFoundException("Users cannot have an empty username."); }
         // Check if there is connectivity
         if (checkConnectivity()) {
             try {
@@ -129,13 +125,20 @@ public class Database {
     /**
      * <p>Push a patient to the database if a connection can be established, save to disc otherwise</p>
      * @param patient Patient to be saved
+     * @return Boolean if the save operation succeeded.
      */
-    public void SavePatient(Patient patient){
+    public boolean SavePatient(Patient patient){
         if (checkConnectivity()) {
-            new ElasticSearchController.SavePatientTask().execute(patient);
+            try {
+                return new ElasticSearchController.SavePatientTask().execute(patient).get();
+            } catch (Exception e){
+                e.printStackTrace();
+                return false;
+            }
         } else {
             FileSaver saver = new FileSaver(context);
             saver.savePatient(patient);
+            return true;
         }
     }
 
@@ -150,6 +153,24 @@ public class Database {
         } else {
             FileSaver saver = new FileSaver(context);
             saver.saveCareProvider(provider);
+        }
+    }
+
+    /**
+     * <p>Deletes a patient from the database. If there is no connection, throws a ConnectException</p>
+     * @param username The username of the patient to remove
+     * @return Boolean whether the operation succeeded.
+     */
+    public Boolean DeletePatient(String username) throws ConnectException{
+        if(checkConnectivity()){
+            try {
+                return new ElasticSearchController.DeletePatientTask().execute(username).get();
+            } catch (Exception e){
+                e.printStackTrace();
+                return false;
+            }
+        }else{
+            throw new ConnectException("Failed to connect to the server for deletion.");
         }
     }
 

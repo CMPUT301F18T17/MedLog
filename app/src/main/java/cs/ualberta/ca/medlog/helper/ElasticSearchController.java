@@ -16,7 +16,7 @@ import io.searchbox.core.Index;
 
 public class ElasticSearchController {
 
-    private static String databaseAddress = "http://cmput301.softwareprocess.es:8080";
+    public static String databaseAddress = "http://cmput301.softwareprocess.es:8080";
     private static JestDroidClient client = null;
     private static final String INDEX_NAME = "cmput301f18t17";
 
@@ -44,34 +44,7 @@ public class ElasticSearchController {
          */
         @Override
         protected Boolean doInBackground(Patient... params) {
-            setClient();
-            boolean success = false;
-            Patient patient = params[0];
-            Index index = new Index.Builder(patient)
-                    .index(INDEX_NAME)
-                    .type("patient")
-                    .id(patient.getUsername())
-                    .build();
-
-            try{
-                DocumentResult result = client.execute(index);
-                if(result.isSucceeded()){
-                    success = true;
-                    Log.d(cs.ualberta.ca.medlog.helper.Database.class.toString(),
-                            String.format("Saved Patient: Username: %s, Email: %s",
-                                    patient.getUsername(),
-                                    patient.getContactInfo().getEmail()));
-                }else{
-                    System.out.println(result.getErrorMessage());
-                }
-            }catch (IOException e){
-                e.printStackTrace();
-                Log.d(cs.ualberta.ca.medlog.helper.Database.class.toString(),
-                        String.format("Failed to Save Patient: Username: %s, Email: %s",
-                                patient.getUsername(),
-                                patient.getContactInfo().getEmail()));
-            }
-            return success;
+            return savePatient(params[0]);
         }
     }
 
@@ -86,20 +59,7 @@ public class ElasticSearchController {
          */
         @Override
         protected Patient doInBackground(String... params) {
-            setClient();
-            Get get = new Get.Builder(INDEX_NAME, params[0]).type("patient").build();
-            try{
-                JestResult result = client.execute(get);
-                if(result.isSucceeded()){
-                    Patient patient = result.getSourceAsObject(Patient.class);
-                    return patient;
-                }
-            }catch(IOException e){
-                Log.d(cs.ualberta.ca.medlog.helper.Database.class.toString(),
-                        String.format("Failed to Load Patient: Username: %s", params[0]));
-                e.printStackTrace();
-            }
-            return null;
+            return loadPatient(params[0]);
         }
     }
 
@@ -114,19 +74,91 @@ public class ElasticSearchController {
          */
         @Override
         protected Boolean doInBackground(String... strings) {
-            setClient();
-            boolean success = false;
-            Delete delete = new Delete.Builder(strings[0]).index(INDEX_NAME).type("patient").build();
-            try{
-                DocumentResult result = client.execute(delete);
-                if(result.isSucceeded()){
-                    success = true;
-                }
-            }catch (IOException e){
-                e.printStackTrace();
-                Log.d(ElasticSearchController.class.getName(), "Failed to delete user with username: " + strings[0]);
-            }
-            return success;
+            return deletePatient(strings[0]);
         }
+    }
+
+    /**
+     * <p>Loads a Patient from elastic search.</p>
+     * @deprecated Use the Asynchronous Method in Production.
+     * @param username  The username of the client to load.
+     * @return The Patients account information.
+     */
+    public static Patient loadPatient(String username){
+        setClient();
+        Get get = new Get.Builder(INDEX_NAME, username).type("patient").build();
+        try{
+            JestResult result = client.execute(get);
+            if(result.isSucceeded()){
+                Patient patient = result.getSourceAsObject(Patient.class);
+                return patient;
+            }
+        }catch(IOException e){
+            Log.d(cs.ualberta.ca.medlog.helper.Database.class.toString(),
+                    String.format("Failed to Load Patient: Username: %s", username));
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * <p>Saves the patient to the elastic search server.</p>
+     * @deprecated Use the Asynchronous Method in Production.
+     * @param p The patient to save.
+     * @return A boolean if the operation succeeded.
+     */
+    public static Boolean savePatient(Patient p){
+        setClient();
+        boolean success = false;
+        Patient patient = p;
+        Index index = new Index.Builder(patient)
+                .index(INDEX_NAME)
+                .type("patient")
+                .id(patient.getUsername())
+                .build();
+
+        try{
+            DocumentResult result = client.execute(index);
+            if(result.isSucceeded()){
+                success = true;
+                Log.d(cs.ualberta.ca.medlog.helper.Database.class.toString(),
+                        String.format("Saved Patient: Username: %s, Email: %s",
+                                patient.getUsername(),
+                                patient.getContactInfo().getEmail()));
+            }else{
+                System.out.println(result.getErrorMessage());
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+            Log.d(cs.ualberta.ca.medlog.helper.Database.class.toString(),
+                    String.format("Failed to Save Patient: Username: %s, Email: %s",
+                            patient.getUsername(),
+                            patient.getContactInfo().getEmail()));
+        }
+        return success;
+    }
+
+    /**
+     * <p>Deletes a patient from the elastic search server.</p>
+     * @deprecated Use the Asynchronous Method in Production.
+     * @param username The patients username to delete.
+     * @return A boolean if the operation succeeded.
+     */
+    public static Boolean deletePatient(String username){
+        setClient();
+        boolean success = false;
+        Delete delete = new Delete.Builder(username).index(INDEX_NAME).type("patient").build();
+        try{
+            DocumentResult result = client.execute(delete);
+            if(result.isSucceeded()){
+                success = true;
+            }else{
+                System.out.println(result.getErrorMessage());
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+            Log.d(ElasticSearchController.class.getName(), "Failed to delete user with username: " + username);
+        }
+        return success;
     }
 }
