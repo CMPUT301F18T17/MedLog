@@ -6,8 +6,6 @@ import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
 import com.searchly.jestdroid.JestDroidClient;
 
-import org.w3c.dom.Document;
-
 import java.io.IOException;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import io.searchbox.client.JestResult;
@@ -15,7 +13,6 @@ import io.searchbox.core.Delete;
 import io.searchbox.core.DocumentResult;
 import io.searchbox.core.Get;
 import io.searchbox.core.Index;
-import io.searchbox.core.Search;
 
 public class ElasticSearchController {
 

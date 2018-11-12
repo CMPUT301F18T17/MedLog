@@ -38,6 +38,7 @@ import cs.ualberta.ca.medlog.entity.MapLocation;
 import cs.ualberta.ca.medlog.entity.Problem;
 import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.entity.user.Patient;
+import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 
 public class Database {
     public Context context;
@@ -78,17 +79,27 @@ public class Database {
      * <p>Get a patient from the database if a connection can be established, load from disc otherwise</p>
      * @return patient (Patient that was retrieved or loaded)
      */
-    public Patient LoadPatient(String username){
+    public Patient LoadPatient(String username) throws UserNotFoundException{
         Patient patient = null;
 
+        // Check if there is connectivity
         if (checkConnectivity()) {
             try {
+
+                // If there is, try to load a patient. If it returns null, user was not found.
                 patient = new ElasticSearchController.LoadPatientTask().execute(username).get();
+                if(patient == null){
+                    throw new UserNotFoundException("Patient " + username + " was not found.");
+                }
             }catch(Exception e){
+                // There was an exception in the async execution
                 Log.d(Database.class.getName(), "Failed to load user: " + username);
                 e.printStackTrace();
+                throw new UserNotFoundException("Patient " + username + " failed to load.");
             }
         } else {
+
+            // Offline mode, try and load the patient from local data
             FileSaver saver = new FileSaver(context);
             patient = saver.loadPatient();
         }
