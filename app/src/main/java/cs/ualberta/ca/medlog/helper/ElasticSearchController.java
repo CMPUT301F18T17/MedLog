@@ -2,6 +2,7 @@ package cs.ualberta.ca.medlog.helper;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.gson.Gson;
 import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
 import com.searchly.jestdroid.JestDroidClient;
@@ -53,20 +54,33 @@ public class ElasticSearchController {
         @Override
         protected Boolean doInBackground(Patient... params) {
             setClient();
-            boolean sucess = false;
+            boolean success = false;
             Patient patient = params[0];
-            Index index = new Index.Builder(patient).index(INDEX_NAME).type("patient").build();
+            Index index = new Index.Builder(patient)
+                    .index(INDEX_NAME)
+                    .type("patient")
+                    .id(patient.getUsername())
+                    .build();
+
             try{
                 DocumentResult result = client.execute(index);
                 if(result.isSucceeded()){
-                    sucess = true;
-                    Log.d(cs.ualberta.ca.medlog.helper.Database.class.toString(), String.format("Saved Patient: Username: %s, Email: %s", patient.getUsername(), patient.getContactInfo().getEmail()));
+                    success = true;
+                    Log.d(cs.ualberta.ca.medlog.helper.Database.class.toString(),
+                            String.format("Saved Patient: Username: %s, Email: %s",
+                                    patient.getUsername(),
+                                    patient.getContactInfo().getEmail()));
+                }else{
+                    System.out.println(result.getErrorMessage());
                 }
             }catch (IOException e){
                 e.printStackTrace();
-                Log.d(cs.ualberta.ca.medlog.helper.Database.class.toString(), String.format("Failed to Save Patient: Username: %s, Email: %s", patient.getUsername(), patient.getContactInfo().getEmail()));
+                Log.d(cs.ualberta.ca.medlog.helper.Database.class.toString(),
+                        String.format("Failed to Save Patient: Username: %s, Email: %s",
+                                patient.getUsername(),
+                                patient.getContactInfo().getEmail()));
             }
-            return sucess;
+            return success;
         }
     }
 
@@ -92,7 +106,10 @@ public class ElasticSearchController {
             setClient();
             SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
             searchSourceBuilder.query(QueryBuilders.matchQuery("username", params[0]));
-            Search search = new Search.Builder(params[0]).addIndex(INDEX_NAME).addType("patient").build();
+            Search search = new Search.Builder(params[0])
+                    .addIndex(INDEX_NAME)
+                    .addType("patient")
+                    .build();
             try{
                 JestResult result = client.execute(search);
                 if(result.isSucceeded()){
@@ -100,7 +117,8 @@ public class ElasticSearchController {
                     return patient;
                 }
             }catch(IOException e){
-                Log.d(cs.ualberta.ca.medlog.helper.Database.class.toString(), String.format("Failed to Load Patient: Username: %s", params[0]));
+                Log.d(cs.ualberta.ca.medlog.helper.Database.class.toString(),
+                        String.format("Failed to Load Patient: Username: %s", params[0]));
                 e.printStackTrace();
             }
             return null;
