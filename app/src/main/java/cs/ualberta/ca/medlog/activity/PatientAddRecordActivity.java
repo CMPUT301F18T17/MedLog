@@ -126,6 +126,8 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
 
     private void openMapLocationSelector() {
         //TODO Add transfer to a map location selector fragment.
+
+        //PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
     }
 
     private void openPhotosSelector() {
