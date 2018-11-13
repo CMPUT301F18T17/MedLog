@@ -37,7 +37,6 @@ import java.util.ArrayList;
 import cs.ualberta.ca.medlog.entity.BodyLocation;
 import cs.ualberta.ca.medlog.entity.MapLocation;
 import cs.ualberta.ca.medlog.entity.Problem;
-import cs.ualberta.ca.medlog.entity.Record;
 import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.exception.UserNotFoundException;
@@ -100,11 +99,16 @@ public class Database {
      * <p>Get a provider from the database if a connection can be established, load from disc otherwise</p>
      * @return provider (Provider that was retrieved or loaded)
      */
-    public CareProvider LoadProvider(){
+    public CareProvider LoadProvider(String username){
         CareProvider provider = null;
 
         if (checkConnectivity()) {
-
+            try {
+                return new ElasticSearchController.LoadCareProviderTask().execute(username).get();
+            } catch (Exception e){
+                e.printStackTrace();
+                return null;
+            }
         } else {
             FileSaver saver = new FileSaver(context);
             provider = saver.loadCareProvider();
@@ -139,12 +143,18 @@ public class Database {
      * <p>Push a provider to the database if a connection can be established, save to disc otherwise</p>
      * @param provider Provider to be saved
      */
-    public void SaveProvider(CareProvider provider){
+    public boolean SaveProvider(CareProvider provider){
         if (checkConnectivity()) {
-            // Database operations
+            try {
+                return new ElasticSearchController.SaveCareProviderTask().execute(provider).get();
+            } catch (Exception e){
+                e.printStackTrace();
+                return false;
+            }
         } else {
             FileSaver saver = new FileSaver(context);
             saver.saveCareProvider(provider);
+            return true;
         }
     }
 
@@ -157,6 +167,24 @@ public class Database {
         if(checkConnectivity()){
             try {
                 return new ElasticSearchController.DeletePatientTask().execute(username).get();
+            } catch (Exception e){
+                e.printStackTrace();
+                return false;
+            }
+        }else{
+            throw new ConnectException("Failed to connect to the server for deletion.");
+        }
+    }
+
+    /**
+     * <p>Deletes a care provider from the database. If there is no connection, throws a ConnectException</p>
+     * @param username The username of the patient to remove
+     * @return Boolean whether the operation succeeded.
+     */
+    public Boolean DeleteProvider(String username) throws ConnectException{
+        if(checkConnectivity()){
+            try {
+                return new ElasticSearchController.DeleteCareProviderTask().execute(username).get();
             } catch (Exception e){
                 e.printStackTrace();
                 return false;
