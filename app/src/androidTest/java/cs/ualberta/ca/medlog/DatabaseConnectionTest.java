@@ -26,6 +26,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import cs.ualberta.ca.medlog.activity.PatientLoginActivity;
+import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.entity.user.ContactInfo;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.helper.Database;
@@ -49,7 +50,41 @@ public class DatabaseConnectionTest {
     public void testLoadProviderLocal() {}
 
     @Test
-    public void testLoadProviderRemote() {}
+    public void testSaveLoadDeleteProviderRemote() {
+        CareProvider test = new CareProvider("testprovider");
+
+        // Try save the Care Provider
+        try {
+            boolean result = ElasticSearchController.saveCareProvider(test);
+            assertTrue("Could not save user", result);
+        }catch(Exception e){
+            e.printStackTrace();
+            fail("Exception occurred saving user.");
+        }
+
+        // Try load the Care Provider
+        CareProvider toLoad;
+        try {
+            toLoad = ElasticSearchController.loadCareProvider(test.getUsername());
+        }catch(Exception e){
+            e.printStackTrace();
+            fail("Could not load user");
+            toLoad = null;
+        }
+        assertNotNull(toLoad);
+        assertEquals(test.getUsername(), toLoad.getUsername());
+
+        // Try and delete the Care Provider
+        try {
+            boolean deleteResult = ElasticSearchController.deleteCareProvider(test.getUsername());
+            if(!deleteResult){
+                fail("Failed to delete the user");
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            fail("Failed to delete the user");
+        }
+    }
 
 
     /* Tests for saving/PUT methods */

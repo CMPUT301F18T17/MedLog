@@ -37,6 +37,7 @@ import java.util.ArrayList;
 import cs.ualberta.ca.medlog.entity.BodyLocation;
 import cs.ualberta.ca.medlog.entity.MapLocation;
 import cs.ualberta.ca.medlog.entity.Problem;
+import cs.ualberta.ca.medlog.entity.Record;
 import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.exception.UserNotFoundException;
@@ -167,11 +168,15 @@ public class Database {
 
 
 
-    public ArrayList<Problem> SearchPatient(Patient patient, String keywords, MapLocation map, BodyLocation bod){
+    public ArrayList<Problem> SearchPatientKeywords(String username, ArrayList<String> keywords){
         return null;
     }
 
-    public ArrayList<Problem> SearchProvider(CareProvider provider, String keyword, MapLocation map, BodyLocation body){
+    public ArrayList<Problem> SearchPatientGeo(String username, MapLocation map){
+        return null;
+    }
+
+    public ArrayList<Problem> SearchPatientMap(String username, BodyLocation bl){
         return null;
     }
 
