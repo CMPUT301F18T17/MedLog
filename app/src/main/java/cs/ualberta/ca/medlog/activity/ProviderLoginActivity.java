@@ -5,22 +5,26 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import cs.ualberta.ca.medlog.R;
 
 /**
  * <p>
  *     Description: <br>
- *         The Activity for the Care Provider login screen, this presents the gui for a Provider
- *         to enter their username and login, or to proceed to a sign up screen.
+ *         The care provider login screen activity for the Application, this presents the gui for
+ *         a Care Provider to enter their username and proceed to login, or to move to a provider
+ *         registration screen if they don't have an account.
  * </p>
  * <p>
  *     Issues: <br>
- *         Connection to a Care Provider controller is required to validate their username.
+ *         Need a Provider controller to test if a username is valid.
+ *         Need a Provider/System controller to set the input username to be the logged in User.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.1
+ * @version 0.2
  * @see StartScreenActivity
  * @see ProviderMenuActivity
  * @see ProviderRegistrationActivity
@@ -31,12 +35,13 @@ public class ProviderLoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_provider_login);
+
         Button loginButton = findViewById(R.id.activityProviderLogin_LoginButton);
         Button registrationButton = findViewById(R.id.activityProviderLogin_RegisterButton);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                attemptProviderLogin();
+                performProviderLogin();
             }
         });
         registrationButton.setOnClickListener(new View.OnClickListener() {
@@ -47,11 +52,27 @@ public class ProviderLoginActivity extends AppCompatActivity {
         });
     }
 
-    private void attemptProviderLogin() {
-        //TODO Connect to a Care Provider controller to check if the Provider exists
+    private void performProviderLogin() {
+        EditText usernameField = findViewById(R.id.activityProviderLogin_UsernameEditText);
+        String username = usernameField.getText().toString();
 
-        Intent intent = new Intent(this, ProviderMenuActivity.class);
-        startActivity(intent);
+        if (username.isEmpty()) {
+            Toast.makeText(this,"No username entered",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        boolean validProvider = true;    //TODO Set to false once controller added.
+        //TODO Check this username using a Provider Controller, if valid change the boolean
+
+        if (validProvider) {
+            //TODO Add code contacting the system to inform it that the given Provider is logged in
+
+            Intent intent = new Intent(this, ProviderMenuActivity.class);
+            startActivity(intent);
+        }
+        else {
+            Toast.makeText(this,"Invalid username",Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void openProviderRegistration() {

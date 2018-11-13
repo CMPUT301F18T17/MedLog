@@ -11,8 +11,8 @@ import cs.ualberta.ca.medlog.R;
 /**
  * <p>
  *     Description: <br>
- *         The Activity for the initial start screen, this presents the gui for a user to proceed
- *         to Patient or Care Provider login/sign up.
+ *         The starting screen activity for the Application, this presents the gui for a user
+ *         to proceed to either a Patient or Care Provider login screen.
  * </p>
  * <p>
  *     Issues: <br>
@@ -20,8 +20,9 @@ import cs.ualberta.ca.medlog.R;
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.1
- * @see StartScreenActivity
+ * @version 1.0
+ * @see PatientLoginActivity
+ * @see ProviderLoginActivity
  */
 public class StartScreenActivity extends AppCompatActivity {
 
