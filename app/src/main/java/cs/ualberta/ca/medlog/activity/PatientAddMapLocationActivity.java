@@ -1,8 +1,12 @@
 package cs.ualberta.ca.medlog.activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.annotations.Marker;
@@ -14,7 +18,23 @@ import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 
 import cs.ualberta.ca.medlog.R;
 
-//TODO Add documentation.
+/**
+ * <p>
+ *     Description: <br>
+ *         The Activity for adding a map location to a record. It presents a Mapbox map and the user
+ *         can select a location on the map. Once the user selects a location, the location is sent
+ *         back to the PatientAddRecordActivity and the PatientAddMapLocationActivity closes.
+ *
+ * </p>
+ * <p>
+ *     Issues: <br>
+ *         None.
+ * </p>
+ *
+ * @author Calvin Chomyc
+ * @version 0.2
+ * @see PatientAddRecordActivity
+ */
 
 //TODO Add a button to confirm a location choice.
 // If a chosen location is confirmed, we should save it. clickedPosition contains the last clicked position.
@@ -33,8 +53,26 @@ public class PatientAddMapLocationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Mapbox.getInstance(this, "pk.eyJ1IjoidmVyeXJhbmRvbXBlcnNvbiIsImEiOiJjam9nZmxxY3QwZW53M3FscGhzZTg4ZnA2In0.IEYLgLCNOfnIczHn1kaycQ");
         setContentView(R.layout.activity_patient_add_map_location);
+
+        Button selectButton = findViewById(R.id.selectButton);
         mapView = (MapView) findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
+
+        selectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                if (clickMarkerSet) {
+                    intent.putExtra("Latitude", clickedPosition.getLatitude());
+                    intent.putExtra("Longitude", clickedPosition.getLongitude());
+                    setResult(Activity.RESULT_OK, intent);
+                }
+                else {
+                    setResult(Activity.RESULT_CANCELED, intent);
+                }
+                finish();
+            }
+        });
 
         mapView.getMapAsync(new OnMapReadyCallback() {
             @Override

@@ -134,6 +134,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.PatientAddRecordActivity" />
         </activity>
+        <activity android:name=".activity.ViewMapLocationActivity"></activity>
     </application>
 
 </manifest>
