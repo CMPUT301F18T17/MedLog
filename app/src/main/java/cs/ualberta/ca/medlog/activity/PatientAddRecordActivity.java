@@ -129,7 +129,6 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
 
         Intent intent = new Intent(this, PatientAddMapLocationActivity.class);
         startActivity(intent);
-        //PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
     }
 
     private void openPhotosSelector() {
