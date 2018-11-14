@@ -127,6 +127,8 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
     private void openMapLocationSelector() {
         //TODO Add transfer to a map location selector fragment.
 
+        Intent intent = new Intent(this, PatientAddMapLocationActivity.class);
+        startActivity(intent);
         //PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
     }
 
