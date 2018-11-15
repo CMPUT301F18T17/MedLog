@@ -17,7 +17,11 @@ android {
         }
     }
     buildToolsVersion '28.0.3'
-
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -26,11 +30,6 @@ android {
 
 repositories {
     mavenCentral()
-    testOptions {
-        unitTests {
-            includeAndroidResources = true
-        }
-    }
 }
 
 dependencies {
@@ -42,7 +41,9 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:6.7.0'
+    implementation ('com.mapbox.mapboxsdk:mapbox-android-sdk:6.7.0') {
+        exclude module: 'gson'
+    }
     implementation 'com.jayway.android.robotium:robotium-solo:5.6.3'
     implementation files('src/include/jest-droid-2.0.1-SNAPSHOT.jar')
     testImplementation "org.robolectric:robolectric:4.0.2"
