@@ -8,6 +8,10 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -127,10 +131,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.ProviderProblemViewActivity" />
         </activity>
+        <activity android:name=".activity.PatientAddMapLocationActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.PatientAddRecordActivity" />
+        </activity>
+        <activity android:name=".activity.ViewMapLocationActivity"></activity>
     </application>
-
-    <uses-feature android:name="android.hardware.camera"
-        android:required="true" />
-
 
 </manifest>

@@ -1,6 +1,8 @@
 package cs.ualberta.ca.medlog.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +10,8 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.entity.Record;
@@ -39,6 +43,7 @@ import cs.ualberta.ca.medlog.entity.Record;
  * @see TextEditorFragment
  */
 public class PatientAddRecordActivity extends AppCompatActivity implements TextEditorFragment.OnTextSetListener {
+    final int MAP_LOCATION_REQUEST = 1;
 
     int problemIndex;
     private Record record;
@@ -136,7 +141,33 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
     }
 
     private void openMapLocationSelector() {
-        //TODO Add transfer to a map location selector fragment.
+        Intent intent = new Intent(this, PatientAddMapLocationActivity.class);
+        startActivityForResult(intent, MAP_LOCATION_REQUEST);
+        //Intent intent = new Intent(this, ViewMapLocationActivity.class); // This line and the next are temporary, tests ViewMapLocationActivity
+        //startActivity(intent);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == MAP_LOCATION_REQUEST) {
+            if (resultCode == RESULT_OK) { // If a map location was selected
+                double latitude = data.getDoubleExtra("Latitude", -1);
+                double longitude = data.getDoubleExtra("Longitude", -1);
+
+                Context context = getApplicationContext();
+                String toastMessage = "Map Location Added.";
+                Toast toast = Toast.makeText(context, toastMessage, Toast.LENGTH_SHORT);
+                toast.show();
+
+                //TODO Save the returned latitude and longitude values
+            }
+            else { // If the select location button was tapped, but the user never selected a position on the map
+                Context context = getApplicationContext();
+                String toastMessage = "You must select a position on the map. No map location was added.";
+                Toast toast = Toast.makeText(context, toastMessage, Toast.LENGTH_LONG);
+                toast.show();
+            }
+        }
     }
 
     private void openPhotosSelector() {

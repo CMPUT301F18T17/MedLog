@@ -67,9 +67,9 @@ public class PatientMenuActivity extends AppCompatActivity {
             }
         });
 
-        if (getParent().getLocalClassName() == "PatientSignUpActivity") {
-            //TODO Add body pictures popup prompt code.
-        }
+        //if (getParent().getLocalClassName() == "PatientSignUpActivity") {
+        //    //TODO Add body pictures popup prompt code.
+        //}
     }
 
     @Override

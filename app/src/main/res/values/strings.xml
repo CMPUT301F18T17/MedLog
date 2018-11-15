@@ -125,4 +125,6 @@
     <string name="fragmentPhotoSelector.ConfirmButton">Ok</string>
     <string name="fragmentPhotoSelector.CancelButton">Cancel</string>
     <string name="viewPhoto.Description">Photo</string>
+    <string name="mapboxAccessToken">pk.eyJ1IjoidmVyeXJhbmRvbXBlcnNvbiIsImEiOiJjam9nZmxxY3QwZW53M3FscGhzZTg4ZnA2In0.IEYLgLCNOfnIczHn1kaycQ</string>
+    <string name="activityPatientAddMapLocationButton">Select location</string>
 </resources>
