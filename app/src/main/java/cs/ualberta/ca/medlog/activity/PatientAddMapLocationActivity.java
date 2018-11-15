@@ -2,15 +2,20 @@ package cs.ualberta.ca.medlog.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
+import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
@@ -32,30 +37,31 @@ import cs.ualberta.ca.medlog.R;
  * </p>
  *
  * @author Calvin Chomyc
- * @version 0.2
+ * @version 0.5
  * @see PatientAddRecordActivity
  */
 
-//TODO Add a button to confirm a location choice.
-// If a chosen location is confirmed, we should save it. clickedPosition contains the last clicked position.
-//TODO We should set the string values properly.
-//TODO At the moment, there is one marker placed by default that is unrelated to clicks.
-// This is just for testing, although we should have a marker placed by default when viewing a record.
+//TODO We might want to give the marker a different title.
+// Also, we should adjust the current marker instead of creating a replacement.
 
 public class PatientAddMapLocationActivity extends AppCompatActivity {
+    private LatLng userLocation;
     private MapView mapView;
     private boolean clickMarkerSet = false;
     private Marker clickMarker;
     private LatLng clickedPosition;
+    private FusedLocationProviderClient locationClient;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Mapbox.getInstance(this, "pk.eyJ1IjoidmVyeXJhbmRvbXBlcnNvbiIsImEiOiJjam9nZmxxY3QwZW53M3FscGhzZTg4ZnA2In0.IEYLgLCNOfnIczHn1kaycQ");
+
+        Mapbox.getInstance(this, getString(R.string.mapboxAccessToken));
         setContentView(R.layout.activity_patient_add_map_location);
 
         Button selectButton = findViewById(R.id.selectButton);
-        mapView = (MapView) findViewById(R.id.mapView);
+        mapView = (MapView) findViewById(R.id.addLocationMapView);
         mapView.onCreate(savedInstanceState);
 
         selectButton.setOnClickListener(new View.OnClickListener() {
@@ -74,14 +80,26 @@ public class PatientAddMapLocationActivity extends AppCompatActivity {
             }
         });
 
+        try { // Set location to user's last known location
+            locationClient = LocationServices.getFusedLocationProviderClient(this);
+            locationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+                    if (location != null) {
+                        userLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                    }
+                }
+            });
+        }
+        catch(SecurityException e) { // If the location permission is not enabled, use default location
+        }
+
         mapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(MapboxMap mapboxMap) {
-                MarkerOptions marker1 = new MarkerOptions();
-                LatLng markerPosition = new LatLng(53.5232, -113.5263);
-                marker1.position(markerPosition);
-                marker1.title("Testing");
-                mapboxMap.addMarker(marker1);
+                if (userLocation != null) {
+                   mapboxMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
+                }
 
                 mapboxMap.addOnMapClickListener(new MapboxMap.OnMapClickListener() {
                     @Override
@@ -97,7 +115,9 @@ public class PatientAddMapLocationActivity extends AppCompatActivity {
         final MarkerOptions newMarkerOptions = new MarkerOptions();
         clickedPosition = new LatLng(point.getLatitude(), point.getLongitude());
         newMarkerOptions.position(clickedPosition);
-        newMarkerOptions.title("Click testing");
+        String markerTitle = "Latitude: " + String.valueOf(point.getLatitude()) +
+                "\nLongitude: " + String.valueOf(point.getLongitude());
+        newMarkerOptions.title(markerTitle);
 
         mapView.getMapAsync(new OnMapReadyCallback() {
             @Override

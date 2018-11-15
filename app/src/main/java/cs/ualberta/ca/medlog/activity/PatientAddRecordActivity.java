@@ -132,7 +132,7 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
     private void openMapLocationSelector() {
         Intent intent = new Intent(this, PatientAddMapLocationActivity.class);
         startActivityForResult(intent, MAP_LOCATION_REQUEST);
-        //Intent intent = new Intent(this, ViewMapLocationActivity.class);
+        //Intent intent = new Intent(this, ViewMapLocationActivity.class); // This line and the next are temporary, tests ViewMapLocationActivity
         //startActivity(intent);
     }
 
