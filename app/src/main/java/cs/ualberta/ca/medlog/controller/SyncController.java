@@ -66,7 +66,7 @@ public class SyncController {
 
             try{
                 // Try load the patient from the dbs
-                remote = dbs.LoadPatient(username);
+                remote = dbs.loadPatient(username);
             }catch(UserNotFoundException e){
                 throw new IllegalStateException("Have a local user on file, but the remote database does not know of it (offline registration?)");
             }
@@ -117,7 +117,7 @@ public class SyncController {
             }
             try{
                 // Try load the patient from the dbs
-                remote = dbs.LoadProvider(username);
+                remote = dbs.loadProvider(username);
             }catch(UserNotFoundException e){
                 throw new IllegalStateException("Have a local user on file, but the remote database does not know of it (offline registration?)");
             }

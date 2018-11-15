@@ -39,7 +39,6 @@ import cs.ualberta.ca.medlog.entity.MapLocation;
 import cs.ualberta.ca.medlog.entity.Problem;
 import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.entity.user.Patient;
-import cs.ualberta.ca.medlog.entity.user.User;
 import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 
 public class Database {
@@ -67,7 +66,7 @@ public class Database {
      * <p>Get a patient from the database if a connection can be established, load from disc otherwise</p>
      * @return patient (Patient that was retrieved or loaded)
      */
-    public Patient LoadPatient(String username) throws UserNotFoundException{
+    public Patient loadPatient(String username) throws UserNotFoundException{
         Patient patient = null;
         if(username.isEmpty()){ throw new UserNotFoundException("Users cannot have an empty username."); }
         // Check if there is connectivity
@@ -100,7 +99,7 @@ public class Database {
      * <p>Get a provider from the database if a connection can be established, load from disc otherwise</p>
      * @return provider (Provider that was retrieved or loaded)
      */
-    public CareProvider LoadProvider(String username) throws UserNotFoundException {
+    public CareProvider loadProvider(String username) throws UserNotFoundException {
         CareProvider provider = null;
 
         if (checkConnectivity()) {
@@ -128,7 +127,7 @@ public class Database {
      * @param patient Patient to be saved
      * @return Boolean if the save operation succeeded.
      */
-    public boolean SavePatient(Patient patient){
+    public boolean savePatient(Patient patient){
         if (checkConnectivity()) {
             try {
                 return new ElasticSearchController.SavePatientTask().execute(patient).get();
@@ -148,7 +147,7 @@ public class Database {
      * <p>Push a provider to the database if a connection can be established, save to disc otherwise</p>
      * @param provider Provider to be saved
      */
-    public boolean SaveProvider(CareProvider provider){
+    public boolean saveProvider(CareProvider provider){
         if (checkConnectivity()) {
             try {
                 return new ElasticSearchController.SaveCareProviderTask().execute(provider).get();
@@ -169,7 +168,7 @@ public class Database {
      * @return Boolean whether the operation succeeded.
      * @throws ConnectException if we cannot connect to the database.
      */
-    public Boolean DeletePatient(String username) throws ConnectException{
+    public Boolean deletePatient(String username) throws ConnectException{
         if(checkConnectivity()){
             try {
                 return new ElasticSearchController.DeletePatientTask().execute(username).get();
@@ -225,7 +224,7 @@ public class Database {
      * @param username The username of the patient to remove
      * @return Boolean whether the operation succeeded.
      */
-    public Boolean DeleteProvider(String username) throws ConnectException{
+    public Boolean deleteProvider(String username) throws ConnectException{
         if(checkConnectivity()){
             try {
                 return new ElasticSearchController.DeleteCareProviderTask().execute(username).get();
@@ -240,15 +239,15 @@ public class Database {
 
 
 
-    public ArrayList<Problem> SearchPatientKeywords(String username, ArrayList<String> keywords){
+    public ArrayList<Problem> searchPatientKeywords(String username, ArrayList<String> keywords){
         return null;
     }
 
-    public ArrayList<Problem> SearchPatientGeo(String username, MapLocation map){
+    public ArrayList<Problem> searchPatientGeo(String username, MapLocation map){
         return null;
     }
 
-    public ArrayList<Problem> SearchPatientMap(String username, BodyLocation bl){
+    public ArrayList<Problem> searchPatientMap(String username, BodyLocation bl){
         return null;
     }
 
