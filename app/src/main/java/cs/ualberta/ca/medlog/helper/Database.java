@@ -191,7 +191,7 @@ public class Database {
     public Boolean updatePatient(Patient patient) throws ConnectException{
         if(checkConnectivity()){
             try {
-                return new ElasticSearchController.UpdatePatientTask().execute(patient).get();
+                return new ElasticSearchController.SavePatientTask().execute(patient).get();
             } catch (Exception e){
                 e.printStackTrace();
                 return false;
@@ -210,7 +210,7 @@ public class Database {
     public Boolean updateCareProvider(CareProvider patient) throws ConnectException{
         if(checkConnectivity()){
             try {
-                return new ElasticSearchController.UpdateCareProviderTask().execute(patient).get();
+                return new ElasticSearchController.SaveCareProviderTask().execute(patient).get();
             } catch (Exception e){
                 e.printStackTrace();
                 return false;

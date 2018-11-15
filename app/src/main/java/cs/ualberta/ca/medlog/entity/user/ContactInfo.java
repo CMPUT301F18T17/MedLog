@@ -44,4 +44,14 @@ public class ContactInfo implements Serializable {
     public void setPhoneNumber(String newPhoneNumber) {
         phoneNumber = newPhoneNumber;
     }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof ContactInfo) {
+            ContactInfo other = (ContactInfo) obj;
+            return (this.email.equals(other.email)) && (this.phoneNumber.equals(other.phoneNumber));
+        }
+        return false;
+    }
 }
