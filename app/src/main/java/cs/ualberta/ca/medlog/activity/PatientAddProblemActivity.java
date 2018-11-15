@@ -92,10 +92,19 @@ public class PatientAddProblemActivity extends AppCompatActivity implements Date
             return;
         }
 
+        if (title.length()>30) {
+            Toast.makeText(this,"Title too long",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         EditText descField = findViewById(R.id.activityPatientAddProblem_DescriptionEditText);
         String description = descField.getText().toString();
         if (description.isEmpty()) {
             Toast.makeText(this,"No description entered",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (description.length()>30) {
+            Toast.makeText(this,"Description too long",Toast.LENGTH_SHORT).show();
             return;
         }
 
