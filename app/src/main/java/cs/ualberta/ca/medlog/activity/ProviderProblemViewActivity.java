@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -31,18 +33,19 @@ import cs.ualberta.ca.medlog.R;
  *     Issues: <br>
  *         Adding the records list as an argument for opening view records must be added.
  *         Actual code to send photos to the slideshow activity must be added.
- *         Transfer to a add comment record fragment must be added.
+ *         Actual code to add a comment record to the problem must be added.
  *         Actual code to read a problem and present it must be added.
  *         Actual code to pass the specific patient owner as an argument must be added on username click.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.2
+ * @version 0.3
  * @see ProviderSearchActivity
  * @see ProviderPatientViewProblemsActivity
  * @see SlideshowActivity
+ * @see TextEditorFragment
  */
-public class ProviderProblemViewActivity extends AppCompatActivity {
+public class ProviderProblemViewActivity extends AppCompatActivity implements TextEditorFragment.OnTextSetListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +103,17 @@ public class ProviderProblemViewActivity extends AppCompatActivity {
 
 
     private void openAddCommentRecord() {
-        //TODO Add transfer to an add comment record fragment.
+        DialogFragment newFragment = new TextEditorFragment();
+        Bundle editorData = new Bundle();
+        editorData.putString("argHint",getString(R.string.fragmentTextEditor_CommentHint));
+        editorData.putInt("argInputType", InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+        newFragment.setArguments(editorData);
+        newFragment.show(getSupportFragmentManager(),"commentEditor");
+    }
+
+    public void onTextSet(String newText, int editorId) {
+        //TODO Add code to update the problem with the new comment record.
+
     }
 
     private void openPatientProfile() {

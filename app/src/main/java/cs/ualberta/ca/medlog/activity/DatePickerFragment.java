@@ -12,8 +12,8 @@ import java.util.Calendar;
 /**
  * <p>
  *     Description: <br>
- *         Handles the creation of a DialogFragment that provides a user a gui to set a new date
- *         on a calendar.
+ *         Handles the creation of a DialogFragment that provides the user with a gui to set a new
+ *         date on a visual calendar. It returns a new calendar object reflecting this date.
  * </p>
  * <p>
  *     Issues: <br>
@@ -21,32 +21,30 @@ import java.util.Calendar;
  * </p>
  *
  * @author Tyler Gobran
- * @version 1.0
+ * @version 1.1
  * @see PatientAddProblemActivity
  */
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
     OnNewDateSetListener mCallback;
 
     public interface OnNewDateSetListener {
-        void onNewDateSet(int year, int month, int day);
+        void onNewDateSet(Calendar cal);
     }
+
+    Calendar cal = Calendar.getInstance();
 
     @Override
     public @NonNull Dialog onCreateDialog(Bundle savedInstanceState) {
 
         Bundle dateData = getArguments();
-        final Calendar cal = Calendar.getInstance();
-        int year, month, day;
+        cal = Calendar.getInstance();
         if (dateData != null) {
-            year = dateData.getInt("argYear", cal.get(Calendar.YEAR));
-            month = dateData.getInt("argMonth", cal.get(Calendar.MONTH));
-            day = dateData.getInt("argDay", cal.get(Calendar.DAY_OF_MONTH));
+            cal = (Calendar)dateData.getSerializable("argCal");
         }
-        else {
-            year = cal.get(Calendar.YEAR);
-            month = cal.get(Calendar.MONTH);
-            day = cal.get(Calendar.DAY_OF_MONTH);
-        }
+
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
 
         return new DatePickerDialog(getActivity(),this,year,month,day);
     }
@@ -55,7 +53,6 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
         try {
             mCallback = (OnNewDateSetListener) context;
         } catch (ClassCastException e) {
@@ -64,6 +61,9 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
     }
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
-        mCallback.onNewDateSet(year,month,day);
+        cal.set(Calendar.YEAR,year);
+        cal.set(Calendar.MONTH,month);
+        cal.set(Calendar.DAY_OF_MONTH,day);
+        mCallback.onNewDateSet(cal);
     }
 }

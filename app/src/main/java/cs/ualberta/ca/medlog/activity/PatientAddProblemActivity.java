@@ -6,8 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
-import java.io.BufferedReader;
+import android.widget.EditText;
+import android.widget.Toast;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -16,27 +16,34 @@ import cs.ualberta.ca.medlog.R;
 /**
  * <p>
  *     Description: <br>
- *         The Activity for the Patient add problem screen, this presents the gui for a Patient
- *         to add a new problem by setting a title, start date and comment. From there the Patient
- *         is prompted on further navigation to either add another problem, return to the main
- *         menu or to view their newly created problem.
+ *         The patient add problem screen for the Application, this presents the gui for a patient
+ *         to add a new problem by setting a title, start date and a comment.
+ *         Following their confirmation of the addition the patient is prompted on further
+ *         navigation to either add another problem, return to the main menu or to view their
+ *         newly created problem.
  * </p>
  * <p>
  *     Issues: <br>
- *         Add the finalization for adding a problem.
+ *         Call to a controller to add the given problem to the patient in the system must be added.
+ *         Post problem navigation popup must be added.
+ *         Call to a controller to get the newly added problems index must be added.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.2
+ * @version 0.3
  * @see PatientMenuActivity
  * @see PatientProblemViewActivity
+ * @see DatePickerFragment
  */
 public class PatientAddProblemActivity extends AppCompatActivity implements DatePickerFragment.OnNewDateSetListener {
+
+    private Calendar cal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_add_problem);
+
         Button dateButton = findViewById(R.id.activityPatientAddProblem_DateEditButton);
         Button addButton = findViewById(R.id.activityPatientAddProblem_AddButton);
         dateButton.setOnClickListener(new View.OnClickListener() {
@@ -48,41 +55,60 @@ public class PatientAddProblemActivity extends AppCompatActivity implements Date
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finalizeAddingProblem();
+                finalizeProblemAddition();
             }
         });
 
-        Calendar cal = Calendar.getInstance();
-        setDateButtonDisplay(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DAY_OF_MONTH));
+        cal = Calendar.getInstance();
+        updateDateButtonDisplay();
     }
 
     private void openDatePicker() {
         DialogFragment newFragment = new DatePickerFragment();
+        Bundle datePickerData = new Bundle();
+        datePickerData.putSerializable("argCal",cal);
+        newFragment.setArguments(datePickerData);
         newFragment.show(getSupportFragmentManager(),"datePicker");
     }
 
-    public void onNewDateSet(int newYear, int newMonth, int newDay) {
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.YEAR,newYear);
-        cal.set(Calendar.MONTH,newMonth);
-        cal.set(Calendar.DAY_OF_MONTH,newDay);
-        setDateButtonDisplay(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DAY_OF_MONTH));
-
-        //TODO Add problem date value updating code
-
+    public void onNewDateSet(Calendar newCal) {
+        cal = newCal;
+        updateDateButtonDisplay();
     }
 
-    private void setDateButtonDisplay(int year, int month, int day) {
+    private void updateDateButtonDisplay() {
         Button dateButton = findViewById(R.id.activityPatientAddProblem_DateEditButton);
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
         dateButton.setText(String.format(Locale.getDefault(),"%04d/%02d/%02d",year,month,day));
     }
 
-    private void finalizeAddingProblem() {
-        //TODO Add code for finalizing problem addition
+    private void finalizeProblemAddition() {
+        EditText titleField = findViewById(R.id.activityPatientAddProblem_TitleEditText);
+        String title = titleField.getText().toString();
+        if (title.isEmpty()) {
+            Toast.makeText(this,"No title entered",Toast.LENGTH_SHORT).show();
+            return;
+        }
 
+        EditText descField = findViewById(R.id.activityPatientAddProblem_DescriptionEditText);
+        String description = descField.getText().toString();
+        if (description.isEmpty()) {
+            Toast.makeText(this,"No description entered",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        //TODO Add controller call to add the given problem to the patient in the system
+
+        Toast.makeText(this,"Problem added",Toast.LENGTH_SHORT).show();
+
+        //TODO Add popup for post problem creation navigation.
+
+        //This currently is a stand in for this popup navigation
         Intent intent = new Intent(this, PatientProblemViewActivity.class);
+        //TODO Add controller call to get the index for the added problem.
+        intent.putExtra("problemIndex",0);
         startActivity(intent);
     }
-
-
 }

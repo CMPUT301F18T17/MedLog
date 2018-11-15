@@ -1,8 +1,13 @@
 package cs.ualberta.ca.medlog.entity.user;
 
-public abstract class User {
+import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
+
+public abstract class User implements Serializable {
 
     private String username;
+    private Date lastUpdated;
 
     public User(String username){
         this.username = username;
@@ -11,4 +16,5 @@ public abstract class User {
     public String getUsername() {
         return username;
     }
+    public void setUpdated(){ lastUpdated = Calendar.getInstance().getTime(); }
 }

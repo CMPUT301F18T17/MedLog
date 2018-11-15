@@ -11,33 +11,34 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.Calendar;
 import java.util.Locale;
 
 import cs.ualberta.ca.medlog.R;
+import cs.ualberta.ca.medlog.entity.Problem;
 
 /**
  * <p>
  *     Description: <br>
- *         The Activity for the Patient problem view screen, this presents the gui for the Patient
- *         to view one of their problems data, as well as the ability to proceed to screens to
- *         view all of the attached records to the problem, add a new record to the problem, and
- *         to view a slideshow of all the problem's record photos.
- *         Additionally there is an options menu from which the user can edit the details of the
- *         problem, or delete the problem.
+ *         The patient problem viewing screen activity for the Application, this presents the gui
+ *         for the Patient to view one of their problems data, as well as the ability to proceed to
+ *         screens where they can view all of the problem's attached records, add a new record to the
+ *         problem or view a slideshow of all the problem's record's photos.
+ *         An options menu is also present that allows the patient to edit the title, date or
+ *         description of the problem. As well as an option to delete the problem.
  * </p>
  * <p>
  *     Issues: <br>
- *         Adding the records list as an argument for opening view records must be added.
- *         Adding the problem as an argument for opening add record must be added.
- *         Actual code to send photos to the slideshow activity must be added.
- *         Actual code to read a problem and present it must be added.
- *         Actual code to update problem details must be added.
- *         Actual code to update fragments with problem data must be added.
+ *         A call to the system to get the currently logged in patient's problems must be added.
+ *         Updating the problem data display fields to match the given problem on open must be added.
+ *         Calls to a controller to update problem details must be added.
+ *         Sending problem data to editing fragments must be added.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.5
+ * @version 0.6
  * @see PatientViewProblemsActivity
  * @see PatientAddProblemActivity
  * @see PatientSearchActivity
@@ -49,10 +50,18 @@ import cs.ualberta.ca.medlog.R;
  */
 public class PatientProblemViewActivity extends AppCompatActivity implements DatePickerFragment.OnNewDateSetListener, TextEditorFragment.OnTextSetListener {
 
+    private Problem problem;
+    private int problemIndex;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_problem_view);
+
+        Intent intent = getIntent();
+        problemIndex = intent.getIntExtra("problemIndex",0);
+        //TODO Call system to get the patient's list of problems and then grab the given index.
+
         Button viewRecordsButton = findViewById(R.id.activityPatientProblemView_ViewRecordsButton);
         Button slideShowButton = findViewById(R.id.activityPatientProblemView_SlideshowButton);
         Button addRecordButton = findViewById(R.id.activityPatientProblemView_AddRecordButton);
@@ -75,7 +84,7 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
             }
         });
 
-        //TODO Add code to receive a provided problem object and set the related fields to its data.
+        //TODO Read data from the given problem to display in the related fields.
     }
 
     @Override
@@ -107,49 +116,41 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
 
     private void openRecordsList() {
         Intent intent = new Intent(this, PatientViewRecordsActivity.class);
-
-        //TODO Add argument code to pass the problems record list.
-
+        intent.putExtra("problemIndex",problemIndex);
         startActivity(intent);
     }
 
 
     private void openPhotoSlideshow() {
         Intent intent = new Intent(this, SlideshowActivity.class);
-
-        //TODO Add argument code to pass a photos list of all the records photos.
-
+        intent.putExtra("problemIndex",problemIndex);
         startActivity(intent);
     }
 
 
     private void openAddRecord() {
         Intent intent = new Intent(this, PatientAddRecordActivity.class);
-
-        //TODO Add argument code to pass the problem.
-
+        intent.putExtra("problemIndex",problemIndex);
         startActivity(intent);
     }
 
     private void openTitleEditor() {
-        //TODO Add arguments to send the existing title
-
         DialogFragment newFragment = new TextEditorFragment();
         Bundle editorData = new Bundle();
         editorData.putInt("argEditorId",0);
         editorData.putString("argHint",getString(R.string.fragmentTextEditor_TitleHint));
+        //TODO Argument to send the existing title.
         newFragment.setArguments(editorData);
         newFragment.show(getSupportFragmentManager(),"titleEditor");
     }
 
     private void openDescriptionEditor() {
-        //TODO Add arguments to send the existing description
-
         DialogFragment newFragment = new TextEditorFragment();
         Bundle editorData = new Bundle();
         editorData.putInt("argEditorId",1);
         editorData.putString("argHint",getString(R.string.fragmentTextEditor_DescHint));
         editorData.putInt("argInputType", InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+        //TODO Argument to send the existing description.
         newFragment.setArguments(editorData);
         newFragment.show(getSupportFragmentManager(),"descEditor");
     }
@@ -157,52 +158,55 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
     public void onTextSet(String newText, int editorId) {
         switch(editorId) {
             case 0:
-                //TODO Add problem title value updating code.
-                setTitleDisplay(newText);
+                if (newText.isEmpty()) {
+                    Toast.makeText(this,"No title entered",Toast.LENGTH_SHORT);
+                    break;
+                }
+                //TODO Call to controller to update the problem title value.
+                updateTitleDisplay(newText);
                 break;
             case 1:
-                //TODO Add problem description value updating code.
-                setDescriptionDisplay(newText);
+                if (newText.isEmpty()) {
+                    Toast.makeText(this,"No description entered",Toast.LENGTH_SHORT);
+                    break;
+                }
+                //TODO Call to controller to update the problem description value.
+                updateDescriptionDisplay(newText);
                 break;
         }
     }
 
-    private void setTitleDisplay(String title) {
+    private void updateTitleDisplay(String title) {
         TextView titleView = findViewById(R.id.activityPatientProblemView_RecordTitleView);
         titleView.setText(title);
     }
 
-    private void setDescriptionDisplay(String description) {
+    private void updateDescriptionDisplay(String description) {
         TextView descView = findViewById(R.id.activityPatientProblemView_RecordDescriptionView);
         descView.setText(description);
     }
 
     private void openDatePicker() {
-        //TODO Add arguments to send the existing date
-
         DialogFragment newFragment = new DatePickerFragment();
+        //TODO Argument to send the existing date.
         newFragment.show(getSupportFragmentManager(),"datePicker");
     }
 
-    public void onNewDateSet(int newYear, int newMonth, int newDay) {
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.YEAR,newYear);
-        cal.set(Calendar.MONTH,newMonth);
-        cal.set(Calendar.DAY_OF_MONTH,newDay);
-        setDateDisplay(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DAY_OF_MONTH));
-
-        //TODO Add problem date value updating code
-
+    public void onNewDateSet(Calendar cal) {
+        //TODO Call to controller to update the problem date value.
+        updateDateDisplay(cal);
     }
 
-    private void setDateDisplay(int year, int month, int day) {
+    private void updateDateDisplay(Calendar cal) {
         TextView dateView = findViewById(R.id.activityPatientProblemView_RecordDateView);
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
         dateView.setText(String.format(Locale.getDefault(),"Since: %04d/%02d/%02d",year,month,day));
     }
 
     private void deleteProblem() {
-        //TODO Add code to delete problem in model
-
+        //TODO Call to controller to delete the patient's problem
         finish();
     }
 }

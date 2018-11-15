@@ -14,18 +14,19 @@ import cs.ualberta.ca.medlog.R;
 /**
  * <p>
  *     Description: <br>
- *         The Activity for the Care Provider main menu screen, this presents the gui for the
- *         Provider to proceed to screens to add a patient, view their patients or search their
- *         patients problems.
- *         Additionally there is an options menu from which the user can logout.
+ *         The care provider main menu screen activity for the Application, this presents the gui
+ *         for the Provider to proceed to screens in which they can add new patients, view their
+ *         already added patients or search through their patient problems.
+ *         An options menu is also present from which the user can logout and return to the start
+ *         screen.
  * </p>
  * <p>
  *     Issues: <br>
- *         Actual handling of a logout must be added.
+ *         Contact of the system to inform it that the provider is logged out must be added.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.3
+ * @version 0.4
  * @see StartScreenActivity
  * @see ProviderLoginActivity
  * @see ProviderRegistrationActivity
@@ -39,6 +40,7 @@ public class ProviderMenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_provider_menu);
+
         Button addPatientButton = findViewById(R.id.activityProviderMenu_AddPatientButton);
         Button viewPatientsButton = findViewById(R.id.activityProviderMenu_ViewPatientsButton);
         Button searchProblemsButton = findViewById(R.id.activityProviderMenu_SearchProblemsButton);
@@ -96,7 +98,7 @@ public class ProviderMenuActivity extends AppCompatActivity {
     }
 
     private void logoutProvider() {
-        //TODO Add code to perform the Care Provider logout
+        //TODO Contact system to inform it the Care Provider is logged out.
 
         Intent intent = new Intent(this, StartScreenActivity.class);
         startActivity(intent);

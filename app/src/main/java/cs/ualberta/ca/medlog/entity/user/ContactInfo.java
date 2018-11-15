@@ -8,7 +8,9 @@
 
 package cs.ualberta.ca.medlog.entity.user;
 
-public class ContactInfo {
+import java.io.Serializable;
+
+public class ContactInfo implements Serializable {
 
     private String email;
     private String phoneNumber;
@@ -41,5 +43,15 @@ public class ContactInfo {
 
     public void setPhoneNumber(String newPhoneNumber) {
         phoneNumber = newPhoneNumber;
+    }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof ContactInfo) {
+            ContactInfo other = (ContactInfo) obj;
+            return (this.email.equals(other.email)) && (this.phoneNumber.equals(other.phoneNumber));
+        }
+        return false;
     }
 }
