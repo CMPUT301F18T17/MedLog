@@ -76,10 +76,12 @@ public class SyncController {
 
             // There is a conflict, most likely the local client is most up to date.
             // Update remote patient data.
-            if(dbs.updatePatient(local)){
-                Log.d(SyncController.class.getName(), String.format("The patient %s was updated successfully!", local.getUsername()));
-            }else{
-                Log.w(SyncController.class.getName(), String.format("Failed to update user %s!", username));
+            if(determineIfUpdateRequired(local, remote)) {
+                if (dbs.updatePatient(local)) {
+                    Log.d(SyncController.class.getName(), String.format("The patient %s was updated successfully!", local.getUsername()));
+                } else {
+                    Log.w(SyncController.class.getName(), String.format("Failed to update user %s!", username));
+                }
             }
         }else {
             throw new ConnectException("Could not connect to the database!");
@@ -125,10 +127,12 @@ public class SyncController {
 
             // There is a conflict, most likely the local client is most up to date.
             // Update remote patient data.
-            if(dbs.updateCareProvider(local)){
-                Log.d(SyncController.class.getName(), String.format("The care provider %s was updated successfully!", local.getUsername()));
-            }else{
-                Log.w(SyncController.class.getName(), String.format("Failed to update user %s!", username));
+            if(determineIfUpdateRequired(local, remote)) {
+                if (dbs.updateCareProvider(local)) {
+                    Log.d(SyncController.class.getName(), String.format("The care provider %s was updated successfully!", local.getUsername()));
+                } else {
+                    Log.w(SyncController.class.getName(), String.format("Failed to update user %s!", username));
+                }
             }
         }else {
             throw new ConnectException("Could not connect to the database!");
