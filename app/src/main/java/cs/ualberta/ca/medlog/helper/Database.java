@@ -1,12 +1,12 @@
 /**
  *
  * <h1>
-        Elastisearch database
+        Database
  * </h1>
  *
  *  <p>
  *     Description: <br>
- *         The purpose of this class is to interact with the Elastisearch database to store and
+ *         The purpose of this class is to interact with the ElasticSearchController to store and
  *         retrieve data to be used within the application.
  *
  * </p>
@@ -39,6 +39,7 @@ import cs.ualberta.ca.medlog.entity.MapLocation;
 import cs.ualberta.ca.medlog.entity.Problem;
 import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.entity.user.Patient;
+import cs.ualberta.ca.medlog.entity.user.User;
 import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 
 public class Database {
@@ -99,7 +100,7 @@ public class Database {
      * <p>Get a provider from the database if a connection can be established, load from disc otherwise</p>
      * @return provider (Provider that was retrieved or loaded)
      */
-    public CareProvider LoadProvider(String username){
+    public CareProvider LoadProvider(String username) throws UserNotFoundException {
         CareProvider provider = null;
 
         if (checkConnectivity()) {
@@ -107,11 +108,15 @@ public class Database {
                 return new ElasticSearchController.LoadCareProviderTask().execute(username).get();
             } catch (Exception e){
                 e.printStackTrace();
-                return null;
+                throw new UserNotFoundException("Failed to load provider.");
             }
         } else {
             FileSaver saver = new FileSaver(context);
-            provider = saver.loadCareProvider();
+            try {
+                provider = saver.loadCareProvider();
+            }catch(Exception e){
+                throw new UserNotFoundException("Failed to load provider.");
+            }
         }
 
         return provider;
@@ -162,6 +167,7 @@ public class Database {
      * <p>Deletes a patient from the database. If there is no connection, throws a ConnectException</p>
      * @param username The username of the patient to remove
      * @return Boolean whether the operation succeeded.
+     * @throws ConnectException if we cannot connect to the database.
      */
     public Boolean DeletePatient(String username) throws ConnectException{
         if(checkConnectivity()){
@@ -173,6 +179,44 @@ public class Database {
             }
         }else{
             throw new ConnectException("Failed to connect to the server for deletion.");
+        }
+    }
+
+    /**
+     * <p>Updates a patient form the database. If there is no connection, throws a connection exception</p>
+     * @param patient The patient to update information for.
+     * @return If the operation was a success.
+     * @throws ConnectException if we cannot connect to the database.
+     */
+    public Boolean updatePatient(Patient patient) throws ConnectException{
+        if(checkConnectivity()){
+            try {
+                return new ElasticSearchController.UpdatePatientTask().execute(patient).get();
+            } catch (Exception e){
+                e.printStackTrace();
+                return false;
+            }
+        }else{
+            throw new ConnectException("Failed to connect to the server for patient updating.");
+        }
+    }
+
+    /**
+     * <p>Updates a CareProvider form the database. If there is no connection, throws a connection exception</p>
+     * @param patient The patient to update information for.
+     * @return If the operation was a success.
+     * @throws ConnectException if we cannot connect to the database.
+     */
+    public Boolean updateCareProvider(CareProvider patient) throws ConnectException{
+        if(checkConnectivity()){
+            try {
+                return new ElasticSearchController.UpdateCareProviderTask().execute(patient).get();
+            } catch (Exception e){
+                e.printStackTrace();
+                return false;
+            }
+        }else{
+            throw new ConnectException("Failed to connect to the server for care provider updating.");
         }
     }
 

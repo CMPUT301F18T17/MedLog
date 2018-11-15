@@ -57,6 +57,8 @@ package cs.ualberta.ca.medlog.helper;
 
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.entity.user.CareProvider;
+import cs.ualberta.ca.medlog.entity.user.User;
+import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 
 import android.content.Context;
 import android.util.Log;
@@ -99,7 +101,7 @@ public class FileSaver {
      * <p>Load the JSON file into a string, then deserialize it and return it as a patient object</p>
      * @return patient:Patient (the patient represented in the JSON data)
      */
-    public Patient loadPatient() {
+    public Patient loadPatient() throws UserNotFoundException {
         Gson gson = new Gson();
         String json;
 
@@ -124,6 +126,7 @@ public class FileSaver {
         } catch (IOException e) {
             Log.d("FileSaver", "IOException thrown in FileSaver.loadPatient(patient)");
             e.printStackTrace();
+            throw new UserNotFoundException("Could not load user locally.");
         }
 
         return null;
@@ -133,7 +136,7 @@ public class FileSaver {
      * <p>Load the JSON file into a string, then deserialize it and return it as a CareProvider object</p>
      * @return CareProvider:CareProvider (the CareProvider represented in the JSON data)
      */
-    public CareProvider loadCareProvider() {
+    public CareProvider loadCareProvider() throws UserNotFoundException{
         Gson gson = new Gson();
         String json;
 
@@ -158,6 +161,7 @@ public class FileSaver {
         } catch (IOException e) {
             Log.d("FileSaver", "IOException thrown in FileSaver.loadPatient(patient)");
             e.printStackTrace();
+            throw new UserNotFoundException("Could not load user locally.");
         }
 
         return null;

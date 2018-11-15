@@ -1,15 +1,27 @@
+/**
+ *
+ * <h1>
+ *     Elastic Search Controller
+ * </h1>
+ *
+ *  <p>
+ *     Description: <br>
+ *         The purpose of this class is to interact directly with the Elastic Search server and query information.
+ *
+ * </p>
+ *
+ * @author Thomas Roskewich
+ * @contact roskewic@ualberta.ca
+ * @see cs.ualberta.ca.medlog.helper.Database
+ */
+
 package cs.ualberta.ca.medlog.helper;
 import android.os.AsyncTask;
 import android.util.Log;
-
 import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
 import com.searchly.jestdroid.JestDroidClient;
-
 import java.io.IOException;
-import java.util.ArrayList;
-
-import cs.ualberta.ca.medlog.entity.Problem;
 import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import io.searchbox.client.JestResult;
@@ -17,9 +29,7 @@ import io.searchbox.core.Delete;
 import io.searchbox.core.DocumentResult;
 import io.searchbox.core.Get;
 import io.searchbox.core.Index;
-import io.searchbox.core.Search;
-import io.searchbox.core.SearchResult;
-import io.searchbox.params.SearchType;
+import io.searchbox.core.Update;
 
 public class ElasticSearchController {
 
@@ -293,6 +303,93 @@ public class ElasticSearchController {
         }catch (IOException e){
             e.printStackTrace();
             Log.d(ElasticSearchController.class.getName(), "Failed to delete user with username: " + username);
+        }
+        return success;
+    }
+
+
+
+    /**
+     *  Update a Patient from the Elastic Search database.
+     */
+    public static class UpdatePatientTask extends AsyncTask<Patient, Patient, Boolean>{
+        /**
+         * Updates the patient provided
+         * @param patient the patient to update
+         * @return if the operation succeeded.
+         */
+        @Override
+        protected Boolean doInBackground(Patient... patient) {
+            return updatePatient(patient[0].getUsername(), patient[0]);
+        }
+    }
+
+    /**
+     *  Update a Care Provider from the Elastic Search database.
+     */
+    public static class UpdateCareProviderTask extends AsyncTask<CareProvider, Patient, Boolean>{
+        /**
+         * Updates the provided Care Provider.
+         * @param careProviders the care provider to update.
+         * @return if the operation succeeded.
+         */
+        @Override
+        protected Boolean doInBackground(CareProvider... careProviders) {
+            return updateCareProvider(careProviders[0].getUsername(), careProviders[0]);
+        }
+    }
+
+
+    /**
+     * <p>Updates a CareProvider to the elastic search server.</p>
+     * @deprecated Use the Asynchronous Method in Production.
+     * @param username The patients username to delete.
+     * @return A boolean if the operation succeeded.
+     */
+    public static Boolean updateCareProvider(String username, CareProvider provider){
+        setClient();
+        boolean success = false;
+        Update update = new Update.Builder(provider)
+                .index(INDEX_NAME)
+                .type("careprovider")
+                .id(username).build();
+        try{
+            DocumentResult result = client.execute(update);
+            if(result.isSucceeded()){
+                success = true;
+            }else{
+                System.out.println(result.getErrorMessage());
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+            Log.d(ElasticSearchController.class.getName(), "Failed to update user with username: " + username);
+        }
+        return success;
+    }
+
+    /**
+     * <p>Updates a Patient to the elastic search server.</p>
+     * @deprecated Use the Asynchronous Method in Production.
+     * @param username The patients username to delete.
+     * @return A boolean if the operation succeeded.
+     */
+    public static Boolean updatePatient(String username, Patient patient){
+        setClient();
+        boolean success = false;
+        Update update = new Update.Builder(patient)
+                .index(INDEX_NAME)
+                .type("patient")
+                .id(username).build();
+        try{
+            DocumentResult result = client.execute(update);
+            if(result.isSucceeded()){
+                success = true;
+            }else{
+                System.out.println(result.getErrorMessage());
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+            Log.d(ElasticSearchController.class.getName(), "Failed to update user with username: " + username);
         }
         return success;
     }

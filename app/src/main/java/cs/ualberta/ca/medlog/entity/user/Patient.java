@@ -2,6 +2,7 @@ package cs.ualberta.ca.medlog.entity.user;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 
 import cs.ualberta.ca.medlog.entity.Photo;
 import cs.ualberta.ca.medlog.entity.Problem;
