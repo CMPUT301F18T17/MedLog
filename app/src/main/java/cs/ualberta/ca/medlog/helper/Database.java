@@ -242,6 +242,19 @@ public class Database {
         }
     }
 
+    /**
+     * <p>Search through patient problems and see if it matches any keywords.</p>
+     * @param username The username of the patient to search.
+     * @param keywords The keywords we are looking for. Can be null.
+     * @param map The map location we are looking for. Can be null.
+     * @param bl The body location we are looking for. Can be null.
+     * @return An ArrayList of problems that match our search.
+     * @throws UserNotFoundException if the patient cannot be found.
+     */
+    public ArrayList<Problem> searchPatient(String username, ArrayList<String> keywords, MapLocation map, BodyLocation bl) throws UserNotFoundException{
+        Patient p = loadPatient(username);
+        return searchPatient(p, keywords, map, bl);
+    }
 
     /**
      * <p>Search through patient problems and see if it matches any keywords.</p>
@@ -284,8 +297,34 @@ public class Database {
         return output;
     }
 
-    public ArrayList<Problem> searchCareProvider(String username, ArrayList<String> keywords, MapLocation map, BodyLocation bl){
-        return null;
+    /**
+     * <p>Search all care provider patients for all keywords, map, or body location.</p>
+     * @param careProvider The care provider to search for
+     * @param keywords  The keywords, can be null.
+     * @param map The Map location, can be null.
+     * @param bl The body location, can be null.
+     * @return A list of problems that match all of the keywords, map, or body location.
+     */
+    public ArrayList<Problem> searchCareProvider(CareProvider careProvider, ArrayList<String> keywords, MapLocation map, BodyLocation bl){
+        ArrayList<Problem> problems = new ArrayList<>();
+        for(Patient p : careProvider.getPatients()){
+            problems.addAll(searchPatient(p, keywords, map, bl));
+        }
+        return problems;
+    }
+
+    /**
+     * <p>Search all care provider patients for all keywords, map, or body location.</p>
+     * @param username The username of the care provider.
+     * @param keywords  The keywords, can be null.
+     * @param map The Map location, can be null.
+     * @param bl The body location, can be null.
+     * @return A list of problems that match all of the keywords, map, or body location.
+     * @throws UserNotFoundException if the care provider cannot be found.
+     */
+    public ArrayList<Problem> searchCareProvider(String username, ArrayList<String> keywords, MapLocation map, BodyLocation bl) throws UserNotFoundException{
+        CareProvider careProvider = loadProvider(username);
+        return searchCareProvider(careProvider, keywords, map, bl);
     }
 
 
