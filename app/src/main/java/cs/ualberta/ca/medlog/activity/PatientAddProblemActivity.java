@@ -9,9 +9,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import cs.ualberta.ca.medlog.R;
+import cs.ualberta.ca.medlog.controller.PatientController;
+import cs.ualberta.ca.medlog.entity.Problem;
 
 /**
  * <p>
@@ -38,6 +41,7 @@ import cs.ualberta.ca.medlog.R;
 public class PatientAddProblemActivity extends AppCompatActivity implements DatePickerFragment.OnNewDateSetListener {
 
     private Calendar cal;
+    private Date date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,12 +107,18 @@ public class PatientAddProblemActivity extends AppCompatActivity implements Date
             Toast.makeText(this,"No description entered",Toast.LENGTH_SHORT).show();
             return;
         }
-        if (description.length()>30) {
+        if (description.length()>300) {
             Toast.makeText(this,"Description too long",Toast.LENGTH_SHORT).show();
             return;
         }
 
+        date=cal.getTime();
+
         //TODO Add controller call to add the given problem to the patient in the system
+
+        Problem problem = new Problem(title,date,description);
+        PatientController controller = new PatientController(this);
+        controller.addProblem(problem);
 
         Toast.makeText(this,"Problem added",Toast.LENGTH_SHORT).show();
 

@@ -16,6 +16,8 @@ package cs.ualberta.ca.medlog.controller;
 
 import android.content.Context;
 
+import cs.ualberta.ca.medlog.entity.Problem;
+
 public class PatientController {
 
 
@@ -24,4 +26,13 @@ public class PatientController {
     public PatientController(Context ctx){
 
     }
+
+    public void addProblem(Problem problem){
+        // Load patient, add problem, save patient
+
+
+
+
+    }
+
 }
