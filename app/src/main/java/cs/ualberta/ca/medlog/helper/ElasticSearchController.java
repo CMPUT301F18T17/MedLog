@@ -306,19 +306,4 @@ public class ElasticSearchController {
         }
         return success;
     }
-
-    /*
-    public static ArrayList<Problem> searchProblems(String username, String query){
-        setClient();
-        boolean success = false;
-        Search search = new Search.Builder(query).addIndex(INDEX_NAME).addType("patient").build();
-        try{
-            SearchResult result = client.execute(search);
-        }catch(IOException e){
-            e.printStackTrace();
-            Log.d(ElasticSearchController.class.getName(), "Failed search: " + username);
-        }
-        return null;
-    }
-    */
 }

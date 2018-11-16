@@ -17,6 +17,7 @@
 
 package cs.ualberta.ca.medlog;
 
+import android.graphics.Bitmap;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -25,13 +26,20 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.lang.reflect.Array;
 import java.util.Date;
 
 import cs.ualberta.ca.medlog.activity.PatientLoginActivity;
+import cs.ualberta.ca.medlog.entity.BodyLocation;
+import cs.ualberta.ca.medlog.entity.MapLocation;
+import cs.ualberta.ca.medlog.entity.Photo;
 import cs.ualberta.ca.medlog.entity.Problem;
+import cs.ualberta.ca.medlog.entity.Record;
 import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.entity.user.ContactInfo;
 import cs.ualberta.ca.medlog.entity.user.Patient;
+import cs.ualberta.ca.medlog.entity.user.User;
+import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 import cs.ualberta.ca.medlog.helper.Database;
 import cs.ualberta.ca.medlog.helper.ElasticSearchController;
 
@@ -249,14 +257,115 @@ public class DatabaseConnectionTest {
 
     /* Tests for other methods */
 
+    /**
+     * Used in initializing a database for further testing.
+     * @return If the database was successfully initialized.
+     */
+    private boolean initializeTestDatabaase() throws UserNotFoundException {
+
+        // Initialize Patients
+        Patient patient = new Patient(new ContactInfo("123456789", "me@da.ca"), "testuser");
+        Patient patient1 = new Patient(new ContactInfo("8796543215", "epic@dab.ca"), "superuser");
+        Patient patient2 = new Patient(new ContactInfo("9874587854", "mega@member.ca"), "megauser");
+        CareProvider careProvider = new CareProvider("care");
+        CareProvider careProvider1 = new CareProvider("supercare");
+        CareProvider careProvider2 = new CareProvider("nouser");
+
+        // Initialize Problem
+        Problem problem = new Problem("Leg Hurts", new Date(), "Leg does not feel well.");
+        Record record = new Record(patient.getUsername());
+        record.setTitleComment("Title for Record", "See my leg hurts!");
+        record.setBodyLocation(new BodyLocation(new Photo(0, null), 12, 32));
+        record.setMapLocation(new MapLocation(18.15525, 126.15));
+        patient.addProblem(problem);
+
+        // Initialize problem1
+        Problem problem1 = new Problem("Arm Hurts", new Date(), "Arm does hurt.");
+        Record record1 = new Record(patient1.getUsername());
+        record1.setTitleComment("Title", "Super comment");
+        problem1.addRecord(record1);
+        patient.addProblem(problem1);
+
+
+        // Initialize problem2
+        Problem problem2 = new Problem("Stomach Hurts", new Date(), "Sad");
+        Record record2 = new Record(patient2.getUsername());
+        record2.setTitleComment("Title", "Super comment");
+        problem2.addRecord(record2);
+        patient1.addProblem(problem2);
+
+        careProvider.addPatient(patient);
+        careProvider.addPatient(patient1);
+        careProvider1.addPatient(patient2);
+        // Try and save users
+        try {
+            if((ElasticSearchController.savePatient(patient)
+                    && ElasticSearchController.savePatient(patient1)
+                    && ElasticSearchController.savePatient(patient2))
+               && (ElasticSearchController.saveCareProvider(careProvider)
+                    && ElasticSearchController.saveCareProvider(careProvider1)
+                    && ElasticSearchController.saveCareProvider(careProvider2))){
+                return true;
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+
+
+        return false;
+
+    }
+
+    /**
+     * Cleaup the test database
+     * @return if the operation succeeded.
+     */
+    private boolean cleanupTestDatabase() throws UserNotFoundException {
+        return ElasticSearchController.deletePatient("testuser")
+                && ElasticSearchController.deletePatient("superuser")
+                && ElasticSearchController.deletePatient("megauser")
+                && ElasticSearchController.deleteCareProvider("care")
+                && ElasticSearchController.deleteCareProvider("supercare")
+                && ElasticSearchController.deleteCareProvider("nouser");
+    }
+
     @Test
     public void testSearchPatients() {
+        try {
+            assertTrue(initializeTestDatabaase());
+        }catch(UserNotFoundException e){
+            fail("User was not found in the creation of the database (?)");
+        }
 
+        
+
+
+
+        try{
+            assertTrue(cleanupTestDatabase());
+        }catch (UserNotFoundException e){
+            fail("User was not found in the deletion of the database.");
+        }
     }
 
     @Test
     public void testSearchProviders() {
+        try {
+            assertTrue(initializeTestDatabaase());
+        }catch(UserNotFoundException e){
+            fail("User was not found in the creation of the database (?)");
+        }
 
+
+
+
+
+        try{
+            assertTrue(cleanupTestDatabase());
+        }catch (UserNotFoundException e){
+            fail("User was not found in the deletion of the database.");
+        }
     }
 
 }
