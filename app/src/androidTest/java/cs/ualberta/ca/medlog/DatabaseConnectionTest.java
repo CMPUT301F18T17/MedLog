@@ -250,9 +250,13 @@ public class DatabaseConnectionTest {
     /* Tests for other methods */
 
     @Test
-    public void testSearchPatients() {}
+    public void testSearchPatients() {
+
+    }
 
     @Test
-    public void testSearchProviders() {}
+    public void testSearchProviders() {
+
+    }
 
 }

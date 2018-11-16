@@ -37,6 +37,7 @@ import java.util.ArrayList;
 import cs.ualberta.ca.medlog.entity.BodyLocation;
 import cs.ualberta.ca.medlog.entity.MapLocation;
 import cs.ualberta.ca.medlog.entity.Problem;
+import cs.ualberta.ca.medlog.entity.Record;
 import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.exception.UserNotFoundException;
@@ -242,16 +243,48 @@ public class Database {
     }
 
 
+    /**
+     * <p>Search through patient problems and see if it matches any keywords.</p>
+     * @param patient The patient to search through.
+     * @param keywords The keywords we are looking for. Can be null.
+     * @param map The map location we are looking for. Can be null.
+     * @param bl The body location we are looking for. Can be null.
+     * @return An ArrayList of problems that match our search.
+     */
+    public ArrayList<Problem> searchPatient(Patient patient, ArrayList<String> keywords, MapLocation map, BodyLocation bl){
+        ArrayList<Problem> output = new ArrayList<>();
+        for(Problem p : patient.getProblems()){
+            boolean added = false;
+            ArrayList<String> strings = new ArrayList<>();
+            // If the keywords match the title or the description, add it.
+            strings.add(p.getDescription());
+            strings.add(p.getTitle());
 
-    public ArrayList<Problem> searchPatientKeywords(String username, ArrayList<String> keywords){
-        return null;
+            // If the record contains the map location or the body description, add it and stop.
+            for(Record r : p.getRecords()){
+                strings.add(r.getComment());
+                strings.add(r.getTitle());
+                if(r.getMapLocation().equals(map) || r.getBodyLocation().equals(bl)){
+                    output.add(p);
+                    added = true;
+                    break;
+                }
+            }
+
+            // If we added it already, we can skip the rest of the code. Do not want duplicates!
+            if(added){
+                continue;
+            }
+
+            // If the strings contains all keywords, we add it to the list.
+            if(strings.containsAll(keywords)){
+                output.add(p);
+            }
+        }
+        return output;
     }
 
-    public ArrayList<Problem> searchPatientGeo(String username, MapLocation map){
-        return null;
-    }
-
-    public ArrayList<Problem> searchPatientMap(String username, BodyLocation bl){
+    public ArrayList<Problem> searchCareProvider(String username, ArrayList<String> keywords, MapLocation map, BodyLocation bl){
         return null;
     }
 
