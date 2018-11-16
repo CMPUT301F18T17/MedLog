@@ -18,6 +18,7 @@
 package cs.ualberta.ca.medlog;
 
 import android.graphics.Bitmap;
+import android.provider.ContactsContract;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -27,6 +28,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Date;
 
 import cs.ualberta.ca.medlog.activity.PatientLoginActivity;
@@ -277,12 +279,14 @@ public class DatabaseConnectionTest {
         record.setTitleComment("Title for Record", "See my leg hurts!");
         record.setBodyLocation(new BodyLocation(new Photo(0, null), 12, 32));
         record.setMapLocation(new MapLocation(18.15525, 126.15));
+        problem.addRecord(record);
         patient.addProblem(problem);
 
         // Initialize problem1
         Problem problem1 = new Problem("Arm Hurts", new Date(), "Arm does hurt.");
         Record record1 = new Record(patient1.getUsername());
         record1.setTitleComment("Title", "Super comment");
+        record1.setMapLocation(new MapLocation(10, 100));
         problem1.addRecord(record1);
         patient.addProblem(problem1);
 
@@ -330,6 +334,24 @@ public class DatabaseConnectionTest {
                 && ElasticSearchController.deleteCareProvider("nouser");
     }
 
+    /**
+     * Async is not supported in testcases. This uses the non async way to ge the patient.
+     * @param username The username of the patient
+     * @return The patient
+     */
+    private Patient loadPatientES(String username) throws UserNotFoundException{
+        return ElasticSearchController.loadPatient(username);
+    }
+
+    /**
+     * Async is not supported in testcases. This uses the non async way to ge the care provider.
+     * @param username The username of the patient
+     * @return The Care Provider
+     */
+    private CareProvider loadCareES(String username) throws UserNotFoundException{
+        return ElasticSearchController.loadCareProvider(username);
+    }
+
     @Test
     public void testSearchPatients() {
         try {
@@ -338,9 +360,28 @@ public class DatabaseConnectionTest {
             fail("User was not found in the creation of the database (?)");
         }
 
-        
+        Database db = new Database(null);
+        try {
+            ArrayList<String> keywords = new ArrayList<>();
+            keywords.add("Leg Hurts");
+            Patient p = loadPatientES("testuser");
+            MapLocation ml = new MapLocation(10, 100);
+            ArrayList<Problem> a = db.searchPatient(p, keywords, ml, null);
+            assertEquals("Received size does not match.", a.size(), 2);
+            assertEquals("Title does not match.", a.get(0).getTitle(), "Leg Hurts");
+            assertEquals("Map location does not match.", a.get(1).getRecords().get(0).getMapLocation(), ml);
+
+            a = db.searchPatient(p, null, null, null);
+            assertEquals("Array is not empty on null search.", a.size(), 0);
+
+            a = db.searchPatient(p, null, new MapLocation(18.15525, 126.15), null);
+            assertEquals("Should be only one map location with lat 18.15525 long 126.15", a.size(), 1);
 
 
+        }catch(UserNotFoundException e){
+            e.printStackTrace();
+            fail("User was not found yet should have been (testuser)");
+        }
 
         try{
             assertTrue(cleanupTestDatabase());
@@ -356,9 +397,6 @@ public class DatabaseConnectionTest {
         }catch(UserNotFoundException e){
             fail("User was not found in the creation of the database (?)");
         }
-
-
-
 
 
         try{

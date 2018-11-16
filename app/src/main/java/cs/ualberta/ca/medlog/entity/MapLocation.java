@@ -8,6 +8,7 @@
 
 package cs.ualberta.ca.medlog.entity;
 
+
 public class MapLocation{
     private double latitude, longitude;
 
@@ -30,5 +31,13 @@ public class MapLocation{
 
     public void setLongitude(double newLon) {
         longitude = newLon;
+    }
+
+    public boolean equals(Object obj){
+        if(obj instanceof MapLocation){
+            MapLocation ml = (MapLocation) obj;
+            return longitude == ml.longitude && latitude == ml.latitude;
+        }
+        return false;
     }
 }

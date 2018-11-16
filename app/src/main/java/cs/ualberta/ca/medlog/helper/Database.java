@@ -44,7 +44,7 @@ import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 
 public class Database {
     public Context context;
-    private int timeout = 10;
+    private int timeout = 100;
 
     public Database(Context c){
         this.context = c;
@@ -73,7 +73,6 @@ public class Database {
         // Check if there is connectivity
         if (checkConnectivity()) {
             try {
-
                 // If there is, try to load a patient. If it returns null, user was not found.
                 patient = new ElasticSearchController.LoadPatientTask().execute(username).get();
                 if(patient == null){
@@ -277,10 +276,20 @@ public class Database {
             for(Record r : p.getRecords()){
                 strings.add(r.getComment());
                 strings.add(r.getTitle());
-                if(r.getMapLocation().equals(map) || r.getBodyLocation().equals(bl)){
-                    output.add(p);
-                    added = true;
-                    break;
+                if(map != null){
+                    if(r.getMapLocation().equals(map)){
+                        output.add(p);
+                        added = true;
+                        break;
+                    }
+                }
+
+                if(bl != null){
+                    if(r.getBodyLocation().equals(bl)){
+                        output.add(p);
+                        added = true;
+                        break;
+                    }
                 }
             }
 
@@ -290,8 +299,10 @@ public class Database {
             }
 
             // If the strings contains all keywords, we add it to the list.
-            if(strings.containsAll(keywords)){
-                output.add(p);
+            if(keywords != null) {
+                if (strings.containsAll(keywords)) {
+                    output.add(p);
+                }
             }
         }
         return output;
