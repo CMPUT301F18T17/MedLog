@@ -42,7 +42,8 @@ public class PatientAddProblemActivity extends AppCompatActivity implements Date
 
     private Calendar cal;
     private Date date;
-
+    Intent intent=getIntent();
+    private String username = intent.getStringExtra(PatientLoginActivity.EXTRA_MESSAGE);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,11 +115,11 @@ public class PatientAddProblemActivity extends AppCompatActivity implements Date
 
         date=cal.getTime();
 
-        //TODO Add controller call to add the given problem to the patient in the system
+        // controller call to add the given problem to the patient in the system
 
         Problem problem = new Problem(title,date,description);
         PatientController controller = new PatientController(this);
-        controller.addProblem(problem);
+        controller.addProblem(problem,username);
 
         Toast.makeText(this,"Problem added",Toast.LENGTH_SHORT).show();
 

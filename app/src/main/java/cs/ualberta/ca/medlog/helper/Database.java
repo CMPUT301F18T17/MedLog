@@ -128,6 +128,7 @@ public class Database {
      * @return Boolean if the save operation succeeded.
      */
     public boolean savePatient(Patient patient){
+        patient.setUpdated();
         if (checkConnectivity()) {
             try {
                 return new ElasticSearchController.SavePatientTask().execute(patient).get();
@@ -148,6 +149,7 @@ public class Database {
      * @param provider Provider to be saved
      */
     public boolean saveProvider(CareProvider provider){
+        provider.setUpdated();
         if (checkConnectivity()) {
             try {
                 return new ElasticSearchController.SaveCareProviderTask().execute(provider).get();
@@ -188,6 +190,7 @@ public class Database {
      * @throws ConnectException if we cannot connect to the database.
      */
     public Boolean updatePatient(Patient patient) throws ConnectException{
+        patient.setUpdated();
         if(checkConnectivity()){
             try {
                 return new ElasticSearchController.SavePatientTask().execute(patient).get();
@@ -202,14 +205,15 @@ public class Database {
 
     /**
      * <p>Updates a CareProvider form the database. If there is no connection, throws a connection exception</p>
-     * @param patient The patient to update information for.
+     * @param careProvider The patient to update information for.
      * @return If the operation was a success.
      * @throws ConnectException if we cannot connect to the database.
      */
-    public Boolean updateCareProvider(CareProvider patient) throws ConnectException{
+    public Boolean updateCareProvider(CareProvider careProvider) throws ConnectException{
+        careProvider.setUpdated();
         if(checkConnectivity()){
             try {
-                return new ElasticSearchController.SaveCareProviderTask().execute(patient).get();
+                return new ElasticSearchController.SaveCareProviderTask().execute(careProvider).get();
             } catch (Exception e){
                 e.printStackTrace();
                 return false;

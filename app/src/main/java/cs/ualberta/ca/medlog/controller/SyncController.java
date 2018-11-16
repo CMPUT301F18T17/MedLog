@@ -23,6 +23,7 @@ import java.net.ConnectException;
 
 import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.entity.user.Patient;
+import cs.ualberta.ca.medlog.entity.user.User;
 import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 import cs.ualberta.ca.medlog.helper.Database;
 import cs.ualberta.ca.medlog.helper.FileSaver;
@@ -145,17 +146,10 @@ public class SyncController {
      * @param remote The remote file user.
      * @return If the server needs to update.
      */
-    private Boolean determineIfUpdateRequired(Patient local, Patient remote){
-        return false;
-    }
-
-    /**
-     * Determine if the server needs to update based off the local client.
-     * @param local The local file user.
-     * @param remote The remote file user.
-     * @return If the server needs to update.
-     */
-    private Boolean determineIfUpdateRequired(CareProvider local, CareProvider remote){
+    private Boolean determineIfUpdateRequired(User local, User remote){
+        if(local.getLastUpdated().after(remote.getLastUpdated())){
+            return true;
+        }
         return false;
     }
 

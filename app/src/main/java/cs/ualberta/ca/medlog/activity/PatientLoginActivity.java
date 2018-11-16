@@ -31,6 +31,7 @@ import cs.ualberta.ca.medlog.R;
  */
 public class PatientLoginActivity extends AppCompatActivity {
 
+    public final static String EXTRA_MESSAGE = "cs.ualberta.ca.medlog.MESSAGE";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +69,7 @@ public class PatientLoginActivity extends AppCompatActivity {
             //TODO Add code contacting the system to inform it that the given Patient is logged in
 
             Intent intent = new Intent(this, PatientMenuActivity.class);
+            intent.putExtra(EXTRA_MESSAGE,username);
             startActivity(intent);
         }
         else {
