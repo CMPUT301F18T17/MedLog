@@ -276,7 +276,7 @@ public class Database {
             for(Record r : p.getRecords()){
                 strings.add(r.getComment());
                 strings.add(r.getTitle());
-                if(map != null){
+                if(map != null && r.getMapLocation() != null){
                     if(r.getMapLocation().equals(map)){
                         output.add(p);
                         added = true;
@@ -284,7 +284,7 @@ public class Database {
                     }
                 }
 
-                if(bl != null){
+                if(bl != null && r.getBodyLocation() != null){
                     if(r.getBodyLocation().equals(bl)){
                         output.add(p);
                         added = true;

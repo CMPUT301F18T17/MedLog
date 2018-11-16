@@ -8,30 +8,26 @@
  *     Description: <br>
  *         Unit testing for the Database class
  *
+ *     Note: <br>
+ *         I learned about @Before and @After a bit late, so some testcases sill add users.
+ *
  * </p>
  *
- * @author Tem Tamre
- * @contact ttamre@ualberta.ca
+ * @author Thomas Roskewich
+ * @contact roskewic@ualberta.ca
  * @see cs.ualberta.ca.medlog.helper.Database
  */
 
 package cs.ualberta.ca.medlog;
 
-import android.graphics.Bitmap;
-import android.provider.ContactsContract;
 import android.support.test.filters.LargeTest;
-import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-
-import org.junit.Rule;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
-
-import cs.ualberta.ca.medlog.activity.PatientLoginActivity;
 import cs.ualberta.ca.medlog.entity.BodyLocation;
 import cs.ualberta.ca.medlog.entity.MapLocation;
 import cs.ualberta.ca.medlog.entity.Photo;
@@ -40,7 +36,6 @@ import cs.ualberta.ca.medlog.entity.Record;
 import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.entity.user.ContactInfo;
 import cs.ualberta.ca.medlog.entity.user.Patient;
-import cs.ualberta.ca.medlog.entity.user.User;
 import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 import cs.ualberta.ca.medlog.helper.Database;
 import cs.ualberta.ca.medlog.helper.ElasticSearchController;
@@ -51,7 +46,23 @@ import static org.junit.Assert.*;
 @LargeTest
 public class DatabaseConnectionTest {
 
-    /* Tests for loading/GET methods */
+    @Before
+    public void init(){
+        try {
+            assertTrue(initializeTestDatabaase());
+        }catch(UserNotFoundException e){
+            fail("User was not found in the creation of the database (?)");
+        }
+    }
+
+    @After
+    public void deinit(){
+        try{
+            assertTrue(cleanupTestDatabase());
+        }catch (UserNotFoundException e){
+            fail("User was not found in the deletion of the database.");
+        }
+    }
 
     @Test
     public void testLoadPatientLocal() {}
@@ -61,7 +72,7 @@ public class DatabaseConnectionTest {
 
     @Test
     public void testUpdatingPatient(){
-        Patient test = new Patient(new ContactInfo("18002672001", "alarm@force.ca"), "testpatient");
+        Patient test = new Patient(new ContactInfo("18002672001", "alarm@force.ca"), "testpatientsaveload");
         // Try save the Patient
         try {
             boolean result = ElasticSearchController.savePatient(test);
@@ -119,7 +130,7 @@ public class DatabaseConnectionTest {
 
     @Test
     public void testUpdatingProvider(){
-        CareProvider test = new CareProvider("testprovider");
+        CareProvider test = new CareProvider("testprovidersaveload");
         // Try save the Patient
         try {
             boolean result = ElasticSearchController.saveCareProvider(test);
@@ -130,7 +141,7 @@ public class DatabaseConnectionTest {
         }
 
         // Update the user
-        test.addPatient(new Patient(new ContactInfo("18002672001", "alarm@force.ca"), "testpatient"));
+        test.addPatient(new Patient(new ContactInfo("18002672001", "alarm@force.ca"), "testpatientsaveload"));
         try{
             boolean result = ElasticSearchController.saveCareProvider(test);
             assertTrue("Could not update user.", result);
@@ -150,7 +161,7 @@ public class DatabaseConnectionTest {
         }
         // Make sure information is still the same
         assertEquals(test.getUsername(), toLoad.getUsername());
-        assertEquals(test.getPatients().get(0).getUsername(), "testpatient");
+        assertEquals(test.getPatients().get(0).getUsername(), "testpatientsaveload");
 
 
         // We are good! Delete the Care Provider
@@ -167,7 +178,7 @@ public class DatabaseConnectionTest {
 
     @Test
     public void testSaveLoadDeleteProviderRemote() {
-        CareProvider test = new CareProvider("testprovider");
+        CareProvider test = new CareProvider("testprovidersaveload");
 
         // Try save the Care Provider
         try {
@@ -212,7 +223,7 @@ public class DatabaseConnectionTest {
     /* We need to delete test users from the db, so I combined the test cases into one. */
     @Test
     public void testSaveLoadDeletePatientRemote() {
-        Patient test = new Patient(new ContactInfo("18002672001", "alarm@force.com"), "testuser");
+        Patient test = new Patient(new ContactInfo("18002672001", "alarm@force.com"), "testusersaveload");
         Database db = new Database(null);
 
 
@@ -354,11 +365,6 @@ public class DatabaseConnectionTest {
 
     @Test
     public void testSearchPatients() {
-        try {
-            assertTrue(initializeTestDatabaase());
-        }catch(UserNotFoundException e){
-            fail("User was not found in the creation of the database (?)");
-        }
 
         Database db = new Database(null);
         try {
@@ -382,27 +388,32 @@ public class DatabaseConnectionTest {
             e.printStackTrace();
             fail("User was not found yet should have been (testuser)");
         }
-
-        try{
-            assertTrue(cleanupTestDatabase());
-        }catch (UserNotFoundException e){
-            fail("User was not found in the deletion of the database.");
-        }
     }
 
     @Test
     public void testSearchProviders() {
+
+        Database db = new Database(null);
         try {
-            assertTrue(initializeTestDatabaase());
+            ArrayList<String> keywords = new ArrayList<>();
+            keywords.add("Leg Hurts");
+            CareProvider p = loadCareES("care");
+            MapLocation ml = new MapLocation(10, 100);
+            ArrayList<Problem> a = db.searchCareProvider(p, keywords, ml, null);
+            assertEquals("Received size does not match.", a.size(), 2);
+            assertEquals("Title does not match.", a.get(0).getTitle(), "Leg Hurts");
+            assertEquals("Map location does not match.", a.get(1).getRecords().get(0).getMapLocation(), ml);
+
+            a = db.searchCareProvider(p, null, null, null);
+            assertEquals("Array is not empty on null search.", a.size(), 0);
+
+            a = db.searchCareProvider(p, null, new MapLocation(18.15525, 126.15), null);
+            assertEquals("Should be only one map location with lat 18.15525 long 126.15", a.size(), 1);
+
+
         }catch(UserNotFoundException e){
-            fail("User was not found in the creation of the database (?)");
-        }
-
-
-        try{
-            assertTrue(cleanupTestDatabase());
-        }catch (UserNotFoundException e){
-            fail("User was not found in the deletion of the database.");
+            e.printStackTrace();
+            fail("User was not found yet should have been (testuser)");
         }
     }
 
