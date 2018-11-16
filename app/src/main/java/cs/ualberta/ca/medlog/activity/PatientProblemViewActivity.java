@@ -13,10 +13,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
 import cs.ualberta.ca.medlog.R;
+import cs.ualberta.ca.medlog.controller.PatientController;
 import cs.ualberta.ca.medlog.entity.Problem;
 
 /**
@@ -49,18 +51,25 @@ import cs.ualberta.ca.medlog.entity.Problem;
  * @see SlideshowActivity
  */
 public class PatientProblemViewActivity extends AppCompatActivity implements DatePickerFragment.OnNewDateSetListener, TextEditorFragment.OnTextSetListener {
-
+    private ArrayList<Problem> problems;
     private Problem problem;
     private int problemIndex;
+    Intent intent = getIntent();
+    private String username=intent.getStringExtra(PatientViewProblemsActivity.EXTRA_MESSAGE);
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_problem_view);
 
-        Intent intent = getIntent();
         problemIndex = intent.getIntExtra("problemIndex",0);
-        //TODO Call system to get the patient's list of problems and then grab the given index.
+        // Call system to get the patient's list of problems and then grab the given index.
+
+        PatientController controller = new PatientController(this);
+        problems=controller.getProblems(username);
+        problem=problems.get(problemIndex);
 
         Button viewRecordsButton = findViewById(R.id.activityPatientProblemView_ViewRecordsButton);
         Button slideShowButton = findViewById(R.id.activityPatientProblemView_SlideshowButton);
@@ -156,13 +165,15 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
     }
 
     public void onTextSet(String newText, int editorId) {
+        PatientController controller = new PatientController(this);
         switch(editorId) {
             case 0:
                 if (newText.isEmpty()) {
                     Toast.makeText(this,"No title entered",Toast.LENGTH_SHORT);
                     break;
                 }
-                //TODO Call to controller to update the problem title value.
+                // Call to controller to update the problem title value.
+                controller.setTitle(username,problemIndex,newText);
                 updateTitleDisplay(newText);
                 break;
             case 1:
@@ -170,7 +181,8 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
                     Toast.makeText(this,"No description entered",Toast.LENGTH_SHORT);
                     break;
                 }
-                //TODO Call to controller to update the problem description value.
+                // Call to controller to update the problem description value.
+                controller.setDesc(username,problemIndex,newText);
                 updateDescriptionDisplay(newText);
                 break;
         }
@@ -193,7 +205,9 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
     }
 
     public void onNewDateSet(Calendar cal) {
-        //TODO Call to controller to update the problem date value.
+        // Call to controller to update the problem date value.
+        PatientController controller = new PatientController(this);
+        controller.setDate(username,problemIndex, cal);
         updateDateDisplay(cal);
     }
 
@@ -207,6 +221,10 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
 
     private void deleteProblem() {
         //TODO Call to controller to delete the patient's problem
+
+        PatientController controller = new PatientController(this);
+        controller.deleteProblem(username,problemIndex);
+
         finish();
     }
 }
