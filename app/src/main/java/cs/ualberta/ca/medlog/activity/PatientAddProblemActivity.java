@@ -43,7 +43,7 @@ public class PatientAddProblemActivity extends AppCompatActivity implements Date
     private Calendar cal;
     private Date date;
     Intent intent=getIntent();
-    private String username = intent.getStringExtra(PatientLoginActivity.EXTRA_MESSAGE);
+    private String username = intent.getStringExtra(PatientMenuActivity.EXTRA_MESSAGE);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

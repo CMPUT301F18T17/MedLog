@@ -23,8 +23,27 @@ public class Patient extends User implements Serializable {
         return problems;
     }
 
+    public void deleteProblem(int problemIndex) {
+        problems.remove(problemIndex);
+    }
     public void addProblem(Problem newProblem){
         problems.add(newProblem);
+    }
+
+    public void setTitle(int problemIndex, String newTitle) {
+        Problem problem = problems.get(problemIndex);
+        problem.setTitle(newTitle);
+        problems.set(problemIndex,problem);
+    }
+    public void setDescription(int problemIndex, String newDescription) {
+        Problem problem = problems.get(problemIndex);
+        problem.setTitle(newDescription);
+        problems.set(problemIndex,problem);
+    }
+    public void setDate(int problemIndex, Date newDate) {
+        Problem problem = problems.get(problemIndex);
+        problem.setDate(newDate);
+        problems.set(problemIndex,problem);
     }
 
     public ArrayList<Photo> getBodyPhotos(){

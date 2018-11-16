@@ -39,9 +39,9 @@ import cs.ualberta.ca.medlog.R;
  * @see PatientSearchActivity
  */
 public class PatientMenuActivity extends AppCompatActivity {
-    public final static String EXTRA_MESSAGE = "cs.ualberta.ca.medlog.MESSAGE";
     Intent intent=getIntent();
     private String username = intent.getStringExtra(PatientLoginActivity.EXTRA_MESSAGE);
+    public final static String EXTRA_MESSAGE = "cs.ualberta.ca.medlog.MESSAGE";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,6 +102,7 @@ public class PatientMenuActivity extends AppCompatActivity {
 
     private void openPatientViewProblems() {
         Intent intent = new Intent(this, PatientViewProblemsActivity.class);
+        intent.putExtra(EXTRA_MESSAGE,username);
         startActivity(intent);
     }
 

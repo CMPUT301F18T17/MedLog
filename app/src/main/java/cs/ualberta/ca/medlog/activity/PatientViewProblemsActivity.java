@@ -11,6 +11,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import cs.ualberta.ca.medlog.R;
+import cs.ualberta.ca.medlog.controller.PatientController;
 import cs.ualberta.ca.medlog.entity.Problem;
 
 /**
@@ -34,14 +35,17 @@ import cs.ualberta.ca.medlog.entity.Problem;
 public class PatientViewProblemsActivity extends AppCompatActivity {
 
     private ArrayList<Problem> problems;
-
+    Intent intent=getIntent();
+    private String username = intent.getStringExtra(PatientMenuActivity.EXTRA_MESSAGE);
+    public final static String EXTRA_MESSAGE = "cs.ualberta.ca.medlog.MESSAGE";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_view_problems);
 
-        //TODO Call to the system to get the logged in patients problems
-        //TODO Setting the problems ArrayList to the returned patients problems list
+        // Call to the system to get the logged in patients problems and sets problems ArrayList to the returned patient's problem list
+        PatientController controller = new PatientController(this);
+        problems=controller.getProblems(username);
 
         ListView problemsListView = findViewById(R.id.activityPatientViewProblems_ProblemsListView);
         problemsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -58,6 +62,7 @@ public class PatientViewProblemsActivity extends AppCompatActivity {
     private void openProblemView(int listIndex) {
         Intent intent = new Intent(this, PatientProblemViewActivity.class);
         intent.putExtra("problemIndex",listIndex);
+        intent.putExtra(EXTRA_MESSAGE,username);
         startActivity(intent);
     }
 }
