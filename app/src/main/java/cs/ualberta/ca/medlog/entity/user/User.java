@@ -17,4 +17,5 @@ public abstract class User implements Serializable {
         return username;
     }
     public void setUpdated(){ lastUpdated = Calendar.getInstance().getTime(); }
+    public Date getLastUpdated() {return lastUpdated; }
 }
