@@ -39,41 +39,66 @@ public class PatientController {
 
     public void addProblem(Problem problem, String username){
         // Load patient, add problem, save patient
-        Patient patient=database.loadPatient(username);
-        patient.addProblem(problem);
-        database.savePatient(patient);
+        try{
+            Patient patient=database.loadPatient(username);
+            patient.addProblem(problem);
+            database.savePatient(patient);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     public ArrayList<Problem> getProblems(String username) {
-        Patient patient=database.loadPatient(username);
+        Patient patient = null;
+        try {
+            patient = database.loadPatient(username);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         return patient.getProblems();
 
     }
 
     public void setTitle(String username,int problemIndex,String newText) {
-        Patient patient=database.loadPatient(username);
-        patient.setTitle(problemIndex,newText);
-        database.savePatient(patient);
+        try{
+            Patient patient=database.loadPatient(username);
+            patient.setTitle(problemIndex,newText);
+            database.savePatient(patient);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
 
     }
     public void setDesc(String username,int problemIndex,String newText) {
-        Patient patient=database.loadPatient(username);
-        patient.setDescription(problemIndex,newText);
-        database.savePatient(patient);
+        try{
+            Patient patient=database.loadPatient(username);
+            patient.setDescription(problemIndex,newText);
+            database.savePatient(patient);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void setDate(String username, int problemIndex, Calendar cal) {
-        Patient patient=database.loadPatient(username);
-        Date date;
-        date=cal.getTime();
-        patient.setDate(problemIndex,date);
-        database.savePatient(patient);
+        try {
+            Patient patient = database.loadPatient(username);
+            Date date;
+            date = cal.getTime();
+            patient.setDate(problemIndex, date);
+            database.savePatient(patient);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void deleteProblem(String username, int problemIndex){
-        Patient patient=database.loadPatient(username);
-        patient.deleteProblem(problemIndex);
-        database.savePatient(patient);
+        try{
+            Patient patient=database.loadPatient(username);
+            patient.deleteProblem(problemIndex);
+            database.savePatient(patient);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
 }
