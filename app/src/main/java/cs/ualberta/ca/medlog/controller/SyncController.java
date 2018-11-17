@@ -20,6 +20,7 @@ import android.content.Context;
 import android.util.Log;
 
 import java.net.ConnectException;
+import java.util.ArrayList;
 
 import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.entity.user.Patient;
@@ -137,6 +138,24 @@ public class SyncController {
             }
         }else {
             throw new ConnectException("Could not connect to the database!");
+        }
+    }
+
+    /**
+     * Updated all care provider information on their patients. Should be called on login.
+     * @param careProvider The careprovider to update.
+     */
+    public void updateCareProviderPatients(CareProvider careProvider){
+        Database db = new Database(ctx);
+        ArrayList<Patient> patients = careProvider.getPatients();
+        careProvider.getPatients().clear();
+        for(Patient p : patients){
+            try {
+                careProvider.addPatient(db.loadPatient(p.getUsername()));
+            }catch(UserNotFoundException e){
+                Log.e(getClass().getName(), String.format("Patient %s could not be loaded from ES! Adding original copy.", p.getUsername()));
+                careProvider.addPatient(p);
+            }
         }
     }
 
