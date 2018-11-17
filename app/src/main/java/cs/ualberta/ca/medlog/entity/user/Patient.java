@@ -57,4 +57,8 @@ public class Patient extends User implements Serializable {
     public ContactInfo getContactInfo() {
         return contactInfo;
     }
+
+    public String toString(){
+        return contactInfo.getEmail();
+    }
 }
