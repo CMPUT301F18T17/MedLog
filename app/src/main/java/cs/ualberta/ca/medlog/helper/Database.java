@@ -33,6 +33,7 @@ import java.net.ConnectException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import cs.ualberta.ca.medlog.entity.BodyLocation;
 import cs.ualberta.ca.medlog.entity.MapLocation;
@@ -265,17 +266,20 @@ public class Database {
      */
     public ArrayList<Problem> searchPatient(Patient patient, ArrayList<String> keywords, MapLocation map, BodyLocation bl){
         ArrayList<Problem> output = new ArrayList<>();
+        for(int i = 0; i < keywords.size(); i++){
+            keywords.set(i, keywords.get(i).toLowerCase());
+        }
         for(Problem p : patient.getProblems()){
             boolean added = false;
             ArrayList<String> strings = new ArrayList<>();
             // If the keywords match the title or the description, add it.
-            strings.add(p.getDescription());
-            strings.add(p.getTitle());
+            strings.addAll(Arrays.asList(p.getDescription().toLowerCase().split(" ")));
+            strings.addAll(Arrays.asList(p.getTitle().toLowerCase().split(" ")));
 
             // If the record contains the map location or the body description, add it and stop.
             for(Record r : p.getRecords()){
-                strings.add(r.getComment());
-                strings.add(r.getTitle());
+                strings.addAll(Arrays.asList(r.getComment().toLowerCase().toLowerCase().split(" ")));
+                strings.addAll(Arrays.asList(r.getTitle().toLowerCase().toLowerCase().split(" ")));
                 if(map != null && r.getMapLocation() != null){
                     if(r.getMapLocation().equals(map)){
                         output.add(p);
@@ -319,6 +323,7 @@ public class Database {
     public ArrayList<Problem> searchCareProvider(CareProvider careProvider, ArrayList<String> keywords, MapLocation map, BodyLocation bl){
         ArrayList<Problem> problems = new ArrayList<>();
         for(Patient p : careProvider.getPatients()){
+            ArrayList<Problem> out = searchPatient(p, keywords, map, bl);
             problems.addAll(searchPatient(p, keywords, map, bl));
         }
         return problems;
@@ -344,6 +349,8 @@ public class Database {
      * @return True if a connection can be established, false otherwise
      */
     public boolean checkConnectivity() {
+        return true;
+        /*
         try {
             URL url = new URL(ElasticSearchController.databaseAddress);
             URLConnection connection = url.openConnection();
@@ -354,7 +361,7 @@ public class Database {
             Log.d("Database", "IOException thrown in Database.checkConnectivity()");
             e.printStackTrace();
             return false;
-        }
+        }*/
     }
 
     /**

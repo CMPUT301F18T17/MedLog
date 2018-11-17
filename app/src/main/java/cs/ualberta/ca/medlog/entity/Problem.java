@@ -58,4 +58,8 @@ public class Problem {
     }
 
 
+    public String toString(){
+        return this.title;
+    }
+
 }

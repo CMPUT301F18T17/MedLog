@@ -9,6 +9,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import cs.ualberta.ca.medlog.R;
+import cs.ualberta.ca.medlog.entity.user.CareProvider;
+import cs.ualberta.ca.medlog.helper.Database;
+import cs.ualberta.ca.medlog.singleton.CurrentUser;
 
 /**
  * <p>
@@ -61,17 +64,27 @@ public class ProviderLoginActivity extends AppCompatActivity {
             return;
         }
 
-        boolean validProvider = true;    //TODO Set to false once controller added.
+        boolean validProvider = false;    //TODO Set to false once controller added.
         //TODO Check this username using a Provider Controller, if valid change the boolean
+        Database db = new Database(this);
+        CareProvider toLogin = null;
+        try{
+            toLogin = db.loadProvider(username);
+            if(toLogin != null){
+                validProvider = true;
+            }
+        }catch(Exception e){
+            Toast.makeText(this, "Failed to login", Toast.LENGTH_SHORT).show();
+        }
 
         if (validProvider) {
-            //TODO Add code contacting the system to inform it that the given Provider is logged in
+            CurrentUser.getInstance().set(toLogin);
 
             Intent intent = new Intent(this, ProviderMenuActivity.class);
             startActivity(intent);
         }
         else {
-            Toast.makeText(this,"Invalid username",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"No account found",Toast.LENGTH_SHORT).show();
         }
     }
 
