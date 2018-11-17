@@ -9,6 +9,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import cs.ualberta.ca.medlog.R;
+import cs.ualberta.ca.medlog.entity.user.CareProvider;
+import cs.ualberta.ca.medlog.entity.user.Patient;
+import cs.ualberta.ca.medlog.helper.Database;
+import cs.ualberta.ca.medlog.singleton.CurrentUser;
 
 /**
  * <p>
@@ -62,11 +66,20 @@ public class PatientLoginActivity extends AppCompatActivity {
             return;
         }
 
-        boolean validPatient = true;    //TODO Set to false once controller added.
-        //TODO Check this username using a Patient Controller, if valid change the boolean
+        boolean validPatient = false;
+        Database db = new Database(this);
+        Patient toLogin = null;
+        try{
+            toLogin = db.loadPatient(username);
+            if(toLogin != null){
+                validPatient = true;
+            }
+        }catch(Exception e){
+            Toast.makeText(this, "Failed to login", Toast.LENGTH_SHORT).show();
+        }
 
         if (validPatient) {
-            //TODO Add code contacting the system to inform it that the given Patient is logged in
+            CurrentUser.getInstance().set(toLogin);
 
             Intent intent = new Intent(this, PatientMenuActivity.class);
             intent.putExtra(EXTRA_MESSAGE,username);

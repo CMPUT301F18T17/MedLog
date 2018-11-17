@@ -39,12 +39,14 @@ import cs.ualberta.ca.medlog.R;
  * @see PatientSearchActivity
  */
 public class PatientMenuActivity extends AppCompatActivity {
-    Intent intent=getIntent();
-    private String username = intent.getStringExtra(PatientLoginActivity.EXTRA_MESSAGE);
+    private String username;
     public final static String EXTRA_MESSAGE = "cs.ualberta.ca.medlog.MESSAGE";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
+        intent.getStringExtra(PatientLoginActivity.EXTRA_MESSAGE);
         setContentView(R.layout.activity_patient_menu);
         Button addProblemButton = findViewById(R.id.activityPatientMenu_AddProblemButton);
         Button viewProblemsButton = findViewById(R.id.activityPatientMenu_ViewProblemsButton);
