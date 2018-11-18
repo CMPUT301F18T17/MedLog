@@ -1,5 +1,6 @@
 package cs.ualberta.ca.medlog.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -23,17 +24,16 @@ import cs.ualberta.ca.medlog.singleton.CurrentUser;
  * </p>
  * <p>
  *     Issues: <br>
- *         Add connection to a Provider patients list to view.
- *         Add ability to grab a selected patient.
- *         Add transfer to the Patient Profile View Activity.
+ *         None.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.1
- * @see PatientMenuActivity
+ * @version 1.0
+ * @see ProviderMenuActivity
+ * @see ProviderPatientProfileActivity
  */
 public class ProviderViewPatientsActivity extends AppCompatActivity {
-
+    ArrayList<Patient> patients;
     ArrayAdapter<Patient> adapter;
 
     @Override
@@ -41,8 +41,9 @@ public class ProviderViewPatientsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_provider_view_patients);
 
-        adapter = new ArrayAdapter<>(this,
-                R.layout.list_item, CurrentUser.getInstance().getAsProvider().getPatients());
+        patients = CurrentUser.getInstance().getAsProvider().getPatients();
+
+        adapter = new ArrayAdapter<>(this, R.layout.list_item, patients);
 
         ListView patientsList = findViewById(R.id.activityProviderViewPatients_PatientsListView);
         patientsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -56,8 +57,8 @@ public class ProviderViewPatientsActivity extends AppCompatActivity {
     }
 
     private void openPatientView(int index) {
-        //TODO Add patient grabbing code
-
-        //TODO Add transfer to the Patient Profile View Activity
+        Intent intent = new Intent(this, ProviderPatientProfileActivity.class);
+        intent.putExtra("PATIENT",patients.get(index));
+        startActivity(intent);
     }
 }

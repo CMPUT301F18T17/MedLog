@@ -1,17 +1,3 @@
-/**
- *
- * <h1>
- *     PatientController
- * </h1>
- *
- *  <p>
- *     Description: <br>
- *         The purpose of this class is to control the patient changes.
- *  </p>
- *
- */
-
-
 package cs.ualberta.ca.medlog.controller;
 
 import android.content.Context;
@@ -26,79 +12,65 @@ import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 import cs.ualberta.ca.medlog.helper.Database;
 
+/**
+ * <p>
+ *     Description: <br>
+ *         The controller for all changes made to a Patient. This is used by the gui to change
+ *         Patient information in the model.
+ * </p>
+ * <p>
+ *     Issues: <br>
+ *         None.
+ * </p>
+ *
+ * @author ?
+ * @version 1.0
+ * @see Patient
+ */
 public class PatientController {
-
-
-    private Context context;
     private Database database;
 
     public PatientController(Context ctx){
-        context=ctx;
-        database = new Database(context);
+        database = new Database(ctx);
     }
 
-    public void addProblem(Problem problem, String username){
-        // Load patient, add problem, save patient
+    public void setEmail(Patient patient, String newEmail){
         try{
-            Patient patient=database.loadPatient(username);
-            patient.addProblem(problem);
+            patient=database.loadPatient(patient.getUsername());
+            patient.getContactInfo().setPhoneNumber(newEmail);
             database.savePatient(patient);
         }catch(Exception e){
             e.printStackTrace();
         }
     }
 
-    public ArrayList<Problem> getProblems(String username) {
-        Patient patient = null;
-        try {
-            patient = database.loadPatient(username);
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        return patient.getProblems();
-
-    }
-
-    public void setTitle(String username,int problemIndex,String newText) {
+    public void setPhoneNumber(Patient patient, String newPhoneNumber){
         try{
-            Patient patient=database.loadPatient(username);
-            patient.setTitle(problemIndex,newText);
+            patient=database.loadPatient(patient.getUsername());
+            patient.getContactInfo().setPhoneNumber(newPhoneNumber);
             database.savePatient(patient);
         }catch(Exception e){
             e.printStackTrace();
         }
-
     }
-    public void setDesc(String username,int problemIndex,String newText) {
+
+    public void addProblem(Patient patient, Problem newProblem){
         try{
-            Patient patient=database.loadPatient(username);
-            patient.setDescription(problemIndex,newText);
+            patient=database.loadPatient(patient.getUsername());
+            patient.addProblem(newProblem);
             database.savePatient(patient);
         }catch(Exception e){
             e.printStackTrace();
         }
     }
 
-    public void setDate(String username, int problemIndex, Calendar cal) {
-        try {
-            Patient patient = database.loadPatient(username);
-            Date date;
-            date = cal.getTime();
-            patient.setDate(problemIndex, date);
-            database.savePatient(patient);
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    public void deleteProblem(String username, int problemIndex){
+    public void deleteProblem(Patient patient, Problem problem){
         try{
-            Patient patient=database.loadPatient(username);
-            patient.deleteProblem(problemIndex);
+            patient=database.loadPatient(patient.getUsername());
+            patient.getProblems().remove(problem);
             database.savePatient(patient);
         }catch(Exception e){
             e.printStackTrace();
         }
     }
-
 }

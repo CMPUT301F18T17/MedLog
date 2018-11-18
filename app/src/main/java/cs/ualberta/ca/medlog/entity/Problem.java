@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Problem {
-
     private String title;
     private Date date;
     private String description;

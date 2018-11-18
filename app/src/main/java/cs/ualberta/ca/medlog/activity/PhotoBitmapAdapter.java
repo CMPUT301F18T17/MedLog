@@ -20,7 +20,7 @@ import cs.ualberta.ca.medlog.R;
  * </p>
  * <p>
  *     Issues: <br>
- *         Add ability to read existing photos.
+ *         None.
  * </p>
  *
  * @author Tyler Gobran
@@ -36,7 +36,7 @@ public class PhotoBitmapAdapter extends ArrayAdapter<Bitmap> {
     View getView(int position, View convertView, @NonNull ViewGroup parent) {
 
         if(convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.view_photo,parent,false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.photo_item,parent,false);
         }
 
         ImageView photoView = convertView.findViewById(R.id.viewPhoto_PhotoView);

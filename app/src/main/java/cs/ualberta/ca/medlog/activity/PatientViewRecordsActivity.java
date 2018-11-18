@@ -7,11 +7,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
 import java.util.ArrayList;
-
 import cs.ualberta.ca.medlog.R;
-import cs.ualberta.ca.medlog.entity.Problem;
 import cs.ualberta.ca.medlog.entity.Record;
 
 /**
@@ -23,20 +20,17 @@ import cs.ualberta.ca.medlog.entity.Record;
  * </p>
  * <p>
  *     Issues: <br>
- *         System call to retrieve the records of a specific patient problem index must be added.
- *         Setting the records arrayList to what was returned must be added.
+ *         None.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.3
+ * @version 1.0
  * @see PatientProblemViewActivity
  * @see PatientRecordViewActivity
  */
 public class PatientViewRecordsActivity extends AppCompatActivity {
-
-
+    private String problemTitle;
     private ArrayList<Record> records;
-    int problemIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +38,8 @@ public class PatientViewRecordsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_patient_view_records);
 
         Intent intent = getIntent();
-        problemIndex = intent.getIntExtra("problemIndex",0);
-        //TODO Call to the system to retrieve the records associated with the given problem.
-        //TODO Setting the records ArrayList to the returned problem's records list
+        problemTitle = intent.getStringExtra("PROBLEM_TITLE");
+        records = (ArrayList<Record>) intent.getSerializableExtra("RECORDS");
 
         ListView recordsListView = findViewById(R.id.activityPatientViewRecords_RecordsListView);
         recordsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -62,8 +55,8 @@ public class PatientViewRecordsActivity extends AppCompatActivity {
 
     private void openRecordView(int index) {
         Intent intent = new Intent(this, PatientRecordViewActivity.class);
-        intent.putExtra("problemIndex",problemIndex);
-        intent.putExtra("recordIndex",index);
+        intent.putExtra("PROBLEM_TITLE",problemTitle);
+        intent.putExtra("RECORD",records.get(index));
         startActivity(intent);
     }
 }

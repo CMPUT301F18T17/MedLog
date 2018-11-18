@@ -11,6 +11,7 @@ import android.widget.Toast;
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.entity.user.Patient;
+import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 import cs.ualberta.ca.medlog.helper.Database;
 import cs.ualberta.ca.medlog.singleton.CurrentUser;
 
@@ -23,19 +24,17 @@ import cs.ualberta.ca.medlog.singleton.CurrentUser;
  * </p>
  * <p>
  *     Issues: <br>
- *         Need a Patient controller to test if a username is valid.
- *         Need a Patient/System controller to set the input username to be the logged in User.
+ *         None.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.2
+ * @version 1.0
  * @see StartScreenActivity
  * @see PatientMenuActivity
  * @see PatientSignUpActivity
  */
 public class PatientLoginActivity extends AppCompatActivity {
 
-    public final static String EXTRA_MESSAGE = "cs.ualberta.ca.medlog.MESSAGE";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,27 +65,22 @@ public class PatientLoginActivity extends AppCompatActivity {
             return;
         }
 
-        boolean validPatient = false;
         Database db = new Database(this);
         Patient toLogin = null;
-        try{
+        try {
             toLogin = db.loadPatient(username);
-            if(toLogin != null){
-                validPatient = true;
-            }
-        }catch(Exception e){
-            Toast.makeText(this, "Failed to login", Toast.LENGTH_SHORT).show();
+        } catch(UserNotFoundException e) {
+            Toast.makeText(this, "Couldn't find user", Toast.LENGTH_SHORT).show();
         }
 
-        if (validPatient) {
+        if (toLogin != null) {
             CurrentUser.getInstance().set(toLogin);
 
             Intent intent = new Intent(this, PatientMenuActivity.class);
-            intent.putExtra(EXTRA_MESSAGE,username);
             startActivity(intent);
         }
         else {
-            Toast.makeText(this,"Invalid username",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Failed to login",Toast.LENGTH_SHORT).show();
         }
     }
 

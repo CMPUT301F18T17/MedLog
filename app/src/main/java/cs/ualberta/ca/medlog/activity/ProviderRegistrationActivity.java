@@ -9,6 +9,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import cs.ualberta.ca.medlog.R;
+import cs.ualberta.ca.medlog.entity.user.CareProvider;
+import cs.ualberta.ca.medlog.exception.UserNotFoundException;
+import cs.ualberta.ca.medlog.helper.Database;
+import cs.ualberta.ca.medlog.singleton.CurrentUser;
 
 /**
  * <p>
@@ -19,13 +23,11 @@ import cs.ualberta.ca.medlog.R;
  * </p>
  * <p>
  *     Issues: <br>
- *         Need a Provider controller to test if a username is valid
- *         Need a Provider/System controller to add the new Provider to the system.
- *         Need a Provider/System controller to set the input username to be the logged in User.
+ *         None.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.2
+ * @version 1.0
  * @see ProviderLoginActivity
  * @see ProviderMenuActivity
  */
@@ -53,18 +55,27 @@ public class ProviderRegistrationActivity extends AppCompatActivity {
             return;
         }
 
-        boolean usernameAvailable = true;    //TODO Set to false once controller added.
-        //TODO Check this username using a Care Provider Controller, if free change the boolean
+        boolean usernameAvailable = false;
+        Database db = new Database(this);
+        try {
+            db.loadProvider(username);
+        } catch (UserNotFoundException e) {
+            usernameAvailable = true;
+        }
+
         if (!usernameAvailable) {
             Toast.makeText(this,"Username already used",Toast.LENGTH_SHORT).show();
             return;
         }
 
-        //TODO Add controller call to add the given Care Provider to the system
-
-        //TODO Add code contacting the system to inform it that the given Provider is logged in
-
-        Intent intent = new Intent(this, PatientMenuActivity.class);
-        startActivity(intent);
+        CareProvider toSignUp = new CareProvider(username);
+        if (db.saveProvider(toSignUp)) {
+            CurrentUser.getInstance().set(toSignUp);
+            Intent intent = new Intent(this, ProviderMenuActivity.class);
+            startActivity(intent);
+        }
+        else {
+            Toast.makeText(this,"Failed to register care provider",Toast.LENGTH_SHORT).show();
+        }
     }
 }

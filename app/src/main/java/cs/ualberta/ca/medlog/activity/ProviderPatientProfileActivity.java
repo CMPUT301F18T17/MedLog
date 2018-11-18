@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import cs.ualberta.ca.medlog.R;
+import cs.ualberta.ca.medlog.entity.user.Patient;
 
 /**
  * <p>
@@ -20,24 +22,27 @@ import cs.ualberta.ca.medlog.R;
  * <p>
  *     Issues: <br>
  *         Transfer to a Map of all Records view must be added.
- *         Actual code to read a users details must be added.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.2
+ * @version 0.5
  * @see ProviderViewPatientsActivity
  * @see ProviderAddPatientActivity
  * @see ProviderPatientViewProblemsActivity
  */
 public class ProviderPatientProfileActivity extends AppCompatActivity {
+    private Patient patient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_provider_patient_profile);
-        Button reccordsMapButton = findViewById(R.id.activityProviderPatientProfile_RecordsMapButton);
+
+        patient = (Patient) getIntent().getSerializableExtra("PATIENT");
+
+        Button recordsMapButton = findViewById(R.id.activityProviderPatientProfile_RecordsMapButton);
         Button viewRecordsButton = findViewById(R.id.activityProviderPatientProfile_ViewRecordsButton);
-        reccordsMapButton.setOnClickListener(new View.OnClickListener() {
+        recordsMapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openRecordsMap();
@@ -50,7 +55,12 @@ public class ProviderPatientProfileActivity extends AppCompatActivity {
             }
         });
 
-        //TODO Add code to receive a provided patient object and set the related fields to its data.
+        TextView usernameView = findViewById(R.id.activityProviderPatientProfile_UsernameView);
+        usernameView.setText(patient.getUsername());
+        TextView emailView = findViewById(R.id.activityProviderPatientProfile_EmailView);
+        emailView.setText(patient.getContactInfo().getEmail());
+        TextView phoneNumberView = findViewById(R.id.activityProviderPatientProfile_PhoneNumberView);
+        phoneNumberView.setText(patient.getContactInfo().getPhoneNumber());
     }
 
     private void openRecordsMap() {
@@ -59,6 +69,8 @@ public class ProviderPatientProfileActivity extends AppCompatActivity {
 
     private void openPatientProblemsList() {
         Intent intent = new Intent(this, ProviderPatientViewProblemsActivity.class);
+        intent.putExtra("PATIENT_USERNAME",patient.getUsername());
+        intent.putExtra("PROBLEMS",patient.getProblems());
         startActivity(intent);
     }
 }

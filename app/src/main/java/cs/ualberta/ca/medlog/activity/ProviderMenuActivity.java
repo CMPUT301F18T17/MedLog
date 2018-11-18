@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 
 import cs.ualberta.ca.medlog.R;
+import cs.ualberta.ca.medlog.singleton.CurrentUser;
 
 /**
  * <p>
@@ -22,11 +23,11 @@ import cs.ualberta.ca.medlog.R;
  * </p>
  * <p>
  *     Issues: <br>
- *         Contact of the system to inform it that the provider is logged out must be added.
+ *         None.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.4
+ * @version 1.0
  * @see StartScreenActivity
  * @see ProviderLoginActivity
  * @see ProviderRegistrationActivity
@@ -98,7 +99,7 @@ public class ProviderMenuActivity extends AppCompatActivity {
     }
 
     private void logoutProvider() {
-        //TODO Contact system to inform it the Care Provider is logged out.
+        CurrentUser.getInstance().set(null);
 
         Intent intent = new Intent(this, StartScreenActivity.class);
         startActivity(intent);

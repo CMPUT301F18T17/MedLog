@@ -9,6 +9,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import cs.ualberta.ca.medlog.R;
+import cs.ualberta.ca.medlog.entity.user.ContactInfo;
+import cs.ualberta.ca.medlog.entity.user.Patient;
+import cs.ualberta.ca.medlog.exception.UserNotFoundException;
+import cs.ualberta.ca.medlog.helper.Database;
+import cs.ualberta.ca.medlog.singleton.CurrentUser;
 
 /**
  * <p>
@@ -19,13 +24,11 @@ import cs.ualberta.ca.medlog.R;
  * </p>
  * <p>
  *     Issues: <br>
- *         Need a Patient controller to test if a username is valid
- *         Need a Patient/System controller to add the new Patient to the system.
- *         Need a Patient/System controller to set the input username to be the logged in User.
+ *         None.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.2
+ * @version 1.0
  * @see PatientLoginActivity
  * @see PatientMenuActivity
  */
@@ -40,12 +43,12 @@ public class PatientSignUpActivity extends AppCompatActivity {
         completeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                performPatientSignup();
+                performPatientSignUp();
             }
         });
     }
 
-    private void performPatientSignup() {
+    private void performPatientSignUp() {
         EditText usernameField = findViewById(R.id.activityPatientSignUp_UsernameEditText);
         String username = usernameField.getText().toString();
         if (username.isEmpty()) {
@@ -53,8 +56,14 @@ public class PatientSignUpActivity extends AppCompatActivity {
             return;
         }
 
-        boolean usernameAvailable = true;    //TODO Set to false once controller added.
-        //TODO Check this username using a Patient Controller, if free change the boolean
+        boolean usernameAvailable = false;
+        Database db = new Database(this);
+        try {
+            db.loadPatient(username);
+        } catch (UserNotFoundException e) {
+            usernameAvailable = true;
+        }
+
         if (!usernameAvailable) {
             Toast.makeText(this,"Username already used",Toast.LENGTH_SHORT).show();
             return;
@@ -74,11 +83,14 @@ public class PatientSignUpActivity extends AppCompatActivity {
             return;
         }
 
-        //TODO Add controller call to add the given Patient to the system
-
-        //TODO Add code contacting the system to inform it that the given Patient is logged in
-
-        Intent intent = new Intent(this, PatientMenuActivity.class);
-        startActivity(intent);
+        Patient toSignUp = new Patient(new ContactInfo(phoneNumber,email),username);
+        if (db.savePatient(toSignUp)) {
+            CurrentUser.getInstance().set(toSignUp);
+            Intent intent = new Intent(this, PatientMenuActivity.class);
+            startActivity(intent);
+        }
+        else {
+            Toast.makeText(this,"Failed to sign up patient",Toast.LENGTH_SHORT).show();
+        }
     }
 }

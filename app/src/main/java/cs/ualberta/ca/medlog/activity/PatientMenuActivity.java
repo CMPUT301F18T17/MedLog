@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 
 import cs.ualberta.ca.medlog.R;
+import cs.ualberta.ca.medlog.singleton.CurrentUser;
 
 /**
  * <p>
@@ -24,12 +25,11 @@ import cs.ualberta.ca.medlog.R;
  * </p>
  * <p>
  *     Issues: <br>
- *         Contact of the system to inform it that the patient is logged out must be added.
  *         Creation and handling of a body picture prompt on first login must be added.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.5
+ * @version 0.7
  * @see StartScreenActivity
  * @see PatientLoginActivity
  * @see PatientSignUpActivity
@@ -39,15 +39,12 @@ import cs.ualberta.ca.medlog.R;
  * @see PatientSearchActivity
  */
 public class PatientMenuActivity extends AppCompatActivity {
-    private String username;
-    public final static String EXTRA_MESSAGE = "cs.ualberta.ca.medlog.MESSAGE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent intent = getIntent();
-        intent.getStringExtra(PatientLoginActivity.EXTRA_MESSAGE);
         setContentView(R.layout.activity_patient_menu);
+
         Button addProblemButton = findViewById(R.id.activityPatientMenu_AddProblemButton);
         Button viewProblemsButton = findViewById(R.id.activityPatientMenu_ViewProblemsButton);
         Button searchProblemsButton = findViewById(R.id.activityPatientMenu_SearchProblemsButton);
@@ -70,9 +67,9 @@ public class PatientMenuActivity extends AppCompatActivity {
             }
         });
 
-        //if (getParent().getLocalClassName() == "PatientSignUpActivity") {
-        //    //TODO Add body pictures popup prompt code.
-        //}
+        if (getParent().getLocalClassName() == "PatientSignUpActivity") {
+            //TODO Add body pictures popup prompt code.
+        }
     }
 
     @Override
@@ -98,13 +95,11 @@ public class PatientMenuActivity extends AppCompatActivity {
 
     private void openPatientAddProblem() {
         Intent intent = new Intent(this, PatientAddProblemActivity.class);
-        intent.putExtra(EXTRA_MESSAGE,username);
         startActivity(intent);
     }
 
     private void openPatientViewProblems() {
         Intent intent = new Intent(this, PatientViewProblemsActivity.class);
-        intent.putExtra(EXTRA_MESSAGE,username);
         startActivity(intent);
     }
 
@@ -119,7 +114,7 @@ public class PatientMenuActivity extends AppCompatActivity {
     }
 
     private void logoutPatient() {
-        //TODO Contact system to inform it the Patient is logged out.
+        CurrentUser.getInstance().set(null);
 
         Intent intent = new Intent(this, StartScreenActivity.class);
         startActivity(intent);

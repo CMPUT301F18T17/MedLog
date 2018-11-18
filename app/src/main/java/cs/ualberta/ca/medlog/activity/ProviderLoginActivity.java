@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.entity.user.CareProvider;
+import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 import cs.ualberta.ca.medlog.helper.Database;
 import cs.ualberta.ca.medlog.singleton.CurrentUser;
 
@@ -22,12 +23,11 @@ import cs.ualberta.ca.medlog.singleton.CurrentUser;
  * </p>
  * <p>
  *     Issues: <br>
- *         Need a Provider controller to test if a username is valid.
- *         Need a Provider/System controller to set the input username to be the logged in User.
+ *         None.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.2
+ * @version 1.0
  * @see StartScreenActivity
  * @see ProviderMenuActivity
  * @see ProviderRegistrationActivity
@@ -64,27 +64,22 @@ public class ProviderLoginActivity extends AppCompatActivity {
             return;
         }
 
-        boolean validProvider = false;    //TODO Set to false once controller added.
-        //TODO Check this username using a Provider Controller, if valid change the boolean
         Database db = new Database(this);
         CareProvider toLogin = null;
-        try{
+        try {
             toLogin = db.loadProvider(username);
-            if(toLogin != null){
-                validProvider = true;
-            }
-        }catch(Exception e){
-            Toast.makeText(this, "Failed to login", Toast.LENGTH_SHORT).show();
+        } catch(UserNotFoundException e) {
+            Toast.makeText(this, "Couldn't find user", Toast.LENGTH_SHORT).show();
         }
 
-        if (validProvider) {
+        if (toLogin != null) {
             CurrentUser.getInstance().set(toLogin);
 
             Intent intent = new Intent(this, ProviderMenuActivity.class);
             startActivity(intent);
         }
         else {
-            Toast.makeText(this,"No account found",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Failed to login",Toast.LENGTH_SHORT).show();
         }
     }
 

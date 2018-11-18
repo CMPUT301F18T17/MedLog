@@ -1,33 +1,21 @@
 package cs.ualberta.ca.medlog.activity;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Toast;
-
 import java.io.IOException;
 import java.util.ArrayList;
-
 import cs.ualberta.ca.medlog.R;
-
-import static android.app.Activity.RESULT_OK;
+import cs.ualberta.ca.medlog.entity.Photo;
 
 /**
  * <p>
@@ -38,12 +26,11 @@ import static android.app.Activity.RESULT_OK;
  * </p>
  * <p>
  *     Issues: <br>
- *         Add code to return an ArrayList of the photos that have been added.
  *         Fix issues in grabbing added photos and displaying them.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.1
+ * @version 0.2
  * @see PhotoBitmapAdapter
  */
 public class PhotoSelectorActivity extends AppCompatActivity {
@@ -51,18 +38,19 @@ public class PhotoSelectorActivity extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int REQUEST_LOAD_IMAGE = 2;
 
-    private ArrayList<Bitmap> photos = new ArrayList<Bitmap>();
+    private ArrayList<Bitmap> photos = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_selector);
 
-        Bitmap guidePhoto = null;
-
         Intent passedIntent = getIntent();
-        guidePhoto = passedIntent.getParcelableExtra("argGuidePhoto");
-        //TODO Add code to load the passed existing images.
+        Bitmap guidePhoto = passedIntent.getParcelableExtra("GUIDE_PHOTOS");
+        ArrayList<Photo> passedPhotos = passedIntent.getParcelableArrayExtra("PHOTOS");
+        for(Photo p: passedPhotos) {
+            photos.add(p.getPhotoBitmap());
+        }
 
         if (guidePhoto != null) {
             ImageView guideImageView = findViewById(R.id.activityPhotoSelector_GuideImage);
@@ -107,7 +95,7 @@ public class PhotoSelectorActivity extends AppCompatActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Toast.makeText(this,"Photo Added",Toast.LENGTH_SHORT);
+        Toast.makeText(this,"Photo Added",Toast.LENGTH_SHORT).show();
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
@@ -120,7 +108,7 @@ public class PhotoSelectorActivity extends AppCompatActivity {
                 imageBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
             }
             catch (IOException e) {
-                Toast.makeText(this,"Couldn't Load Image",Toast.LENGTH_SHORT);
+                Toast.makeText(this,"Couldn't Load Image",Toast.LENGTH_SHORT).show();
             }
             if (photos != null) {
                 photos.add(imageBitmap);
