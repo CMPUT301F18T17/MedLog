@@ -50,7 +50,6 @@ import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 
 public class Database {
     public Context context;
-    private static final int timeout = 1000;
 
     public Database(Context c){
         this.context = c;
@@ -106,7 +105,6 @@ public class Database {
      */
     public CareProvider loadProvider(String username) throws UserNotFoundException, ConnectException {
         CareProvider provider = null;
-
         if (checkConnectivity()) {
             try {
                 provider = new ElasticSearchController.LoadCareProviderTask().execute(username).get();
@@ -383,33 +381,15 @@ public class Database {
         return searchCareProvider(careProvider, keywords, map, bl);
     }
 
-
-    /**
-     * <p>Check if we can connect to the Elastic Search server</p>
-     * @return True if a connection can be established, false otherwise
-     */
-    public boolean checkConnectivity(String url) {
-        try {
-            URL urlServer = new URL(url);
-            HttpURLConnection urlConn = (HttpURLConnection) urlServer.openConnection();
-            urlConn.setConnectTimeout(timeout);
-            urlConn.connect();
-            if (urlConn.getResponseCode() == 200) {
-                return true;
-            } else {
-                return false;
-            }
-        } catch (MalformedURLException e1) {
-            return false;
-        } catch (IOException e) {
-            return false;
-        }
-    }
     /**
      * <p>Check if we can connect to the Elastic Search server</p>
      * @return True if a connection can be established, false otherwise
      */
     public boolean checkConnectivity() {
-        return checkConnectivity(ElasticSearchController.databaseAddress);
+        try {
+            return new ElasticSearchController.CheckConnectionTask().execute().get();
+        }catch(Exception e){
+            return false;
+        }
     }
 }

@@ -27,10 +27,10 @@ public class DatabaseUnitTest {
         String offline = "tes.d";
         Database db = new Database(null);
         /* Successfully to an online database */
-        assertTrue(db.checkConnectivity("http://cmput301.softwareprocess.es:8080/"));
+        assertTrue(ElasticSearchController.checkConnectivity("http://cmput301.softwareprocess.es:8080/"));
 
         /* Unsuccessfully connecting to an offline database */
-        assertFalse(db.checkConnectivity(offline));
+        assertFalse(ElasticSearchController.checkConnectivity(offline));
     }
 
     /**

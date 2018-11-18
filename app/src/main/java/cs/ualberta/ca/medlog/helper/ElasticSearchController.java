@@ -23,6 +23,7 @@ import com.searchly.jestdroid.JestClientFactory;
 import com.searchly.jestdroid.JestDroidClient;
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -40,6 +41,7 @@ public class ElasticSearchController {
     public static String databaseAddress = "http://cmput301.softwareprocess.es:8080";
     private static JestDroidClient client = null;
     private static final String INDEX_NAME = "cmput301f18t17";
+    private static final int timeout = 1000;
 
 
     /**
@@ -309,5 +311,47 @@ public class ElasticSearchController {
             Log.d(ElasticSearchController.class.getName(), "Failed to delete user with username: " + username);
         }
         return success;
+    }
+
+
+
+
+    /**
+     *  Delete a Care Provider from the Elastic Search database
+     */
+    public static class CheckConnectionTask extends AsyncTask<Void, Void, Boolean>{
+        /**
+         * Deletes theCare Provider provided asynchronously
+         * @param voids Ignored completely.
+         * @return if the operation succeeded.
+         */
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            return checkConnectivity(databaseAddress);
+        }
+    }
+
+
+    /**
+     * <p>Check if we can connect to the Elastic Search server</p>
+     * @return True if a connection can be established, false otherwise
+     * @deprecated Use Asynchronous Task Instead
+     */
+    public static boolean checkConnectivity(String url) {
+        try {
+            URL urlServer = new URL(url);
+            HttpURLConnection urlConn = (HttpURLConnection) urlServer.openConnection();
+            urlConn.setConnectTimeout(timeout);
+            urlConn.connect();
+            if (urlConn.getResponseCode() == 200) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (MalformedURLException e1) {
+            return false;
+        } catch (IOException e) {
+            return false;
+        }
     }
 }
