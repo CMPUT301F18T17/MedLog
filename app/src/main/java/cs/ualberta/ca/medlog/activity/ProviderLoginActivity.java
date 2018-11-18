@@ -8,7 +8,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.net.ConnectException;
+
 import cs.ualberta.ca.medlog.R;
+import cs.ualberta.ca.medlog.controller.SyncController;
 import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.helper.Database;
 import cs.ualberta.ca.medlog.singleton.CurrentUser;
@@ -64,12 +67,22 @@ public class ProviderLoginActivity extends AppCompatActivity {
             return;
         }
 
+
+        SyncController sc = new SyncController(this);
+        try{
+            sc.syncCareProvider(username);
+        }catch(Exception e){
+            Toast.makeText(this,"Failed to connect to server",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         boolean validProvider = false;    //TODO Set to false once controller added.
         //TODO Check this username using a Provider Controller, if valid change the boolean
         Database db = new Database(this);
         CareProvider toLogin = null;
         try{
             toLogin = db.loadProvider(username);
+            toLogin = sc.updateCareProviderPatients(toLogin);
             if(toLogin != null){
                 validProvider = true;
             }
