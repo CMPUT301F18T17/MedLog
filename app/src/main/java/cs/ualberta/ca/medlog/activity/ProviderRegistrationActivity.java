@@ -8,7 +8,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.net.ConnectException;
+import java.security.Provider;
+
 import cs.ualberta.ca.medlog.R;
+import cs.ualberta.ca.medlog.entity.user.CareProvider;
+import cs.ualberta.ca.medlog.entity.user.ContactInfo;
+import cs.ualberta.ca.medlog.entity.user.Patient;
+import cs.ualberta.ca.medlog.helper.Database;
+import cs.ualberta.ca.medlog.singleton.CurrentUser;
 
 /**
  * <p>
@@ -46,23 +54,35 @@ public class ProviderRegistrationActivity extends AppCompatActivity {
     }
 
     private void performProviderRegistration() {
-        EditText usernameField = findViewById(R.id.activityProviderLogin_UsernameEditText);
+        EditText usernameField = findViewById(R.id.activityProviderRegistration_UsernameEditText);
         String username = usernameField.getText().toString();
         if (username.isEmpty()) {
             Toast.makeText(this,"No username entered",Toast.LENGTH_SHORT).show();
             return;
         }
 
-        boolean usernameAvailable = true;    //TODO Set to false once controller added.
-        //TODO Check this username using a Care Provider Controller, if free change the boolean
+        boolean usernameAvailable = false;
+        Database db = new Database(this);
+
+        try {
+            usernameAvailable = db.providerUsernameAvailable(username);
+        }catch(ConnectException e){
+            Toast.makeText(this,"Could not connect",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         if (!usernameAvailable) {
             Toast.makeText(this,"Username already used",Toast.LENGTH_SHORT).show();
             return;
         }
 
-        //TODO Add controller call to add the given Care Provider to the system
-
-        //TODO Add code contacting the system to inform it that the given Provider is logged in
+        CareProvider careProvider = new CareProvider(username);
+        if(db.saveProvider(careProvider)){
+            CurrentUser.getInstance().set(careProvider);
+        }else{
+            Toast.makeText(this, "Try again later", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         Intent intent = new Intent(this, PatientMenuActivity.class);
         startActivity(intent);

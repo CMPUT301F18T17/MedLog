@@ -125,7 +125,6 @@ public class FileSaver {
 
         } catch (IOException e) {
             Log.d("FileSaver", "IOException thrown in FileSaver.loadPatient(patient)");
-            e.printStackTrace();
             throw new UserNotFoundException("Could not load user locally.");
         }
 
@@ -160,7 +159,6 @@ public class FileSaver {
 
         } catch (IOException e) {
             Log.d("FileSaver", "IOException thrown in FileSaver.loadPatient(patient)");
-            e.printStackTrace();
             throw new UserNotFoundException("Could not load user locally.");
         }
 

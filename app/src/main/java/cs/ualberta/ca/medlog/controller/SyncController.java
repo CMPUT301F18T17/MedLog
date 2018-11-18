@@ -155,6 +155,8 @@ public class SyncController {
             }catch(UserNotFoundException e){
                 Log.e(getClass().getName(), String.format("Patient %s could not be loaded from ES! Adding original copy.", p.getUsername()));
                 careProvider.addPatient(p);
+            }catch(ConnectException e){
+                Log.e(getClass().getName(), String.format("Could not connect to the database and update the patient %s.", p.getUsername()));
             }
         }
     }

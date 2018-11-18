@@ -76,6 +76,7 @@ public class PatientLoginActivity extends AppCompatActivity {
             }
         }catch(Exception e){
             Toast.makeText(this, "Failed to login", Toast.LENGTH_SHORT).show();
+            return;
         }
 
         if (validPatient) {
