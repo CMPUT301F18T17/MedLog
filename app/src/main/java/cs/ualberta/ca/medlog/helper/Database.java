@@ -393,8 +393,6 @@ public class Database {
      * @return True if a connection can be established, false otherwise
      */
     public boolean checkConnectivity() {
-        return true;
-        /*
         try {
             URL url = new URL(ElasticSearchController.databaseAddress);
             URLConnection connection = url.openConnection();
@@ -405,7 +403,7 @@ public class Database {
             Log.d("Database", "IOException thrown in Database.checkConnectivity()");
             e.printStackTrace();
             return false;
-        }*/
+        }
     }
 
     /**
@@ -415,9 +413,8 @@ public class Database {
     public boolean checkConnectivity(String website) {
         try {
             URL url = new URL(website);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            URLConnection connection = url.openConnection();
             connection.setConnectTimeout(timeout);
-            connection.setRequestMethod("GET");
             connection.connect();
             return true;
         } catch (IOException e) {

@@ -48,7 +48,7 @@ public class DatabaseUnitTest {
     @Test
     public void testGetTimeout() {
         Database database = new Database(null);
-        assertEquals(10, database.getTimeout());
+        assertEquals(100, database.getTimeout());
     }
 
 
@@ -69,7 +69,7 @@ public class DatabaseUnitTest {
     @Test
     public void testSetTimeout() {
         Database database = new Database(null);
-        assertEquals(10, database.getTimeout());
+        assertEquals(100, database.getTimeout());
 
         database.setTimeout(3);
         assertEquals(3, database.getTimeout());
