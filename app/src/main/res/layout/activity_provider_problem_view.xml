@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/activityProviderProblemView.RecordTitleView"
+        android:id="@+id/activityProviderProblemView.ProblemTitleView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -50,14 +50,14 @@
         android:text="@string/activityProviderProblemView.PatientUsernameDefault"
         android:textColor="@color/app_lightTextColour"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/activityProviderProblemView.RecordDateView"
+        app:layout_constraintBottom_toTopOf="@+id/activityProviderProblemView.ProblemDateView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activityProviderProblemView.RecordTitleView" />
+        app:layout_constraintTop_toBottomOf="@+id/activityProviderProblemView.ProblemTitleView" />
 
     <TextView
-        android:id="@+id/activityProviderProblemView.RecordDateView"
+        android:id="@+id/activityProviderProblemView.ProblemDateView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -68,14 +68,14 @@
         android:text="@string/activityProviderProblemView.DateDefault"
         android:textColor="@color/app_lightTextColour"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/activityProviderProblemView.RecordDescriptionView"
+        app:layout_constraintBottom_toTopOf="@+id/activityProviderProblemView.ProblemDescriptionView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activityProviderProblemView.PatientUsernameView" />
 
     <TextView
-        android:id="@+id/activityProviderProblemView.RecordDescriptionView"
+        android:id="@+id/activityProviderProblemView.ProblemDescriptionView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
@@ -87,7 +87,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activityProviderProblemView.RecordDateView" />
+        app:layout_constraintTop_toBottomOf="@+id/activityProviderProblemView.ProblemDateView" />
 
     <Button
         android:id="@+id/activityProviderProblemView.ViewRecordsButton"

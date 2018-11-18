@@ -40,7 +40,6 @@ import cs.ualberta.ca.medlog.singleton.CurrentUser;
  * @see PatientRecordViewActivity
  */
 public class PatientSearchActivity extends AppCompatActivity {
-
     private ArrayAdapter<Problem> adapter;
 
     @Override

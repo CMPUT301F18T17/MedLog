@@ -45,7 +45,6 @@ public class PatientRecordViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_patient_record_view);
 
         Intent intent = getIntent();
-
         String problemTitle = intent.getStringExtra("PROBLEM_TITLE");
         record = intent.getSerializableExtra("RECORD");
 

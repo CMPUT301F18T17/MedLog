@@ -178,12 +178,12 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
     }
 
     private void updateTitleDisplay(String title) {
-        TextView titleView = findViewById(R.id.activityPatientProblemView_RecordTitleView);
+        TextView titleView = findViewById(R.id.activityPatientProblemView_ProblemTitleView);
         titleView.setText(title);
     }
 
     private void updateDescriptionDisplay(String description) {
-        TextView descView = findViewById(R.id.activityPatientProblemView_RecordDescriptionView);
+        TextView descView = findViewById(R.id.activityPatientProblemView_ProblemDescriptionView);
         descView.setText(description);
     }
 
@@ -201,7 +201,7 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
     }
 
     private void updateDateDisplay(Calendar cal) {
-        TextView dateView = findViewById(R.id.activityPatientProblemView_RecordDateView);
+        TextView dateView = findViewById(R.id.activityPatientProblemView_ProblemDateView);
         int year = cal.get(Calendar.YEAR);
         int month = cal.get(Calendar.MONTH);
         int day = cal.get(Calendar.DAY_OF_MONTH);
