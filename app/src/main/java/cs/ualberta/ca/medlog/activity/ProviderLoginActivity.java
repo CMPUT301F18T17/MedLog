@@ -76,8 +76,7 @@ public class ProviderLoginActivity extends AppCompatActivity {
             return;
         }
 
-        boolean validProvider = false;    //TODO Set to false once controller added.
-        //TODO Check this username using a Provider Controller, if valid change the boolean
+        boolean validProvider = false;
         Database db = new Database(this);
         CareProvider toLogin = null;
         try{

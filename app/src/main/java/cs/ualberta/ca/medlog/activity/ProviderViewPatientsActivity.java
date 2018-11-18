@@ -56,8 +56,10 @@ public class ProviderViewPatientsActivity extends AppCompatActivity {
     }
 
     private void openPatientView(int index) {
-        //TODO Add patient grabbing code
+        Patient patient = CurrentUser.getInstance().getAsProvider().getPatients().get(index);
+
 
         //TODO Add transfer to the Patient Profile View Activity
+
     }
 }
