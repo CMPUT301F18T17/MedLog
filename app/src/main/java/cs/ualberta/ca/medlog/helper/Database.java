@@ -67,8 +67,10 @@ public class Database {
     /**
      * <p>Get a patient from the database if a connection can be established, load from disc otherwise</p>
      * @return patient (Patient that was retrieved or loaded)
+     * @throws UserNotFoundException if the user cannot be found.
+     * @throws ConnectException if we could not connect to the database and could not load the user locally.
      */
-    public Patient loadPatient(String username) throws UserNotFoundException{
+    public Patient loadPatient(String username) throws UserNotFoundException, ConnectException{
         Patient patient = null;
         if(username.isEmpty()){ throw new UserNotFoundException("Users cannot have an empty username."); }
         // Check if there is connectivity
@@ -82,14 +84,17 @@ public class Database {
             }catch(Exception e){
                 // There was an exception in the async execution
                 Log.d(Database.class.getName(), "Failed to load user: " + username);
-                e.printStackTrace();
                 throw new UserNotFoundException("Patient " + username + " failed to load.");
             }
         } else {
 
-            // Offline mode, try and load the patient from local data
-            FileSaver saver = new FileSaver(context);
-            patient = saver.loadPatient();
+            try {
+                // Offline mode, try and load the patient from local data
+                FileSaver saver = new FileSaver(context);
+                patient = saver.loadPatient();
+            }catch(UserNotFoundException e){
+                throw new ConnectException("Failed to connect to database and could not load the user locally.");
+            }
         }
 
         return patient;
@@ -99,8 +104,10 @@ public class Database {
     /**
      * <p>Get a provider from the database if a connection can be established, load from disc otherwise</p>
      * @return provider (Provider that was retrieved or loaded)
+     * @throws UserNotFoundException if the user cannot be found.
+     * @throws ConnectException if we could not connect to the database and could not load the user locally.
      */
-    public CareProvider loadProvider(String username) throws UserNotFoundException {
+    public CareProvider loadProvider(String username) throws UserNotFoundException, ConnectException {
         CareProvider provider = null;
 
         if (checkConnectivity()) {
@@ -111,11 +118,11 @@ public class Database {
                 throw new UserNotFoundException("Failed to load provider.");
             }
         } else {
-            FileSaver saver = new FileSaver(context);
             try {
+                FileSaver saver = new FileSaver(context);
                 provider = saver.loadCareProvider();
-            }catch(Exception e){
-                throw new UserNotFoundException("Failed to load provider.");
+            }catch(UserNotFoundException e){
+                throw new ConnectException("Failed to connect to database and could not load the user locally.");
             }
         }
 
@@ -249,9 +256,10 @@ public class Database {
      * @param map The map location we are looking for. Can be null.
      * @param bl The body location we are looking for. Can be null.
      * @return An ArrayList of problems that match our search.
-     * @throws UserNotFoundException if the patient cannot be found.
+     * @throws UserNotFoundException if the patient cannot be found.3
+     * @throws ConnectException if the database could not be loaded and the user is not found locally.
      */
-    public ArrayList<Problem> searchPatient(String username, ArrayList<String> keywords, MapLocation map, BodyLocation bl) throws UserNotFoundException{
+    public ArrayList<Problem> searchPatient(String username, ArrayList<String> keywords, MapLocation map, BodyLocation bl) throws UserNotFoundException, ConnectException{
         Patient p = loadPatient(username);
         return searchPatient(p, keywords, map, bl);
     }
@@ -337,8 +345,9 @@ public class Database {
      * @param bl The body location, can be null.
      * @return A list of problems that match all of the keywords, map, or body location.
      * @throws UserNotFoundException if the care provider cannot be found.
+     * @throws ConnectException if the database could not be loaded and the user is not found locally.
      */
-    public ArrayList<Problem> searchCareProvider(String username, ArrayList<String> keywords, MapLocation map, BodyLocation bl) throws UserNotFoundException{
+    public ArrayList<Problem> searchCareProvider(String username, ArrayList<String> keywords, MapLocation map, BodyLocation bl) throws UserNotFoundException, ConnectException{
         CareProvider careProvider = loadProvider(username);
         return searchCareProvider(careProvider, keywords, map, bl);
     }
