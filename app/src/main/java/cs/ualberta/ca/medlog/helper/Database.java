@@ -46,7 +46,6 @@ import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 
 public class Database {
     public Context context;
-    private int timeout = 100;
 
     public Database(Context c){
         this.context = c;
@@ -54,14 +53,6 @@ public class Database {
 
     public Context getDatabaseContext() {
         return context;
-    }
-
-    public int getTimeout() {
-        return timeout;
-    }
-
-    public void setTimeout(int newTimeout) {
-        this.timeout = newTimeout;
     }
 
 
@@ -394,31 +385,8 @@ public class Database {
      */
     public boolean checkConnectivity() {
         try {
-            URL url = new URL(ElasticSearchController.databaseAddress);
-            URLConnection connection = url.openConnection();
-            connection.setConnectTimeout(timeout);
-            connection.connect();
-            return true;
-        } catch (IOException e) {
-            Log.d("Database", "IOException thrown in Database.checkConnectivity()");
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    /**
-     * <p>Check if we can connect to the Elastic Search server</p>
-     * @return True if a connection can be established, false otherwise
-     */
-    public boolean checkConnectivity(String website) {
-        try {
-            URL url = new URL(website);
-            URLConnection connection = url.openConnection();
-            connection.setConnectTimeout(timeout);
-            connection.connect();
-            return true;
-        } catch (IOException e) {
-            Log.d("Database", "IOException thrown in Database.checkConnectivity()");
+            return new ElasticSearchController.CheckConnectionTask().execute().get();
+        }catch(Exception e){
             e.printStackTrace();
             return false;
         }

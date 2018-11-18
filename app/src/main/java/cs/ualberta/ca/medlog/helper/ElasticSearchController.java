@@ -22,6 +22,9 @@ import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
 import com.searchly.jestdroid.JestDroidClient;
 import java.io.IOException;
+import java.net.URL;
+import java.net.URLConnection;
+
 import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import io.searchbox.client.JestResult;
@@ -36,6 +39,7 @@ public class ElasticSearchController {
     public static String databaseAddress = "http://cmput301.softwareprocess.es:8080";
     private static JestDroidClient client = null;
     private static final String INDEX_NAME = "cmput301f18t17";
+    private static final int timeout = 1000;
 
 
     /**
@@ -305,5 +309,42 @@ public class ElasticSearchController {
             Log.d(ElasticSearchController.class.getName(), "Failed to delete user with username: " + username);
         }
         return success;
+    }
+
+
+
+    /**
+     *  Check connectivity to the elastic search server.
+     */
+    public static class CheckConnectionTask extends AsyncTask<Void, Void, Boolean> {
+        /**
+         * Check the connectivity asynchronously.
+         * @param voids Ignored values.
+         * @return if the operation succeeded.
+         */
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            return checkConnectivity(databaseAddress);
+        }
+    }
+
+    /**
+     * <p>Checks connectivity to another server</p>
+     * @deprecated Use the Asynchronous Method in Production.
+     * @param URL The url to check.
+     * @return If we are able to connect.
+     */
+    public static Boolean checkConnectivity(String URL){
+        try {
+            java.net.URL url = new URL(ElasticSearchController.databaseAddress);
+            URLConnection connection = url.openConnection();
+            connection.setConnectTimeout(timeout);
+            connection.connect();
+            return true;
+        } catch (IOException e) {
+            Log.d("Database", "IOException thrown in Database.checkConnectivity()");
+            e.printStackTrace();
+            return false;
+        }
     }
 }
