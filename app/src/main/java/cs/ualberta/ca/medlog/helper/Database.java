@@ -140,7 +140,7 @@ public class Database {
         try{
             Patient p = loadPatient(username);
         }catch(UserNotFoundException e){
-            success = false;
+            success = true;
         }
         return success;
     }
@@ -156,7 +156,7 @@ public class Database {
         try{
             CareProvider p = loadProvider(username);
         }catch(UserNotFoundException e){
-            success = false;
+            success = true;
         }
         return success;
     }

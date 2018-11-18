@@ -8,7 +8,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.net.ConnectException;
+
 import cs.ualberta.ca.medlog.R;
+import cs.ualberta.ca.medlog.entity.user.ContactInfo;
+import cs.ualberta.ca.medlog.entity.user.Patient;
+import cs.ualberta.ca.medlog.helper.Database;
+import cs.ualberta.ca.medlog.singleton.CurrentUser;
 
 /**
  * <p>
@@ -53,8 +59,18 @@ public class PatientSignUpActivity extends AppCompatActivity {
             return;
         }
 
-        boolean usernameAvailable = true;    //TODO Set to false once controller added.
-        //TODO Check this username using a Patient Controller, if free change the boolean
+
+        Database db = new Database(this);
+        boolean usernameAvailable = false;
+
+        try {
+            usernameAvailable = db.patientUsernameAvailable(username);
+        }catch(ConnectException e){
+            Toast.makeText(this, "Failed to connect.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
         if (!usernameAvailable) {
             Toast.makeText(this,"Username already used",Toast.LENGTH_SHORT).show();
             return;
@@ -68,15 +84,28 @@ public class PatientSignUpActivity extends AppCompatActivity {
         }
 
         EditText phoneNumberField = findViewById(R.id.activityPatientSignUp_PhoneEditText);
-        String phoneNumber = phoneNumberField.getText().toString();
+        String phoneNumber = phoneNumberField.getText().toString().replace(" ", "");
         if (phoneNumber.isEmpty()) {
             Toast.makeText(this,"No phone number entered",Toast.LENGTH_SHORT).show();
             return;
         }
 
-        //TODO Add controller call to add the given Patient to the system
+        ContactInfo contactInfo;
+        try{
+            contactInfo = new ContactInfo(phoneNumber, email);
+        }catch(RuntimeException e){
+            Toast.makeText(this, "Invalid email or phone number.", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-        //TODO Add code contacting the system to inform it that the given Patient is logged in
+
+        Patient patient = new Patient(contactInfo, username);
+        if(db.savePatient(patient)){
+            CurrentUser.getInstance().set(patient);
+        }else{
+            Toast.makeText(this, "Try again later", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         Intent intent = new Intent(this, PatientMenuActivity.class);
         startActivity(intent);
