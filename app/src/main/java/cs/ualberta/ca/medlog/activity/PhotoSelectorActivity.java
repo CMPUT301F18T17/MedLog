@@ -108,15 +108,13 @@ public class PhotoSelectorActivity extends AppCompatActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Toast.makeText(this,"Photo Added",Toast.LENGTH_SHORT);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Toast.makeText(this,"Photo Added",Toast.LENGTH_SHORT);
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             photos.add(imageBitmap);
-
         }
         else if (requestCode == REQUEST_LOAD_IMAGE && resultCode == RESULT_OK) {
-            Toast.makeText(this,"Photo Added",Toast.LENGTH_SHORT);
             Uri imageUri = data.getData();
             Bitmap imageBitmap = null;
             try {
@@ -128,9 +126,6 @@ public class PhotoSelectorActivity extends AppCompatActivity {
             if (photos != null) {
                 photos.add(imageBitmap);
             }
-        }
-        else if (resultCode != RESULT_OK){
-            Toast.makeText(this,"Cancelled",Toast.LENGTH_SHORT);
         }
     }
 }
