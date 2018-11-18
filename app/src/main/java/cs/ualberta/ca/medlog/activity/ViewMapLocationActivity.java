@@ -27,7 +27,8 @@ import cs.ualberta.ca.medlog.R;
  *
  * @author Calvin Chomyc
  * @version 0.5
- * @see PatientViewRecordsActivity, ProviderRecordViewActivity
+ * @see PatientViewRecordsActivity
+ * @see ProviderRecordViewActivity
  */
 
 //TODO Change the marker's title. (Maybe use the record title?)
