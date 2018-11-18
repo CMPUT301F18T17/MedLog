@@ -54,7 +54,7 @@ public class ProviderRegistrationActivity extends AppCompatActivity {
     }
 
     private void performProviderRegistration() {
-        EditText usernameField = findViewById(R.id.activityProviderLogin_UsernameEditText);
+        EditText usernameField = findViewById(R.id.activityProviderRegistration_UsernameEditText);
         String username = usernameField.getText().toString();
         if (username.isEmpty()) {
             Toast.makeText(this,"No username entered",Toast.LENGTH_SHORT).show();
@@ -63,7 +63,6 @@ public class ProviderRegistrationActivity extends AppCompatActivity {
 
         boolean usernameAvailable = false;
         Database db = new Database(this);
-
 
         try {
             usernameAvailable = db.providerUsernameAvailable(username);

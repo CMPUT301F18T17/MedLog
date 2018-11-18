@@ -112,9 +112,11 @@ public class Database {
 
         if (checkConnectivity()) {
             try {
-                return new ElasticSearchController.LoadCareProviderTask().execute(username).get();
+                provider = new ElasticSearchController.LoadCareProviderTask().execute(username).get();
+                if(provider == null){
+                    throw new UserNotFoundException("Care Povider " + username + " was not found.");
+                }
             } catch (Exception e){
-                e.printStackTrace();
                 throw new UserNotFoundException("Failed to load provider.");
             }
         } else {
