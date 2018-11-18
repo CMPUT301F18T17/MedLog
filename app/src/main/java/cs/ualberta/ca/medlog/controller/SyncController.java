@@ -156,6 +156,7 @@ public class SyncController {
                 careProvider.addPatient(p);
             }catch(ConnectException e){
                 Log.e(getClass().getName(), String.format("Could not connect to the database and update the patient %s.", p.getUsername()));
+                careProvider.addPatient(p);
             }
         }
         return careProvider;
