@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Locale;
 import cs.ualberta.ca.medlog.R;
@@ -130,7 +132,7 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
 
     private void openAddRecord() {
         Intent intent = new Intent(this, PatientAddRecordActivity.class);
-        intent.putExtra("PROBLEM",problem);
+        intent.putExtra("PROBLEM", (Serializable) problem);
         startActivity(intent);
     }
 

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -47,7 +48,8 @@ public class PhotoSelectorActivity extends AppCompatActivity {
 
         Intent passedIntent = getIntent();
         Bitmap guidePhoto = passedIntent.getParcelableExtra("GUIDE_PHOTOS");
-        ArrayList<Photo> passedPhotos = passedIntent.getParcelableArrayExtra("PHOTOS");
+        ArrayList<Photo> passedPhotos = passedIntent.getParcelableExtra("PHOTOS");
+
         for(Photo p: passedPhotos) {
             photos.add(p.getPhotoBitmap());
         }

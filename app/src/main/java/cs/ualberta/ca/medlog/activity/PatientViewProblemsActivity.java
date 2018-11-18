@@ -1,6 +1,7 @@
 package cs.ualberta.ca.medlog.activity;
 
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -53,7 +54,7 @@ public class PatientViewProblemsActivity extends AppCompatActivity {
 
     private void openProblemView(int index) {
         Intent intent = new Intent(this, PatientProblemViewActivity.class);
-        intent.putExtra("PROBLEM",problems.get(index));
+        intent.putExtra("PROBLEM", (Parcelable) problems.get(index));
         startActivity(intent);
     }
 }

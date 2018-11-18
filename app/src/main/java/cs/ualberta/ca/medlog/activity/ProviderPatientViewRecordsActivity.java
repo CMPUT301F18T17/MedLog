@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import cs.ualberta.ca.medlog.R;
@@ -57,7 +58,7 @@ public class ProviderPatientViewRecordsActivity extends AppCompatActivity {
     private void openRecordView(int index) {
         Intent intent = new Intent(this, ProviderRecordViewActivity.class);
         intent.putExtra("PROBLEM_TITLE",problemTitle);
-        intent.putExtra("RECORD",records.get(index));
+        intent.putExtra("RECORD", (Serializable) records.get(index));
         startActivity(intent);
     }
 }
