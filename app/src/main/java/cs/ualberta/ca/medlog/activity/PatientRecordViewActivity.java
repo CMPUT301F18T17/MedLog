@@ -46,7 +46,7 @@ public class PatientRecordViewActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String problemTitle = intent.getStringExtra("PROBLEM_TITLE");
-        record = intent.getSerializableExtra("RECORD");
+        record = (Record) intent.getSerializableExtra("RECORD");
 
         Button titleCommentButton = findViewById(R.id.activityPatientRecordView_TitleCommentButton);
         Button bodyLocationButton = findViewById(R.id.activityPatientRecordView_BodyLocationButton);

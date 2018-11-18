@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -118,7 +120,7 @@ public class PatientAddProblemActivity extends AppCompatActivity implements Date
 
         //This currently is a stand in for this popup navigation
         Intent intent = new Intent(this, PatientProblemViewActivity.class);
-        intent.putExtra("PROBLEM",problem);
+        intent.putExtra("PROBLEM", (Serializable) problem);
         startActivity(intent);
     }
 }

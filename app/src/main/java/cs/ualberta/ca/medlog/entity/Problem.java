@@ -8,10 +8,11 @@
 
 package cs.ualberta.ca.medlog.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Problem {
+public class Problem implements Serializable {
     private String title;
     private Date date;
     private String description;

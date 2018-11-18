@@ -88,7 +88,7 @@ public class ProviderAddPatientActivity extends AppCompatActivity {
         }
 
         ProviderController controller = new ProviderController(this);
-        controller.addPatient(provider,toAdd);.
+        controller.addPatient(provider,toAdd);
 
         //TODO Add opening of fragment for post addition navigation.
 

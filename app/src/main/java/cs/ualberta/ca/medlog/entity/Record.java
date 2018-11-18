@@ -1,9 +1,10 @@
 package cs.ualberta.ca.medlog.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Record {
+public class Record implements Serializable {
 
     private String creatorUsername;
     private Date timestamp;

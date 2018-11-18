@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.io.Serializable;
 import java.security.Provider;
 import java.util.ArrayList;
 
@@ -60,8 +61,8 @@ public class ProviderPatientViewProblemsActivity extends AppCompatActivity {
 
     private void openProblemView(int index) {
         Intent intent = new Intent(this, ProviderProblemViewActivity.class);
-        intent.putExtra("PATIENT_USERNAME",patientUsername)
-        intent.putExtra("PROBLEM",problems.get(index));
+        intent.putExtra("PATIENT_USERNAME",patientUsername);
+        intent.putExtra("PROBLEM", (Serializable) problems.get(index));
         startActivity(intent);
     }
 }

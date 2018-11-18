@@ -9,7 +9,9 @@
 package cs.ualberta.ca.medlog.entity;
 
 
-public class MapLocation{
+import java.io.Serializable;
+
+public class MapLocation implements Serializable {
     private double latitude, longitude;
 
     public MapLocation(double latitude, double longitude){
