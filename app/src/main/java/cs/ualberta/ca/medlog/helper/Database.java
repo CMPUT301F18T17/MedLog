@@ -30,6 +30,7 @@ import android.content.Context;
 import android.util.Log;
 import java.io.IOException;
 import java.net.ConnectException;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -414,8 +415,9 @@ public class Database {
     public boolean checkConnectivity(String website) {
         try {
             URL url = new URL(website);
-            URLConnection connection = url.openConnection();
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setConnectTimeout(timeout);
+            connection.setRequestMethod("GET");
             connection.connect();
             return true;
         } catch (IOException e) {
