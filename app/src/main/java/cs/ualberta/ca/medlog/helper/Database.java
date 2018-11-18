@@ -129,6 +129,38 @@ public class Database {
         return provider;
     }
 
+    /**
+     * <p>Check if the username is available.</p>
+     * @param username The username to check.
+     * @return If the username is available to take.
+     * @throws ConnectException If we cannot connect to the database.
+     */
+    public boolean patientUsernameAvailable(String username) throws ConnectException{
+        boolean success = false;
+        try{
+            Patient p = loadPatient(username);
+        }catch(UserNotFoundException e){
+            success = false;
+        }
+        return success;
+    }
+
+    /**
+     * <p>Check if the username is available.</p>
+     * @param username The username to check.
+     * @return If the username is available to take.
+     * @throws ConnectException If we cannot connect to the database.
+     */
+    public boolean providerUsernameAvailable(String username) throws ConnectException{
+        boolean success = false;
+        try{
+            CareProvider p = loadProvider(username);
+        }catch(UserNotFoundException e){
+            success = false;
+        }
+        return success;
+    }
+
 
     /**
      * <p>Push a patient to the database if a connection can be established, save to disc otherwise</p>
