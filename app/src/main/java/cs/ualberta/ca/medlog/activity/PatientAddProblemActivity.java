@@ -15,6 +15,7 @@ import java.util.Locale;
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.controller.PatientController;
 import cs.ualberta.ca.medlog.entity.Problem;
+import cs.ualberta.ca.medlog.singleton.CurrentUser;
 
 /**
  * <p>
@@ -42,11 +43,13 @@ public class PatientAddProblemActivity extends AppCompatActivity implements Date
 
     private Calendar cal;
     private Date date;
-    Intent intent=getIntent();
-    private String username = intent.getStringExtra(PatientMenuActivity.EXTRA_MESSAGE);
+    Intent intent;
+    private String username;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        intent = getIntent();
+        username = intent.getStringExtra(PatientMenuActivity.EXTRA_MESSAGE);
         setContentView(R.layout.activity_patient_add_problem);
 
         Button dateButton = findViewById(R.id.activityPatientAddProblem_DateEditButton);
@@ -118,8 +121,8 @@ public class PatientAddProblemActivity extends AppCompatActivity implements Date
         // controller call to add the given problem to the patient in the system
 
         Problem problem = new Problem(title,date,description);
-        PatientController controller = new PatientController(this);
-        controller.addProblem(problem,username);
+        PatientController controller = new PatientController(this, CurrentUser.getInstance().getAsPatient());
+        controller.addProblem(problem);
 
         Toast.makeText(this,"Problem added",Toast.LENGTH_SHORT).show();
 
@@ -127,6 +130,7 @@ public class PatientAddProblemActivity extends AppCompatActivity implements Date
 
         //This currently is a stand in for this popup navigation
         Intent intent = new Intent(this, PatientProblemViewActivity.class);
+
         //TODO Add controller call to get the index for the added problem.
         intent.putExtra("problemIndex",0);
         startActivity(intent);

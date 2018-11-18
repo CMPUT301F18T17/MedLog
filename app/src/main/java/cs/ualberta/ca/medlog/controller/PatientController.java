@@ -25,79 +25,69 @@ import cs.ualberta.ca.medlog.entity.Problem;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 import cs.ualberta.ca.medlog.helper.Database;
+import cs.ualberta.ca.medlog.singleton.CurrentUser;
 
 public class PatientController {
 
 
     private Context context;
     private Database database;
+    private Patient patient;
 
-    public PatientController(Context ctx){
+    public PatientController(Context ctx, Patient patient){
         context=ctx;
         database = new Database(context);
+        this.patient = patient;
     }
 
-    public void addProblem(Problem problem, String username){
-        // Load patient, add problem, save patient
+    public void addProblem(Problem problem){
+        patient.addProblem(problem);
         try{
-            Patient patient=database.loadPatient(username);
-            patient.addProblem(problem);
-            database.savePatient(patient);
-        }catch(Exception e){
-            e.printStackTrace();
+            database.updatePatient(patient);
+        }catch(Exception ignore){
+
         }
     }
 
-    public ArrayList<Problem> getProblems(String username) {
-        Patient patient = null;
-        try {
-            patient = database.loadPatient(username);
-        }catch(Exception e){
-            e.printStackTrace();
-        }
+    public ArrayList<Problem> getProblems() {
         return patient.getProblems();
-
     }
 
-    public void setTitle(String username,int problemIndex,String newText) {
+    public void setTitle(int problemIndex,String newText) {
+        patient.setTitle(problemIndex, newText);
         try{
-            Patient patient=database.loadPatient(username);
-            patient.setTitle(problemIndex,newText);
-            database.savePatient(patient);
-        }catch(Exception e){
-            e.printStackTrace();
+            database.updatePatient(patient);
+        }catch(Exception ignore){
+
         }
 
     }
-    public void setDesc(String username,int problemIndex,String newText) {
+    public void setDesc(int problemIndex,String newText) {
+        patient.setDescription(problemIndex, newText);
         try{
-            Patient patient=database.loadPatient(username);
-            patient.setDescription(problemIndex,newText);
-            database.savePatient(patient);
-        }catch(Exception e){
-            e.printStackTrace();
+            database.updatePatient(patient);
+        }catch(Exception ignore){
+
         }
     }
 
-    public void setDate(String username, int problemIndex, Calendar cal) {
-        try {
-            Patient patient = database.loadPatient(username);
-            Date date;
-            date = cal.getTime();
-            patient.setDate(problemIndex, date);
-            database.savePatient(patient);
-        }catch(Exception e){
-            e.printStackTrace();
+    public void setDate(int problemIndex, Calendar cal) {
+        Date date;
+        date = cal.getTime();
+        patient.setDate(problemIndex, date);
+        try{
+            database.updatePatient(patient);
+        }catch(Exception ignore){
+
         }
     }
 
-    public void deleteProblem(String username, int problemIndex){
+    public void deleteProblem(int problemIndex){
+        patient.deleteProblem(problemIndex);
         try{
-            Patient patient=database.loadPatient(username);
-            patient.deleteProblem(problemIndex);
-            database.savePatient(patient);
-        }catch(Exception e){
-            e.printStackTrace();
+            database.updatePatient(patient);
+        }catch(Exception ignore){
+
         }
     }
 

@@ -15,11 +15,13 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.controller.PatientController;
 import cs.ualberta.ca.medlog.entity.Problem;
+import cs.ualberta.ca.medlog.singleton.CurrentUser;
 
 /**
  * <p>
@@ -54,22 +56,27 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
     private ArrayList<Problem> problems;
     private Problem problem;
     private int problemIndex;
-    Intent intent = getIntent();
-    private String username=intent.getStringExtra(PatientViewProblemsActivity.EXTRA_MESSAGE);
+    Intent intent;
+    private String username;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        intent = getIntent();
+        username=intent.getStringExtra(PatientViewProblemsActivity.EXTRA_MESSAGE);
         setContentView(R.layout.activity_patient_problem_view);
 
         problemIndex = intent.getIntExtra("problemIndex",0);
         // Call system to get the patient's list of problems and then grab the given index.
 
-        PatientController controller = new PatientController(this);
-        problems=controller.getProblems(username);
-        problem=problems.get(problemIndex);
+        PatientController controller = new PatientController(this, CurrentUser.getInstance().getAsPatient());
+        problems = controller.getProblems();
+        problem = problems.get(problemIndex);
+        updateTitleDisplay(problem.getTitle());
+        updateDateDisplay(problem.getDate());
+        updateDescriptionDisplay(problem.getDescription());
 
         Button viewRecordsButton = findViewById(R.id.activityPatientProblemView_ViewRecordsButton);
         Button slideShowButton = findViewById(R.id.activityPatientProblemView_SlideshowButton);
@@ -165,7 +172,7 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
     }
 
     public void onTextSet(String newText, int editorId) {
-        PatientController controller = new PatientController(this);
+        PatientController controller = new PatientController(this, CurrentUser.getInstance().getAsPatient());
         switch(editorId) {
             case 0:
                 if (newText.isEmpty()) {
@@ -173,7 +180,7 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
                     break;
                 }
                 // Call to controller to update the problem title value.
-                controller.setTitle(username,problemIndex,newText);
+                controller.setTitle(problemIndex,newText);
                 updateTitleDisplay(newText);
                 break;
             case 1:
@@ -182,7 +189,7 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
                     break;
                 }
                 // Call to controller to update the problem description value.
-                controller.setDesc(username,problemIndex,newText);
+                controller.setDesc(problemIndex,newText);
                 updateDescriptionDisplay(newText);
                 break;
         }
@@ -206,12 +213,14 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
 
     public void onNewDateSet(Calendar cal) {
         // Call to controller to update the problem date value.
-        PatientController controller = new PatientController(this);
-        controller.setDate(username,problemIndex, cal);
-        updateDateDisplay(cal);
+        PatientController controller = new PatientController(this, CurrentUser.getInstance().getAsPatient());
+        controller.setDate(problemIndex, cal);
+        updateDateDisplay(cal.getTime());
     }
 
-    private void updateDateDisplay(Calendar cal) {
+    private void updateDateDisplay(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
         TextView dateView = findViewById(R.id.activityPatientProblemView_RecordDateView);
         int year = cal.get(Calendar.YEAR);
         int month = cal.get(Calendar.MONTH);
@@ -222,8 +231,8 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
     private void deleteProblem() {
         //TODO Call to controller to delete the patient's problem
 
-        PatientController controller = new PatientController(this);
-        controller.deleteProblem(username,problemIndex);
+        PatientController controller = new PatientController(this, CurrentUser.getInstance().getAsPatient());
+        controller.deleteProblem(problemIndex);
 
         finish();
     }
