@@ -27,9 +27,14 @@
 package cs.ualberta.ca.medlog.helper;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
 import java.io.IOException;
 import java.net.ConnectException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.NetworkInterface;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -45,7 +50,6 @@ import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 
 public class Database {
     public Context context;
-    private int timeout = 100;
 
     public Database(Context c){
         this.context = c;
@@ -55,20 +59,14 @@ public class Database {
         return context;
     }
 
-    public int getTimeout() {
-        return timeout;
-    }
-
-    public void setTimeout(int newTimeout) {
-        this.timeout = newTimeout;
-    }
-
 
     /**
      * <p>Get a patient from the database if a connection can be established, load from disc otherwise</p>
      * @return patient (Patient that was retrieved or loaded)
+     * @throws UserNotFoundException if the user cannot be found.
+     * @throws ConnectException if we could not connect to the database and could not load the user locally.
      */
-    public Patient loadPatient(String username) throws UserNotFoundException{
+    public Patient loadPatient(String username) throws UserNotFoundException, ConnectException{
         Patient patient = null;
         if(username.isEmpty()){ throw new UserNotFoundException("Users cannot have an empty username."); }
         // Check if there is connectivity
@@ -82,14 +80,17 @@ public class Database {
             }catch(Exception e){
                 // There was an exception in the async execution
                 Log.d(Database.class.getName(), "Failed to load user: " + username);
-                e.printStackTrace();
                 throw new UserNotFoundException("Patient " + username + " failed to load.");
             }
         } else {
 
-            // Offline mode, try and load the patient from local data
-            FileSaver saver = new FileSaver(context);
-            patient = saver.loadPatient();
+            try {
+                // Offline mode, try and load the patient from local data
+                FileSaver saver = new FileSaver(context);
+                patient = saver.loadPatient();
+            }catch(UserNotFoundException e){
+                throw new ConnectException("Failed to connect to database and could not load the user locally.");
+            }
         }
 
         return patient;
@@ -99,27 +100,62 @@ public class Database {
     /**
      * <p>Get a provider from the database if a connection can be established, load from disc otherwise</p>
      * @return provider (Provider that was retrieved or loaded)
+     * @throws UserNotFoundException if the user cannot be found.
+     * @throws ConnectException if we could not connect to the database and could not load the user locally.
      */
-    public CareProvider loadProvider(String username) throws UserNotFoundException {
+    public CareProvider loadProvider(String username) throws UserNotFoundException, ConnectException {
         CareProvider provider = null;
-
         if (checkConnectivity()) {
             try {
-                return new ElasticSearchController.LoadCareProviderTask().execute(username).get();
+                provider = new ElasticSearchController.LoadCareProviderTask().execute(username).get();
+                if(provider == null){
+                    throw new UserNotFoundException("Care Povider " + username + " was not found.");
+                }
             } catch (Exception e){
-                e.printStackTrace();
                 throw new UserNotFoundException("Failed to load provider.");
             }
         } else {
-            FileSaver saver = new FileSaver(context);
             try {
+                FileSaver saver = new FileSaver(context);
                 provider = saver.loadCareProvider();
-            }catch(Exception e){
-                throw new UserNotFoundException("Failed to load provider.");
+            }catch(UserNotFoundException e){
+                throw new ConnectException("Failed to connect to database and could not load the user locally.");
             }
         }
 
         return provider;
+    }
+
+    /**
+     * <p>Check if the username is available.</p>
+     * @param username The username to check.
+     * @return If the username is available to take.
+     * @throws ConnectException If we cannot connect to the database.
+     */
+    public boolean patientUsernameAvailable(String username) throws ConnectException{
+        boolean success = false;
+        try{
+            Patient p = loadPatient(username);
+        }catch(UserNotFoundException e){
+            success = true;
+        }
+        return success;
+    }
+
+    /**
+     * <p>Check if the username is available.</p>
+     * @param username The username to check.
+     * @return If the username is available to take.
+     * @throws ConnectException If we cannot connect to the database.
+     */
+    public boolean providerUsernameAvailable(String username) throws ConnectException{
+        boolean success = false;
+        try{
+            CareProvider p = loadProvider(username);
+        }catch(UserNotFoundException e){
+            success = true;
+        }
+        return success;
     }
 
 
@@ -249,9 +285,10 @@ public class Database {
      * @param map The map location we are looking for. Can be null.
      * @param bl The body location we are looking for. Can be null.
      * @return An ArrayList of problems that match our search.
-     * @throws UserNotFoundException if the patient cannot be found.
+     * @throws UserNotFoundException if the patient cannot be found.3
+     * @throws ConnectException if the database could not be loaded and the user is not found locally.
      */
-    public ArrayList<Problem> searchPatient(String username, ArrayList<String> keywords, MapLocation map, BodyLocation bl) throws UserNotFoundException{
+    public ArrayList<Problem> searchPatient(String username, ArrayList<String> keywords, MapLocation map, BodyLocation bl) throws UserNotFoundException, ConnectException{
         Patient p = loadPatient(username);
         return searchPatient(p, keywords, map, bl);
     }
@@ -337,47 +374,21 @@ public class Database {
      * @param bl The body location, can be null.
      * @return A list of problems that match all of the keywords, map, or body location.
      * @throws UserNotFoundException if the care provider cannot be found.
+     * @throws ConnectException if the database could not be loaded and the user is not found locally.
      */
-    public ArrayList<Problem> searchCareProvider(String username, ArrayList<String> keywords, MapLocation map, BodyLocation bl) throws UserNotFoundException{
+    public ArrayList<Problem> searchCareProvider(String username, ArrayList<String> keywords, MapLocation map, BodyLocation bl) throws UserNotFoundException, ConnectException{
         CareProvider careProvider = loadProvider(username);
         return searchCareProvider(careProvider, keywords, map, bl);
     }
-
 
     /**
      * <p>Check if we can connect to the Elastic Search server</p>
      * @return True if a connection can be established, false otherwise
      */
     public boolean checkConnectivity() {
-        return true;
-        /*
         try {
-            URL url = new URL(ElasticSearchController.databaseAddress);
-            URLConnection connection = url.openConnection();
-            connection.setConnectTimeout(timeout);
-            connection.connect();
-            return true;
-        } catch (IOException e) {
-            Log.d("Database", "IOException thrown in Database.checkConnectivity()");
-            e.printStackTrace();
-            return false;
-        }*/
-    }
-
-    /**
-     * <p>Check if we can connect to the Elastic Search server</p>
-     * @return True if a connection can be established, false otherwise
-     */
-    public boolean checkConnectivity(String website) {
-        try {
-            URL url = new URL(website);
-            URLConnection connection = url.openConnection();
-            connection.setConnectTimeout(timeout);
-            connection.connect();
-            return true;
-        } catch (IOException e) {
-            Log.d("Database", "IOException thrown in Database.checkConnectivity()");
-            e.printStackTrace();
+            return new ElasticSearchController.CheckConnectionTask().execute().get();
+        }catch(Exception e){
             return false;
         }
     }

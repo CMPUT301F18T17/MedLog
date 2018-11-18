@@ -7,11 +7,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
 import java.util.ArrayList;
-
 import cs.ualberta.ca.medlog.R;
-import cs.ualberta.ca.medlog.controller.PatientController;
 import cs.ualberta.ca.medlog.entity.Problem;
 import cs.ualberta.ca.medlog.singleton.CurrentUser;
 
@@ -50,7 +47,7 @@ public class PatientViewProblemsActivity extends AppCompatActivity {
             }
         });
 
-        ArrayAdapter<Problem> problemArrayAdapter = new ArrayAdapter<>(this,0,problems);
+        ArrayAdapter<Problem> problemArrayAdapter = new ArrayAdapter<Problem>(this,R.layout.list_item,problems);
         problemsListView.setAdapter(problemArrayAdapter);
     }
 

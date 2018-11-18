@@ -5,7 +5,9 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
 import cs.ualberta.ca.medlog.helper.Database;
+import cs.ualberta.ca.medlog.helper.ElasticSearchController;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
@@ -22,16 +24,13 @@ public class DatabaseUnitTest {
      */
     @Test
     public void testCheckConnectivity() {
-
-        Database database = new Database(null);
-        database.setTimeout(1000);
-        String offline = "http://cmput300.softwareprocess.es:8080/cmput301f18t17";
-
+        String offline = "tes.d";
+        Database db = new Database(null);
         /* Successfully to an online database */
-        database.checkConnectivity();
+        assertTrue(ElasticSearchController.checkConnectivity("http://cmput301.softwareprocess.es:8080/"));
 
         /* Unsuccessfully connecting to an offline database */
-        assertFalse(database.checkConnectivity(offline));
+        assertFalse(ElasticSearchController.checkConnectivity(offline));
     }
 
     /**
@@ -42,15 +41,6 @@ public class DatabaseUnitTest {
         Database database = new Database(null);
         assertNull(database.getDatabaseContext());
     }
-    /**
-     * <p>Ensure that the timeout duration of the database can be retrieved properly</p>
-     */
-    @Test
-    public void testGetTimeout() {
-        Database database = new Database(null);
-        assertEquals(10, database.getTimeout());
-    }
-
 
     /* Tests for setter methods */
 
@@ -63,19 +53,5 @@ public class DatabaseUnitTest {
         // Not sure how to unit test this though
     }
 
-    /**
-     * Ensure that the timeout duration of the database can be set properly
-     */
-    @Test
-    public void testSetTimeout() {
-        Database database = new Database(null);
-        assertEquals(10, database.getTimeout());
-
-        database.setTimeout(3);
-        assertEquals(3, database.getTimeout());
-
-        database.setTimeout(5);
-        assertEquals(5, database.getTimeout());
-    }
 
 }

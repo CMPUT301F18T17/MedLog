@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import cs.ualberta.ca.medlog.R;
+import cs.ualberta.ca.medlog.controller.SyncController;
 import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.exception.UserNotFoundException;
@@ -65,12 +66,22 @@ public class PatientLoginActivity extends AppCompatActivity {
             return;
         }
 
+        SyncController sc = new SyncController(this);
+        try{
+            sc.syncPatient(username);
+        }catch(Exception e){
+            e.printStackTrace();
+            Toast.makeText(this,"Failed to connect to server",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         Database db = new Database(this);
-        Patient toLogin = null;
+        Patient toLogin;
         try {
             toLogin = db.loadPatient(username);
-        } catch(UserNotFoundException e) {
-            Toast.makeText(this, "Couldn't find user", Toast.LENGTH_SHORT).show();
+        } catch(Exception e){
+            Toast.makeText(this, "Failed to login", Toast.LENGTH_SHORT).show();
+            return;
         }
 
         if (toLogin != null) {

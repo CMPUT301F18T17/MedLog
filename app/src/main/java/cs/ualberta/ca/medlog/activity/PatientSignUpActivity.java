@@ -8,10 +8,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.net.ConnectException;
+
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.entity.user.ContactInfo;
 import cs.ualberta.ca.medlog.entity.user.Patient;
+<<<<<<< HEAD
 import cs.ualberta.ca.medlog.exception.UserNotFoundException;
+=======
+>>>>>>> master
 import cs.ualberta.ca.medlog.helper.Database;
 import cs.ualberta.ca.medlog.singleton.CurrentUser;
 
@@ -56,12 +61,14 @@ public class PatientSignUpActivity extends AppCompatActivity {
             return;
         }
 
-        boolean usernameAvailable = false;
         Database db = new Database(this);
+        boolean usernameAvailable = false;
+
         try {
-            db.loadPatient(username);
-        } catch (UserNotFoundException e) {
-            usernameAvailable = true;
+            usernameAvailable = db.patientUsernameAvailable(username);
+        }catch(ConnectException e){
+            Toast.makeText(this, "Failed to connect.", Toast.LENGTH_SHORT).show();
+            return;
         }
 
         if (!usernameAvailable) {
@@ -77,20 +84,30 @@ public class PatientSignUpActivity extends AppCompatActivity {
         }
 
         EditText phoneNumberField = findViewById(R.id.activityPatientSignUp_PhoneEditText);
-        String phoneNumber = phoneNumberField.getText().toString();
+        String phoneNumber = phoneNumberField.getText().toString().replace(" ", "");
         if (phoneNumber.isEmpty()) {
             Toast.makeText(this,"No phone number entered",Toast.LENGTH_SHORT).show();
             return;
         }
 
-        Patient toSignUp = new Patient(new ContactInfo(phoneNumber,email),username);
-        if (db.savePatient(toSignUp)) {
-            CurrentUser.getInstance().set(toSignUp);
-            Intent intent = new Intent(this, PatientMenuActivity.class);
-            startActivity(intent);
+        ContactInfo contactInfo;
+        try{
+            contactInfo = new ContactInfo(phoneNumber, email);
+        }catch(RuntimeException e){
+            Toast.makeText(this, "Invalid email or phone number.", Toast.LENGTH_SHORT).show();
+            return;
         }
-        else {
-            Toast.makeText(this,"Failed to sign up patient",Toast.LENGTH_SHORT).show();
+
+
+        Patient patient = new Patient(contactInfo, username);
+        if(db.savePatient(patient)){
+            CurrentUser.getInstance().set(patient);
+        }else{
+            Toast.makeText(this, "Failed to sign up patient", Toast.LENGTH_SHORT).show();
+            return;
         }
+
+        Intent intent = new Intent(this, PatientMenuActivity.class);
+        startActivity(intent);
     }
 }

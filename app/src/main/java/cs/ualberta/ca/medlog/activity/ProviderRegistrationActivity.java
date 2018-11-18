@@ -7,10 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
+import java.net.ConnectException;
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.entity.user.CareProvider;
-import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 import cs.ualberta.ca.medlog.helper.Database;
 import cs.ualberta.ca.medlog.singleton.CurrentUser;
 
@@ -48,19 +47,20 @@ public class ProviderRegistrationActivity extends AppCompatActivity {
     }
 
     private void performProviderRegistration() {
-        EditText usernameField = findViewById(R.id.activityProviderLogin_UsernameEditText);
+        EditText usernameField = findViewById(R.id.activityProviderRegistration_UsernameEditText);
         String username = usernameField.getText().toString();
         if (username.isEmpty()) {
             Toast.makeText(this,"No username entered",Toast.LENGTH_SHORT).show();
             return;
         }
 
-        boolean usernameAvailable = false;
+        boolean usernameAvailable;
         Database db = new Database(this);
         try {
-            db.loadProvider(username);
-        } catch (UserNotFoundException e) {
-            usernameAvailable = true;
+            usernameAvailable = db.providerUsernameAvailable(username);
+        } catch(ConnectException e){
+            Toast.makeText(this,"Could not connect",Toast.LENGTH_SHORT).show();
+            return;
         }
 
         if (!usernameAvailable) {

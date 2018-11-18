@@ -38,10 +38,18 @@ import cs.ualberta.ca.medlog.singleton.CurrentUser;
  */
 public class PatientAddProblemActivity extends AppCompatActivity implements DatePickerFragment.OnNewDateSetListener {
     private Calendar cal;
+<<<<<<< HEAD
 
+=======
+    private Date date;
+    Intent intent;
+    private String username;
+>>>>>>> master
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        intent = getIntent();
+        username = intent.getStringExtra(PatientMenuActivity.EXTRA_MESSAGE);
         setContentView(R.layout.activity_patient_add_problem);
 
         Button dateButton = findViewById(R.id.activityPatientAddProblem_DateEditButton);

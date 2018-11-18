@@ -14,7 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.util.Calendar;
 import java.util.Locale;
-
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.controller.PatientController;
 import cs.ualberta.ca.medlog.controller.ProblemController;
@@ -56,7 +55,7 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_problem_view);
 
-        problem =  (Problem) getIntent().getSerializableExtra("PROBLEM");
+        problem = (Problem) getIntent().getSerializableExtra("PROBLEM");
 
         Button viewRecordsButton = findViewById(R.id.activityPatientProblemView_ViewRecordsButton);
         Button slideShowButton = findViewById(R.id.activityPatientProblemView_SlideshowButton);

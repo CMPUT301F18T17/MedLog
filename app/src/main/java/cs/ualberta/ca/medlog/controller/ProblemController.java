@@ -31,56 +31,33 @@ public class ProblemController {
 
     public void setTitle(Patient owner, Problem problem, String newTitle) {
         try{
-            owner = database.loadPatient(owner.getUsername());
-            problem = getUpdatedProblem(owner,problem);
             problem.setTitle(newTitle);
-            database.savePatient(owner);
-        }catch(Exception e){
-            e.printStackTrace();
+            database.updatePatient(owner);
+        }catch(Exception ignore){
         }
     }
 
     public void setDate(Patient owner, Problem problem, Calendar newDate) {
         try {
-            owner = database.loadPatient(owner.getUsername());
-            problem = getUpdatedProblem(owner,problem);
             problem.setDate(newDate.getTime());
-            database.savePatient(owner);
-        }catch(Exception e){
-            e.printStackTrace();
+            database.updatePatient(owner);
+        }catch(Exception ignore){
         }
     }
 
     public void setDesc(Patient owner, Problem problem, String newDesc) {
         try{
-            owner = database.loadPatient(owner.getUsername());
-            problem = getUpdatedProblem(owner,problem);
             problem.setDescription(newDesc);
-            database.savePatient(owner);
-        }catch(Exception e){
-            e.printStackTrace();
+            database.updatePatient(owner);
+        }catch(Exception ignore){
         }
     }
 
     public void addRecord(Patient owner, Problem problem, Record newRecord) {
         try{
-            owner = database.loadPatient(owner.getUsername());
-            problem = getUpdatedProblem(owner,problem);
             problem.addRecord(newRecord);
-            database.savePatient(owner);
-        }catch(Exception e){
-            e.printStackTrace();
+            database.updatePatient(owner);
+        }catch(Exception ignore){
         }
-    }
-
-    private Problem getUpdatedProblem(Patient owner,Problem oldVersion) {
-        int problemIndex = 0;
-        while (problemIndex < owner.getProblems().size()) {
-            if (owner.getProblems().get(problemIndex) == oldVersion) {
-                return owner.getProblems().get(problemIndex);
-            }
-            problemIndex++;
-        }
-        return oldVersion;
     }
 }

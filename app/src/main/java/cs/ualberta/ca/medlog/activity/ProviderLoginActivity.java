@@ -7,8 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import cs.ualberta.ca.medlog.R;
+import cs.ualberta.ca.medlog.controller.SyncController;
 import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 import cs.ualberta.ca.medlog.helper.Database;
@@ -64,17 +64,24 @@ public class ProviderLoginActivity extends AppCompatActivity {
             return;
         }
 
-        Database db = new Database(this);
+        SyncController sc = new SyncController(this);
+        try{
+            sc.syncCareProvider(username);
+        }catch(Exception e){
+            Toast.makeText(this,"Failed to connect to server",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         CareProvider toLogin = null;
         try {
-            toLogin = db.loadProvider(username);
-        } catch(UserNotFoundException e) {
+            toLogin = sc.updateCareProviderPatients(toLogin);
+        } catch(Exception e) {
             Toast.makeText(this, "Couldn't find user", Toast.LENGTH_SHORT).show();
+            return;
         }
 
         if (toLogin != null) {
             CurrentUser.getInstance().set(toLogin);
-
             Intent intent = new Intent(this, ProviderMenuActivity.class);
             startActivity(intent);
         }

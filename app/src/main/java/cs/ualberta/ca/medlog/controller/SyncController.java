@@ -56,13 +56,12 @@ public class SyncController {
                 local = fs.loadPatient();
                 if(local == null) { return; }
                 if(!local.getUsername().equals(username)){
-                    // There is some trickery going on.
-                    // TODO: FIX THE TRICKERY
-                    // So, if the username doesn't match, we have changing accounts.
+                    // Sync the old user. Could be either a care provider or patient so we have to call both.
+                    syncCareProvider(username);
+                    syncPatient(username);
                     return;
                 }
             }catch(UserNotFoundException e){
-                // User does not have a cached copy locally. We can ignore the sync!
                 return;
             }
 
@@ -108,9 +107,9 @@ public class SyncController {
                 local = fs.loadCareProvider();
                 if(local == null) { return; }
                 if(!local.getUsername().equals(username)){
-                    // There is some trickery going on.
-                    // TODO: FIX THE TRICKERY
-                    // So, if the username doesn't match, we have changing accounts.
+                    // Sync the old user. Could be either a care provider or patient so we have to call both.
+                    syncCareProvider(username);
+                    syncPatient(username);
                     return;
                 }
             }catch(UserNotFoundException e){
@@ -145,9 +144,10 @@ public class SyncController {
      * Updated all care provider information on their patients. Should be called on login.
      * @param careProvider The careprovider to update.
      */
-    public void updateCareProviderPatients(CareProvider careProvider){
+    public CareProvider updateCareProviderPatients(CareProvider careProvider){
         Database db = new Database(ctx);
-        ArrayList<Patient> patients = careProvider.getPatients();
+        ArrayList<Patient> patients = new ArrayList<>();
+        patients.addAll(careProvider.getPatients());
         careProvider.getPatients().clear();
         for(Patient p : patients){
             try {
@@ -155,8 +155,12 @@ public class SyncController {
             }catch(UserNotFoundException e){
                 Log.e(getClass().getName(), String.format("Patient %s could not be loaded from ES! Adding original copy.", p.getUsername()));
                 careProvider.addPatient(p);
+            }catch(ConnectException e){
+                Log.e(getClass().getName(), String.format("Could not connect to the database and update the patient %s.", p.getUsername()));
+                careProvider.addPatient(p);
             }
         }
+        return careProvider;
     }
 
     /**
