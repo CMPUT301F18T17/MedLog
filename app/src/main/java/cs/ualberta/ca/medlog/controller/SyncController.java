@@ -146,7 +146,8 @@ public class SyncController {
      */
     public CareProvider updateCareProviderPatients(CareProvider careProvider){
         Database db = new Database(ctx);
-        ArrayList<Patient> patients = careProvider.getPatients();
+        ArrayList<Patient> patients = new ArrayList<>();
+        patients.addAll(careProvider.getPatients());
         careProvider.getPatients().clear();
         for(Patient p : patients){
             try {
