@@ -27,10 +27,14 @@
 package cs.ualberta.ca.medlog.helper;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.NetworkInterface;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -46,6 +50,7 @@ import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 
 public class Database {
     public Context context;
+    private static final int timeout = 1000;
 
     public Database(Context c){
         this.context = c;
@@ -383,12 +388,28 @@ public class Database {
      * <p>Check if we can connect to the Elastic Search server</p>
      * @return True if a connection can be established, false otherwise
      */
-    public boolean checkConnectivity() {
+    public boolean checkConnectivity(String url) {
         try {
-            return new ElasticSearchController.CheckConnectionTask().execute().get();
-        }catch(Exception e){
-            e.printStackTrace();
+            URL urlServer = new URL(url);
+            HttpURLConnection urlConn = (HttpURLConnection) urlServer.openConnection();
+            urlConn.setConnectTimeout(timeout);
+            urlConn.connect();
+            if (urlConn.getResponseCode() == 200) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (MalformedURLException e1) {
+            return false;
+        } catch (IOException e) {
             return false;
         }
+    }
+    /**
+     * <p>Check if we can connect to the Elastic Search server</p>
+     * @return True if a connection can be established, false otherwise
+     */
+    public boolean checkConnectivity() {
+        return checkConnectivity(ElasticSearchController.databaseAddress);
     }
 }

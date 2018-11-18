@@ -7,6 +7,7 @@ import org.robolectric.RobolectricTestRunner;
 import cs.ualberta.ca.medlog.helper.Database;
 import cs.ualberta.ca.medlog.helper.ElasticSearchController;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
@@ -23,15 +24,13 @@ public class DatabaseUnitTest {
      */
     @Test
     public void testCheckConnectivity() {
-
-        Database database = new Database(null);
-        String offline = "http://cmput300.softwareprocess.es:8080/cmput301f18t17";
-
+        String offline = "tes.d";
+        Database db = new Database(null);
         /* Successfully to an online database */
-        database.checkConnectivity();
+        assertTrue(db.checkConnectivity("http://cmput301.softwareprocess.es:8080/"));
 
         /* Unsuccessfully connecting to an offline database */
-        assertFalse(ElasticSearchController.checkConnectivity(offline));
+        assertFalse(db.checkConnectivity(offline));
     }
 
     /**
