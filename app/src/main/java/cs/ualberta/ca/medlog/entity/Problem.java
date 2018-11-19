@@ -20,6 +20,11 @@ public class Problem implements Serializable {
     ArrayList<Record> records = new ArrayList<Record>();
 
     public Problem(String title, Date date, String description){
+        if(title.length() > 30){
+            throw new IllegalArgumentException("Title is over the max title size of 30.");
+        }else if(description.length() > 300){
+            throw new IllegalArgumentException("Description is over the max description size of 300.");
+        }
         this.title = title;
         this.date = date;
         this.description = description;
