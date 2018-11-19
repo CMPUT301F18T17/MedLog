@@ -9,6 +9,9 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import java.util.Date;
+
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.controller.ProblemController;
 import cs.ualberta.ca.medlog.entity.MapLocation;
@@ -166,8 +169,7 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
     }
 
     private void completeRecord() {
-        boolean validRecord = false; //TODO Change to false once below TODO handled
-        //TODO Check if the given record is valid in terms of having at least one field filled
+        boolean validRecord = newRecord.isValid();
 
         if (!validRecord) {
             Toast.makeText(this,"Record has no data",Toast.LENGTH_SHORT).show();
@@ -178,6 +180,7 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
         controller.addRecord(CurrentUser.getInstance().getAsPatient(),parentProblem,newRecord);
 
         Intent intent = new Intent(this, PatientProblemViewActivity.class);
+        intent.putExtra("PROBLEM", parentProblem);
         startActivity(intent);
     }
 }
