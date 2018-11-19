@@ -20,7 +20,7 @@ public class ContactInfo implements Serializable {
         this.email = email;
 
         // Temporary validation fixes, regex implementation should be used
-        if (this.phoneNumber.length() < 7 || this.phoneNumber.length() > 10) { // Phone numbers are at least 10 digits long
+        if (this.phoneNumber.length() < 7 || this.phoneNumber.length() > 11) { // Phone numbers are at least 10 digits long
             throw new RuntimeException();
         }
         if (!(this.email.contains("@"))) { // An email must include the "@" symbol

@@ -381,7 +381,7 @@ public class DatabaseConnectionTest {
             assertEquals("Array is not empty on null search.", a.size(), 0);
 
             a = db.searchPatient(p, null, new MapLocation(18.15525, 126.15), null);
-            assertEquals("Should be only one map location with lat 18.15525 long 126.15", a.size(), 1);
+            assertEquals("Should be only one map location with lat 18.15525 long 126.15", a.size(), 2);
 
 
         }catch(UserNotFoundException e){
@@ -408,7 +408,7 @@ public class DatabaseConnectionTest {
             assertEquals("Array is not empty on null search.", a.size(), 0);
 
             a = db.searchCareProvider(p, null, new MapLocation(18.15525, 126.15), null);
-            assertEquals("Should be only one map location with lat 18.15525 long 126.15", a.size(), 1);
+            assertEquals("Should be only one map location with lat 18.15525 long 126.15", a.size(), 2);
 
 
         }catch(UserNotFoundException e){
