@@ -16,7 +16,7 @@ import cs.ualberta.ca.medlog.helper.Database;
  *         None.
  * </p>
  *
- * @author ?
+ * @author Thomas Roskewich
  * @version 1.0
  * @see Patient
  */
@@ -27,6 +27,11 @@ public class PatientController {
         database = new Database(ctx);
     }
 
+    /**
+     * The controller method for the gui to request that the given patient's email is changed.
+     * @param patient The patient who's email is being changed.
+     * @param newEmail The new patient email to be set.
+     */
     public void setEmail(Patient patient, String newEmail) {
         try {
             patient.getContactInfo().setPhoneNumber(newEmail);
@@ -35,6 +40,11 @@ public class PatientController {
         }
     }
 
+    /**
+     * The controller method for the gui to request that the given patient's phone number is changed.
+     * @param patient The patient who's phone number is being changed.
+     * @param newPhoneNumber The new patient phone number to be set.
+     */
     public void setPhoneNumber(Patient patient, String newPhoneNumber) {
         try {
             patient.getContactInfo().setPhoneNumber(newPhoneNumber);
@@ -43,6 +53,12 @@ public class PatientController {
         }
     }
 
+    /**
+     * The controller method for the gui to request a problem be added to the patient's recorded
+     * problems.
+     * @param patient The patient who is having another problem added.
+     * @param newProblem The new problem which is added.
+     */
     public void addProblem(Patient patient, Problem newProblem) {
         try {
             patient.addProblem(newProblem);
@@ -51,6 +67,11 @@ public class PatientController {
         }
     }
 
+    /**
+     * The controller method for the gui to request that one of the Patient's problems is deleted.
+     * @param patient The patient who is having a problem deleted.
+     * @param problem The problem which is to be deleted.
+     */
     public void deleteProblem(Patient patient, Problem problem) {
         try {
             patient.getProblems().remove(problem);

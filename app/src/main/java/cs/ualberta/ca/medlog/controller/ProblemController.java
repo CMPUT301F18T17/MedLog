@@ -29,6 +29,12 @@ public class ProblemController {
         database = new Database(ctx);
     }
 
+    /**
+     * The controller method for the gui to request a problem's title be changed.
+     * @param owner The patient who owns the given problem.
+     * @param problem The problem to be changed.
+     * @param newTitle The new problem title to be set.
+     */
     public void setTitle(Patient owner, Problem problem, String newTitle) {
         try{
             problem.setTitle(newTitle);
@@ -37,6 +43,12 @@ public class ProblemController {
         }
     }
 
+    /**
+     * The controller method for the gui to request a problem's date be changed.
+     * @param owner The patient who owns the given problem.
+     * @param problem The problem to be changed.
+     * @param newDate The new problem date to be set.
+     */
     public void setDate(Patient owner, Problem problem, Calendar newDate) {
         try {
             problem.setDate(newDate.getTime());
@@ -45,6 +57,12 @@ public class ProblemController {
         }
     }
 
+    /**
+     * The controller method for the gui to request a problem's description be changed.
+     * @param owner The patient who owns the given problem.
+     * @param problem The problem to be changed.
+     * @param newDesc The new problem description to be set.
+     */
     public void setDesc(Patient owner, Problem problem, String newDesc) {
         try{
             problem.setDescription(newDesc);
@@ -53,6 +71,12 @@ public class ProblemController {
         }
     }
 
+    /**
+     * The controller method for the gui to request that a record is added to a problem's records.
+     * @param owner The patient who owns the given problem.
+     * @param problem The problem to be changed.
+     * @param newRecord The record to be added to the problem.
+     */
     public void addRecord(Patient owner, Problem problem, Record newRecord) {
         try{
             problem.addRecord(newRecord);

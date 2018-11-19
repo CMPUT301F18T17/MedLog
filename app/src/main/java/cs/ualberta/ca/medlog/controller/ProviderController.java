@@ -27,6 +27,12 @@ public class ProviderController {
         database = new Database(ctx);
     }
 
+    /**
+     * The controller method for the gui to request that a patient is added to a care provider's
+     * assigned patient's.
+     * @param provider The care provider who the patient is assigned to.
+     * @param newPatient The patient who is assigned.
+     */
     public void addPatient(CareProvider provider, Patient newPatient){
         try{
             provider=database.loadProvider(provider.getUsername());
