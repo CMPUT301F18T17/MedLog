@@ -67,7 +67,7 @@ public class PatientRecordViewActivity extends AppCompatActivity {
         mapLocationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openMapLocationActivity();
+                openMapLocationFragment();
             }
         });
         slideshowButton.setOnClickListener(new View.OnClickListener() {
