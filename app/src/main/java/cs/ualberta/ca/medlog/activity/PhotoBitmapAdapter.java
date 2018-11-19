@@ -37,7 +37,7 @@ public class PhotoBitmapAdapter extends ArrayAdapter<Bitmap> {
     View getView(int position, View convertView, @NonNull ViewGroup parent) {
 
         if(convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.photo_item,parent,false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_photo_item,parent,false);
         }
 
         ImageView photoView = convertView.findViewById(R.id.viewPhoto_PhotoView);

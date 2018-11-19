@@ -37,6 +37,7 @@ public class ProblemController {
      */
     public void setTitle(Patient owner, Problem problem, String newTitle) {
         try{
+            problem = owner.getProblems().get(problem.getId());
             problem.setTitle(newTitle);
             database.updatePatient(owner);
         }catch(Exception ignore){
@@ -51,6 +52,7 @@ public class ProblemController {
      */
     public void setDate(Patient owner, Problem problem, Calendar newDate) {
         try {
+            problem = owner.getProblems().get(problem.getId());
             problem.setDate(newDate.getTime());
             database.updatePatient(owner);
         }catch(Exception ignore){
@@ -65,6 +67,7 @@ public class ProblemController {
      */
     public void setDesc(Patient owner, Problem problem, String newDesc) {
         try{
+            problem = owner.getProblems().get(problem.getId());
             problem.setDescription(newDesc);
             database.updatePatient(owner);
         }catch(Exception ignore){
@@ -79,6 +82,7 @@ public class ProblemController {
      */
     public void addRecord(Patient owner, Problem problem, Record newRecord) {
         try{
+            problem = owner.getProblems().get(problem.getId());
             problem.addRecord(newRecord);
             database.updatePatient(owner);
         }catch(Exception ignore){
