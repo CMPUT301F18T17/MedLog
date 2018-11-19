@@ -24,9 +24,13 @@ public class Patient extends User implements Serializable {
     }
 
     public void deleteProblem(int problemIndex) {
+        for(int i = problemIndex; i < problems.size(); i++){
+            problems.get(i).setId(problems.get(i).getId() - 1);
+        }
         problems.remove(problemIndex);
     }
     public void addProblem(Problem newProblem){
+        newProblem.setId(problems.size());
         problems.add(newProblem);
     }
 

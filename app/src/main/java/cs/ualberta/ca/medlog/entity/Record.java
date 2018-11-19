@@ -13,6 +13,7 @@ public class Record implements Serializable {
     private MapLocation mapLocation;
     private BodyLocation bodyLocation;
     private ArrayList<Photo> photos = new ArrayList<Photo>();
+    private int id = -1;
 
 
     public Record(String creatorUsername){
@@ -75,5 +76,13 @@ public class Record implements Serializable {
 
     public ArrayList<Photo> getPhotos(){
         return photos;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
