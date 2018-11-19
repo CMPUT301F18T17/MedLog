@@ -123,6 +123,7 @@ public class ProviderProblemViewActivity extends AppCompatActivity implements Te
         Bundle editorData = new Bundle();
         editorData.putString("argHint",getString(R.string.fragmentTextEditor_CommentHint));
         editorData.putInt("argInputType", InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+        editorData.putInt("argMaxLength",300);
         newFragment.setArguments(editorData);
         newFragment.show(getSupportFragmentManager(),"commentEditor");
     }

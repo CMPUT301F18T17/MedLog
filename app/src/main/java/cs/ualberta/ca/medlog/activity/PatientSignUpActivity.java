@@ -54,6 +54,10 @@ public class PatientSignUpActivity extends AppCompatActivity {
             Toast.makeText(this,"No username entered",Toast.LENGTH_SHORT).show();
             return;
         }
+        else if (username.length() < 8) {
+            Toast.makeText(this,"Username is too short",Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         Database db = new Database(this);
         boolean usernameAvailable;

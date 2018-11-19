@@ -1,8 +1,6 @@
 package cs.ualberta.ca.medlog.controller;
 
 import android.content.Context;
-
-import cs.ualberta.ca.medlog.entity.Problem;
 import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.helper.Database;

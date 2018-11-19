@@ -93,6 +93,7 @@ public class PatientProfileActivity extends AppCompatActivity implements TextEdi
         editorData.putString("argHint",getString(R.string.fragmentTextEditor_EmailHint));
         editorData.putInt("argInputType", InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
         editorData.putString("argInitialText",patient.getContactInfo().getEmail());
+        editorData.putInt("argMaxLength",50);
         newFragment.setArguments(editorData);
         newFragment.show(getSupportFragmentManager(),"emailEditor");
     }
@@ -104,6 +105,7 @@ public class PatientProfileActivity extends AppCompatActivity implements TextEdi
         editorData.putString("argHint",getString(R.string.fragmentTextEditor_PhoneNumberHint));
         editorData.putInt("argInputType", InputType.TYPE_CLASS_PHONE);
         editorData.putString("argInitialText",patient.getContactInfo().getPhoneNumber());
+        editorData.putInt("argMaxLength",20);
         newFragment.setArguments(editorData);
         newFragment.show(getSupportFragmentManager(),"phoneNumberEditor");
     }

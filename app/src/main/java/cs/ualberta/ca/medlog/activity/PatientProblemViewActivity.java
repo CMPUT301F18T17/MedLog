@@ -140,6 +140,7 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
         editorData.putInt("argEditorId",0);
         editorData.putString("argHint",getString(R.string.fragmentTextEditor_TitleHint));
         editorData.putString("argInitialText",problem.getTitle());
+        editorData.putInt("argMaxLength",30);
         newFragment.setArguments(editorData);
         newFragment.show(getSupportFragmentManager(),"titleEditor");
     }
@@ -151,6 +152,7 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
         editorData.putString("argHint",getString(R.string.fragmentTextEditor_DescHint));
         editorData.putInt("argInputType", InputType.TYPE_TEXT_FLAG_MULTI_LINE);
         editorData.putString("argInitialText",problem.getDescription());
+        editorData.putInt("argMaxLength",300);
         newFragment.setArguments(editorData);
         newFragment.show(getSupportFragmentManager(),"descEditor");
     }

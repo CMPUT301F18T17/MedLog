@@ -97,6 +97,7 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
         editorData.putInt("argEditorId",0);
         editorData.putString("argHint",getString(R.string.fragmentTextEditor_TitleHint));
         editorData.putString("argInitialText",newRecord.getTitle());
+        editorData.putInt("argMaxLength",30);
         newFragment.setArguments(editorData);
         newFragment.show(getSupportFragmentManager(),"titleEditor");
     }
@@ -108,6 +109,7 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
         editorData.putString("argHint",getString(R.string.fragmentTextEditor_CommentHint));
         editorData.putInt("argInputType", InputType.TYPE_TEXT_FLAG_MULTI_LINE);
         editorData.putString("argInitialText",newRecord.getComment());
+        editorData.putInt("argMaxLength",300);
         newFragment.setArguments(editorData);
         newFragment.show(getSupportFragmentManager(),"commentEditor");
     }
@@ -141,8 +143,6 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
     private void openMapLocationSelector() {
         Intent intent = new Intent(this, PatientAddMapLocationActivity.class);
         startActivityForResult(intent, MAP_LOCATION_REQUEST);
-        //Intent intent = new Intent(this, ViewMapLocationActivity.class); // This line and the next are temporary, tests ViewMapLocationActivity
-        //startActivity(intent);
     }
 
     @Override
