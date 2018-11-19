@@ -33,6 +33,10 @@ public class Record implements Serializable {
         return title;
     }
 
+    public Boolean isValid(){
+        return (title != null && comment != null) || mapLocation != null || bodyLocation != null || photos.size() > 0;
+    }
+
     public String getComment(){
         return comment;
     }

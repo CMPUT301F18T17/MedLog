@@ -166,8 +166,7 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
     }
 
     private void completeRecord() {
-        boolean validRecord = false; //TODO Change to false once below TODO handled
-        //TODO Check if the given record is valid in terms of having at least one field filled
+        boolean validRecord = newRecord.isValid();
 
         if (!validRecord) {
             Toast.makeText(this,"Record has no data",Toast.LENGTH_SHORT).show();
