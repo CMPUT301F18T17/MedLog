@@ -48,7 +48,7 @@ public class ProviderPatientViewRecordsActivity extends AppCompatActivity {
             }
         });
 
-        ArrayAdapter<Record> recordArrayAdapter = new ArrayAdapter<>(this,0,records);
+        RecordAdapter recordArrayAdapter = new RecordAdapter(this,records);
         recordsListView.setAdapter(recordArrayAdapter);
     }
 

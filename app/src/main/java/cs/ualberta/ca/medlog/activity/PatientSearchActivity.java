@@ -40,7 +40,7 @@ import cs.ualberta.ca.medlog.singleton.CurrentUser;
  * @see PatientRecordViewActivity
  */
 public class PatientSearchActivity extends AppCompatActivity {
-    private ArrayAdapter<Problem> adapter;
+    private SearchAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,8 +77,7 @@ public class PatientSearchActivity extends AppCompatActivity {
             }
         });
 
-        adapter = new ArrayAdapter<Problem>(this,
-                R.layout.list_item, new ArrayList<Problem>());
+        adapter = new SearchAdapter(this, new ArrayList<Problem>());
         resultsListView.setAdapter(adapter);
     }
 

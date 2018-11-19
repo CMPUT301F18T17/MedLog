@@ -1,11 +1,19 @@
 package cs.ualberta.ca.medlog.activity;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import cs.ualberta.ca.medlog.R;
+import cs.ualberta.ca.medlog.entity.Photo;
+import cs.ualberta.ca.medlog.entity.Record;
 
 /**
  * <p>
@@ -15,15 +23,20 @@ import cs.ualberta.ca.medlog.R;
  * </p>
  * <p>
  *     Issues: <br>
- *         Must have code to retrieve photos that are sent to view.
- *         Must have code that actually slides through a given photos list.
+ *         None.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.1
- * @see SlideshowActivity
+ * @version 1.0
+ * @see PatientProblemViewActivity
+ * @see ProviderProblemViewActivity
+ * @see PatientRecordViewActivity
+ * @see ProviderRecordViewActivity
  */
 public class SlideshowActivity extends AppCompatActivity {
+    private ImageView imageView = findViewById(R.id.activitySlideshow_ImageView);
+    private ArrayList<Bitmap> photoBitmaps;
+    private int index = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +58,41 @@ public class SlideshowActivity extends AppCompatActivity {
             }
         });
 
-        //TODO Retrieve and display the first provided photo in a given photo list.
+        retrievePhotoBitmaps((ArrayList<Record>) getIntent().getSerializableExtra("RECORDS"));
+
+        imageView = findViewById(R.id.activitySlideshow_ImageView);
+        if (photoBitmaps.isEmpty()) {
+            Toast.makeText(this,"No record photos",Toast.LENGTH_SHORT).show();
+        }
+        else {
+            imageView.setImageBitmap(photoBitmaps.get(index));
+        }
+    }
+
+    private void retrievePhotoBitmaps(ArrayList<Record> records) {
+        photoBitmaps = new ArrayList<>();
+        for(Record record: records) {
+            for(Photo photo: record.getPhotos()) {
+                photoBitmaps.add(photo.getPhotoBitmap());
+            }
+        }
     }
 
     private void displayPreviousPhoto() {
-        //TODO Transition to next photo.
+        if (index > 0) {
+            imageView.setImageBitmap(photoBitmaps.get(--index));
+        }
+        else {
+            Toast.makeText(this,"No previous photo",Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void displayNextPhoto() {
-        //TODO Transition to previous photo.
+        if (index < photoBitmaps.size()) {
+            imageView.setImageBitmap(photoBitmaps.get(++index));
+        }
+        else {
+            Toast.makeText(this,"No next photo",Toast.LENGTH_SHORT).show();
+        }
     }
 }

@@ -1,18 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:mapbox="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activityViewMapLocation.Base"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <com.mapbox.mapboxsdk.maps.MapView
-        android:id="@+id/viewLocationMapView"
+        android:id="@+id/activityViewMapLocation.MapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        mapbox:layout_constraintBottom_toBottomOf="parent"
+        mapbox:layout_constraintEnd_toEndOf="parent"
+        mapbox:layout_constraintStart_toStartOf="parent"
+        mapbox:layout_constraintTop_toTopOf="parent"
         mapbox:mapbox_cameraTargetLat="53.5232"
         mapbox:mapbox_cameraTargetLng="-113.5263"
         mapbox:mapbox_cameraZoom="11"
         mapbox:mapbox_styleUrl="mapbox://styles/mapbox/streets-v10"
         mapbox:mapbox_uiZoomControls="true" />
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

@@ -51,7 +51,7 @@ public class ProviderPatientViewProblemsActivity extends AppCompatActivity {
             }
         });
 
-        ArrayAdapter<Problem> problemArrayAdapter = new ArrayAdapter<>(this,0,problems);
+        ProblemAdapter problemArrayAdapter = new ProblemAdapter(this,problems);
         problemsListView.setAdapter(problemArrayAdapter);
     }
 

@@ -25,13 +25,12 @@ import cs.ualberta.ca.medlog.singleton.CurrentUser;
  * </p>
  *
  * @author Tyler Gobran
- * @version 1.0
+ * @version 1.1
  * @see ProviderMenuActivity
  * @see ProviderPatientProfileActivity
  */
 public class ProviderViewPatientsActivity extends AppCompatActivity {
     ArrayList<Patient> patients;
-    ArrayAdapter<Patient> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +39,7 @@ public class ProviderViewPatientsActivity extends AppCompatActivity {
 
         patients = CurrentUser.getInstance().getAsProvider().getPatients();
 
-        adapter = new ArrayAdapter<>(this, R.layout.list_item, patients);
+        PatientAdapter patientArrayAdapter = new PatientAdapter(this, patients);
 
         ListView patientsList = findViewById(R.id.activityProviderViewPatients_PatientsListView);
         patientsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -50,7 +49,7 @@ public class ProviderViewPatientsActivity extends AppCompatActivity {
             }
         });
 
-        patientsList.setAdapter(adapter);
+        patientsList.setAdapter(patientArrayAdapter);
     }
 
     private void openPatientView(int index) {

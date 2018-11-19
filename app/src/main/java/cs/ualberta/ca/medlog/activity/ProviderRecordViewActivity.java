@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.net.ConnectException;
+import java.util.ArrayList;
 
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.entity.Record;
@@ -32,16 +33,16 @@ import cs.ualberta.ca.medlog.helper.Database;
  *     Issues: <br>
  *         Transfer to a title & comment fragment must be added
  *         Transfer to a body location fragment must be added
- *         Transfer to a map location fragment must be added
  *
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.5
+ * @version 0.6
  * @see ProviderPatientViewRecordsActivity
  * @see ProviderSearchActivity
  * @see ProviderPatientProfileActivity
  * @see SlideshowActivity
+ * @see ViewMapLocationActivity
  */
 public class ProviderRecordViewActivity extends AppCompatActivity {
     private Record record;
@@ -108,7 +109,9 @@ public class ProviderRecordViewActivity extends AppCompatActivity {
     }
 
     private void openMapLocationFragment() {
-        //TODO Add transfer to map location fragment
+        Intent intent = new Intent(this, ViewMapLocationActivity.class);
+        intent.putExtra("RECORDS",new ArrayList<Record>().add(record));
+        startActivity(intent);
     }
 
     private void openSlideshowFragment() {

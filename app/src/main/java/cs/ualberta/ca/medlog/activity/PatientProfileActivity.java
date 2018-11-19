@@ -1,5 +1,6 @@
 package cs.ualberta.ca.medlog.activity;
 
+import android.content.Intent;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,8 +12,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.controller.PatientController;
+import cs.ualberta.ca.medlog.entity.Problem;
+import cs.ualberta.ca.medlog.entity.Record;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.singleton.CurrentUser;
 
@@ -28,12 +34,12 @@ import cs.ualberta.ca.medlog.singleton.CurrentUser;
  * <p>
  *     Issues: <br>
  *         Transfer to a Body Pictures editing activity must be added.
- *         Transfer to a Map of All Records activity must be added.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.5
+ * @version 0.6
  * @see PatientMenuActivity
+ * @see ViewMapLocationActivity
  */
 public class PatientProfileActivity extends AppCompatActivity implements TextEditorFragment.OnTextSetListener {
     private Patient patient;
@@ -147,6 +153,13 @@ public class PatientProfileActivity extends AppCompatActivity implements TextEdi
     }
 
     private void openRecordsMap() {
-        //TODO Add code to open a records map fragment.
+        Intent intent = new Intent(this, ViewMapLocationActivity.class);
+        ArrayList<Problem> problems = patient.getProblems();
+        ArrayList<Record> records = new ArrayList<>();
+        for(Problem problem : problems) {
+            records.addAll(problem.getRecords());
+        }
+        intent.putExtra("RECORDS",records);
+        startActivity(intent);
     }
 }
