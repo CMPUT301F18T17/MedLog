@@ -7,7 +7,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import cs.ualberta.ca.medlog.R;
+import cs.ualberta.ca.medlog.entity.Problem;
+import cs.ualberta.ca.medlog.entity.Record;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 
 /**
@@ -21,14 +25,15 @@ import cs.ualberta.ca.medlog.entity.user.Patient;
  * </p>
  * <p>
  *     Issues: <br>
- *         Transfer to a Map of all Records view must be added.
+ *         None.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.5
+ * @version 1.0
  * @see ProviderViewPatientsActivity
  * @see ProviderAddPatientActivity
  * @see ProviderPatientViewProblemsActivity
+ * @see ViewMapLocationActivity
  */
 public class ProviderPatientProfileActivity extends AppCompatActivity {
     private Patient patient;
@@ -64,7 +69,14 @@ public class ProviderPatientProfileActivity extends AppCompatActivity {
     }
 
     private void openRecordsMap() {
-        //TODO Add code to open a records map fragment.
+        Intent intent = new Intent(this, ViewMapLocationActivity.class);
+        ArrayList<Problem> problems = patient.getProblems();
+        ArrayList<Record> records = new ArrayList<>();
+        for(Problem problem : problems) {
+            records.addAll(problem.getRecords());
+        }
+        intent.putExtra("RECORDS",records);
+        startActivity(intent);
     }
 
     private void openPatientProblemsList() {

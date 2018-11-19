@@ -31,17 +31,17 @@ import cs.ualberta.ca.medlog.singleton.CurrentUser;
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.3
+ * @version 0.4
  * @see ProviderSearchActivity
  */
 public class ProviderSearchActivity extends AppCompatActivity {
-
-    private ArrayAdapter<Problem> adapter;
+    private SearchAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_provider_search);
+
         Button searchButton = findViewById(R.id.activityProviderSearch_SearchButton);
         Button mapLocationButton = findViewById(R.id.activityProviderSearch_MapLocationButton);
         Button bodyLocationButton = findViewById(R.id.activityProviderSearch_BodyLocationButton);
@@ -72,8 +72,7 @@ public class ProviderSearchActivity extends AppCompatActivity {
             }
         });
 
-        adapter = new ArrayAdapter<>(this,
-                R.layout.list_item, new ArrayList<Problem>());
+        adapter = new SearchAdapter(this, new ArrayList<Problem>());
 
         resultsListView.setAdapter(adapter);
     }

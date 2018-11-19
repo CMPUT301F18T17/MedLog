@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.entity.Record;
 
@@ -23,15 +26,15 @@ import cs.ualberta.ca.medlog.entity.Record;
  *     Issues: <br>
  *         Transfer to a title & comment fragment must be added
  *         Transfer to a body location fragment must be added
- *         Transfer to a map location fragment must be added
  *
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.5
+ * @version 0.6
  * @see PatientViewRecordsActivity
  * @see PatientSearchActivity
  * @see SlideshowActivity
+ * @see ViewMapLocationActivity
  */
 public class PatientRecordViewActivity extends AppCompatActivity {
     private Record record;
@@ -91,7 +94,9 @@ public class PatientRecordViewActivity extends AppCompatActivity {
     }
 
     private void openMapLocationFragment() {
-        //TODO Add transfer to map location fragment
+        Intent intent = new Intent(this, ViewMapLocationActivity.class);
+        intent.putExtra("RECORDS",new ArrayList<Record>().add(record));
+        startActivity(intent);
     }
 
     private void openPhotoSlideshow() {
