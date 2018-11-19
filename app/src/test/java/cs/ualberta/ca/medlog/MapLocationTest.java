@@ -17,19 +17,19 @@ public class MapLocationTest {
 
     @Test
     public void testGetLatitude(){
-        MapLocation mapLocation = new MapLocation(15.0, 516.0);
+        MapLocation mapLocation = new MapLocation(15.0, -50);
         assertEquals(15.0, mapLocation.getLatitude());
     }
 
     @Test
     public void testGetLongitude(){
-        MapLocation mapLocation = new MapLocation(15.0, 516.0);
-        assertEquals(516.0, mapLocation.getLongitude());
+        MapLocation mapLocation = new MapLocation(15.0, -50);
+        assertEquals(-50.0, mapLocation.getLongitude());
     }
 
     @Test
     public void testSetLatitude(){
-        MapLocation mapLocation = new MapLocation(15.0, 516.0);
+        MapLocation mapLocation = new MapLocation(15.0, -50);
         assertEquals(15.0, mapLocation.getLatitude());
 
         double newLat = 20;
@@ -39,7 +39,7 @@ public class MapLocationTest {
 
     @Test
     public void testSetLongitude(){
-        MapLocation mapLocation = new MapLocation(15.0, 516.0);
+        MapLocation mapLocation = new MapLocation(15.0, -50);
         assertEquals(15.0, mapLocation.getLatitude());
 
         double newLon = 20.0;
