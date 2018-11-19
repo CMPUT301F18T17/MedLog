@@ -14,6 +14,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import cs.ualberta.ca.medlog.R;
+import cs.ualberta.ca.medlog.entity.MapLocation;
 import cs.ualberta.ca.medlog.entity.Record;
 
 /**
@@ -44,6 +45,7 @@ import cs.ualberta.ca.medlog.entity.Record;
  */
 public class PatientAddRecordActivity extends AppCompatActivity implements TextEditorFragment.OnTextSetListener {
     final int MAP_LOCATION_REQUEST = 1;
+
 
     int problemIndex;
     private Record record;
@@ -143,8 +145,6 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
     private void openMapLocationSelector() {
         Intent intent = new Intent(this, PatientAddMapLocationActivity.class);
         startActivityForResult(intent, MAP_LOCATION_REQUEST);
-        //Intent intent = new Intent(this, ViewMapLocationActivity.class); // This line and the next are temporary, tests ViewMapLocationActivity
-        //startActivity(intent);
     }
 
     @Override
@@ -153,13 +153,14 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
             if (resultCode == RESULT_OK) { // If a map location was selected
                 double latitude = data.getDoubleExtra("Latitude", -1);
                 double longitude = data.getDoubleExtra("Longitude", -1);
+                MapLocation selectedLocation = new MapLocation(latitude, longitude);
 
                 Context context = getApplicationContext();
                 String toastMessage = "Map Location Added.";
                 Toast toast = Toast.makeText(context, toastMessage, Toast.LENGTH_SHORT);
                 toast.show();
 
-                //TODO Save the returned latitude and longitude values
+                //TODO Save the MapLocation
             }
             else { // If the select location button was tapped, but the user never selected a position on the map
                 Context context = getApplicationContext();

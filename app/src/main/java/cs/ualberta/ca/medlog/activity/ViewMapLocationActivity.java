@@ -1,5 +1,6 @@
 package cs.ualberta.ca.medlog.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -12,6 +13,7 @@ import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 
 import cs.ualberta.ca.medlog.R;
+import cs.ualberta.ca.medlog.helper.Database;
 
 /**
  * <p>
@@ -27,7 +29,7 @@ import cs.ualberta.ca.medlog.R;
  *
  * @author Calvin Chomyc
  * @version 0.5
- * @see PatientViewRecordsActivity
+ * @see PatientRecordViewActivity
  * @see ProviderRecordViewActivity
  */
 
@@ -40,6 +42,11 @@ public class ViewMapLocationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent intent = getIntent();
+        int recordIndex = intent.getIntExtra("recordIndex", 0);
+        //Database database = new Database(this);
+
 
         Mapbox.getInstance(this, getString(R.string.mapboxAccessToken));
         setContentView(R.layout.activity_view_map_location);

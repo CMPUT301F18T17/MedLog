@@ -71,7 +71,7 @@ public class PatientRecordViewActivity extends AppCompatActivity {
         mapLocationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openMapLocationFragment();
+                openMapLocationActivity();
             }
         });
         slideshowButton.setOnClickListener(new View.OnClickListener() {
@@ -92,8 +92,10 @@ public class PatientRecordViewActivity extends AppCompatActivity {
         //TODO Add transfer to body location fragment
     }
 
-    private void openMapLocationFragment() {
-        //TODO Add transfer to map location fragment
+    private void openMapLocationActivity() {
+        Intent intent = new Intent(this, ViewMapLocationActivity.class);
+        intent.putExtra("recordIndex",recordIndex);
+        startActivity(intent);
     }
 
     private void openPhotoSlideshow() {

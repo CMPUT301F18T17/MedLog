@@ -42,7 +42,6 @@ import cs.ualberta.ca.medlog.R;
  */
 
 //TODO May be possible to force the user's location to update.
-//TODO We might want to give the marker a different title.
 
 public class PatientAddMapLocationActivity extends AppCompatActivity {
     private LatLng userLocation;
@@ -118,8 +117,7 @@ public class PatientAddMapLocationActivity extends AppCompatActivity {
         clickedPosition = new LatLng(point.getLatitude(), point.getLongitude());
         final MarkerOptions newMarkerOptions = new MarkerOptions();
         newMarkerOptions.position(clickedPosition);
-        String markerTitle = "Latitude: " + String.valueOf(point.getLatitude()) +
-                "\nLongitude: " + String.valueOf(point.getLongitude());
+        String markerTitle = getString(R.string.activityPatientAddMapLocation_NewMarkerTitle);
         newMarkerOptions.title(markerTitle);
 
         mapView.getMapAsync(new OnMapReadyCallback() {
