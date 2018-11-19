@@ -155,7 +155,6 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
             if (resultCode == RESULT_OK) { // If a map location was selected
                 double latitude = data.getDoubleExtra("Latitude", -1);
                 double longitude = data.getDoubleExtra("Longitude", -1);
-                MapLocation selectedLocation = new MapLocation(latitude, longitude);
                 Toast.makeText(this, R.string.activityPatientAddRecordActivity_MapLocationAdded, Toast.LENGTH_SHORT).show();
                 newRecord.setMapLocation(new MapLocation(latitude,longitude));
             }
