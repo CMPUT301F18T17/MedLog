@@ -48,7 +48,7 @@ public class ProviderAddPatientActivity extends AppCompatActivity {
     }
 
     private void finalizeAddingPatient() {
-        EditText usernameField = findViewById(R.id.activityPatientLogin_UsernameEditText);
+        EditText usernameField = findViewById(R.id.activityProviderAddPatient_TitleEditText);
         String username = usernameField.getText().toString();
 
         if (username.isEmpty()) {
