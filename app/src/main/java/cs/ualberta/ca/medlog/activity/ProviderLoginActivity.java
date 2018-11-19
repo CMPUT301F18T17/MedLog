@@ -10,7 +10,6 @@ import android.widget.Toast;
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.controller.SyncController;
 import cs.ualberta.ca.medlog.entity.user.CareProvider;
-import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 import cs.ualberta.ca.medlog.helper.Database;
 import cs.ualberta.ca.medlog.singleton.CurrentUser;
 
@@ -72,8 +71,11 @@ public class ProviderLoginActivity extends AppCompatActivity {
             return;
         }
 
-        CareProvider toLogin = null;
-        try {
+
+        Database db = new Database(this);
+        CareProvider toLogin;
+        try{
+            toLogin = db.loadProvider(username);
             toLogin = sc.updateCareProviderPatients(toLogin);
         } catch(Exception e) {
             Toast.makeText(this, "Couldn't find user", Toast.LENGTH_SHORT).show();

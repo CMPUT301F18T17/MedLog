@@ -7,16 +7,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import java.net.ConnectException;
-
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.entity.user.ContactInfo;
 import cs.ualberta.ca.medlog.entity.user.Patient;
-<<<<<<< HEAD
-import cs.ualberta.ca.medlog.exception.UserNotFoundException;
-=======
->>>>>>> master
 import cs.ualberta.ca.medlog.helper.Database;
 import cs.ualberta.ca.medlog.singleton.CurrentUser;
 
@@ -62,8 +56,7 @@ public class PatientSignUpActivity extends AppCompatActivity {
         }
 
         Database db = new Database(this);
-        boolean usernameAvailable = false;
-
+        boolean usernameAvailable;
         try {
             usernameAvailable = db.patientUsernameAvailable(username);
         }catch(ConnectException e){

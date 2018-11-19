@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -98,15 +97,14 @@ public class PhotoSelectorActivity extends AppCompatActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Toast.makeText(this,"Photo Added",Toast.LENGTH_SHORT).show();
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Toast.makeText(this,"Photo Added",Toast.LENGTH_SHORT);
+            Toast.makeText(this,"Photo Added",Toast.LENGTH_SHORT).show();
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             photos.add(imageBitmap);
         }
         else if (requestCode == REQUEST_LOAD_IMAGE && resultCode == RESULT_OK) {
-            Toast.makeText(this,"Photo Added",Toast.LENGTH_SHORT);
+            Toast.makeText(this,"Photo Added",Toast.LENGTH_SHORT).show();
             Uri imageUri = data.getData();
             Bitmap imageBitmap = null;
             try {
@@ -120,7 +118,7 @@ public class PhotoSelectorActivity extends AppCompatActivity {
             }
         }
         else if (resultCode != RESULT_OK){
-            Toast.makeText(this,"Cancelled",Toast.LENGTH_SHORT);
+            Toast.makeText(this,"Cancelled",Toast.LENGTH_SHORT).show();
         }
     }
 }

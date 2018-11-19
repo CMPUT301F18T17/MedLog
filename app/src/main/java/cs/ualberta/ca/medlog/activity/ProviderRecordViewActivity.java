@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.net.ConnectException;
+
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.entity.Record;
 import cs.ualberta.ca.medlog.entity.user.Patient;
@@ -122,6 +124,9 @@ public class ProviderRecordViewActivity extends AppCompatActivity {
             toOpen = db.loadPatient(record.getUsername());
         } catch(UserNotFoundException e) {
             Toast.makeText(this,"Patient doesn't exist", Toast.LENGTH_SHORT).show();
+            return;
+        } catch(ConnectException e) {
+            Toast.makeText(this, "Failed to connect", Toast.LENGTH_SHORT).show();
             return;
         }
 

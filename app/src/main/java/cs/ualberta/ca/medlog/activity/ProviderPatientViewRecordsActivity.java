@@ -7,10 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
-import java.io.Serializable;
 import java.util.ArrayList;
-
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.entity.Record;
 
@@ -51,14 +48,14 @@ public class ProviderPatientViewRecordsActivity extends AppCompatActivity {
             }
         });
 
-        ArrayAdapter<Record> recordArrayAdapter = new ArrayAdapter<Record>(this,0,records);
+        ArrayAdapter<Record> recordArrayAdapter = new ArrayAdapter<>(this,0,records);
         recordsListView.setAdapter(recordArrayAdapter);
     }
 
     private void openRecordView(int index) {
         Intent intent = new Intent(this, ProviderRecordViewActivity.class);
         intent.putExtra("PROBLEM_TITLE",problemTitle);
-        intent.putExtra("RECORD", (Serializable) records.get(index));
+        intent.putExtra("RECORD",records.get(index));
         startActivity(intent);
     }
 }

@@ -8,11 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Locale;
-
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.controller.PatientController;
 import cs.ualberta.ca.medlog.entity.Problem;
@@ -40,18 +37,10 @@ import cs.ualberta.ca.medlog.singleton.CurrentUser;
  */
 public class PatientAddProblemActivity extends AppCompatActivity implements DatePickerFragment.OnNewDateSetListener {
     private Calendar cal;
-<<<<<<< HEAD
 
-=======
-    private Date date;
-    Intent intent;
-    private String username;
->>>>>>> master
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        intent = getIntent();
-        username = intent.getStringExtra(PatientMenuActivity.EXTRA_MESSAGE);
         setContentView(R.layout.activity_patient_add_problem);
 
         Button dateButton = findViewById(R.id.activityPatientAddProblem_DateEditButton);
@@ -128,7 +117,7 @@ public class PatientAddProblemActivity extends AppCompatActivity implements Date
 
         //This currently is a stand in for this popup navigation
         Intent intent = new Intent(this, PatientProblemViewActivity.class);
-        intent.putExtra("PROBLEM", (Serializable) problem);
+        intent.putExtra("PROBLEM",problem);
         startActivity(intent);
     }
 }

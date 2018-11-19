@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.net.ConnectException;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -139,6 +140,9 @@ public class ProviderProblemViewActivity extends AppCompatActivity implements Te
         } catch(UserNotFoundException e) {
             Toast.makeText(this,"Patient doesn't exist", Toast.LENGTH_SHORT).show();
             return;
+        } catch(ConnectException e) {
+            Toast.makeText(this, "Failed to connect", Toast.LENGTH_SHORT).show();
+            return;
         }
 
         Record newRecord = new Record(CurrentUser.getInstance().getAsProvider().getUsername());
@@ -155,6 +159,9 @@ public class ProviderProblemViewActivity extends AppCompatActivity implements Te
             toOpen = db.loadPatient(patientUsername);
         } catch(UserNotFoundException e) {
             Toast.makeText(this,"Patient doesn't exist", Toast.LENGTH_SHORT).show();
+            return;
+        } catch(ConnectException e) {
+            Toast.makeText(this, "Failed to connect", Toast.LENGTH_SHORT).show();
             return;
         }
 

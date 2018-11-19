@@ -112,6 +112,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.ProviderViewPatientsActivity" />
         </activity>
+        <activity android:name=".activity.ProviderPatientViewProblemsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.ProviderMenuActivity" />
+        </activity>
         <activity android:name=".activity.ProviderProblemViewActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -139,6 +144,7 @@
         </activity>
         <activity android:name=".activity.PhotoSelectorActivity"></activity>
         <activity android:name=".activity.ViewMapLocationActivity"></activity>
+
     </application>
 
 </manifest>
