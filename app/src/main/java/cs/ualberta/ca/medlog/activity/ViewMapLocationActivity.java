@@ -2,6 +2,7 @@ package cs.ualberta.ca.medlog.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
@@ -44,6 +45,7 @@ public class ViewMapLocationActivity extends AppCompatActivity {
         Mapbox.getInstance(this, getString(R.string.mapboxAccessToken));
         setContentView(R.layout.activity_view_map_location);
 
+        /*
         retrieveMapLocations((ArrayList<Record>)getIntent().getSerializableExtra("RECORDS"));
 
         mapView = findViewById(R.id.activityViewMapLocation_MapView);
@@ -58,6 +60,29 @@ public class ViewMapLocationActivity extends AppCompatActivity {
                     marker1.title("RECORD TITLE"); //TODO Should put record timestamp here.
                     mapboxMap.addMarker(marker1);
                     mapboxMap.moveCamera(CameraUpdateFactory.newLatLng(recordLocation));
+                }
+            }
+        });
+        */
+
+        ArrayList<Record> recordList = (ArrayList<Record>)getIntent().getSerializableExtra("RECORDS");
+
+        mapView = findViewById(R.id.activityViewMapLocation_MapView);
+        mapView.onCreate(savedInstanceState);
+        mapView.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(MapboxMap mapboxMap) {
+                for (Record currentRecord: recordList) {
+                    MapLocation location = currentRecord.getMapLocation();
+                    if (location != null) {
+                        LatLng recordLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                        MarkerOptions markerOptions = new MarkerOptions();
+                        markerOptions.position(recordLocation);
+                        //markerOptions.title(currentRecord.getTimestamp().toString()); // toString() will crash if timestamp is null
+                        markerOptions.title(currentRecord.getTitle());
+                        mapboxMap.addMarker(markerOptions);
+                        mapboxMap.moveCamera(CameraUpdateFactory.newLatLng(recordLocation));
+                    }
                 }
             }
         });
@@ -105,6 +130,7 @@ public class ViewMapLocationActivity extends AppCompatActivity {
         mapView.onSaveInstanceState(outState);
     }
 
+    /*
     private void retrieveMapLocations(ArrayList<Record> records) {
         mapLocations = new ArrayList<>();
         for(Record record: records) {
@@ -113,4 +139,5 @@ public class ViewMapLocationActivity extends AppCompatActivity {
             }
         }
     }
+    */
 }
