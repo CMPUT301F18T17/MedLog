@@ -18,6 +18,7 @@ public class Record implements Serializable {
 
     public Record(String creatorUsername){
         this.creatorUsername = creatorUsername;
+        this.timestamp = new Date();
     }
 
 
