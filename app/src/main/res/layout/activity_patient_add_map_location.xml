@@ -25,7 +25,7 @@
                 android:layout_height="56dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="@string/activityPatientAddMapLocationButton"
+                android:text="@string/activityPatientAddMapLocation.SelectButton"
                 mapbox:layout_constraintBottom_toBottomOf="parent"
                 mapbox:layout_constraintEnd_toEndOf="parent" />
         </android.support.constraint.ConstraintLayout>

@@ -13,6 +13,7 @@ import android.widget.Toast;
 import java.util.Date;
 
 import cs.ualberta.ca.medlog.R;
+
 import cs.ualberta.ca.medlog.controller.ProblemController;
 import cs.ualberta.ca.medlog.entity.MapLocation;
 import cs.ualberta.ca.medlog.entity.Problem;
@@ -154,9 +155,12 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
             if (resultCode == RESULT_OK) { // If a map location was selected
                 double latitude = data.getDoubleExtra("Latitude", -1);
                 double longitude = data.getDoubleExtra("Longitude", -1);
-
-                Toast.makeText(this,"Map Location added",Toast.LENGTH_SHORT).show();
+                MapLocation selectedLocation = new MapLocation(latitude, longitude);
+                Toast.makeText(this, R.string.activityPatientAddRecordActivity_MapLocationAdded, Toast.LENGTH_SHORT).show();
                 newRecord.setMapLocation(new MapLocation(latitude,longitude));
+            }
+            else { // If the select location button was tapped, but the user never selected a position on the map
+                Toast.makeText(this, R.string.activityPatientAddRecordActivity_NoLocationAdded, Toast.LENGTH_LONG).show();
             }
         }
     }

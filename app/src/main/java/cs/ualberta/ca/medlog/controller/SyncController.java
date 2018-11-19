@@ -1,18 +1,3 @@
-/**
- *
- * <h1>
- *     SyncController
- * </h1>
- *
- *  <p>
- *     Description: <br>
- *         The purpose of this class is to sync changes between offline and online.
- *  </p>
- *
- * @author Thomas Roskewich
- * @contact roskewic@ualberta.ca
- */
-
 //TODO: FINISH THE TWO FUNCTIONS!
 package cs.ualberta.ca.medlog.controller;
 
@@ -29,6 +14,21 @@ import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 import cs.ualberta.ca.medlog.helper.Database;
 import cs.ualberta.ca.medlog.helper.FileSaver;
 
+/**
+ * <p>
+ *     Description: <br>
+ *         The controller designed to sync changes between offline and online.
+ * </p>
+ * <p>
+ *     Issues: <br>
+ *         The two functions must be finished.
+ * </p>
+ *
+ * @author Thomas Roskewich
+ * @version 1.0
+ * @see Patient
+ * @see CareProvider
+ */
 public class SyncController {
 
     private Context ctx;

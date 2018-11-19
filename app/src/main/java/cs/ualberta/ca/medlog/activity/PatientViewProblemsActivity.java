@@ -1,7 +1,6 @@
 package cs.ualberta.ca.medlog.activity;
 
 import android.content.Intent;
-import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,7 +8,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.entity.Problem;
@@ -50,7 +48,7 @@ public class PatientViewProblemsActivity extends AppCompatActivity {
             }
         });
 
-        ArrayAdapter<Problem> problemArrayAdapter = new ArrayAdapter<>(this,R.layout.list_item,problems);
+        ProblemAdapter problemArrayAdapter = new ProblemAdapter(this,problems);
         problemsListView.setAdapter(problemArrayAdapter);
     }
 

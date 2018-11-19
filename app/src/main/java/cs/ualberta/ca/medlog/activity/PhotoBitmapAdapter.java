@@ -25,6 +25,7 @@ import cs.ualberta.ca.medlog.R;
  *
  * @author Tyler Gobran
  * @version 1.0
+ * @see Bitmap
  */
 public class PhotoBitmapAdapter extends ArrayAdapter<Bitmap> {
     public PhotoBitmapAdapter(Context context, ArrayList<Bitmap> photoBitmapList) {

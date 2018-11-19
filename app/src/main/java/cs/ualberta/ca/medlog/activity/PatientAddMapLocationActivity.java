@@ -37,17 +37,15 @@ import cs.ualberta.ca.medlog.R;
  * </p>
  *
  * @author Calvin Chomyc
- * @version 0.5
+ * @version 0.6
  * @see PatientAddRecordActivity
  */
 
-//TODO We might want to give the marker a different title.
-// Also, we should adjust the current marker instead of creating a replacement.
+//TODO May be possible to force the user's location to update.
 
 public class PatientAddMapLocationActivity extends AppCompatActivity {
     private LatLng userLocation;
     private MapView mapView;
-    private boolean clickMarkerSet = false;
     private Marker clickMarker;
     private LatLng clickedPosition;
     private FusedLocationProviderClient locationClient;
@@ -68,7 +66,7 @@ public class PatientAddMapLocationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                if (clickMarkerSet) {
+                if (clickMarker != null) {
                     intent.putExtra("Latitude", clickedPosition.getLatitude());
                     intent.putExtra("Longitude", clickedPosition.getLongitude());
                     setResult(Activity.RESULT_OK, intent);
@@ -104,29 +102,33 @@ public class PatientAddMapLocationActivity extends AppCompatActivity {
                 mapboxMap.addOnMapClickListener(new MapboxMap.OnMapClickListener() {
                     @Override
                     public void onMapClick(@NonNull LatLng point) {
-                        mapClicked(point);
+                        placeMarker(point);
                     }
                 });
             }
         });
     }
 
-    public void mapClicked(@NonNull LatLng point) {
-        final MarkerOptions newMarkerOptions = new MarkerOptions();
+    /**
+     * <p>Places a marker on the map at the specified location. If a marker already exists, moves the marker to a new location.</p>
+     * @param point An object that contains latitude and longitude coordinates specifying where to place the marker.
+     */
+    public void placeMarker(@NonNull LatLng point) {
         clickedPosition = new LatLng(point.getLatitude(), point.getLongitude());
+        final MarkerOptions newMarkerOptions = new MarkerOptions();
         newMarkerOptions.position(clickedPosition);
-        String markerTitle = "Latitude: " + String.valueOf(point.getLatitude()) +
-                "\nLongitude: " + String.valueOf(point.getLongitude());
+        String markerTitle = getString(R.string.activityPatientAddMapLocation_NewMarkerTitle);
         newMarkerOptions.title(markerTitle);
 
         mapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(MapboxMap mapboxMap) {
-                if (clickMarkerSet) { // If we already have a click marker, remove it
-                    mapboxMap.removeMarker(clickMarker);
+                if (clickMarker != null) { // If we already have a click marker, remove it
+                    clickMarker.setPosition(clickedPosition);
                 }
-                clickMarker = mapboxMap.addMarker(newMarkerOptions);
-                clickMarkerSet = true;
+                else {
+                    clickMarker = mapboxMap.addMarker(newMarkerOptions);
+                }
             }
         });
     }
