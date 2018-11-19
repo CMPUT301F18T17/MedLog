@@ -9,6 +9,9 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import java.util.Date;
+
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.controller.ProblemController;
 import cs.ualberta.ca.medlog.entity.MapLocation;
@@ -176,7 +179,6 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
         ProblemController controller = new ProblemController(this);
         controller.addRecord(CurrentUser.getInstance().getAsPatient(),parentProblem,newRecord);
 
-        Intent intent = new Intent(this, PatientProblemViewActivity.class);
-        startActivity(intent);
+        super.onBackPressed();
     }
 }
