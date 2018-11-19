@@ -11,6 +11,8 @@ package cs.ualberta.ca.medlog;
 import cs.ualberta.ca.medlog.entity.MapLocation;
 
 import org.junit.Test;
+
+import static com.ibm.icu.impl.Assert.fail;
 import static junit.framework.TestCase.assertEquals;
 
 public class MapLocationTest {
@@ -45,5 +47,24 @@ public class MapLocationTest {
         double newLon = 20.0;
         mapLocation.setLongitude(newLon);
         assertEquals(newLon, mapLocation.getLongitude());
+    }
+
+    @Test
+    public void testIncorrectGeoLocation(){
+        try {
+            MapLocation mapLocation = new MapLocation(-91, 0);
+            fail("Was able to create an invalid map location.");
+        }catch (Exception ignored){}
+
+        try {
+            MapLocation mapLocation = new MapLocation(0, 515);
+            fail("Was able to create an invalid map location.");
+        }catch (Exception ignored){}
+
+        try {
+            MapLocation mapLocation = new MapLocation(-90, 180);
+        }catch (Exception e){
+            fail("Was able to create an invalid map location.");
+        }
     }
 }
