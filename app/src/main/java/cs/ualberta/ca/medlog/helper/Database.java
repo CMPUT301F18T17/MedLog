@@ -315,8 +315,10 @@ public class Database {
 
             // If the record contains the map location or the body description, add it and stop.
             for(Record r : p.getRecords()){
-                strings.addAll(Arrays.asList(r.getComment().toLowerCase().toLowerCase().split(" ")));
-                strings.addAll(Arrays.asList(r.getTitle().toLowerCase().toLowerCase().split(" ")));
+                if(r.getTitle() != null) {
+                    strings.addAll(Arrays.asList(r.getComment().toLowerCase().toLowerCase().split(" ")));
+                    strings.addAll(Arrays.asList(r.getTitle().toLowerCase().toLowerCase().split(" ")));
+                }
                 if(map != null && r.getMapLocation() != null){
                     if(r.getMapLocation().equals(map)){
                         output.add(p);
