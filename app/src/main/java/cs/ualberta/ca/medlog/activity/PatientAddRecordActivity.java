@@ -1,6 +1,5 @@
 package cs.ualberta.ca.medlog.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -11,11 +10,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import java.util.ArrayList;
+import java.util.Date;
 
 import cs.ualberta.ca.medlog.R;
+
+import cs.ualberta.ca.medlog.controller.ProblemController;
 import cs.ualberta.ca.medlog.entity.MapLocation;
+import cs.ualberta.ca.medlog.entity.Problem;
 import cs.ualberta.ca.medlog.entity.Record;
+import cs.ualberta.ca.medlog.singleton.CurrentUser;
 
 /**
  * <p>
@@ -28,27 +31,22 @@ import cs.ualberta.ca.medlog.entity.Record;
  * </p>
  * <p>
  *     Issues: <br>
- *         Arguments to send existing titles, comments and photos must be added.
- *         Saving of title and comment changes must be added.
  *         Transfer to a Body Location Selector Fragment must be added.
  *         Transfer to a Map Location Selector Fragment must be added.
  *         Receiving and saving newly added photos must be added.
  *         Checks of record validity must be added.
- *         Should convert the adding of the record to the problem to be done upon return.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.7
+ * @version 0.8
  * @see PatientProblemViewActivity
  * @see PhotoSelectorActivity
  * @see TextEditorFragment
  */
 public class PatientAddRecordActivity extends AppCompatActivity implements TextEditorFragment.OnTextSetListener {
     final int MAP_LOCATION_REQUEST = 1;
-
-
-    int problemIndex;
-    private Record record;
+    private Problem parentProblem;
+    private Record newRecord;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +54,7 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
         setContentView(R.layout.activity_patient_add_record);
 
         Intent intent = getIntent();
-        problemIndex = intent.getIntExtra("problemIndex",0);
+        parentProblem = (Problem) intent.getSerializableExtra("PROBLEM");
 
         Button titleCommentButton = findViewById(R.id.activityPatientAddRecord_TitleCommentButton);
         Button bodyLocationButton = findViewById(R.id.activityPatientAddRecord_BodyLocationButton);
@@ -93,6 +91,8 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
                 completeRecord();
             }
         });
+
+        newRecord = new Record(CurrentUser.getInstance().getAsPatient().getUsername());
     }
 
     private void openTitleEditor() {
@@ -100,7 +100,8 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
         Bundle editorData = new Bundle();
         editorData.putInt("argEditorId",0);
         editorData.putString("argHint",getString(R.string.fragmentTextEditor_TitleHint));
-        //TODO Argument to send any existing record title.
+        editorData.putString("argInitialText",newRecord.getTitle());
+        editorData.putInt("argMaxLength",30);
         newFragment.setArguments(editorData);
         newFragment.show(getSupportFragmentManager(),"titleEditor");
     }
@@ -111,7 +112,8 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
         editorData.putInt("argEditorId",1);
         editorData.putString("argHint",getString(R.string.fragmentTextEditor_CommentHint));
         editorData.putInt("argInputType", InputType.TYPE_TEXT_FLAG_MULTI_LINE);
-        //TODO Argument to send any existing record comment.
+        editorData.putString("argInitialText",newRecord.getComment());
+        editorData.putInt("argMaxLength",300);
         newFragment.setArguments(editorData);
         newFragment.show(getSupportFragmentManager(),"commentEditor");
     }
@@ -120,20 +122,20 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
         switch (editorId) {
             case 0:
                 if (newText.isEmpty()) {
-                    Toast.makeText(this,"No title entered",Toast.LENGTH_SHORT);
+                    Toast.makeText(this,"No title entered",Toast.LENGTH_SHORT).show();
                     break;
                 }
-                //TODO Save the title to the record.
+                newRecord.setTitleComment(newText,newRecord.getComment());
                 openCommentEditor();
                 break;
 
             case 1:
                 if (newText.isEmpty()) {
-                    Toast.makeText(this,"No comment entered",Toast.LENGTH_SHORT);
+                    Toast.makeText(this,"No comment entered",Toast.LENGTH_SHORT).show();
                     break;
                 }
-                //TODO Save the comment to the record.
-                Toast.makeText(this,"Title & Comment added",Toast.LENGTH_SHORT);
+                newRecord.setTitleComment(newRecord.getTitle(),newText);
+                Toast.makeText(this,"Title & Comment added",Toast.LENGTH_SHORT).show();
                 break;
         }
     }
@@ -154,13 +156,8 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
                 double latitude = data.getDoubleExtra("Latitude", -1);
                 double longitude = data.getDoubleExtra("Longitude", -1);
                 MapLocation selectedLocation = new MapLocation(latitude, longitude);
-
-                Context context = getApplicationContext();
-                String toastMessage = "Map Location Added.";
-                Toast toast = Toast.makeText(context, toastMessage, Toast.LENGTH_SHORT);
-                toast.show();
-
-                //TODO Save the MapLocation
+                Toast.makeText(this, "Map Location Added.", Toast.LENGTH_SHORT).show();
+                newRecord.setMapLocation(new MapLocation(latitude,longitude));
             }
             else { // If the select location button was tapped, but the user never selected a position on the map
                 Context context = getApplicationContext();
@@ -173,22 +170,24 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
 
     private void openPhotosSelector() {
         Intent intent = new Intent(this, PhotoSelectorActivity.class);
-        //TODO Argument to send any existing photos.
+        intent.putExtra("GUIDE_PHOTO",newRecord.getBodyLocation().getPhoto().getPhotoBitmap());
+        intent.putExtra("PHOTOS",newRecord.getPhotos());
         startActivity(intent);
     }
 
     private void completeRecord() {
-        boolean validRecord = true; //TODO Change to false once below TODO handled
-        //TODO Check if the given record is valid in terms of having at least one field filled
+        boolean validRecord = newRecord.isValid();
 
         if (!validRecord) {
             Toast.makeText(this,"Record has no data",Toast.LENGTH_SHORT).show();
             return;
         }
 
-        //TODO Call system to get the patient's problem by the provided index and add the record
+        ProblemController controller = new ProblemController(this);
+        controller.addRecord(CurrentUser.getInstance().getAsPatient(),parentProblem,newRecord);
 
         Intent intent = new Intent(this, PatientProblemViewActivity.class);
+        intent.putExtra("PROBLEM", parentProblem);
         startActivity(intent);
     }
 }

@@ -9,12 +9,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
-
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.controller.PatientController;
 import cs.ualberta.ca.medlog.entity.Problem;
+import cs.ualberta.ca.medlog.singleton.CurrentUser;
 
 /**
  * <p>
@@ -27,23 +26,18 @@ import cs.ualberta.ca.medlog.entity.Problem;
  * </p>
  * <p>
  *     Issues: <br>
- *         Call to a controller to add the given problem to the patient in the system must be added.
  *         Post problem navigation popup must be added.
- *         Call to a controller to get the newly added problems index must be added.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.3
+ * @version 0.5
  * @see PatientMenuActivity
  * @see PatientProblemViewActivity
  * @see DatePickerFragment
  */
 public class PatientAddProblemActivity extends AppCompatActivity implements DatePickerFragment.OnNewDateSetListener {
-
     private Calendar cal;
-    private Date date;
-    Intent intent=getIntent();
-    private String username = intent.getStringExtra(PatientMenuActivity.EXTRA_MESSAGE);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,13 +107,9 @@ public class PatientAddProblemActivity extends AppCompatActivity implements Date
             return;
         }
 
-        date=cal.getTime();
-
-        // controller call to add the given problem to the patient in the system
-
-        Problem problem = new Problem(title,date,description);
+        Problem problem = new Problem(title,cal.getTime(),description);
         PatientController controller = new PatientController(this);
-        controller.addProblem(problem,username);
+        controller.addProblem(CurrentUser.getInstance().getAsPatient(),problem);
 
         Toast.makeText(this,"Problem added",Toast.LENGTH_SHORT).show();
 
@@ -127,8 +117,7 @@ public class PatientAddProblemActivity extends AppCompatActivity implements Date
 
         //This currently is a stand in for this popup navigation
         Intent intent = new Intent(this, PatientProblemViewActivity.class);
-        //TODO Add controller call to get the index for the added problem.
-        intent.putExtra("problemIndex",0);
+        intent.putExtra("PROBLEM",problem);
         startActivity(intent);
     }
 }

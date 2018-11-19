@@ -7,14 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import java.net.ConnectException;
-import java.security.Provider;
-
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.entity.user.CareProvider;
-import cs.ualberta.ca.medlog.entity.user.ContactInfo;
-import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.helper.Database;
 import cs.ualberta.ca.medlog.singleton.CurrentUser;
 
@@ -27,13 +22,11 @@ import cs.ualberta.ca.medlog.singleton.CurrentUser;
  * </p>
  * <p>
  *     Issues: <br>
- *         Need a Provider controller to test if a username is valid
- *         Need a Provider/System controller to add the new Provider to the system.
- *         Need a Provider/System controller to set the input username to be the logged in User.
+ *         None.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.2
+ * @version 1.0
  * @see ProviderLoginActivity
  * @see ProviderMenuActivity
  */
@@ -61,12 +54,11 @@ public class ProviderRegistrationActivity extends AppCompatActivity {
             return;
         }
 
-        boolean usernameAvailable = false;
+        boolean usernameAvailable;
         Database db = new Database(this);
-
         try {
             usernameAvailable = db.providerUsernameAvailable(username);
-        }catch(ConnectException e){
+        } catch(ConnectException e){
             Toast.makeText(this,"Could not connect",Toast.LENGTH_SHORT).show();
             return;
         }
@@ -76,15 +68,14 @@ public class ProviderRegistrationActivity extends AppCompatActivity {
             return;
         }
 
-        CareProvider careProvider = new CareProvider(username);
-        if(db.saveProvider(careProvider)){
-            CurrentUser.getInstance().set(careProvider);
-        }else{
-            Toast.makeText(this, "Try again later", Toast.LENGTH_SHORT).show();
-            return;
+        CareProvider toSignUp = new CareProvider(username);
+        if (db.saveProvider(toSignUp)) {
+            CurrentUser.getInstance().set(toSignUp);
+            Intent intent = new Intent(this, ProviderMenuActivity.class);
+            startActivity(intent);
         }
-
-        Intent intent = new Intent(this, PatientMenuActivity.class);
-        startActivity(intent);
+        else {
+            Toast.makeText(this,"Failed to register care provider",Toast.LENGTH_SHORT).show();
+        }
     }
 }

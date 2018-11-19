@@ -1,6 +1,8 @@
 package cs.ualberta.ca.medlog.entity;
 
-public class BodyLocation {
+import java.io.Serializable;
+
+public class BodyLocation implements Serializable {
     private Photo photo;
     private int x, y;
 

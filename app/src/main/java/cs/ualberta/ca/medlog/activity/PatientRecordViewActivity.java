@@ -1,12 +1,11 @@
 package cs.ualberta.ca.medlog.activity;
 
 import android.content.Intent;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
+import android.widget.TextView;
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.entity.Record;
 
@@ -22,8 +21,6 @@ import cs.ualberta.ca.medlog.entity.Record;
  * </p>
  * <p>
  *     Issues: <br>
- *         A call to the system to get the currently logged in patient's problems and records must be added.
- *         Updating the record data display fields to match the given record on open must be added.
  *         Transfer to a title & comment fragment must be added
  *         Transfer to a body location fragment must be added
  *         Transfer to a map location fragment must be added
@@ -31,15 +28,13 @@ import cs.ualberta.ca.medlog.entity.Record;
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.2
+ * @version 0.5
  * @see PatientViewRecordsActivity
  * @see PatientSearchActivity
  * @see SlideshowActivity
  */
 public class PatientRecordViewActivity extends AppCompatActivity {
     private Record record;
-    int problemIndex;
-    int recordIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +42,8 @@ public class PatientRecordViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_patient_record_view);
 
         Intent intent = getIntent();
-        problemIndex = intent.getIntExtra("problemIndex",0);
-        recordIndex = intent.getIntExtra("recordIndex",0);
-        //TODO Call to the system to retrieve the record found by the given indexes
-        //TODO Setting the record object to the returned problem's record
+        String problemTitle = intent.getStringExtra("PROBLEM_TITLE");
+        record = (Record) intent.getSerializableExtra("RECORD");
 
         Button titleCommentButton = findViewById(R.id.activityPatientRecordView_TitleCommentButton);
         Button bodyLocationButton = findViewById(R.id.activityPatientRecordView_BodyLocationButton);
@@ -81,7 +74,12 @@ public class PatientRecordViewActivity extends AppCompatActivity {
             }
         });
 
-        //TODO Read data from the given problem to display in the related fields.
+        TextView problemTitleView = findViewById(R.id.activityPatientRecordView_ProblemTitleView);
+        problemTitleView.setText(problemTitle);
+        TextView creatorView = findViewById(R.id.activityPatientRecordView_CreatorView);
+        creatorView.setText(record.getUsername());
+        TextView timestampView = findViewById(R.id.activityPatientRecordView_TimestampView);
+        timestampView.setText(record.getTimestamp().toString());
     }
 
     private void openTitleCommentFragment() {
@@ -100,8 +98,7 @@ public class PatientRecordViewActivity extends AppCompatActivity {
 
     private void openPhotoSlideshow() {
         Intent intent = new Intent(this, SlideshowActivity.class);
-        intent.putExtra("problemIndex",problemIndex);
-        intent.putExtra("recordIndex",recordIndex);
+        intent.putExtra("PHOTOS",record.getPhotos());
         startActivity(intent);
     }
 }

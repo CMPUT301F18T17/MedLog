@@ -1,9 +1,10 @@
 package cs.ualberta.ca.medlog.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Record {
+public class Record implements Serializable {
 
     private String creatorUsername;
     private Date timestamp;
@@ -30,6 +31,10 @@ public class Record {
 
     public String getTitle(){
         return title;
+    }
+
+    public Boolean isValid(){
+        return (title != null && comment != null) || mapLocation != null || bodyLocation != null || photos.size() > 0;
     }
 
     public String getComment(){

@@ -8,16 +8,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.entity.Problem;
-import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.helper.Database;
 import cs.ualberta.ca.medlog.singleton.CurrentUser;
 
@@ -31,15 +25,13 @@ import cs.ualberta.ca.medlog.singleton.CurrentUser;
  * </p>
  * <p>
  *     Issues: <br>
- *         Add code for an array adapter to connect to a provided search results list.
- *         Add code to query data for a new list to display
  *         Transfer to a Map Location Selector Fragment must be added.
  *         Transfer to a Body Location Selector Fragment must be added.
  *         Transfer to a Problem or Record View by clicking them must be added.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.1
+ * @version 0.3
  * @see ProviderSearchActivity
  */
 public class ProviderSearchActivity extends AppCompatActivity {

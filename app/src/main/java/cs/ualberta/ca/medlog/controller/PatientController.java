@@ -1,104 +1,61 @@
-/**
- *
- * <h1>
- *     PatientController
- * </h1>
- *
- *  <p>
- *     Description: <br>
- *         The purpose of this class is to control the patient changes.
- *  </p>
- *
- */
-
-
 package cs.ualberta.ca.medlog.controller;
 
 import android.content.Context;
-import android.util.Log;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-
 import cs.ualberta.ca.medlog.entity.Problem;
 import cs.ualberta.ca.medlog.entity.user.Patient;
-import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 import cs.ualberta.ca.medlog.helper.Database;
 
+/**
+ * <p>
+ *     Description: <br>
+ *         The controller for all changes made to a Patient. This is used by the gui to change
+ *         Patient information in the model.
+ * </p>
+ * <p>
+ *     Issues: <br>
+ *         None.
+ * </p>
+ *
+ * @author ?
+ * @version 1.0
+ * @see Patient
+ */
 public class PatientController {
-
-
-    private Context context;
     private Database database;
 
-    public PatientController(Context ctx){
-        context=ctx;
-        database = new Database(context);
+    public PatientController(Context ctx) {
+        database = new Database(ctx);
     }
 
-    public void addProblem(Problem problem, String username){
-        // Load patient, add problem, save patient
-        try{
-            Patient patient=database.loadPatient(username);
-            patient.addProblem(problem);
-            database.savePatient(patient);
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    public ArrayList<Problem> getProblems(String username) {
-        Patient patient = null;
+    public void setEmail(Patient patient, String newEmail) {
         try {
-            patient = database.loadPatient(username);
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        return patient.getProblems();
-
-    }
-
-    public void setTitle(String username,int problemIndex,String newText) {
-        try{
-            Patient patient=database.loadPatient(username);
-            patient.setTitle(problemIndex,newText);
-            database.savePatient(patient);
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-
-    }
-    public void setDesc(String username,int problemIndex,String newText) {
-        try{
-            Patient patient=database.loadPatient(username);
-            patient.setDescription(problemIndex,newText);
-            database.savePatient(patient);
-        }catch(Exception e){
-            e.printStackTrace();
+            patient.getContactInfo().setPhoneNumber(newEmail);
+            database.updatePatient(patient);
+        } catch (Exception ignore) {
         }
     }
 
-    public void setDate(String username, int problemIndex, Calendar cal) {
+    public void setPhoneNumber(Patient patient, String newPhoneNumber) {
         try {
-            Patient patient = database.loadPatient(username);
-            Date date;
-            date = cal.getTime();
-            patient.setDate(problemIndex, date);
-            database.savePatient(patient);
-        }catch(Exception e){
-            e.printStackTrace();
+            patient.getContactInfo().setPhoneNumber(newPhoneNumber);
+            database.updatePatient(patient);
+        } catch (Exception ignore) {
         }
     }
 
-    public void deleteProblem(String username, int problemIndex){
-        try{
-            Patient patient=database.loadPatient(username);
-            patient.deleteProblem(problemIndex);
-            database.savePatient(patient);
-        }catch(Exception e){
-            e.printStackTrace();
+    public void addProblem(Patient patient, Problem newProblem) {
+        try {
+            patient.addProblem(newProblem);
+            database.updatePatient(patient);
+        } catch (Exception ignore) {
         }
     }
 
+    public void deleteProblem(Patient patient, Problem problem) {
+        try {
+            patient.getProblems().remove(problem);
+            database.updatePatient(patient);
+        } catch (Exception ignore) {
+        }
+    }
 }

@@ -28,27 +28,25 @@ import cs.ualberta.ca.medlog.singleton.CurrentUser;
  * </p>
  * <p>
  *     Issues: <br>
- *         Add code for an array adapter to connect to a provided search results list.
- *         Add code to query data for a new list to display
  *         Transfer to a Map Location Selector Fragment must be added.
  *         Transfer to a Body Location Selector Fragment must be added.
  *         Transfer to a Problem or Record View by clicking them must be added.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.2
+ * @version 0.3
  * @see PatientMenuActivity
  * @see PatientProblemViewActivity
  * @see PatientRecordViewActivity
  */
 public class PatientSearchActivity extends AppCompatActivity {
-
     private ArrayAdapter<Problem> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_search);
+
         Button searchButton = findViewById(R.id.activityPatientSearch_SearchButton);
         Button mapLocationButton = findViewById(R.id.activityPatientSearch_MapLocationButton);
         Button bodyLocationButton = findViewById(R.id.activityPatientSearch_BodyLocationButton);
@@ -89,7 +87,6 @@ public class PatientSearchActivity extends AppCompatActivity {
         EditText et = findViewById(R.id.activityPatientSearch_KeywordEditText);
 
         ArrayList<String> keywords = new ArrayList<>(Arrays.asList(et.getText().toString().split(" ")));
-
         adapter.clear();
 
         //TODO: Map and Body Location need to be selectable.

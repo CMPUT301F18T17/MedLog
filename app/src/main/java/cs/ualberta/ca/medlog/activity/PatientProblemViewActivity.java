@@ -12,14 +12,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
-
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.controller.PatientController;
+import cs.ualberta.ca.medlog.controller.ProblemController;
 import cs.ualberta.ca.medlog.entity.Problem;
+import cs.ualberta.ca.medlog.singleton.CurrentUser;
 
 /**
  * <p>
@@ -33,14 +32,11 @@ import cs.ualberta.ca.medlog.entity.Problem;
  * </p>
  * <p>
  *     Issues: <br>
- *         A call to the system to get the currently logged in patient's problems must be added.
- *         Updating the problem data display fields to match the given problem on open must be added.
- *         Calls to a controller to update problem details must be added.
- *         Sending problem data to editing fragments must be added.
+ *         None.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.6
+ * @version 1.0
  * @see PatientViewProblemsActivity
  * @see PatientAddProblemActivity
  * @see PatientSearchActivity
@@ -51,25 +47,15 @@ import cs.ualberta.ca.medlog.entity.Problem;
  * @see SlideshowActivity
  */
 public class PatientProblemViewActivity extends AppCompatActivity implements DatePickerFragment.OnNewDateSetListener, TextEditorFragment.OnTextSetListener {
-    private ArrayList<Problem> problems;
     private Problem problem;
-    private int problemIndex;
-    Intent intent = getIntent();
-    private String username=intent.getStringExtra(PatientViewProblemsActivity.EXTRA_MESSAGE);
-
-
+    private ProblemController controller = new ProblemController(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_problem_view);
 
-        problemIndex = intent.getIntExtra("problemIndex",0);
-        // Call system to get the patient's list of problems and then grab the given index.
-
-        PatientController controller = new PatientController(this);
-        problems=controller.getProblems(username);
-        problem=problems.get(problemIndex);
+        problem = (Problem) getIntent().getSerializableExtra("PROBLEM");
 
         Button viewRecordsButton = findViewById(R.id.activityPatientProblemView_ViewRecordsButton);
         Button slideShowButton = findViewById(R.id.activityPatientProblemView_SlideshowButton);
@@ -93,7 +79,11 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
             }
         });
 
-        //TODO Read data from the given problem to display in the related fields.
+        updateTitleDisplay(problem.getTitle());
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(problem.getDate());
+        updateDateDisplay(cal);
+        updateDescriptionDisplay(problem.getDescription());
     }
 
     @Override
@@ -125,21 +115,22 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
 
     private void openRecordsList() {
         Intent intent = new Intent(this, PatientViewRecordsActivity.class);
-        intent.putExtra("problemIndex",problemIndex);
+        intent.putExtra("PROBLEM_TITLE",problem.getTitle());
+        intent.putExtra("RECORDS",problem.getRecords());
         startActivity(intent);
     }
 
 
     private void openPhotoSlideshow() {
         Intent intent = new Intent(this, SlideshowActivity.class);
-        intent.putExtra("problemIndex",problemIndex);
+        intent.putExtra("RECORDS",problem.getRecords());
         startActivity(intent);
     }
 
 
     private void openAddRecord() {
         Intent intent = new Intent(this, PatientAddRecordActivity.class);
-        intent.putExtra("problemIndex",problemIndex);
+        intent.putExtra("PROBLEM",problem);
         startActivity(intent);
     }
 
@@ -148,7 +139,8 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
         Bundle editorData = new Bundle();
         editorData.putInt("argEditorId",0);
         editorData.putString("argHint",getString(R.string.fragmentTextEditor_TitleHint));
-        //TODO Argument to send the existing title.
+        editorData.putString("argInitialText",problem.getTitle());
+        editorData.putInt("argMaxLength",30);
         newFragment.setArguments(editorData);
         newFragment.show(getSupportFragmentManager(),"titleEditor");
     }
@@ -159,60 +151,58 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
         editorData.putInt("argEditorId",1);
         editorData.putString("argHint",getString(R.string.fragmentTextEditor_DescHint));
         editorData.putInt("argInputType", InputType.TYPE_TEXT_FLAG_MULTI_LINE);
-        //TODO Argument to send the existing description.
+        editorData.putString("argInitialText",problem.getDescription());
+        editorData.putInt("argMaxLength",300);
         newFragment.setArguments(editorData);
         newFragment.show(getSupportFragmentManager(),"descEditor");
     }
 
     public void onTextSet(String newText, int editorId) {
-        PatientController controller = new PatientController(this);
         switch(editorId) {
             case 0:
                 if (newText.isEmpty()) {
-                    Toast.makeText(this,"No title entered",Toast.LENGTH_SHORT);
+                    Toast.makeText(this,"No title entered",Toast.LENGTH_SHORT).show();
                     break;
                 }
-                // Call to controller to update the problem title value.
-                controller.setTitle(username,problemIndex,newText);
+                controller.setTitle(CurrentUser.getInstance().getAsPatient(),problem,newText);
                 updateTitleDisplay(newText);
                 break;
             case 1:
                 if (newText.isEmpty()) {
-                    Toast.makeText(this,"No description entered",Toast.LENGTH_SHORT);
+                    Toast.makeText(this,"No description entered",Toast.LENGTH_SHORT).show();
                     break;
                 }
-                // Call to controller to update the problem description value.
-                controller.setDesc(username,problemIndex,newText);
+                controller.setDesc(CurrentUser.getInstance().getAsPatient(),problem,newText);
                 updateDescriptionDisplay(newText);
                 break;
         }
     }
 
     private void updateTitleDisplay(String title) {
-        TextView titleView = findViewById(R.id.activityPatientProblemView_RecordTitleView);
+        TextView titleView = findViewById(R.id.activityPatientProblemView_ProblemTitleView);
         titleView.setText(title);
     }
 
     private void updateDescriptionDisplay(String description) {
-        TextView descView = findViewById(R.id.activityPatientProblemView_RecordDescriptionView);
+        TextView descView = findViewById(R.id.activityPatientProblemView_ProblemDescriptionView);
         descView.setText(description);
     }
 
     private void openDatePicker() {
         DialogFragment newFragment = new DatePickerFragment();
-        //TODO Argument to send the existing date.
+        Bundle pickerData = new Bundle();
+        pickerData.putSerializable("argCal",problem.getDate());
+        newFragment.setArguments(pickerData);
         newFragment.show(getSupportFragmentManager(),"datePicker");
     }
 
     public void onNewDateSet(Calendar cal) {
-        // Call to controller to update the problem date value.
-        PatientController controller = new PatientController(this);
-        controller.setDate(username,problemIndex, cal);
+        controller.setDate(CurrentUser.getInstance().getAsPatient(),problem,cal);
         updateDateDisplay(cal);
     }
 
     private void updateDateDisplay(Calendar cal) {
-        TextView dateView = findViewById(R.id.activityPatientProblemView_RecordDateView);
+        TextView dateView = findViewById(R.id.activityPatientProblemView_ProblemDateView);
         int year = cal.get(Calendar.YEAR);
         int month = cal.get(Calendar.MONTH);
         int day = cal.get(Calendar.DAY_OF_MONTH);
@@ -220,11 +210,8 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
     }
 
     private void deleteProblem() {
-        //TODO Call to controller to delete the patient's problem
-
-        PatientController controller = new PatientController(this);
-        controller.deleteProblem(username,problemIndex);
-
+        PatientController patientController = new PatientController(this);
+        patientController.deleteProblem(CurrentUser.getInstance().getAsPatient(),problem);
         finish();
     }
 }

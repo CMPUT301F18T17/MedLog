@@ -2,9 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cs.ualberta.ca.medlog">
 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
@@ -112,6 +112,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.ProviderViewPatientsActivity" />
         </activity>
+        <activity android:name=".activity.ProviderPatientViewProblemsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.ProviderMenuActivity" />
+        </activity>
         <activity android:name=".activity.ProviderProblemViewActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -137,7 +142,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.PatientAddRecordActivity" />
         </activity>
+        <activity android:name=".activity.PhotoSelectorActivity"></activity>
         <activity android:name=".activity.ViewMapLocationActivity"></activity>
+
     </application>
 
 </manifest>

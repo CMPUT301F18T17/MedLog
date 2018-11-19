@@ -7,9 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import java.net.ConnectException;
-
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.entity.user.ContactInfo;
 import cs.ualberta.ca.medlog.entity.user.Patient;
@@ -25,13 +23,11 @@ import cs.ualberta.ca.medlog.singleton.CurrentUser;
  * </p>
  * <p>
  *     Issues: <br>
- *         Need a Patient controller to test if a username is valid
- *         Need a Patient/System controller to add the new Patient to the system.
- *         Need a Patient/System controller to set the input username to be the logged in User.
+ *         None.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.2
+ * @version 1.0
  * @see PatientLoginActivity
  * @see PatientMenuActivity
  */
@@ -46,30 +42,31 @@ public class PatientSignUpActivity extends AppCompatActivity {
         completeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                performPatientSignup();
+                performPatientSignUp();
             }
         });
     }
 
-    private void performPatientSignup() {
+    private void performPatientSignUp() {
         EditText usernameField = findViewById(R.id.activityPatientSignUp_UsernameEditText);
         String username = usernameField.getText().toString();
         if (username.isEmpty()) {
             Toast.makeText(this,"No username entered",Toast.LENGTH_SHORT).show();
             return;
         }
-
+        else if (username.length() < 8) {
+            Toast.makeText(this,"Username is too short",Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         Database db = new Database(this);
-        boolean usernameAvailable = false;
-
+        boolean usernameAvailable;
         try {
             usernameAvailable = db.patientUsernameAvailable(username);
         }catch(ConnectException e){
             Toast.makeText(this, "Failed to connect.", Toast.LENGTH_SHORT).show();
             return;
         }
-
 
         if (!usernameAvailable) {
             Toast.makeText(this,"Username already used",Toast.LENGTH_SHORT).show();
@@ -103,7 +100,7 @@ public class PatientSignUpActivity extends AppCompatActivity {
         if(db.savePatient(patient)){
             CurrentUser.getInstance().set(patient);
         }else{
-            Toast.makeText(this, "Try again later", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Failed to sign up patient", Toast.LENGTH_SHORT).show();
             return;
         }
 

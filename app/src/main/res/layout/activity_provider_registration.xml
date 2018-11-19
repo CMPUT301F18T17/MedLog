@@ -35,6 +35,7 @@
         android:hint="@string/activityProviderRegistration.UsernameEditHint"
         android:importantForAutofill="no"
         android:inputType="textPersonName"
+        android:maxLength="20"
         android:singleLine="false"
         android:textAlignment="center"
         android:textSize="24sp"

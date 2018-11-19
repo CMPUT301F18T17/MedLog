@@ -6,8 +6,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.net.ConnectException;
 
 import cs.ualberta.ca.medlog.R;
+import cs.ualberta.ca.medlog.entity.Record;
+import cs.ualberta.ca.medlog.entity.user.Patient;
+import cs.ualberta.ca.medlog.exception.UserNotFoundException;
+import cs.ualberta.ca.medlog.helper.Database;
 
 /**
  * <p>
@@ -23,28 +30,31 @@ import cs.ualberta.ca.medlog.R;
  * </p>
  * <p>
  *     Issues: <br>
- *         Actual code to read a record and present it must be added.
  *         Transfer to a title & comment fragment must be added
  *         Transfer to a body location fragment must be added
  *         Transfer to a map location fragment must be added
- *         Actual code to send photos to the slideshow activity must be added.
- *         Actual code to pass the specific patient owner as an argument must be added on username click.
  *
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.2
+ * @version 0.5
  * @see ProviderPatientViewRecordsActivity
  * @see ProviderSearchActivity
  * @see ProviderPatientProfileActivity
  * @see SlideshowActivity
  */
 public class ProviderRecordViewActivity extends AppCompatActivity {
+    private Record record;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_provider_record_view);
+
+        Intent intent = getIntent();
+        String problemTitle = intent.getStringExtra("PROBLEM_TITLE");
+        record = (Record) intent.getSerializableExtra("RECORD");
+
         Button titleCommentButton = findViewById(R.id.activityProviderRecordView_TitleCommentButton);
         Button bodyLocationButton = findViewById(R.id.activityProviderRecordView_BodyLocationButton);
         Button mapLocationButton = findViewById(R.id.activityProviderRecordView_MapLocationButton);
@@ -75,6 +85,7 @@ public class ProviderRecordViewActivity extends AppCompatActivity {
         });
 
         TextView creatorView = findViewById(R.id.activityProviderRecordView_CreatorView);
+        creatorView.setText(record.getUsername());
         creatorView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,7 +93,10 @@ public class ProviderRecordViewActivity extends AppCompatActivity {
             }
         });
 
-        //TODO Add code to receive a provided record object and set the related fields to its data.
+        TextView problemTitleView = findViewById(R.id.activityProviderRecordView_ProblemTitleView);
+        problemTitleView.setText(problemTitle);
+        TextView timestampView = findViewById(R.id.activityProviderRecordView_TimestampView);
+        timestampView.setText(record.getTimestamp().toString());
     }
 
     private void openTitleCommentFragment() {
@@ -99,18 +113,25 @@ public class ProviderRecordViewActivity extends AppCompatActivity {
 
     private void openSlideshowFragment() {
         Intent intent = new Intent(this, SlideshowActivity.class);
-
-        //TODO Add argument code to pass a photos list of all the records photos.
-
+        intent.putExtra("PHOTOS",record.getPhotos());
         startActivity(intent);
     }
 
     private void openPatientProfile() {
+        Database db = new Database(this);
+        Patient toOpen;
+        try {
+            toOpen = db.loadPatient(record.getUsername());
+        } catch(UserNotFoundException e) {
+            Toast.makeText(this,"Patient doesn't exist", Toast.LENGTH_SHORT).show();
+            return;
+        } catch(ConnectException e) {
+            Toast.makeText(this, "Failed to connect", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         Intent intent = new Intent(this, ProviderPatientProfileActivity.class);
-
-        //TODO Add argument code to pass the problems record list.
-
+        intent.putExtra("PATIENT", toOpen);
         startActivity(intent);
     }
 }
