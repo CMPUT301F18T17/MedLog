@@ -128,4 +128,6 @@
     <string name="mapboxAccessToken">pk.eyJ1IjoidmVyeXJhbmRvbXBlcnNvbiIsImEiOiJjam9nZmxxY3QwZW53M3FscGhzZTg4ZnA2In0.IEYLgLCNOfnIczHn1kaycQ</string>
     <string name="activityPatientAddMapLocation.SelectButton">Select location</string>
     <string name="activityPatientAddMapLocation.NewMarkerTitle">Record Location</string>
+    <string name="activityPatientAddRecordActivity.MapLocationAdded">Map location added.</string>
+    <string name="activityPatientAddRecordActivity.NoLocationAdded">\"You must select a position on the map. No map location was added.\"</string>
 </resources>

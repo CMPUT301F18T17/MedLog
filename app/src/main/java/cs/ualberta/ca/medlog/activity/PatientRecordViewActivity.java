@@ -92,7 +92,7 @@ public class PatientRecordViewActivity extends AppCompatActivity {
 
     private void openMapLocationActivity() {
         Intent intent = new Intent(this, ViewMapLocationActivity.class);
-        intent.putExtra("recordIndex",recordIndex);
+        intent.putExtra("record",record);
         startActivity(intent);
     }
 

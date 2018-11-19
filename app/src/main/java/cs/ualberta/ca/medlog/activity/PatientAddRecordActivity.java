@@ -156,14 +156,11 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
                 double latitude = data.getDoubleExtra("Latitude", -1);
                 double longitude = data.getDoubleExtra("Longitude", -1);
                 MapLocation selectedLocation = new MapLocation(latitude, longitude);
-                Toast.makeText(this, "Map Location Added.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.activityPatientAddRecordActivity_MapLocationAdded, Toast.LENGTH_SHORT).show();
                 newRecord.setMapLocation(new MapLocation(latitude,longitude));
             }
             else { // If the select location button was tapped, but the user never selected a position on the map
-                Context context = getApplicationContext();
-                String toastMessage = "You must select a position on the map. No map location was added.";
-                Toast toast = Toast.makeText(context, toastMessage, Toast.LENGTH_LONG);
-                toast.show();
+                Toast.makeText(this, R.string.activityPatientAddRecordActivity_NoLocationAdded, Toast.LENGTH_LONG).show();
             }
         }
     }
