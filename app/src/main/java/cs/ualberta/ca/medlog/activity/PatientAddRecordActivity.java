@@ -179,6 +179,8 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
         ProblemController controller = new ProblemController(this);
         controller.addRecord(CurrentUser.getInstance().getAsPatient(),parentProblem,newRecord);
 
-        super.onBackPressed();
+        Intent intent = new Intent(this, PatientProblemViewActivity.class);
+        intent.putExtra("PROBLEM", parentProblem);
+        startActivity(intent);
     }
 }
