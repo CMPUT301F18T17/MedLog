@@ -155,7 +155,7 @@ public class PatientProfileActivity extends AppCompatActivity implements TextEdi
     private void openRecordsMap() {
         Intent intent = new Intent(this, ViewMapLocationActivity.class);
         ArrayList<Problem> problems = patient.getProblems();
-        ArrayList<Record> records = new ArrayList<>();
+        ArrayList<Record> records = new ArrayList<Record>();
         for(Problem problem : problems) {
             records.addAll(problem.getRecords());
         }
