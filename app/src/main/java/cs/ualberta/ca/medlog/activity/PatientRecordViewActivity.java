@@ -77,6 +77,8 @@ public class PatientRecordViewActivity extends AppCompatActivity {
             }
         });
 
+        TextView recordTitleView = findViewById(R.id.activityPatientRecordView_TitleView);
+        recordTitleView.setText(record.getTitle());
         TextView problemTitleView = findViewById(R.id.activityPatientRecordView_ProblemTitleView);
         problemTitleView.setText(problemTitle);
         TextView creatorView = findViewById(R.id.activityPatientRecordView_CreatorView);
@@ -95,13 +97,18 @@ public class PatientRecordViewActivity extends AppCompatActivity {
 
     private void openMapLocationFragment() {
         Intent intent = new Intent(this, ViewMapLocationActivity.class);
-        intent.putExtra("RECORDS",new ArrayList<Record>().add(record));
+        ArrayList<Record> newList = new ArrayList<Record>();
+        newList.add(record);
+        intent.putExtra("RECORDS", newList);
         startActivity(intent);
     }
 
     private void openPhotoSlideshow() {
         Intent intent = new Intent(this, SlideshowActivity.class);
-        intent.putExtra("PHOTOS",record.getPhotos());
+        ArrayList<Record> newList = new ArrayList<Record>();
+        newList.add(record);
+        intent.putExtra("RECORDS", newList);
+        //intent.putExtra("PHOTOS",record.getPhotos());
         startActivity(intent);
     }
 }
