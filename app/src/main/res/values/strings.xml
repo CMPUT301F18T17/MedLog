@@ -91,7 +91,7 @@
     <string name="activityPatientRecordView.CreatorDefault">CREATOR USERNAME</string>
     <string name="activityPatientRecordView.TimestampDefault">ISO 1806</string>
     <string name="activityProviderPatientProfile.RecordsMapButton">Records Map</string>
-    <string name="activityProviderPatientProfile.ViewRecordsButton">View Records</string>
+    <string name="activityProviderPatientProfile.ViewProblemsButton">View Problems</string>
     <string name="activityProviderPatientProfile.PhoneNumberDefault">#-(###)-###-####</string>
     <string name="activityProviderPatientProfile.EmailDefault">NAME@ADDRESS.DOMAIN</string>
     <string name="activityProviderPatientProfile.UsernameDefault">USERNAME</string>

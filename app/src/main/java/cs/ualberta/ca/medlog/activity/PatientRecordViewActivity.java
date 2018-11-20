@@ -108,7 +108,6 @@ public class PatientRecordViewActivity extends AppCompatActivity {
         ArrayList<Record> newList = new ArrayList<Record>();
         newList.add(record);
         intent.putExtra("RECORDS", newList);
-        //intent.putExtra("PHOTOS",record.getPhotos());
         startActivity(intent);
     }
 }

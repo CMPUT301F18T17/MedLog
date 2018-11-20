@@ -34,7 +34,7 @@ public class PatientController {
      */
     public void setEmail(Patient patient, String newEmail) {
         try {
-            patient.getContactInfo().setPhoneNumber(newEmail);
+            patient.getContactInfo().setEmail(newEmail);
             database.updatePatient(patient);
         } catch (Exception ignore) {
         }
