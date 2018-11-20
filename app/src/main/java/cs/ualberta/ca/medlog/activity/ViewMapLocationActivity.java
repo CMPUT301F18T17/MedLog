@@ -28,7 +28,7 @@ import cs.ualberta.ca.medlog.entity.Record;
  * </p>
  *
  * @author Calvin Chomyc
- * @version 0.6
+ * @version 1.0
  * @see PatientRecordViewActivity
  * @see ProviderRecordViewActivity
  * @see PatientProfileActivity

@@ -94,6 +94,8 @@ public class ProviderRecordViewActivity extends AppCompatActivity {
             }
         });
 
+        TextView recordTitleView = findViewById(R.id.activityProviderRecordView_TitleView);
+        recordTitleView.setText(record.getTitle());
         TextView problemTitleView = findViewById(R.id.activityProviderRecordView_ProblemTitleView);
         problemTitleView.setText(problemTitle);
         TextView timestampView = findViewById(R.id.activityProviderRecordView_TimestampView);
@@ -110,13 +112,17 @@ public class ProviderRecordViewActivity extends AppCompatActivity {
 
     private void openMapLocationFragment() {
         Intent intent = new Intent(this, ViewMapLocationActivity.class);
-        intent.putExtra("RECORDS",new ArrayList<Record>().add(record));
+        ArrayList<Record> newList = new ArrayList<Record>();
+        newList.add(record);
+        intent.putExtra("RECORDS", newList);
         startActivity(intent);
     }
 
     private void openSlideshowFragment() {
         Intent intent = new Intent(this, SlideshowActivity.class);
-        intent.putExtra("PHOTOS",record.getPhotos());
+        ArrayList<Record> newList = new ArrayList<Record>();
+        newList.add(record);
+        intent.putExtra("RECORDS", newList);
         startActivity(intent);
     }
 
