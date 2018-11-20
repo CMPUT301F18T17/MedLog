@@ -10,6 +10,7 @@ import cs.ualberta.ca.medlog.entity.BodyLocation;
 import cs.ualberta.ca.medlog.entity.MapLocation;
 import cs.ualberta.ca.medlog.entity.Photo;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -37,7 +38,7 @@ public class RecordTest {
         Record testRecord = new Record("John Doe");
 
         Date timestamp = new Date();
-        assertNull(testRecord.getTimestamp());
+        assertNotNull(testRecord.getTimestamp());
         testRecord.setTimestamp(timestamp);
         assertEquals(testRecord.getTimestamp(), timestamp);
     }
@@ -57,7 +58,7 @@ public class RecordTest {
     public void testMapLocation(){
         Record testRecord = new Record("John Doe");
 
-        MapLocation mapLocation = new MapLocation(100, 200);
+        MapLocation mapLocation = new MapLocation(10, 20);
         assertNull(testRecord.getMapLocation());
         testRecord.setMapLocation(mapLocation);
         assertEquals(testRecord.getMapLocation(), mapLocation);
