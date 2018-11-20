@@ -1,3 +1,5 @@
+package cs.ualberta.ca.medlog.exception;
+
 /**
  *
  * <h1>
@@ -11,13 +13,9 @@
  *  </p>
  *
  * @author Thomas Roskewich
- * @contact roskewic@ualberta.ca
  * @see cs.ualberta.ca.medlog.helper.ElasticSearchController
  * @see cs.ualberta.ca.medlog.helper.Database
  */
-
-package cs.ualberta.ca.medlog.exception;
-
 public class UserNotFoundException extends Exception{
     public UserNotFoundException(String s){
         super(s);
