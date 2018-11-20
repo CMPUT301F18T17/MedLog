@@ -43,13 +43,13 @@ public class ProblemAdapter extends ArrayAdapter<Problem> {
         }
 
         Problem problem = getItem(position);
-        String problemText = problem.getTitle() + "|";
+        String problemText = problem.getTitle() + " | ";
         Calendar cal = Calendar.getInstance();
         cal.setTime(problem.getDate());
         int year = cal.get(Calendar.YEAR);
         int month = cal.get(Calendar.MONTH);
         int day = cal.get(Calendar.DAY_OF_MONTH);
-        problemText += String.format(Locale.getDefault(),"Since: %04d/%02d/%02d",year,month,day) + "|";
+        problemText += String.format(Locale.getDefault(),"Since: %04d/%02d/%02d",year,month,day) + " | ";
         problemText += Integer.toString(problem.getRecords().size());
 
         TextView textView = convertView.findViewById(R.id.fragmentListItem_TextView);

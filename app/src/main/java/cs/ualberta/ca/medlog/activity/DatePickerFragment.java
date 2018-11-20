@@ -8,6 +8,7 @@ import android.support.v4.app.DialogFragment;
 import android.app.DatePickerDialog;
 import android.widget.DatePicker;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * <p>
@@ -39,7 +40,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         Bundle dateData = getArguments();
         cal = Calendar.getInstance();
         if (dateData != null) {
-            cal = (Calendar)dateData.getSerializable("argCal");
+            cal.setTime((Date)dateData.getSerializable("argCal"));
         }
 
         int year = cal.get(Calendar.YEAR);
