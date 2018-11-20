@@ -1,9 +1,18 @@
-/*
- * Class file for the ContactInfo entity
+/**
  *
- * Authors: Thomas Roskewich, Tem Tamre
- * Contact: roskewic@ualberta.ca, ttamre@ualberta.ca
- * Created: October 27, 2018
+ * <h1>
+ *     ContactInfo
+ * </h1>
+ *
+ *  <p>
+ *     Description: <br>
+ *         This class represents a Patients contact information if needed.
+ *
+ * </p>
+ *
+ * @author Thomas Roskewich, Tem Tamre
+ * @contact roskewic@ualberta.ca, ttamre@ualberta.ca
+ * @see cs.ualberta.ca.medlog.entity.user.Patient
  */
 
 package cs.ualberta.ca.medlog.entity.user;
@@ -28,19 +37,35 @@ public class ContactInfo implements Serializable {
         }
     }
 
+    /**
+     * <p>Get the email.</p>
+     * @return The email.
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * <p>Get the phone number.</p>
+     * @return The phone number.
+     */
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
 
+    /**
+     * <p>Set the email.</p>
+     * @param newEmail The new email.
+     */
     public void setEmail(String newEmail) {
         email = newEmail;
     }
 
+    /**
+     * <p>Set the phone number.</p>
+     * @param newPhoneNumber The new phone number.
+     */
     public void setPhoneNumber(String newPhoneNumber) {
         phoneNumber = newPhoneNumber;
     }
