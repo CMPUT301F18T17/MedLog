@@ -35,18 +35,34 @@ public class CurrentUser {
 
     }
 
+    /**
+     * Set the current user to the provided user.
+     * @param user The user to use.
+     */
     public void set(User user){
         usr = user;
     }
 
+    /**
+     * Get the user as a user.
+     * @return The user.
+     */
     public User get(){
         return usr;
     }
 
+    /**
+     * Get the singleton user as a patient
+     * @return The user as a patient.
+     */
     public Patient getAsPatient(){
         return (Patient) usr;
     }
 
+    /**
+     * Get the singleton user as a care provider.
+     * @return The user as a care provider.
+     */
     public CareProvider getAsProvider(){
         return (CareProvider) usr;
     }
