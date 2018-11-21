@@ -46,7 +46,7 @@ public class ViewMapLocationActivity extends AppCompatActivity {
         Mapbox.getInstance(this, getString(R.string.mapboxAccessToken));
         setContentView(R.layout.activity_view_map_location);
 
-        ArrayList<Record> recordList = (ArrayList<Record>)getIntent().getSerializableExtra("RECORDS");
+        final ArrayList<Record> recordList = (ArrayList<Record>)getIntent().getSerializableExtra("RECORDS");
 
         mapView = findViewById(R.id.activityViewMapLocation_MapView);
         mapView.onCreate(savedInstanceState);
