@@ -33,16 +33,13 @@ import cs.ualberta.ca.medlog.R;
  * </p>
  * <p>
  *     Issues: <br>
- *         None.
+ *         May be possible to force the users location to update.
  * </p>
  *
  * @author Calvin Chomyc
- * @version 0.6
+ * @version 1.0
  * @see PatientAddRecordActivity
  */
-
-//TODO May be possible to force the user's location to update.
-
 public class PatientAddMapLocationActivity extends AppCompatActivity {
     private LatLng userLocation;
     private MapView mapView;
@@ -59,7 +56,7 @@ public class PatientAddMapLocationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_patient_add_map_location);
 
         Button selectButton = findViewById(R.id.selectButton);
-        mapView = (MapView) findViewById(R.id.addLocationMapView);
+        mapView = findViewById(R.id.addLocationMapView);
         mapView.onCreate(savedInstanceState);
 
         selectButton.setOnClickListener(new View.OnClickListener() {
