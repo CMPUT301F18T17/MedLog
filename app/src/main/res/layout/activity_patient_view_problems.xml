@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
-        android:id="@+id/activityPatientViewProblems.ProblemsList"
+        android:id="@+id/activityPatientViewProblems.ProblemsListView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"

@@ -20,13 +20,11 @@ public class RecordTest {
     public void testRecordCreation(){
         String username = "John Doe";
         Record testRecord = new Record(username);
-        assertEquals(testRecord.getUsername(), username);
     }
 
     @Test
     public void testTitleComment(){
         Record testRecord = new Record("John Does");
-
         String title = "Title for a Record";
         String comment = "This is a record comment.";
         testRecord.setTitleComment(title, comment);

@@ -1,9 +1,10 @@
 package cs.ualberta.ca.medlog.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Record {
+public class Record implements Serializable {
 
     private String creatorUsername;
     private Date timestamp;
@@ -12,6 +13,7 @@ public class Record {
     private MapLocation mapLocation;
     private BodyLocation bodyLocation;
     private ArrayList<Photo> photos = new ArrayList<Photo>();
+    private int id = -1;
 
 
     public Record(String creatorUsername){
@@ -30,6 +32,10 @@ public class Record {
 
     public String getTitle(){
         return title;
+    }
+
+    public Boolean isValid(){
+        return (title != null && comment != null) || mapLocation != null || bodyLocation != null || photos.size() > 0;
     }
 
     public String getComment(){
@@ -70,5 +76,13 @@ public class Record {
 
     public ArrayList<Photo> getPhotos(){
         return photos;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

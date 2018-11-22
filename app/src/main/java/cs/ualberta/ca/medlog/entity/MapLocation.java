@@ -8,10 +8,17 @@
 
 package cs.ualberta.ca.medlog.entity;
 
-public class MapLocation{
+
+import java.io.Serializable;
+
+public class MapLocation implements Serializable {
     private double latitude, longitude;
 
     public MapLocation(double latitude, double longitude){
+        if(latitude < -90 || latitude > 90 || longitude < -180 || longitude > 180){
+            throw new IllegalArgumentException("Invalid longitude [-90,90] / latitude [-180,180]. Provided values are " + longitude + " longitude and " + latitude + " latitude");
+        }
+
         this.latitude = latitude;
         this.longitude = longitude;
     }
@@ -30,5 +37,13 @@ public class MapLocation{
 
     public void setLongitude(double newLon) {
         longitude = newLon;
+    }
+
+    public boolean equals(Object obj){
+        if(obj instanceof MapLocation){
+            MapLocation ml = (MapLocation) obj;
+            return longitude == ml.longitude && latitude == ml.latitude;
+        }
+        return false;
     }
 }

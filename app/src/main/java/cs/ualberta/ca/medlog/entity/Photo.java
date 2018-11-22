@@ -2,7 +2,9 @@ package cs.ualberta.ca.medlog.entity;
 
 import android.graphics.Bitmap;
 
-public class Photo {
+import java.io.Serializable;
+
+public class Photo implements Serializable {
     private int identifier;
     private Bitmap photoBitmap;
 

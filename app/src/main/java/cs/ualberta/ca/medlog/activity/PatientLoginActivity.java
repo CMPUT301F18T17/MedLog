@@ -5,22 +5,28 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
+import android.widget.EditText;
+import android.widget.Toast;
 import cs.ualberta.ca.medlog.R;
+import cs.ualberta.ca.medlog.controller.SyncController;
+import cs.ualberta.ca.medlog.entity.user.Patient;
+import cs.ualberta.ca.medlog.helper.Database;
+import cs.ualberta.ca.medlog.singleton.CurrentUser;
 
 /**
  * <p>
  *     Description: <br>
- *         The Activity for the Patient login screen, this presents the gui for a Patient
- *         to enter their username and login, or to proceed to a sign up screen.
+ *         The patient login screen activity for the Application, this presents the gui for a
+ *         Patient to enter their username and proceed to login, or to move to a Patient sign up
+ *         screen if they don't have an account.
  * </p>
  * <p>
  *     Issues: <br>
- *         Connection to a Patient controller is required to validate their username.
+ *         None.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.1
+ * @version 1.0
  * @see StartScreenActivity
  * @see PatientMenuActivity
  * @see PatientSignUpActivity
@@ -31,12 +37,13 @@ public class PatientLoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_login);
+
         Button loginButton = findViewById(R.id.activityPatientLogin_LoginButton);
         Button signUpButton = findViewById(R.id.activityPatientLogin_SignUpButton);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                attemptPatientLogin();
+                performPatientLogin();
             }
         });
         signUpButton.setOnClickListener(new View.OnClickListener() {
@@ -47,11 +54,42 @@ public class PatientLoginActivity extends AppCompatActivity {
         });
     }
 
-    private void attemptPatientLogin() {
-        //TODO Connect to a Patient controller to check if the Patient exists
+    private void performPatientLogin() {
+        EditText usernameField = findViewById(R.id.activityPatientLogin_UsernameEditText);
+        String username = usernameField.getText().toString();
 
-        Intent intent = new Intent(this, PatientMenuActivity.class);
-        startActivity(intent);
+        if (username.isEmpty()) {
+            Toast.makeText(this,"No username entered",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        SyncController sc = new SyncController(this);
+        try{
+            sc.syncPatient(username);
+        }catch(Exception e){
+            e.printStackTrace();
+            Toast.makeText(this,"Failed to connect to server",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Database db = new Database(this);
+        Patient toLogin;
+        try {
+            toLogin = db.loadPatient(username);
+        } catch(Exception e){
+            Toast.makeText(this, "Failed to login", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (toLogin != null) {
+            CurrentUser.getInstance().set(toLogin);
+
+            Intent intent = new Intent(this, PatientMenuActivity.class);
+            startActivity(intent);
+        }
+        else {
+            Toast.makeText(this,"Failed to login",Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void openPatientSignUp() {

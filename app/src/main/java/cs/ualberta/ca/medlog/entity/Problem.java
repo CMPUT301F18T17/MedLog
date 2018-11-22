@@ -8,13 +8,14 @@
 
 package cs.ualberta.ca.medlog.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Problem {
-
+public class Problem implements Serializable {
     private String title;
     private Date date;
+    private int id = -1;
     private String description;
     ArrayList<Record> records = new ArrayList<Record>();
 
@@ -22,6 +23,14 @@ public class Problem {
         this.title = title;
         this.date = date;
         this.description = description;
+    }
+
+    public int getId(){
+        return id;
+    }
+
+    public void setId(int id){
+        this.id = id;
     }
 
     public String getTitle(){
@@ -54,8 +63,20 @@ public class Problem {
     }
 
     public void addRecord(Record newRecord){
+        newRecord.setId(records.size());
         records.add(newRecord);
     }
 
+    public void removeRecord(int index){
+        for(int i = index; i < records.size(); i++){
+            records.get(i).setId(records.get(i).getId() - 1);
+        }
+        records.remove(index);
+    }
+
+
+    public String toString(){
+        return this.title;
+    }
 
 }

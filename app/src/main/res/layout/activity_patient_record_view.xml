@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activityPatientRecordView.Base"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.PatientAddRecordActivity">
+
+    <TextView
+        android:id="@+id/activityPatientRecordView.TitleView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/activityPatientRecordView.TitleText"
+        android:textAlignment="center"
+        android:textColor="@color/app_boldTextColour"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/activityPatientRecordView.ProblemTitleView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/activityPatientRecordView.ProblemTitleDefault"
+        android:textColor="@color/app_normalTextColour"
+        app:layout_constraintBottom_toTopOf="@+id/activityPatientRecordView.CreatorView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activityPatientRecordView.TitleView" />
+
+    <TextView
+        android:id="@+id/activityPatientRecordView.TimestampView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/activityPatientRecordView.TimestampDefault"
+        android:textColor="@color/app_lightTextColour"
+        app:layout_constraintBottom_toTopOf="@+id/activityPatientRecordView.TitleCommentButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activityPatientRecordView.CreatorView" />
+
+    <TextView
+        android:id="@+id/activityPatientRecordView.CreatorView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/activityPatientRecordView.CreatorDefault"
+        android:textColor="@color/app_normalTextColour"
+        app:layout_constraintBottom_toTopOf="@+id/activityPatientRecordView.TimestampView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activityPatientRecordView.ProblemTitleView" />
+
+    <Button
+        android:id="@+id/activityPatientRecordView.TitleCommentButton"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/app_buttonColour"
+        android:text="@string/activityPatientRecordView.TitleCommentButton"
+        android:textAlignment="center"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/activityPatientRecordView.MapLocationButton"
+        app:layout_constraintEnd_toStartOf="@+id/activityPatientRecordView.BodyLocationButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activityPatientRecordView.TimestampView" />
+
+    <Button
+        android:id="@+id/activityPatientRecordView.BodyLocationButton"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/app_buttonColour"
+        android:text="@string/activityPatientRecordView.BodyLocationButton"
+        android:textAlignment="center"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/activityPatientRecordView.SlideshowButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/activityPatientRecordView.TitleCommentButton"
+        app:layout_constraintTop_toBottomOf="@+id/activityPatientRecordView.TimestampView" />
+
+    <Button
+        android:id="@+id/activityPatientRecordView.MapLocationButton"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="@color/app_buttonColour"
+        android:text="@string/activityPatientRecordView.MapLocationButton"
+        android:textAlignment="center"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/activityPatientRecordView.SlideshowButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activityPatientRecordView.TitleCommentButton" />
+
+    <Button
+        android:id="@+id/activityPatientRecordView.SlideshowButton"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="@color/app_buttonColour"
+        android:text="@string/activityPatientRecordView.SlideshowButton"
+        android:textAlignment="center"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/activityPatientRecordView.MapLocationButton"
+        app:layout_constraintTop_toBottomOf="@+id/activityPatientRecordView.BodyLocationButton" />
+
+</android.support.constraint.ConstraintLayout>

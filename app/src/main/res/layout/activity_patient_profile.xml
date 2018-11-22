@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activityPatientProfile.Base"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.PatientProfileActivity">
+
+    <TextView
+        android:id="@+id/activityPatientProfile.TitleView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/activityPatientProfile.TitleText"
+        android:textAlignment="center"
+        android:textColor="@color/app_boldTextColour"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/activityPatientProfile.UsernameView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="32dp"
+        android:text="@string/activityPatientProfile.UsernameDefault"
+        android:textAlignment="center"
+        android:textColor="@color/app_normalTextColour"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/activityPatientProfile.EmailView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activityPatientProfile.TitleView" />
+
+    <TextView
+        android:id="@+id/activityPatientProfile.EmailView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/activityPatientProfile.EmailDefault"
+        android:textAlignment="center"
+        android:textColor="@color/app_lightTextColour"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/activityPatientProfile.PhoneNumberView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activityPatientProfile.UsernameView" />
+
+    <TextView
+        android:id="@+id/activityPatientProfile.PhoneNumberView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="32dp"
+        android:text="@string/activityPatientProfile.PhoneNumberDefault"
+        android:textAlignment="center"
+        android:textColor="@color/app_lightTextColour"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/activityPatientProfile.BodyPicturesButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activityPatientProfile.EmailView" />
+
+    <Button
+        android:id="@+id/activityPatientProfile.BodyPicturesButton"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/app_buttonColour"
+        android:text="@string/activityPatientProfile.BodyPicturesButton"
+        android:textAllCaps="true"
+        app:layout_constraintBaseline_toBaselineOf="@+id/activityPatientProfile.RecordsMapButton"
+        app:layout_constraintEnd_toStartOf="@+id/activityPatientProfile.RecordsMapButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/activityPatientProfile.RecordsMapButton"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="@color/app_buttonColour"
+        android:text="@string/activityPatientProfile.RecordsMapButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/activityPatientProfile.BodyPicturesButton" />
+</android.support.constraint.ConstraintLayout>

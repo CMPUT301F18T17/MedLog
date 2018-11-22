@@ -2,13 +2,27 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cs.ualberta.ca.medlog">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
+
+        <uses-library android:name="org.apache.http.legacy" android:required="false" />
+
         <activity android:name=".activity.StartScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -53,6 +67,84 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.PatientViewProblemsActivity" />
         </activity>
+        <activity android:name=".activity.PatientProfileActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.PatientMenuActivity" />
+        </activity>
+        <activity android:name=".activity.PatientSearchActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.PatientMenuActivity" />
+        </activity>
+        <activity android:name=".activity.PatientViewRecordsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.PatientProblemViewActivity" />
+        </activity>
+        <activity android:name=".activity.PatientAddRecordActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.PatientProblemViewActivity" />
+        </activity>
+        <activity android:name=".activity.ProviderAddPatientActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.ProviderMenuActivity" />
+        </activity>
+        <activity android:name=".activity.ProviderViewPatientsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.ProviderMenuActivity" />
+        </activity>
+        <activity android:name=".activity.PatientRecordViewActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.PatientViewRecordsActivity" />
+        </activity>
+        <activity android:name=".activity.ProviderSearchActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.ProviderMenuActivity" />
+        </activity>
+        <activity android:name=".activity.ProviderPatientProfileActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.ProviderViewPatientsActivity" />
+        </activity>
+        <activity android:name=".activity.ProviderPatientViewProblemsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.ProviderMenuActivity" />
+        </activity>
+        <activity android:name=".activity.ProviderProblemViewActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.ProviderPatientViewProblemsActivity" />
+        </activity>
+        <activity android:name=".activity.ProviderPatientViewRecordsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.ProviderProblemViewActivity" />
+        </activity>
+        <activity android:name=".activity.ProviderRecordViewActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.ProviderPatientViewRecordsActivity" />
+        </activity>
+        <activity android:name=".activity.SlideshowActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.ProviderProblemViewActivity" />
+        </activity>
+        <activity android:name=".activity.PatientAddMapLocationActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.PatientAddRecordActivity" />
+        </activity>
+        <activity android:name=".activity.PhotoSelectorActivity"></activity>
+        <activity android:name=".activity.ViewMapLocationActivity"></activity>
+
     </application>
 
 </manifest>
