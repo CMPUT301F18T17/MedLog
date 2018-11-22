@@ -14,6 +14,7 @@ import java.util.Arrays;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
+import cs.ualberta.ca.medlog.exception.EncryptionException;
 import cs.ualberta.ca.medlog.singleton.CurrentUser;
 
 /**
@@ -51,8 +52,9 @@ public class Encryption {
      * @param username The username (key).
      * @param data The data to encrypt as a byte array.
      * @return A string of the encrypted data.
+     * @throws EncryptionException If the encryption throes and exception.
      */
-    public static String encryptData(String username, byte[] data){
+    public static String encryptData(String username, byte[] data) throws EncryptionException {
         try {
 
             // Generate a key based off the username using SHA-1
@@ -71,17 +73,18 @@ public class Encryption {
             return Base64.encodeToString(encoded, Base64.DEFAULT);
         }catch(Exception e){
             e.printStackTrace();
+            throw new EncryptionException("Failed to encrypt data: " + e.getMessage() + ".");
         }
-        return new String(data);
     }
 
     /**
      * <p>Decrypt the data provided using AES.</p>
      * @param username The username (key).
      * @param data The data to decrypt as a string.
-     * @return The byte array of the data decrypted.s
+     * @return The byte array of the data decrypted.
+     * @throws EncryptionException If the encryption caused an exception.
      */
-    public static byte[] decryptData(String username, String data){
+    public static byte[] decryptData(String username, String data) throws EncryptionException{
         try{
             // Generate a key based off the username using SHA-1
             byte[] keyV = username.getBytes("UTF-8");
@@ -100,8 +103,8 @@ public class Encryption {
 
         }catch(Exception e){
             e.printStackTrace();
+            throw new EncryptionException("Failed to encrypt data: " + e.getMessage() + ".");
         }
-        return data.getBytes();
     }
 
     /**
