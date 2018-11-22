@@ -37,6 +37,7 @@ public class PatientController {
             patient.getContactInfo().setPhoneNumber(newEmail);
             database.updatePatient(patient);
         } catch (Exception ignore) {
+
         }
     }
 

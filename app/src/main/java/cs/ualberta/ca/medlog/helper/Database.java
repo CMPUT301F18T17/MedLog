@@ -21,22 +21,15 @@
  *
  * @author Tem Tamre, Thomas Roskewich
  * @contact ttamre@ualberta.ca, roskewic@ualberta.ca
- * @see cs.ualberta.ca.medlog.helper.FileSaver
+ * @see cs.ualberta.ca.medlog.helper.LocalCache
  */
 
 package cs.ualberta.ca.medlog.helper;
 
 import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.util.Log;
-import java.io.IOException;
+
 import java.net.ConnectException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.NetworkInterface;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -86,7 +79,7 @@ public class Database {
 
             try {
                 // Offline mode, try and load the patient from local data
-                FileSaver saver = new FileSaver(context);
+                LocalCache saver = new LocalCache(context);
                 patient = saver.loadPatient();
             }catch(UserNotFoundException e){
                 throw new ConnectException("Failed to connect to database and could not load the user locally.");
@@ -116,7 +109,7 @@ public class Database {
             }
         } else {
             try {
-                FileSaver saver = new FileSaver(context);
+                LocalCache saver = new LocalCache(context);
                 provider = saver.loadCareProvider();
             }catch(UserNotFoundException e){
                 throw new ConnectException("Failed to connect to database and could not load the user locally.");
@@ -174,7 +167,7 @@ public class Database {
                 return false;
             }
         } else {
-            FileSaver saver = new FileSaver(context);
+            LocalCache saver = new LocalCache(context);
             saver.savePatient(patient);
             return true;
         }
@@ -195,7 +188,7 @@ public class Database {
                 return false;
             }
         } else {
-            FileSaver saver = new FileSaver(context);
+            LocalCache saver = new LocalCache(context);
             saver.saveCareProvider(provider);
             return true;
         }

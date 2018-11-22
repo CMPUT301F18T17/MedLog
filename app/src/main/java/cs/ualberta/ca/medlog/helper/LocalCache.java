@@ -34,6 +34,23 @@
  *
  * </p>
  *
+ *
+ * <p>
+ *     Usage: <br>
+ *         NOTE: This file should probably be interacting with the Controllers.
+ *
+ *         Whenever a change to a user is made, check for connectivity to the database.
+ *
+ *         If a connection cannot be established, save the changes locally and set a connection
+ *         variable to a state that represents it awaiting for a connection to be established.
+ *
+ *         If a connection can be estabished, check for the existence of a cache file. If one exists,
+ *         load that object into the user and commit the entire user profile. Then, delete the cache
+ *         file.
+ *
+ * </p>
+ *
+ *
  * <p>
  *     References: <br>
  *
@@ -48,16 +65,25 @@
  *         Published 2013-01-07, edited 2016-08-10, accessed 2018-11-09
  * </p>
  *
+ *
+ * NEW OFFLINE MODEL
+ *
+ * LocalCache (saves and loads user data)
+ * LocalLogin (stores all usernames logged in on device and allows for local login)
+ *
  * @author Tem Tamre
  * @contact ttamre@ualberta.ca
  * @see cs.ualberta.ca.medlog.helper.Database
+ * @see cs.ualberta.ca.medlog.controller.PatientController
+ * @see cs.ualberta.ca.medlog.controller.ProblemController
+ * @see cs.ualberta.ca.medlog.controller.ProviderController
+ * @see cs.ualberta.ca.medlog.controller.SyncController
  */
 
 package cs.ualberta.ca.medlog.helper;
 
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.entity.user.CareProvider;
-import cs.ualberta.ca.medlog.entity.user.User;
 import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 
 import android.content.Context;
@@ -71,26 +97,26 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
 
-public class FileSaver {
+public class LocalCache {
     private String filename;
     private Context context;
 
     /**
-     * <p>Initialize a FileSaver instance for the current context with the default filename</p>
-     * @param c current application context
+     * <p>Initialize a LocalCache instance for the current context with the default filename</p>
+     * @param context current application context
      */
-    public FileSaver(Context c) {
-        this.context = c;
-        this.filename = "data.ser";
+    public LocalCache(Context context) {
+        this.context = context;
+        this.filename = "cache.ser";
     }
 
     /**
-     * <p>Initialize a FileSaver instance for the current context with the given filename</p>
-     * @param c current application context
+     * <p>Initialize a LocalCache instance for the current context with the given filename</p>
+     * @param context current application context
      * @param filename filename to be used
      */
-    public FileSaver(Context c, String filename) {
-        this.context = c;
+    public LocalCache(Context context, String filename) {
+        this.context = context;
         this.filename = filename;
     }
 
@@ -120,11 +146,12 @@ public class FileSaver {
 
                 inStream.close();
                 json = stringBuilder.toString();
+                context.deleteFile(filename);
                 return gson.fromJson(json, Patient.class);
             }
 
         } catch (IOException e) {
-            Log.d("FileSaver", "IOException thrown in FileSaver.loadPatient(patient)");
+            Log.d("LocalCache", "IOException thrown in LocalCache.loadPatient(patient)");
             throw new UserNotFoundException("Could not load user locally.");
         }
 
@@ -154,11 +181,12 @@ public class FileSaver {
 
                 inStream.close();
                 json = stringBuilder.toString();
+                context.deleteFile(filename);
                 return gson.fromJson(json, CareProvider.class);
             }
 
         } catch (IOException e) {
-            Log.d("FileSaver", "IOException thrown in FileSaver.loadPatient(patient)");
+            Log.d("LocalCache", "IOException thrown in LocalCache.loadPatient(patient)");
             throw new UserNotFoundException("Could not load user locally.");
         }
 
@@ -181,7 +209,7 @@ public class FileSaver {
             osw.write(json);
             osw.close();
         } catch (IOException e) {
-            Log.d("FileSaver", "IOException thrown in FileSaver.savePatient(patient)");
+            Log.d("LocalCache", "IOException thrown in LocalCache.savePatient(patient)");
             e.printStackTrace();
         }
     }
@@ -199,7 +227,7 @@ public class FileSaver {
             osw.write(json);
             osw.close();
         } catch (IOException e) {
-            Log.d("FileSaver", "IOException thrown in FileSaver.saveCareProvider(CareProvider)");
+            Log.d("LocalCache", "IOException thrown in LocalCache.saveCareProvider(CareProvider)");
             e.printStackTrace();
         }
     }

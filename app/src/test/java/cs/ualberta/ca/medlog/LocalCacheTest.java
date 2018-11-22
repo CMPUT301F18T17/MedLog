@@ -1,18 +1,18 @@
 /**
  *
  * <h1>
- *     FileSaverTest
+ *     LocalCacheTest
  * </h1>
  *
  *  <p>
  *     Description: <br>
- *         Unit testing for the FileSaver class
+ *         Unit testing for the LocalCache class
  *
  * </p>
  *
  * @author Tem Tamre
  * @contact ttamre@ualberta.ca
- * @see cs.ualberta.ca.medlog.helper.FileSaver
+ * @see cs.ualberta.ca.medlog.helper.LocalCache
  */
 
 package cs.ualberta.ca.medlog;
@@ -20,7 +20,7 @@ package cs.ualberta.ca.medlog;
 import junit.framework.TestCase;
 import org.junit.Test;
 
-public class FileSaverTest extends TestCase {
+public class LocalCacheTest extends TestCase {
 
     @Test
     public void testCreation() {}
