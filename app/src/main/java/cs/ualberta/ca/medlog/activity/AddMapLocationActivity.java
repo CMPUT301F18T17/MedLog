@@ -28,7 +28,7 @@ import cs.ualberta.ca.medlog.R;
  *     Description: <br>
  *         The Activity for adding a map location to a record. It presents a Mapbox map and the user
  *         can select a location on the map. Once the user selects a location, the location is sent
- *         back to the PatientAddRecordActivity and the PatientAddMapLocationActivity closes.
+ *         back to the parent activity and the AddMapLocationActivity closes.
  *
  * </p>
  * <p>
@@ -39,8 +39,9 @@ import cs.ualberta.ca.medlog.R;
  * @author Calvin Chomyc
  * @version 1.0
  * @see PatientAddRecordActivity
+ * @see PatientSearchActivity
  */
-public class PatientAddMapLocationActivity extends AppCompatActivity {
+public class AddMapLocationActivity extends AppCompatActivity {
     private LatLng userLocation;
     private MapView mapView;
     private Marker clickMarker;

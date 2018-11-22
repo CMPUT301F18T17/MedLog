@@ -106,7 +106,7 @@
                 android:value=".activity.PatientViewRecordsActivity" />
         </activity>
 
-        <activity android:name=".activity.PatientAddMapLocationActivity">
+        <activity android:name=".activity.AddMapLocationActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.PatientAddRecordActivity" />

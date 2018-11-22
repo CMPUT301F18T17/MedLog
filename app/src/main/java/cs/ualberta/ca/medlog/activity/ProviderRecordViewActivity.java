@@ -5,6 +5,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -134,7 +135,9 @@ public class ProviderRecordViewActivity extends AppCompatActivity {
         TextView commentView = titleCommentLayout.findViewById(R.id.fragmentTitleComment_CommentView);
         commentView.setText(record.getComment());
 
-        PopupWindow titleCommentPopup = new PopupWindow(titleCommentLayout,500,500,true);
+        int width = ConstraintLayout.LayoutParams.WRAP_CONTENT;
+        int height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
+        PopupWindow titleCommentPopup = new PopupWindow(titleCommentLayout,width,height,true);
         titleCommentPopup.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.popup_background));
         titleCommentPopup.showAtLocation(titleCommentLayout,Gravity.CENTER,0,0);
     }

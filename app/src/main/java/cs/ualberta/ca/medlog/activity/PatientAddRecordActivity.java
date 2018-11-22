@@ -14,7 +14,6 @@ import cs.ualberta.ca.medlog.R;
 
 import cs.ualberta.ca.medlog.controller.ProblemController;
 import cs.ualberta.ca.medlog.entity.MapLocation;
-import cs.ualberta.ca.medlog.entity.Problem;
 import cs.ualberta.ca.medlog.entity.Record;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.singleton.AppStatus;
@@ -33,7 +32,6 @@ import cs.ualberta.ca.medlog.singleton.AppStatus;
  *         Transfer to a Body Location Selector Fragment must be added.
  *         Transfer to a Map Location Selector Fragment must be added.
  *         Receiving and saving newly added photos must be added.
- *         Checks of record validity must be added.
  * </p>
  *
  * @author Tyler Gobran
@@ -44,6 +42,7 @@ import cs.ualberta.ca.medlog.singleton.AppStatus;
  */
 public class PatientAddRecordActivity extends AppCompatActivity implements TextEditorFragment.OnTextSetListener {
     final int MAP_LOCATION_REQUEST = 1;
+
     private Record newRecord;
 
     @Override
@@ -140,7 +139,7 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
     }
 
     private void openMapLocationSelector() {
-        Intent intent = new Intent(this, PatientAddMapLocationActivity.class);
+        Intent intent = new Intent(this, AddMapLocationActivity.class);
         startActivityForResult(intent, MAP_LOCATION_REQUEST);
     }
 
@@ -167,9 +166,7 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
     }
 
     private void completeRecord() {
-        boolean validRecord = newRecord.isValid();
-
-        if (!validRecord) {
+        if (!newRecord.isValid()) {
             Toast.makeText(this,"Record has no data",Toast.LENGTH_SHORT).show();
             return;
         }

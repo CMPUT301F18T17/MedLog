@@ -132,4 +132,12 @@
     <string name="activityPatientAddRecordActivity.NoLocationAdded">You must select a position on the map. No map location was added.</string>
     <string name="fragmentTitleComment.CommentDefault">COMMENT</string>
     <string name="fragmentTitleComment.TitleDefault">TITLE</string>
+    <string name="fragmentAddProblemNavigation.TitleText">Problem Added</string>
+    <string name="fragmentAddProblemNavigation.ViewButton">View Problem</string>
+    <string name="fragmentAddProblemNavigation.AddButton">Add Another</string>
+    <string name="fragmentAddProblemNavigation.MenuButton">Main Menu</string>
+    <string name="fragmentAddPatientNavigation.TitleText">Patient Added</string>
+    <string name="fragmentAddPatientNavigation.ViewButton">View Patient</string>
+    <string name="fragmentAddPatientNavigation.AddButton">Add Another</string>
+    <string name="fragmentAddPatientNavigation.MenuButton">Main Menu</string>
 </resources>

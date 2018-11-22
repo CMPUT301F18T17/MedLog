@@ -1,12 +1,16 @@
 package cs.ualberta.ca.medlog.activity;
 
 import android.content.Intent;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.PopupWindow;
 import android.widget.Toast;
 import java.util.Calendar;
 import java.util.Locale;
@@ -27,17 +31,20 @@ import cs.ualberta.ca.medlog.singleton.AppStatus;
  * </p>
  * <p>
  *     Issues: <br>
- *         Post problem navigation popup must be added.
+ *         None.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.5
+ * @version 1.0
  * @see PatientMenuActivity
  * @see PatientProblemViewActivity
  * @see DatePickerFragment
+ * @see PopupWindow
  */
 public class PatientAddProblemActivity extends AppCompatActivity implements DatePickerFragment.OnNewDateSetListener {
     private Calendar cal;
+
+    private PopupWindow postAddNavigationPopup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,13 +119,48 @@ public class PatientAddProblemActivity extends AppCompatActivity implements Date
         PatientController controller = new PatientController(this);
         controller.addProblem((Patient)AppStatus.getInstance().getCurrentUser(),newProblem);
 
-        Toast.makeText(this,"Problem added",Toast.LENGTH_SHORT).show();
+        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        View postAddNavigationLayout = inflater.inflate(R.layout.fragment_add_problem_navigation,null);
+        Button viewButton = postAddNavigationLayout.findViewById(R.id.fragmentAddProblemNavigation_ViewButton);
+        viewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openViewProblem(newProblem);
+            }
+        });
+        Button addButton = postAddNavigationLayout.findViewById(R.id.fragmentAddProblemNavigation_AddButton);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addAnotherProblem();
+            }
+        });
+        Button menuButton = postAddNavigationLayout.findViewById(R.id.fragmentAddProblemNavigation_MenuButton);
+        menuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openMainMenu();
+            }
+        });
 
-        //TODO Add popup for post problem creation navigation.
+        int width = ConstraintLayout.LayoutParams.WRAP_CONTENT;
+        int height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
+        postAddNavigationPopup = new PopupWindow(postAddNavigationLayout,width,height,true);
+        postAddNavigationPopup.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.popup_background));
+        postAddNavigationPopup.showAtLocation(postAddNavigationLayout,Gravity.CENTER,0,0);
+    }
 
-        //This currently is a stand in for this popup navigation
+    private void openViewProblem(Problem newProblem) {
         Intent intent = new Intent(this, PatientProblemViewActivity.class);
         AppStatus.getInstance().setViewedProblem(newProblem);
         startActivity(intent);
+    }
+
+    private void addAnotherProblem() {
+        postAddNavigationPopup.dismiss();
+    }
+
+    private void openMainMenu() {
+        finish();
     }
 }

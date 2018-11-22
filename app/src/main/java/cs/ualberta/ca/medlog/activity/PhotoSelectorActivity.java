@@ -34,7 +34,6 @@ import cs.ualberta.ca.medlog.entity.Photo;
  * @see PhotoBitmapAdapter
  */
 public class PhotoSelectorActivity extends AppCompatActivity {
-
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int REQUEST_LOAD_IMAGE = 2;
 

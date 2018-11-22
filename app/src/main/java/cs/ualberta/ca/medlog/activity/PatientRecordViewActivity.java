@@ -3,6 +3,7 @@ package cs.ualberta.ca.medlog.activity;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.ColorDrawable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Layout;
@@ -119,7 +120,9 @@ public class PatientRecordViewActivity extends AppCompatActivity {
         TextView commentView = titleCommentLayout.findViewById(R.id.fragmentTitleComment_CommentView);
         commentView.setText(record.getComment());
 
-        PopupWindow titleCommentPopup = new PopupWindow(titleCommentLayout,500,500,true);
+        int width = ConstraintLayout.LayoutParams.WRAP_CONTENT;
+        int height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
+        PopupWindow titleCommentPopup = new PopupWindow(titleCommentLayout,width,height,true);
         titleCommentPopup.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.popup_background));
         titleCommentPopup.showAtLocation(titleCommentLayout,Gravity.CENTER,0,0);
     }

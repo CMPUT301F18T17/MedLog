@@ -1,3 +1,8 @@
+package cs.ualberta.ca.medlog.entity.user;
+
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  *
  * <h1>
@@ -13,11 +18,6 @@
  * @author Thomas Roskewich
  * @contact roskewic@ualberta.ca
  */
-package cs.ualberta.ca.medlog.entity.user;
-
-import java.util.Calendar;
-import java.util.Date;
-
 public abstract class User {
 
     private String username;
@@ -45,4 +45,18 @@ public abstract class User {
      * @return The date the user was last updated.
      */
     public Date getLastUpdated() {return lastUpdated; }
+
+    /**
+     * Checks if two users are equal.
+     * @param obj The other user object
+     * @return True if they are equal, false if not
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof User){
+            User otherUser = (User) obj;
+            return this.getUsername().equals(otherUser.getUsername());
+        }
+        return super.equals(obj);
+    }
 }
