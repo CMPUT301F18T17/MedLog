@@ -66,7 +66,7 @@ public class PatientAddProblemActivity extends AppCompatActivity implements Date
     private void openDatePicker() {
         DialogFragment newFragment = new DatePickerFragment();
         Bundle datePickerData = new Bundle();
-        datePickerData.putSerializable("argCal",cal);
+        datePickerData.putSerializable("argCal",cal.getTime());
         newFragment.setArguments(datePickerData);
         newFragment.show(getSupportFragmentManager(),"datePicker");
     }

@@ -6,6 +6,7 @@ import cs.ualberta.ca.medlog.entity.Problem;
 import cs.ualberta.ca.medlog.entity.Record;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.helper.Database;
+import cs.ualberta.ca.medlog.singleton.AppStatus;
 
 /**
  * <p>
@@ -38,6 +39,7 @@ public class ProblemController {
     public void setTitle(Patient owner, Problem problem, String newTitle) {
         try{
             problem = owner.getProblems().get(problem.getId());
+            AppStatus.getInstance().setViewedProblem(problem);
             problem.setTitle(newTitle);
             database.updatePatient(owner);
         }catch(Exception ignore){
@@ -53,6 +55,7 @@ public class ProblemController {
     public void setDate(Patient owner, Problem problem, Calendar newDate) {
         try {
             problem = owner.getProblems().get(problem.getId());
+            AppStatus.getInstance().setViewedProblem(problem);
             problem.setDate(newDate.getTime());
             database.updatePatient(owner);
         }catch(Exception ignore){
@@ -68,6 +71,7 @@ public class ProblemController {
     public void setDesc(Patient owner, Problem problem, String newDesc) {
         try{
             problem = owner.getProblems().get(problem.getId());
+            AppStatus.getInstance().setViewedProblem(problem);
             problem.setDescription(newDesc);
             database.updatePatient(owner);
         }catch(Exception ignore){
@@ -83,6 +87,7 @@ public class ProblemController {
     public void addRecord(Patient owner, Problem problem, Record newRecord) {
         try{
             problem = owner.getProblems().get(problem.getId());
+            AppStatus.getInstance().setViewedProblem(problem);
             problem.addRecord(newRecord);
             database.updatePatient(owner);
         }catch(Exception ignore){

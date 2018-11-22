@@ -31,6 +31,7 @@ import cs.ualberta.ca.medlog.singleton.AppStatus;
  */
 public class ProviderPatientViewRecordsActivity extends AppCompatActivity {
     private ArrayList<Record> records;
+    private RecordAdapter recordArrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +48,14 @@ public class ProviderPatientViewRecordsActivity extends AppCompatActivity {
             }
         });
 
-        RecordAdapter recordArrayAdapter = new RecordAdapter(this,records);
+        recordArrayAdapter = new RecordAdapter(this,records);
         recordsListView.setAdapter(recordArrayAdapter);
+    }
+
+    @Override
+    protected void onStart() {
+        recordArrayAdapter.notifyDataSetChanged();
+        super.onStart();
     }
 
     private void openRecordView(int index) {

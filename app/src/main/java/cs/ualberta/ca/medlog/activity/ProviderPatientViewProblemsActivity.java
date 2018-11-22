@@ -34,6 +34,7 @@ import cs.ualberta.ca.medlog.singleton.AppStatus;
  */
 public class ProviderPatientViewProblemsActivity extends AppCompatActivity {
     private ArrayList<Problem> problems;
+    private ProblemAdapter problemArrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +51,14 @@ public class ProviderPatientViewProblemsActivity extends AppCompatActivity {
             }
         });
 
-        ProblemAdapter problemArrayAdapter = new ProblemAdapter(this,problems);
+        problemArrayAdapter = new ProblemAdapter(this,problems);
         problemsListView.setAdapter(problemArrayAdapter);
+    }
+
+    @Override
+    protected void onStart() {
+        problemArrayAdapter.notifyDataSetChanged();
+        super.onStart();
     }
 
     private void openProblemView(int index) {
