@@ -80,4 +80,14 @@ public class MapLocation implements Serializable {
         }
         return false;
     }
+
+    /**
+     * Returns if a map location is near to another location.
+     * @param ml The map location to compare against.
+     * @param radius The radius to search in.
+     * @return 0 if its on the edge, < 0 if inside, >0 if outside
+     */
+    public float isNear(MapLocation ml, double radius){
+        return 0;
+    }
 }
