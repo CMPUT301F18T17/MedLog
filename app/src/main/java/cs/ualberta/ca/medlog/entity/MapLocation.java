@@ -20,6 +20,7 @@ import java.io.Serializable;
 public class MapLocation implements Serializable {
     private double latitude, longitude;
 
+    private static final double SEARCHDISTMAP = 0.090437173; // 10 KM
     /**
      * Creates the map location with the provided longitude and latitude. Makes sure to check that
      * the provided longitude and latitude are valid
@@ -84,11 +85,10 @@ public class MapLocation implements Serializable {
     /**
      * Returns if a map location is near to another location.
      * @param ml The map location to compare against.
-     * @param maxDist The max distance away from the point.
      * @return If its less than or equal to the max dist.
      */
-    public boolean isNear(MapLocation ml, double maxDist){
+    public boolean isNear(MapLocation ml){
         double dist = Math.sqrt(Math.pow(latitude - ml.latitude, 2) + Math.pow(longitude - ml.longitude, 2));
-        return dist <= maxDist;
+        return dist <= SEARCHDISTMAP;
     }
 }

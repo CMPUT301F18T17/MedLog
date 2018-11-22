@@ -51,9 +51,6 @@ public class Database {
         return context;
     }
 
-    private static final double SEARCHDISTMAP = 0.090437173; // 10 KM
-    private static final double SEARCHDISTBODY = 20;
-
 
     /**
      * <p>Get a patient from the database if a connection can be established, load from disc otherwise</p>
@@ -298,9 +295,13 @@ public class Database {
      */
     public ArrayList<Problem> searchPatient(Patient patient, ArrayList<String> keywords, MapLocation map, BodyLocation bl){
         ArrayList<Problem> output = new ArrayList<>();
-        for(int i = 0; i < keywords.size(); i++){
-            keywords.set(i, keywords.get(i).toLowerCase());
+
+        if(keywords != null) {
+            for (int i = 0; i < keywords.size(); i++) {
+                keywords.set(i, keywords.get(i).toLowerCase());
+            }
         }
+
         for(Problem p : patient.getProblems()){
             boolean added = false;
             ArrayList<String> strings = new ArrayList<>();
@@ -314,16 +315,19 @@ public class Database {
                     strings.addAll(Arrays.asList(r.getComment().toLowerCase().toLowerCase().split(" ")));
                     strings.addAll(Arrays.asList(r.getTitle().toLowerCase().toLowerCase().split(" ")));
                 }
+
+                // If there is a map we are searching for and the record has a map location
                 if(map != null && r.getMapLocation() != null){
-                    if(r.getMapLocation().isNear(map, SEARCHDISTMAP)){
+                    if(r.getMapLocation().isNear(map)){
                         output.add(p);
                         added = true;
                         break;
                     }
                 }
 
+                // If there is a body location we are searching for and a record has a body location
                 if(bl != null && r.getBodyLocation() != null){
-                    if(r.getBodyLocation().isNear(bl, SEARCHDISTBODY)){
+                    if(r.getBodyLocation().isNear(bl)){
                         output.add(p);
                         added = true;
                         break;

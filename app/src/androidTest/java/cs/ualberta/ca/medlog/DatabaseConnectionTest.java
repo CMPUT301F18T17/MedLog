@@ -1,23 +1,3 @@
-/**
- *
- * <h1>
- *     DatabaseConnectionTest
- * </h1>
- *
- *  <p>
- *     Description: <br>
- *         Unit testing for the Database class
- *
- *     Note: <br>
- *         I learned about @Before and @After a bit late, so some testcases sill add users.
- *
- * </p>
- *
- * @author Thomas Roskewich
- * @contact roskewic@ualberta.ca
- * @see cs.ualberta.ca.medlog.helper.Database
- */
-
 package cs.ualberta.ca.medlog;
 
 import android.support.test.filters.LargeTest;
@@ -42,6 +22,25 @@ import cs.ualberta.ca.medlog.helper.ElasticSearchController;
 
 import static org.junit.Assert.*;
 
+/**
+ *
+ * <h1>
+ *     DatabaseConnectionTest
+ * </h1>
+ *
+ *  <p>
+ *     Description: <br>
+ *         Unit testing for the Database class
+ *
+ *     Note: <br>
+ *         I learned about @Before and @After a bit late, so some testcases sill add users.
+ *
+ * </p>
+ *
+ * @author Thomas Roskewich
+ * @contact roskewic@ualberta.ca
+ * @see cs.ualberta.ca.medlog.helper.Database
+ */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class DatabaseConnectionTest {
@@ -57,11 +56,12 @@ public class DatabaseConnectionTest {
 
     @After
     public void deinit(){
+        /*
         try{
             assertTrue(cleanupTestDatabase());
         }catch (UserNotFoundException e){
             fail("User was not found in the deletion of the database.");
-        }
+        }*/
     }
 
     @Test
@@ -288,7 +288,7 @@ public class DatabaseConnectionTest {
         Problem problem = new Problem("Leg Hurts", new Date(), "Leg does not feel well.");
         Record record = new Record(patient.getUsername());
         record.setTitleComment("Title for Record", "See my leg hurts!");
-        record.setBodyLocation(new BodyLocation(new Photo(0, null), 12, 32));
+        record.setBodyLocation(new BodyLocation(new Photo(null), 12, 32));
         record.setMapLocation(new MapLocation(18.15525, 126.15));
         problem.addRecord(record);
         patient.addProblem(problem);
@@ -369,19 +369,20 @@ public class DatabaseConnectionTest {
         Database db = new Database(null);
         try {
             ArrayList<String> keywords = new ArrayList<>();
-            keywords.add("Leg Hurts");
+            keywords.add("Leg");
+            keywords.add("Hurts");
             Patient p = loadPatientES("testuser");
             MapLocation ml = new MapLocation(10, 100);
             ArrayList<Problem> a = db.searchPatient(p, keywords, ml, null);
-            assertEquals("Received size does not match.", a.size(), 2);
-            assertEquals("Title does not match.", a.get(0).getTitle(), "Leg Hurts");
+            assertEquals("Received size does not match.", 2, a.size());
+            assertEquals("Title does not match.", "Leg Hurts", a.get(0).getTitle());
             assertEquals("Map location does not match.", a.get(1).getRecords().get(0).getMapLocation(), ml);
 
             a = db.searchPatient(p, null, null, null);
             assertEquals("Array is not empty on null search.", a.size(), 0);
 
             a = db.searchPatient(p, null, new MapLocation(18.15525, 126.15), null);
-            assertEquals("Should be only one map location with lat 18.15525 long 126.15", a.size(), 2);
+            assertEquals("Should be only one map location near lat 18.15525 long 126.15", 1, a.size());
 
 
         }catch(UserNotFoundException e){
@@ -396,19 +397,20 @@ public class DatabaseConnectionTest {
         Database db = new Database(null);
         try {
             ArrayList<String> keywords = new ArrayList<>();
-            keywords.add("Leg Hurts");
+            keywords.add("Leg");
+            keywords.add("HUrTs");
             CareProvider p = loadCareES("care");
             MapLocation ml = new MapLocation(10, 100);
             ArrayList<Problem> a = db.searchCareProvider(p, keywords, ml, null);
-            assertEquals("Received size does not match.", a.size(), 2);
-            assertEquals("Title does not match.", a.get(0).getTitle(), "Leg Hurts");
+            assertEquals("Received size does not match.", 2, a.size());
+            assertEquals("Title does not match.", "Leg Hurts", a.get(0).getTitle());
             assertEquals("Map location does not match.", a.get(1).getRecords().get(0).getMapLocation(), ml);
 
             a = db.searchCareProvider(p, null, null, null);
             assertEquals("Array is not empty on null search.", a.size(), 0);
 
             a = db.searchCareProvider(p, null, new MapLocation(18.15525, 126.15), null);
-            assertEquals("Should be only one map location with lat 18.15525 long 126.15", a.size(), 2);
+            assertEquals("Should be only one map location near lat 18.15525 long 126.15", 1, a.size());
 
 
         }catch(UserNotFoundException e){

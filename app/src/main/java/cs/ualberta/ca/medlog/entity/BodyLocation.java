@@ -23,6 +23,8 @@ public class BodyLocation implements Serializable {
     private String label;
     private int x, y;
 
+    private static final double SEARCHDISTBODY = 25;
+
     /**
      * Creates the body location with the specified body photo and x-y coordinates of the location,
      * as well as a label for the photo.
@@ -100,11 +102,10 @@ public class BodyLocation implements Serializable {
     /**
      * Returns if a body location is near to another location.
      * @param bl The body location to compare against.
-     * @param maxDist The max distance away from the point.
      * @return If its less than or equal to the max dist.
      */
-    public boolean isNear(BodyLocation bl, double maxDist){
+    public boolean isNear(BodyLocation bl){
         double dist = Math.sqrt(Math.pow(x - bl.x, 2) + Math.pow(y - bl.y, 2));
-        return dist <= maxDist;
+        return dist <= SEARCHDISTBODY;
     }
 }
