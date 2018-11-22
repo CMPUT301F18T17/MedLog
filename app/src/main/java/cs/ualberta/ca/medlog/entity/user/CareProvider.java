@@ -16,10 +16,9 @@
  */
 package cs.ualberta.ca.medlog.entity.user;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
-public class CareProvider extends User implements Serializable {
+public class CareProvider extends User {
 
     private ArrayList<Patient> patients = new ArrayList<>();
 

@@ -58,7 +58,7 @@ public class SlideshowActivity extends AppCompatActivity {
             }
         });
 
-        retrievePhotoBitmaps((ArrayList<Record>) getIntent().getSerializableExtra("RECORDS"));
+        retrievePhotoBitmaps((ArrayList<Photo>) getIntent().getParcelableExtra("PHOTOS"));
 
         imageView = findViewById(R.id.activitySlideshow_ImageView);
         if (photoBitmaps.isEmpty()) {
@@ -69,12 +69,10 @@ public class SlideshowActivity extends AppCompatActivity {
         }
     }
 
-    private void retrievePhotoBitmaps(ArrayList<Record> records) {
+    private void retrievePhotoBitmaps(ArrayList<Photo> photos) {
         photoBitmaps = new ArrayList<>();
-        for(Record record: records) {
-            for(Photo photo: record.getPhotos()) {
-                photoBitmaps.add(photo.getPhotoBitmap());
-            }
+        for(Photo photo: photos) {
+            photoBitmaps.add(photo.getPhotoBitmap());
         }
     }
 

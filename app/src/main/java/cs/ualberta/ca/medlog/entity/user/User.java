@@ -15,11 +15,10 @@
  */
 package cs.ualberta.ca.medlog.entity.user;
 
-import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
-public abstract class User implements Serializable {
+public abstract class User {
 
     private String username;
     private Date lastUpdated;

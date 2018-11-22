@@ -17,9 +17,7 @@
 
 package cs.ualberta.ca.medlog.entity.user;
 
-import java.io.Serializable;
-
-public class ContactInfo implements Serializable {
+public class ContactInfo {
 
     private String email;
     private String phoneNumber;

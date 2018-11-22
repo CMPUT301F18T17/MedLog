@@ -17,14 +17,12 @@
 
 package cs.ualberta.ca.medlog.entity.user;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 
 import cs.ualberta.ca.medlog.entity.Photo;
 import cs.ualberta.ca.medlog.entity.Problem;
 
-public class Patient extends User implements Serializable {
+public class Patient extends User {
 
     private ArrayList<Problem> problems = new ArrayList<Problem>();
     private ArrayList<Photo> bodyPhotos = new ArrayList<Photo>();

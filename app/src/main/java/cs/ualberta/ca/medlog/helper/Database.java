@@ -364,7 +364,6 @@ public class Database {
     public ArrayList<Problem> searchCareProvider(CareProvider careProvider, ArrayList<String> keywords, MapLocation map, BodyLocation bl){
         ArrayList<Problem> problems = new ArrayList<>();
         for(Patient p : careProvider.getPatients()){
-            ArrayList<Problem> out = searchPatient(p, keywords, map, bl);
             problems.addAll(searchPatient(p, keywords, map, bl));
         }
         return problems;

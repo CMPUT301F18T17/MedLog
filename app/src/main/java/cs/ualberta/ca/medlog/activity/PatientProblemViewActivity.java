@@ -12,12 +12,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.controller.PatientController;
 import cs.ualberta.ca.medlog.controller.ProblemController;
+import cs.ualberta.ca.medlog.entity.Photo;
 import cs.ualberta.ca.medlog.entity.Problem;
+import cs.ualberta.ca.medlog.entity.Record;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.singleton.AppStatus;
 
@@ -122,7 +126,11 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
 
     private void openPhotoSlideshow() {
         Intent intent = new Intent(this, SlideshowActivity.class);
-        intent.putExtra("RECORDS",problem.getRecords());
+        ArrayList<Photo> photos = new ArrayList<>();
+        for(Record record:problem.getRecords()) {
+            photos.addAll(record.getPhotos());
+        }
+        intent.putExtra("PHOTOS",problem.getRecords());
         startActivity(intent);
     }
 

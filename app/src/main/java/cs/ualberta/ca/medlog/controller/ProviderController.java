@@ -35,7 +35,6 @@ public class ProviderController {
      */
     public void addPatient(CareProvider provider, Patient newPatient){
         try{
-            provider=database.loadProvider(provider.getUsername());
             provider.getPatients().add(newPatient);
             database.saveProvider(provider);
         }catch(Exception e){

@@ -46,20 +46,19 @@ public class ViewMapLocationActivity extends AppCompatActivity {
         Mapbox.getInstance(this, getString(R.string.mapboxAccessToken));
         setContentView(R.layout.activity_view_map_location);
 
-        ArrayList<Record> recordList = (ArrayList<Record>)getIntent().getSerializableExtra("RECORDS");
+        mapLocations = (ArrayList<MapLocation>)getIntent().getSerializableExtra("LOCATIONS");
 
         mapView = findViewById(R.id.activityViewMapLocation_MapView);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(MapboxMap mapboxMap) {
-                for (Record currentRecord: recordList) {
-                    MapLocation location = currentRecord.getMapLocation();
+                for (MapLocation location: mapLocations) {
                     if (location != null) {
                         LatLng recordLocation = new LatLng(location.getLatitude(), location.getLongitude());
                         MarkerOptions markerOptions = new MarkerOptions();
                         markerOptions.position(recordLocation);
-                        markerOptions.title(currentRecord.getTitle());
+                        markerOptions.title("LOCATION");
                         mapboxMap.addMarker(markerOptions);
                         mapboxMap.moveCamera(CameraUpdateFactory.newLatLng(recordLocation));
                     }

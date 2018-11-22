@@ -14,11 +14,10 @@
  */
 package cs.ualberta.ca.medlog.entity;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Problem implements Serializable {
+public class Problem {
     private String title;
     private Date date;
     private int id = -1;
