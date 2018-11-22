@@ -15,7 +15,6 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
 import cs.ualberta.ca.medlog.exception.EncryptionException;
-import cs.ualberta.ca.medlog.singleton.CurrentUser;
 
 /**
  *
