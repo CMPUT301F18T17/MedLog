@@ -4,22 +4,32 @@ import android.graphics.Bitmap;
 
 import java.io.Serializable;
 
+/**
+ *
+ * <h1>
+ *     Photo
+ * </h1>
+ *
+ *  <p>
+ *     Description: <br>
+ *         The purpose of this class is to hold a representation of a photo.
+ *
+ * </p>
+ *
+ * @author homas Roskewich
+ * @contact roskewic@ualberta.ca
+ */
 public class Photo implements Serializable {
-    private int identifier;
     private Bitmap photoBitmap;
 
-    public Photo(int id, Bitmap photoBitmap) {
-        identifier = id;
+    public Photo(Bitmap photoBitmap) {
         this.photoBitmap = photoBitmap;
-        if (identifier < 0) { // If identifier is negative
-            throw new RuntimeException();
-        }
     }
 
-    public int getIdentifier(){
-        return identifier;
-    }
-
+    /**
+     * <p>Get the photo as a bitmap.</p>
+     * @return The bitmap of the photo.
+     */
     public Bitmap getPhotoBitmap() {
         return photoBitmap;
     }

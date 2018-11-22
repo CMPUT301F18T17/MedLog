@@ -1,7 +1,24 @@
+package cs.ualberta.ca.medlog.helper;
+
+import android.content.Context;
+import android.util.Log;
+
+import java.net.ConnectException;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import cs.ualberta.ca.medlog.entity.BodyLocation;
+import cs.ualberta.ca.medlog.entity.MapLocation;
+import cs.ualberta.ca.medlog.entity.Problem;
+import cs.ualberta.ca.medlog.entity.Record;
+import cs.ualberta.ca.medlog.entity.user.CareProvider;
+import cs.ualberta.ca.medlog.entity.user.Patient;
+import cs.ualberta.ca.medlog.exception.UserNotFoundException;
+
 /**
  *
  * <h1>
-        Database
+ Database
  * </h1>
  *
  *  <p>
@@ -23,24 +40,6 @@
  * @contact ttamre@ualberta.ca, roskewic@ualberta.ca
  * @see cs.ualberta.ca.medlog.helper.FileSaver
  */
-
-package cs.ualberta.ca.medlog.helper;
-
-import android.content.Context;
-import android.util.Log;
-
-import java.net.ConnectException;
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import cs.ualberta.ca.medlog.entity.BodyLocation;
-import cs.ualberta.ca.medlog.entity.MapLocation;
-import cs.ualberta.ca.medlog.entity.Problem;
-import cs.ualberta.ca.medlog.entity.Record;
-import cs.ualberta.ca.medlog.entity.user.CareProvider;
-import cs.ualberta.ca.medlog.entity.user.Patient;
-import cs.ualberta.ca.medlog.exception.UserNotFoundException;
-
 public class Database {
     public Context context;
 
