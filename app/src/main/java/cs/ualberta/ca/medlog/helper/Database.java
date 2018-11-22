@@ -59,6 +59,8 @@ public class Database {
         return context;
     }
 
+    private static final double SEARCHDIST = 0.090437173; // 10 KM
+
 
     /**
      * <p>Get a patient from the database if a connection can be established, load from disc otherwise</p>
@@ -320,7 +322,7 @@ public class Database {
                     strings.addAll(Arrays.asList(r.getTitle().toLowerCase().toLowerCase().split(" ")));
                 }
                 if(map != null && r.getMapLocation() != null){
-                    if(r.getMapLocation().equals(map)){
+                    if(r.getMapLocation().isNear(map, SEARCHDIST)){
                         output.add(p);
                         added = true;
                         break;
