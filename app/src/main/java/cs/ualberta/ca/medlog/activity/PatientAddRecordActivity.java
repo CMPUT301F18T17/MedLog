@@ -44,16 +44,12 @@ import cs.ualberta.ca.medlog.singleton.AppStatus;
  */
 public class PatientAddRecordActivity extends AppCompatActivity implements TextEditorFragment.OnTextSetListener {
     final int MAP_LOCATION_REQUEST = 1;
-    private Problem parentProblem;
     private Record newRecord;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_add_record);
-
-        Intent intent = getIntent();
-        parentProblem = (Problem) intent.getSerializableExtra("PROBLEM");
 
         Button titleCommentButton = findViewById(R.id.activityPatientAddRecord_TitleCommentButton);
         Button bodyLocationButton = findViewById(R.id.activityPatientAddRecord_BodyLocationButton);
@@ -179,7 +175,7 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
         }
 
         ProblemController controller = new ProblemController(this);
-        controller.addRecord((Patient)AppStatus.getInstance().getCurrentUser(),parentProblem,newRecord);
+        controller.addRecord((Patient)AppStatus.getInstance().getCurrentUser(),AppStatus.getInstance().getViewedProblem(),newRecord);
 
         Intent intent = new Intent(this, PatientProblemViewActivity.class);
         AppStatus.getInstance().setViewedRecord(newRecord);

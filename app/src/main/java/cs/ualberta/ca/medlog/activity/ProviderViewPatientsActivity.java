@@ -30,7 +30,8 @@ import cs.ualberta.ca.medlog.singleton.AppStatus;
  * @see ProviderPatientProfileActivity
  */
 public class ProviderViewPatientsActivity extends AppCompatActivity {
-    ArrayList<Patient> patients;
+    private ArrayList<Patient> patients;
+    private PatientAdapter patientArrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,7 @@ public class ProviderViewPatientsActivity extends AppCompatActivity {
 
         patients = ((CareProvider)AppStatus.getInstance().getCurrentUser()).getPatients();
 
-        PatientAdapter patientArrayAdapter = new PatientAdapter(this, patients);
+
 
         ListView patientsList = findViewById(R.id.activityProviderViewPatients_PatientsListView);
         patientsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -49,7 +50,14 @@ public class ProviderViewPatientsActivity extends AppCompatActivity {
             }
         });
 
+        patientArrayAdapter = new PatientAdapter(this, patients);
         patientsList.setAdapter(patientArrayAdapter);
+    }
+
+    @Override
+    protected void onStart() {
+        patientArrayAdapter.notifyDataSetChanged();
+        super.onStart();
     }
 
     private void openPatientView(int index) {
