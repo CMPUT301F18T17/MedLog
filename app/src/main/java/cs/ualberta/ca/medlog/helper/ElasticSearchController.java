@@ -1,20 +1,3 @@
-/**
- *
- * <h1>
- *     Elastic Search Controller
- * </h1>
- *
- *  <p>
- *     Description: <br>
- *         The purpose of this class is to interact directly with the Elastic Search server and query information.
- *
- * </p>
- *
- * @author Thomas Roskewich
- * @contact roskewic@ualberta.ca
- * @see cs.ualberta.ca.medlog.helper.Database
- */
-
 package cs.ualberta.ca.medlog.helper;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -36,6 +19,22 @@ import io.searchbox.core.Get;
 import io.searchbox.core.Index;
 import io.searchbox.core.Update;
 
+/**
+ *
+ * <h1>
+ *     Elastic Search Controller
+ * </h1>
+ *
+ *  <p>
+ *     Description: <br>
+ *         The purpose of this class is to interact directly with the Elastic Search server and query information.
+ *
+ * </p>
+ *
+ * @author Thomas Roskewich
+ * @contact roskewic@ualberta.ca
+ * @see cs.ualberta.ca.medlog.helper.Database
+ */
 public class ElasticSearchController {
 
     public static String databaseAddress = "http://cmput301.softwareprocess.es:8080";
