@@ -96,4 +96,15 @@ public class BodyLocation implements Serializable {
         }
         return false;
     }
+
+    /**
+     * Returns if a body location is near to another location.
+     * @param bl The body location to compare against.
+     * @param maxDist The max distance away from the point.
+     * @return If its less than or equal to the max dist.
+     */
+    public boolean isNear(BodyLocation bl, double maxDist){
+        double dist = Math.sqrt(Math.pow(x - bl.x, 2) + Math.pow(y - bl.y, 2));
+        return dist <= maxDist;
+    }
 }

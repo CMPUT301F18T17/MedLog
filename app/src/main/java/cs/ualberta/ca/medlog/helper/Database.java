@@ -27,16 +27,9 @@
 package cs.ualberta.ca.medlog.helper;
 
 import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.util.Log;
-import java.io.IOException;
+
 import java.net.ConnectException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.NetworkInterface;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -59,7 +52,8 @@ public class Database {
         return context;
     }
 
-    private static final double SEARCHDIST = 0.090437173; // 10 KM
+    private static final double SEARCHDISTMAP = 0.090437173; // 10 KM
+    private static final double SEARCHDISTBODY = 20;
 
 
     /**
@@ -322,7 +316,7 @@ public class Database {
                     strings.addAll(Arrays.asList(r.getTitle().toLowerCase().toLowerCase().split(" ")));
                 }
                 if(map != null && r.getMapLocation() != null){
-                    if(r.getMapLocation().isNear(map, SEARCHDIST)){
+                    if(r.getMapLocation().isNear(map, SEARCHDISTMAP)){
                         output.add(p);
                         added = true;
                         break;
@@ -330,7 +324,7 @@ public class Database {
                 }
 
                 if(bl != null && r.getBodyLocation() != null){
-                    if(r.getBodyLocation().equals(bl)){
+                    if(r.getBodyLocation().isNear(bl, SEARCHDISTBODY)){
                         output.add(p);
                         added = true;
                         break;
