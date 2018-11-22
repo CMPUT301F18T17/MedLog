@@ -130,4 +130,6 @@
     <string name="activityPatientAddMapLocation.NewMarkerTitle">Record Location</string>
     <string name="activityPatientAddRecordActivity.MapLocationAdded">Map location added.</string>
     <string name="activityPatientAddRecordActivity.NoLocationAdded">You must select a position on the map. No map location was added.</string>
+    <string name="fragmentTitleComment.CommentDefault">COMMENT</string>
+    <string name="fragmentTitleComment.TitleDefault">TITLE</string>
 </resources>

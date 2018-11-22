@@ -34,7 +34,7 @@ import cs.ualberta.ca.medlog.entity.Record;
  * @see ProviderRecordViewActivity
  */
 public class SlideshowActivity extends AppCompatActivity {
-    private ImageView imageView = findViewById(R.id.activitySlideshow_ImageView);
+    private ImageView imageView;
     private ArrayList<Bitmap> photoBitmaps;
     private int index = 0;
 

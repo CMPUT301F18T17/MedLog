@@ -1,15 +1,23 @@
 package cs.ualberta.ca.medlog.activity;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Layout;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import cs.ualberta.ca.medlog.R;
+import cs.ualberta.ca.medlog.entity.MapLocation;
 import cs.ualberta.ca.medlog.entity.Record;
 import cs.ualberta.ca.medlog.singleton.AppStatus;
 
@@ -25,17 +33,17 @@ import cs.ualberta.ca.medlog.singleton.AppStatus;
  * </p>
  * <p>
  *     Issues: <br>
- *         Transfer to a title & comment fragment must be added
  *         Transfer to a body location fragment must be added
  *
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.6
+ * @version 0.7
  * @see PatientViewRecordsActivity
  * @see PatientSearchActivity
  * @see SlideshowActivity
  * @see ViewMapLocationActivity
+ * @see PopupWindow
  */
 public class PatientRecordViewActivity extends AppCompatActivity {
     private Record record;
@@ -47,6 +55,7 @@ public class PatientRecordViewActivity extends AppCompatActivity {
 
         record = AppStatus.getInstance().getViewedRecord();
 
+        ColorStateList colorStateList = new ColorStateList(new int[][]{new int[0]}, new int[]{getResources().getColor(R.color.app_buttonColourInvalid)});
         Button titleCommentButton = findViewById(R.id.activityPatientRecordView_TitleCommentButton);
         Button bodyLocationButton = findViewById(R.id.activityPatientRecordView_BodyLocationButton);
         Button mapLocationButton = findViewById(R.id.activityPatientRecordView_MapLocationButton);
@@ -57,24 +66,40 @@ public class PatientRecordViewActivity extends AppCompatActivity {
                 openTitleCommentFragment();
             }
         });
+        if (record.getTitle() == null && record.getComment() == null) {
+            titleCommentButton.setClickable(false);
+            titleCommentButton.setBackgroundTintList(colorStateList);
+        }
         bodyLocationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openBodyLocationFragment();
             }
         });
+        if (record.getBodyLocation() == null) {
+            bodyLocationButton.setClickable(false);
+            bodyLocationButton.setBackgroundTintList(colorStateList);
+        }
         mapLocationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openMapLocationFragment();
             }
         });
+        if (record.getMapLocation() == null) {
+            mapLocationButton.setClickable(false);
+            mapLocationButton.setBackgroundTintList(colorStateList);
+        }
         slideshowButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openPhotoSlideshow();
+                openSlideshowFragment();
             }
         });
+        if (record.getPhotos().isEmpty()) {
+            slideshowButton.setClickable(false);
+            slideshowButton.setBackgroundTintList(colorStateList);
+        }
 
         TextView recordTitleView = findViewById(R.id.activityPatientRecordView_TitleView);
         recordTitleView.setText(record.getTitle());
@@ -87,7 +112,16 @@ public class PatientRecordViewActivity extends AppCompatActivity {
     }
 
     private void openTitleCommentFragment() {
-        //TODO Add transfer to title & comment fragment
+        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        View titleCommentLayout = inflater.inflate(R.layout.fragment_title_comment,null);
+        TextView titleView = titleCommentLayout.findViewById(R.id.fragmentTitleComment_TitleView);
+        titleView.setText(record.getTitle());
+        TextView commentView = titleCommentLayout.findViewById(R.id.fragmentTitleComment_CommentView);
+        commentView.setText(record.getComment());
+
+        PopupWindow titleCommentPopup = new PopupWindow(titleCommentLayout,500,500,true);
+        titleCommentPopup.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.popup_background));
+        titleCommentPopup.showAtLocation(titleCommentLayout,Gravity.CENTER,0,0);
     }
 
     private void openBodyLocationFragment() {
@@ -96,17 +130,15 @@ public class PatientRecordViewActivity extends AppCompatActivity {
 
     private void openMapLocationFragment() {
         Intent intent = new Intent(this, ViewMapLocationActivity.class);
-        ArrayList<Record> newList = new ArrayList<Record>();
-        newList.add(record);
-        intent.putExtra("RECORDS", newList);
+        ArrayList<MapLocation> newList = new ArrayList<>();
+        newList.add(record.getMapLocation());
+        intent.putExtra("LOCATIONS", newList);
         startActivity(intent);
     }
 
-    private void openPhotoSlideshow() {
+    private void openSlideshowFragment() {
         Intent intent = new Intent(this, SlideshowActivity.class);
-        ArrayList<Record> newList = new ArrayList<Record>();
-        newList.add(record);
-        intent.putExtra("RECORDS", newList);
+        intent.putExtra("PHOTOS", record.getPhotos());
         startActivity(intent);
     }
 
