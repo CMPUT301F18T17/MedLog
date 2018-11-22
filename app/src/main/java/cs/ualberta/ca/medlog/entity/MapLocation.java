@@ -84,10 +84,11 @@ public class MapLocation implements Serializable {
     /**
      * Returns if a map location is near to another location.
      * @param ml The map location to compare against.
-     * @param radius The radius to search in.
-     * @return 0 if its on the edge, < 0 if inside, >0 if outside
+     * @param maxDist The max distance away from the point.
+     * @return If its less than or equal to the max dist.
      */
-    public float isNear(MapLocation ml, double radius){
-        return 0;
+    public boolean isNear(MapLocation ml, double maxDist){
+        double dist = Math.sqrt(Math.pow(latitude - ml.latitude, 2) + Math.pow(longitude - ml.longitude, 2));
+        return dist <= maxDist;
     }
 }
