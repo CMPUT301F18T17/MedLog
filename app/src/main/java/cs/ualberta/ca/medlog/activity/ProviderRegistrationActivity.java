@@ -11,7 +11,7 @@ import java.net.ConnectException;
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.helper.Database;
-import cs.ualberta.ca.medlog.singleton.CurrentUser;
+import cs.ualberta.ca.medlog.singleton.AppStatus;
 
 /**
  * <p>
@@ -70,7 +70,7 @@ public class ProviderRegistrationActivity extends AppCompatActivity {
 
         CareProvider toSignUp = new CareProvider(username);
         if (db.saveProvider(toSignUp)) {
-            CurrentUser.getInstance().set(toSignUp);
+            AppStatus.getInstance().setCurrentUser(toSignUp);
             Intent intent = new Intent(this, ProviderMenuActivity.class);
             startActivity(intent);
         }

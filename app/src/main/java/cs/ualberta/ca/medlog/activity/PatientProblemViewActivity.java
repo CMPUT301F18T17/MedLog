@@ -18,7 +18,8 @@ import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.controller.PatientController;
 import cs.ualberta.ca.medlog.controller.ProblemController;
 import cs.ualberta.ca.medlog.entity.Problem;
-import cs.ualberta.ca.medlog.singleton.CurrentUser;
+import cs.ualberta.ca.medlog.entity.user.Patient;
+import cs.ualberta.ca.medlog.singleton.AppStatus;
 
 /**
  * <p>
@@ -55,8 +56,6 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_problem_view);
 
-        problem = (Problem) getIntent().getSerializableExtra("PROBLEM");
-
         Button viewRecordsButton = findViewById(R.id.activityPatientProblemView_ViewRecordsButton);
         Button slideShowButton = findViewById(R.id.activityPatientProblemView_SlideshowButton);
         Button addRecordButton = findViewById(R.id.activityPatientProblemView_AddRecordButton);
@@ -78,6 +77,8 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
                 openAddRecord();
             }
         });
+
+        problem = AppStatus.getInstance().getViewedProblem();
 
         updateTitleDisplay(problem.getTitle());
         Calendar cal = Calendar.getInstance();
@@ -115,8 +116,6 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
 
     private void openRecordsList() {
         Intent intent = new Intent(this, PatientViewRecordsActivity.class);
-        intent.putExtra("PROBLEM_TITLE",problem.getTitle());
-        intent.putExtra("RECORDS",problem.getRecords());
         startActivity(intent);
     }
 
@@ -130,7 +129,6 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
 
     private void openAddRecord() {
         Intent intent = new Intent(this, PatientAddRecordActivity.class);
-        intent.putExtra("PROBLEM",problem);
         startActivity(intent);
     }
 
@@ -164,7 +162,7 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
                     Toast.makeText(this,"No title entered",Toast.LENGTH_SHORT).show();
                     break;
                 }
-                controller.setTitle(CurrentUser.getInstance().getAsPatient(),problem,newText);
+                controller.setTitle((Patient)AppStatus.getInstance().getCurrentUser(),problem,newText);
                 updateTitleDisplay(newText);
                 break;
             case 1:
@@ -172,7 +170,7 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
                     Toast.makeText(this,"No description entered",Toast.LENGTH_SHORT).show();
                     break;
                 }
-                controller.setDesc(CurrentUser.getInstance().getAsPatient(),problem,newText);
+                controller.setDesc((Patient)AppStatus.getInstance().getCurrentUser(),problem,newText);
                 updateDescriptionDisplay(newText);
                 break;
         }
@@ -197,7 +195,7 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
     }
 
     public void onNewDateSet(Calendar cal) {
-        controller.setDate(CurrentUser.getInstance().getAsPatient(),problem,cal);
+        controller.setDate((Patient)AppStatus.getInstance().getCurrentUser(),problem,cal);
         updateDateDisplay(cal);
     }
 
@@ -211,7 +209,13 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
 
     private void deleteProblem() {
         PatientController patientController = new PatientController(this);
-        patientController.deleteProblem(CurrentUser.getInstance().getAsPatient(),problem);
+        patientController.deleteProblem((Patient)AppStatus.getInstance().getCurrentUser(),problem);
         finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        AppStatus.getInstance().setViewedProblem(null);
+        super.onBackPressed();
     }
 }

@@ -10,15 +10,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import java.util.Date;
-
 import cs.ualberta.ca.medlog.R;
 
 import cs.ualberta.ca.medlog.controller.ProblemController;
 import cs.ualberta.ca.medlog.entity.MapLocation;
 import cs.ualberta.ca.medlog.entity.Problem;
 import cs.ualberta.ca.medlog.entity.Record;
-import cs.ualberta.ca.medlog.singleton.CurrentUser;
+import cs.ualberta.ca.medlog.entity.user.Patient;
+import cs.ualberta.ca.medlog.singleton.AppStatus;
 
 /**
  * <p>
@@ -92,7 +91,7 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
             }
         });
 
-        newRecord = new Record(CurrentUser.getInstance().getAsPatient().getUsername());
+        newRecord = new Record(AppStatus.getInstance().getCurrentUser().getUsername());
     }
 
     private void openTitleEditor() {
@@ -180,10 +179,10 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
         }
 
         ProblemController controller = new ProblemController(this);
-        controller.addRecord(CurrentUser.getInstance().getAsPatient(),parentProblem,newRecord);
+        controller.addRecord((Patient)AppStatus.getInstance().getCurrentUser(),parentProblem,newRecord);
 
         Intent intent = new Intent(this, PatientProblemViewActivity.class);
-        intent.putExtra("PROBLEM", parentProblem);
+        AppStatus.getInstance().setViewedRecord(newRecord);
         startActivity(intent);
     }
 }

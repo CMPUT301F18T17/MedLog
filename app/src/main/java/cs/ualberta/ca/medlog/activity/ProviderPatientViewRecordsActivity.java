@@ -10,6 +10,8 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.entity.Record;
+import cs.ualberta.ca.medlog.entity.user.CareProvider;
+import cs.ualberta.ca.medlog.singleton.AppStatus;
 
 /**
  * <p>
@@ -28,7 +30,6 @@ import cs.ualberta.ca.medlog.entity.Record;
  * @see ProviderProblemViewActivity
  */
 public class ProviderPatientViewRecordsActivity extends AppCompatActivity {
-    private String problemTitle;
     private ArrayList<Record> records;
 
     @Override
@@ -36,9 +37,7 @@ public class ProviderPatientViewRecordsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_provider_patient_view_records);
 
-        Intent intent = getIntent();
-        problemTitle = intent.getStringExtra("PROBLEM_TITLE");
-        records = (ArrayList<Record>) intent.getSerializableExtra("RECORDS");
+        records = AppStatus.getInstance().getViewedProblem().getRecords();
 
         ListView recordsListView = findViewById(R.id.activityProviderPatientViewRecords_RecordsListView);
         recordsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -54,8 +53,7 @@ public class ProviderPatientViewRecordsActivity extends AppCompatActivity {
 
     private void openRecordView(int index) {
         Intent intent = new Intent(this, ProviderRecordViewActivity.class);
-        intent.putExtra("PROBLEM_TITLE",problemTitle);
-        intent.putExtra("RECORD",records.get(index));
+        AppStatus.getInstance().setViewedRecord(records.get(index));
         startActivity(intent);
     }
 }

@@ -16,6 +16,7 @@ import cs.ualberta.ca.medlog.entity.Record;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 import cs.ualberta.ca.medlog.helper.Database;
+import cs.ualberta.ca.medlog.singleton.AppStatus;
 
 /**
  * <p>
@@ -52,9 +53,7 @@ public class ProviderRecordViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_provider_record_view);
 
-        Intent intent = getIntent();
-        String problemTitle = intent.getStringExtra("PROBLEM_TITLE");
-        record = (Record) intent.getSerializableExtra("RECORD");
+        record = AppStatus.getInstance().getViewedRecord();
 
         Button titleCommentButton = findViewById(R.id.activityProviderRecordView_TitleCommentButton);
         Button bodyLocationButton = findViewById(R.id.activityProviderRecordView_BodyLocationButton);
@@ -97,7 +96,7 @@ public class ProviderRecordViewActivity extends AppCompatActivity {
         TextView recordTitleView = findViewById(R.id.activityProviderRecordView_TitleView);
         recordTitleView.setText(record.getTitle());
         TextView problemTitleView = findViewById(R.id.activityProviderRecordView_ProblemTitleView);
-        problemTitleView.setText(problemTitle);
+        problemTitleView.setText(AppStatus.getInstance().getViewedProblem().getTitle());
         TextView timestampView = findViewById(R.id.activityProviderRecordView_TimestampView);
         timestampView.setText(record.getTimestamp().toString());
     }
@@ -127,20 +126,15 @@ public class ProviderRecordViewActivity extends AppCompatActivity {
     }
 
     private void openPatientProfile() {
-        Database db = new Database(this);
-        Patient toOpen;
-        try {
-            toOpen = db.loadPatient(record.getUsername());
-        } catch(UserNotFoundException e) {
-            Toast.makeText(this,"Patient doesn't exist", Toast.LENGTH_SHORT).show();
-            return;
-        } catch(ConnectException e) {
-            Toast.makeText(this, "Failed to connect", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
         Intent intent = new Intent(this, ProviderPatientProfileActivity.class);
-        intent.putExtra("PATIENT", toOpen);
+        AppStatus.getInstance().setViewedRecord(null);
+        AppStatus.getInstance().setViewedProblem(null);
         startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        AppStatus.getInstance().setViewedRecord(null);
+        super.onBackPressed();
     }
 }

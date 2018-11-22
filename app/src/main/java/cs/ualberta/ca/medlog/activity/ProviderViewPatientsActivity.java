@@ -5,12 +5,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import java.util.ArrayList;
 import cs.ualberta.ca.medlog.R;
+import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.entity.user.Patient;
-import cs.ualberta.ca.medlog.singleton.CurrentUser;
+import cs.ualberta.ca.medlog.singleton.AppStatus;
 
 /**
  * <p>
@@ -37,7 +37,7 @@ public class ProviderViewPatientsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_provider_view_patients);
 
-        patients = CurrentUser.getInstance().getAsProvider().getPatients();
+        patients = ((CareProvider)AppStatus.getInstance().getCurrentUser()).getPatients();
 
         PatientAdapter patientArrayAdapter = new PatientAdapter(this, patients);
 
@@ -54,7 +54,7 @@ public class ProviderViewPatientsActivity extends AppCompatActivity {
 
     private void openPatientView(int index) {
         Intent intent = new Intent(this, ProviderPatientProfileActivity.class);
-        intent.putExtra("PATIENT",patients.get(index));
+        AppStatus.getInstance().setViewedPatient(patients.get(index));
         startActivity(intent);
     }
 }

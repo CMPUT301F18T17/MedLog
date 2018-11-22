@@ -12,7 +12,7 @@ import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.entity.user.ContactInfo;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.helper.Database;
-import cs.ualberta.ca.medlog.singleton.CurrentUser;
+import cs.ualberta.ca.medlog.singleton.AppStatus;
 
 /**
  * <p>
@@ -98,7 +98,7 @@ public class PatientSignUpActivity extends AppCompatActivity {
 
         Patient patient = new Patient(contactInfo, username);
         if(db.savePatient(patient)){
-            CurrentUser.getInstance().set(patient);
+            AppStatus.getInstance().setCurrentUser(patient);
         }else{
             Toast.makeText(this, "Failed to sign up patient", Toast.LENGTH_SHORT).show();
             return;

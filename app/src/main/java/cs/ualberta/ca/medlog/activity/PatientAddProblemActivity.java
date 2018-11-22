@@ -13,7 +13,8 @@ import java.util.Locale;
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.controller.PatientController;
 import cs.ualberta.ca.medlog.entity.Problem;
-import cs.ualberta.ca.medlog.singleton.CurrentUser;
+import cs.ualberta.ca.medlog.entity.user.Patient;
+import cs.ualberta.ca.medlog.singleton.AppStatus;
 
 /**
  * <p>
@@ -107,9 +108,9 @@ public class PatientAddProblemActivity extends AppCompatActivity implements Date
             return;
         }
 
-        Problem problem = new Problem(title,cal.getTime(),description);
+        Problem newProblem = new Problem(title,cal.getTime(),description);
         PatientController controller = new PatientController(this);
-        controller.addProblem(CurrentUser.getInstance().getAsPatient(),problem);
+        controller.addProblem((Patient)AppStatus.getInstance().getCurrentUser(),newProblem);
 
         Toast.makeText(this,"Problem added",Toast.LENGTH_SHORT).show();
 
@@ -117,7 +118,7 @@ public class PatientAddProblemActivity extends AppCompatActivity implements Date
 
         //This currently is a stand in for this popup navigation
         Intent intent = new Intent(this, PatientProblemViewActivity.class);
-        intent.putExtra("PROBLEM",problem);
+        AppStatus.getInstance().setViewedProblem(newProblem);
         startActivity(intent);
     }
 }

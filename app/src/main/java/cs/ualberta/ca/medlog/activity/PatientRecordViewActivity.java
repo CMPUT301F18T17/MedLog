@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.entity.Record;
+import cs.ualberta.ca.medlog.singleton.AppStatus;
 
 /**
  * <p>
@@ -44,9 +45,7 @@ public class PatientRecordViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_record_view);
 
-        Intent intent = getIntent();
-        String problemTitle = intent.getStringExtra("PROBLEM_TITLE");
-        record = (Record) intent.getSerializableExtra("RECORD");
+        record = AppStatus.getInstance().getViewedRecord();
 
         Button titleCommentButton = findViewById(R.id.activityPatientRecordView_TitleCommentButton);
         Button bodyLocationButton = findViewById(R.id.activityPatientRecordView_BodyLocationButton);
@@ -80,7 +79,7 @@ public class PatientRecordViewActivity extends AppCompatActivity {
         TextView recordTitleView = findViewById(R.id.activityPatientRecordView_TitleView);
         recordTitleView.setText(record.getTitle());
         TextView problemTitleView = findViewById(R.id.activityPatientRecordView_ProblemTitleView);
-        problemTitleView.setText(problemTitle);
+        problemTitleView.setText(AppStatus.getInstance().getViewedProblem().getTitle());
         TextView creatorView = findViewById(R.id.activityPatientRecordView_CreatorView);
         creatorView.setText(record.getUsername());
         TextView timestampView = findViewById(R.id.activityPatientRecordView_TimestampView);
@@ -109,5 +108,11 @@ public class PatientRecordViewActivity extends AppCompatActivity {
         newList.add(record);
         intent.putExtra("RECORDS", newList);
         startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        AppStatus.getInstance().setViewedRecord(null);
+        super.onBackPressed();
     }
 }

@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.Button;
 
 import cs.ualberta.ca.medlog.R;
-import cs.ualberta.ca.medlog.singleton.CurrentUser;
+import cs.ualberta.ca.medlog.singleton.AppStatus;
 
 /**
  * <p>
@@ -116,7 +116,7 @@ public class PatientMenuActivity extends AppCompatActivity {
     }
 
     private void logoutPatient() {
-        CurrentUser.getInstance().set(null);
+        AppStatus.getInstance().setCurrentUser(null);
 
         Intent intent = new Intent(this, StartScreenActivity.class);
         startActivity(intent);

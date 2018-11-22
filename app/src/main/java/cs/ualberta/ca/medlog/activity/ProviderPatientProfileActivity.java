@@ -13,6 +13,7 @@ import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.entity.Problem;
 import cs.ualberta.ca.medlog.entity.Record;
 import cs.ualberta.ca.medlog.entity.user.Patient;
+import cs.ualberta.ca.medlog.singleton.AppStatus;
 
 /**
  * <p>
@@ -43,7 +44,7 @@ public class ProviderPatientProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_provider_patient_profile);
 
-        patient = (Patient) getIntent().getSerializableExtra("PATIENT");
+        patient = AppStatus.getInstance().getViewedPatient();
 
         Button recordsMapButton = findViewById(R.id.activityProviderPatientProfile_RecordsMapButton);
         Button viewRecordsButton = findViewById(R.id.activityProviderPatientProfile_ViewRecordsButton);
@@ -81,8 +82,12 @@ public class ProviderPatientProfileActivity extends AppCompatActivity {
 
     private void openPatientProblemsList() {
         Intent intent = new Intent(this, ProviderPatientViewProblemsActivity.class);
-        intent.putExtra("PATIENT_USERNAME",patient.getUsername());
-        intent.putExtra("PROBLEMS",patient.getProblems());
         startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        AppStatus.getInstance().setViewedPatient(null);
+        super.onBackPressed();
     }
 }

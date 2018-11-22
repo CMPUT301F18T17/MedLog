@@ -5,13 +5,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.entity.Problem;
-import cs.ualberta.ca.medlog.singleton.CurrentUser;
+import cs.ualberta.ca.medlog.entity.user.Patient;
+import cs.ualberta.ca.medlog.singleton.AppStatus;
 
 /**
  * <p>
@@ -38,7 +38,7 @@ public class PatientViewProblemsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_view_problems);
 
-        problems = CurrentUser.getInstance().getAsPatient().getProblems();
+        problems = ((Patient)AppStatus.getInstance().getCurrentUser()).getProblems();
 
         ListView problemsListView = findViewById(R.id.activityPatientViewProblems_ProblemsListView);
         problemsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -54,7 +54,7 @@ public class PatientViewProblemsActivity extends AppCompatActivity {
 
     private void openProblemView(int index) {
         Intent intent = new Intent(this, PatientProblemViewActivity.class);
-        intent.putExtra("PROBLEM", problems.get(index));
+        AppStatus.getInstance().setViewedProblem(problems.get(index));
         startActivity(intent);
     }
 }

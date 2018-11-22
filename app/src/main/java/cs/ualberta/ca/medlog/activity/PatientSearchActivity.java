@@ -4,7 +4,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -14,8 +13,9 @@ import java.util.Arrays;
 
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.entity.Problem;
+import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.helper.Database;
-import cs.ualberta.ca.medlog.singleton.CurrentUser;
+import cs.ualberta.ca.medlog.singleton.AppStatus;
 
 /**
  * <p>
@@ -89,7 +89,7 @@ public class PatientSearchActivity extends AppCompatActivity {
         adapter.clear();
 
         //TODO: Map and Body Location need to be selectable.
-        adapter.addAll(db.searchPatient(CurrentUser.getInstance().getAsPatient(), keywords, null,  null));
+        adapter.addAll(db.searchPatient((Patient)AppStatus.getInstance().getCurrentUser(), keywords, null,  null));
         adapter.notifyDataSetChanged();
     }
 

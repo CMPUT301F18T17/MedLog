@@ -20,7 +20,7 @@ import cs.ualberta.ca.medlog.controller.PatientController;
 import cs.ualberta.ca.medlog.entity.Problem;
 import cs.ualberta.ca.medlog.entity.Record;
 import cs.ualberta.ca.medlog.entity.user.Patient;
-import cs.ualberta.ca.medlog.singleton.CurrentUser;
+import cs.ualberta.ca.medlog.singleton.AppStatus;
 
 /**
  * <p>
@@ -64,7 +64,8 @@ public class PatientProfileActivity extends AppCompatActivity implements TextEdi
             }
         });
 
-        patient = CurrentUser.getInstance().getAsPatient();
+        patient = (Patient)AppStatus.getInstance().getCurrentUser();
+
         TextView usernameView = findViewById(R.id.activityPatientProfile_UsernameView);
         usernameView.setText(patient.getUsername());
         updateEmailDisplay(patient.getContactInfo().getEmail());

@@ -11,7 +11,7 @@ import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.controller.SyncController;
 import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.helper.Database;
-import cs.ualberta.ca.medlog.singleton.CurrentUser;
+import cs.ualberta.ca.medlog.singleton.AppStatus;
 
 /**
  * <p>
@@ -83,7 +83,7 @@ public class ProviderLoginActivity extends AppCompatActivity {
         }
 
         if (toLogin != null) {
-            CurrentUser.getInstance().set(toLogin);
+            AppStatus.getInstance().setCurrentUser(toLogin);
             Intent intent = new Intent(this, ProviderMenuActivity.class);
             startActivity(intent);
         }

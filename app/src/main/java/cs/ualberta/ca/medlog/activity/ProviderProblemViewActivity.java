@@ -21,7 +21,7 @@ import cs.ualberta.ca.medlog.entity.Record;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 import cs.ualberta.ca.medlog.helper.Database;
-import cs.ualberta.ca.medlog.singleton.CurrentUser;
+import cs.ualberta.ca.medlog.singleton.AppStatus;
 
 /**
  * <p>
@@ -55,9 +55,8 @@ public class ProviderProblemViewActivity extends AppCompatActivity implements Te
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_provider_problem_view);
 
-        Intent intent = getIntent();
-        patientUsername = intent.getStringExtra("PATIENT_USERNAME");
-        problem = (Problem) intent.getSerializableExtra("PROBLEM");
+        patientUsername = AppStatus.getInstance().getViewedPatient().getUsername();
+        problem = AppStatus.getInstance().getViewedProblem();
 
         Button viewRecordsButton = findViewById(R.id.activityProviderProblemView_ViewRecordsButton);
         Button slideShowButton = findViewById(R.id.activityProviderProblemView_SlideshowButton);
@@ -105,8 +104,6 @@ public class ProviderProblemViewActivity extends AppCompatActivity implements Te
 
     private void openRecordsList() {
         Intent intent = new Intent(this, ProviderPatientViewRecordsActivity.class);
-        intent.putExtra("PROBLEM_TITLE",problem.getTitle());
-        intent.putExtra("RECORDS",problem.getRecords());
         startActivity(intent);
     }
 
@@ -146,7 +143,7 @@ public class ProviderProblemViewActivity extends AppCompatActivity implements Te
             return;
         }
 
-        Record newRecord = new Record(CurrentUser.getInstance().getAsProvider().getUsername());
+        Record newRecord = new Record(AppStatus.getInstance().getCurrentUser().getUsername());
         newRecord.setTitleComment("Care Provider Comment",newText);
 
         ProblemController controller = new ProblemController(this);
@@ -154,20 +151,14 @@ public class ProviderProblemViewActivity extends AppCompatActivity implements Te
     }
 
     private void openPatientProfile() {
-        Database db = new Database(this);
-        Patient toOpen;
-        try {
-            toOpen = db.loadPatient(patientUsername);
-        } catch(UserNotFoundException e) {
-            Toast.makeText(this,"Patient doesn't exist", Toast.LENGTH_SHORT).show();
-            return;
-        } catch(ConnectException e) {
-            Toast.makeText(this, "Failed to connect", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
         Intent intent = new Intent(this, ProviderPatientProfileActivity.class);
-        intent.putExtra("PATIENT", toOpen);
+        AppStatus.getInstance().setViewedProblem(null);
         startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        AppStatus.getInstance().setViewedProblem(null);
+        super.onBackPressed();
     }
 }
