@@ -57,9 +57,13 @@ public class LocalLogin {
 
                 inStream.close();
                 offlineUsers = stringBuilder.toString();
+                System.out.print(offlineUsers);
 
                 if (offlineUsers.contains(username)) {
+                    System.out.println("Offline login successful");  // TODO remove
                     valid = true;
+                } else {
+                    System.out.println("Offline login unsuccessful");  // TODO remove
                 }
             }
 

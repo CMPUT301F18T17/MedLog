@@ -8,9 +8,9 @@ import cs.ualberta.ca.medlog.helper.Database;
 import cs.ualberta.ca.medlog.helper.ElasticSearchController;
 
 import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+
 
 @RunWith(RobolectricTestRunner.class)
 public class DatabaseUnitTest {
@@ -41,17 +41,4 @@ public class DatabaseUnitTest {
         Database database = new Database(null);
         assertNull(database.getDatabaseContext());
     }
-
-    /* Tests for setter methods */
-
-    /**
-     * Ensure that the context of the database can be set properly
-     */
-    @Test
-    public void testSetDatabaseContext() {
-        // Pretty sure this can be tested through an instrumented test
-        // Not sure how to unit test this though
-    }
-
-
 }

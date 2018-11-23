@@ -14,6 +14,23 @@
    limitations under the License.
  */
 
+package cs.ualberta.ca.medlog.helper;
+
+import cs.ualberta.ca.medlog.entity.user.Patient;
+import cs.ualberta.ca.medlog.entity.user.CareProvider;
+import cs.ualberta.ca.medlog.exception.UserNotFoundException;
+
+import android.content.Context;
+import android.util.Log;
+import com.google.gson.Gson;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
+
 /**
  *
  * <h1>
@@ -79,23 +96,6 @@
  * @see cs.ualberta.ca.medlog.controller.ProviderController
  * @see cs.ualberta.ca.medlog.controller.SyncController
  */
-
-package cs.ualberta.ca.medlog.helper;
-
-import cs.ualberta.ca.medlog.entity.user.Patient;
-import cs.ualberta.ca.medlog.entity.user.CareProvider;
-import cs.ualberta.ca.medlog.exception.UserNotFoundException;
-
-import android.content.Context;
-import android.util.Log;
-import com.google.gson.Gson;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-
 
 public class LocalCache {
     private String filename;
