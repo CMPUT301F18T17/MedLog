@@ -4,6 +4,10 @@ package cs.ualberta.ca.medlog.entity;
 import java.io.Serializable;
 
 /**
+ * <h1>
+ *     Map Location
+ * </h1>
+ *
  * <p>
  *     Description: <br>
  *         Class for holding a record map location. It contains the related longitude and latitude.
