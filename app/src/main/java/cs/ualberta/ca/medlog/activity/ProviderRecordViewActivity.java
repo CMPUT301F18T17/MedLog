@@ -156,7 +156,7 @@ public class ProviderRecordViewActivity extends AppCompatActivity {
 
     private void openSlideshowFragment() {
         Intent intent = new Intent(this, SlideshowActivity.class);
-        intent.putExtra("PHOTOS", record.getPhotos());
+        intent.putParcelableArrayListExtra("PHOTOS", record.getPhotos());
         startActivity(intent);
     }
 

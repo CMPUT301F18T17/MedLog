@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 
 import cs.ualberta.ca.medlog.R;
+import cs.ualberta.ca.medlog.entity.Photo;
 
 /**
  * <p>
@@ -25,11 +26,11 @@ import cs.ualberta.ca.medlog.R;
  *
  * @author Tyler Gobran
  * @version 1.0
- * @see Bitmap
+ * @see Photo
  */
-public class PhotoBitmapAdapter extends ArrayAdapter<Bitmap> {
-    public PhotoBitmapAdapter(Context context, ArrayList<Bitmap> photoBitmapList) {
-        super(context,0,photoBitmapList);
+public class PhotoAdapter extends ArrayAdapter<Photo> {
+    public PhotoAdapter(Context context, ArrayList<Photo> photoList) {
+        super(context,0,photoList);
     }
 
     @Override
@@ -40,8 +41,8 @@ public class PhotoBitmapAdapter extends ArrayAdapter<Bitmap> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_photo_item,parent,false);
         }
 
-        ImageView photoView = convertView.findViewById(R.id.viewPhoto_PhotoView);
-        photoView.setImageBitmap(getItem(position));
+        ImageView photoView = convertView.findViewById(R.id.fragmentPhotoItem_PhotoView);
+        photoView.setImageBitmap(getItem(position).getPhotoBitmap());
 
         return convertView;
     }

@@ -125,12 +125,20 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
 
 
     private void openPhotoSlideshow() {
-        Intent intent = new Intent(this, SlideshowActivity.class);
         ArrayList<Photo> photos = new ArrayList<>();
         for(Record record:problem.getRecords()) {
-            photos.addAll(record.getPhotos());
+            if (!record.getPhotos().isEmpty()) {
+                photos.addAll(record.getPhotos());
+            }
         }
-        intent.putExtra("PHOTOS",problem.getRecords());
+
+        if (photos.isEmpty()) {
+            Toast.makeText(this,"No record photos",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Intent intent = new Intent(this, SlideshowActivity.class);
+        intent.putParcelableArrayListExtra("PHOTOS",photos);
         startActivity(intent);
     }
 

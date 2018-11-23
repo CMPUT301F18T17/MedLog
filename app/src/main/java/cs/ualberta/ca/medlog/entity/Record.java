@@ -28,7 +28,7 @@ public class Record {
     private String comment;
     private MapLocation mapLocation;
     private BodyLocation bodyLocation;
-    private ArrayList<Photo> photos = new ArrayList<Photo>();
+    private ArrayList<Photo> photos = new ArrayList<>();
     private int id = -1;
 
 
@@ -129,20 +129,10 @@ public class Record {
     }
 
     /**
-     * <p>Add a photo to the record.</p>
-     * @param photo the Photo to add.
+     * <p>Set the photos for a record.</p>
+     * @param newPhotos The new photos.
      */
-    public void addPhoto(Photo photo){
-        photos.add(photo);
-    }
-
-    /**
-     * <p>Remove a photo.</p>
-     * @param photo The photo to remove.
-     */
-    public void removePhoto(Photo photo) {
-        photos.remove(photo);
-    }
+    public void setPhotos(ArrayList<Photo> newPhotos){ photos = newPhotos; }
 
     /**
      * <p>Gets the photos in the record.</p>

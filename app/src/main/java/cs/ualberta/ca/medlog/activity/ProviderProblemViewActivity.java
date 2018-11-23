@@ -11,11 +11,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.net.ConnectException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.controller.ProblemController;
+import cs.ualberta.ca.medlog.entity.Photo;
 import cs.ualberta.ca.medlog.entity.Problem;
 import cs.ualberta.ca.medlog.entity.Record;
 import cs.ualberta.ca.medlog.entity.user.Patient;
@@ -109,8 +111,18 @@ public class ProviderProblemViewActivity extends AppCompatActivity implements Te
 
 
     private void openPhotoSlideshow() {
+        ArrayList<Photo> photos = new ArrayList<>();
+        for(Record record:problem.getRecords()) {
+            photos.addAll(record.getPhotos());
+        }
+
+        if (photos.isEmpty()) {
+            Toast.makeText(this,"No record photos",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         Intent intent = new Intent(this, SlideshowActivity.class);
-        intent.putExtra("RECORDS",problem.getRecords());
+        intent.putParcelableArrayListExtra("PHOTOS",photos);
         startActivity(intent);
     }
 

@@ -1,6 +1,7 @@
 package cs.ualberta.ca.medlog.activity;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -10,10 +11,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import cs.ualberta.ca.medlog.R;
 
 import cs.ualberta.ca.medlog.controller.ProblemController;
 import cs.ualberta.ca.medlog.entity.MapLocation;
+import cs.ualberta.ca.medlog.entity.Photo;
 import cs.ualberta.ca.medlog.entity.Record;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.singleton.AppStatus;
@@ -30,18 +34,18 @@ import cs.ualberta.ca.medlog.singleton.AppStatus;
  * <p>
  *     Issues: <br>
  *         Transfer to a Body Location Selector Fragment must be added.
- *         Transfer to a Map Location Selector Fragment must be added.
- *         Receiving and saving newly added photos must be added.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.8
+ * @version 0.9
  * @see PatientProblemViewActivity
+ * @see AddMapLocationActivity
  * @see PhotoSelectorActivity
  * @see TextEditorFragment
  */
 public class PatientAddRecordActivity extends AppCompatActivity implements TextEditorFragment.OnTextSetListener {
     final int MAP_LOCATION_REQUEST = 1;
+    final int PHOTO_REQUEST = 2;
 
     private Record newRecord;
 
@@ -124,11 +128,13 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
                 break;
 
             case 1:
+                updateButtonColour(findViewById(R.id.activityPatientAddRecord_TitleCommentButton));
                 if (newText.isEmpty()) {
                     Toast.makeText(this,"No comment entered",Toast.LENGTH_SHORT).show();
                     break;
                 }
                 newRecord.setTitleComment(newRecord.getTitle(),newText);
+
                 Toast.makeText(this,"Title & Comment added",Toast.LENGTH_SHORT).show();
                 break;
         }
@@ -143,6 +149,15 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
         startActivityForResult(intent, MAP_LOCATION_REQUEST);
     }
 
+    private void openPhotosSelector() {
+        Intent intent = new Intent(this, PhotoSelectorActivity.class);
+        if (newRecord.getBodyLocation() != null) {
+            intent.putExtra("GUIDE_PHOTO", newRecord.getBodyLocation().getPhoto());
+        }
+        intent.putParcelableArrayListExtra("PHOTOS",newRecord.getPhotos());
+        startActivityForResult(intent,PHOTO_REQUEST);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == MAP_LOCATION_REQUEST) {
@@ -151,20 +166,26 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
                 double longitude = data.getDoubleExtra("Longitude", -1);
                 Toast.makeText(this, R.string.activityPatientAddRecordActivity_MapLocationAdded, Toast.LENGTH_SHORT).show();
                 newRecord.setMapLocation(new MapLocation(latitude,longitude));
+                updateButtonColour(findViewById(R.id.activityPatientAddRecord_MapLocationButton));
             }
             else { // If the select location button was tapped, but the user never selected a position on the map
                 Toast.makeText(this, R.string.activityPatientAddRecordActivity_NoLocationAdded, Toast.LENGTH_LONG).show();
             }
         }
+        else if (requestCode == PHOTO_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                Toast.makeText(this,"Images added",Toast.LENGTH_SHORT).show();
+                ArrayList<Photo> photos = data.getParcelableArrayListExtra("PHOTOS");
+                newRecord.setPhotos(photos);
+                updateButtonColour(findViewById(R.id.activityPatientAddRecord_PhotosButton));
+            }
+        }
     }
 
-    private void openPhotosSelector() {
-        Intent intent = new Intent(this, PhotoSelectorActivity.class);
-        intent.putExtra("GUIDE_PHOTO",newRecord.getBodyLocation().getPhoto().getPhotoBitmap());
-        intent.putExtra("PHOTOS",newRecord.getPhotos());
-        startActivity(intent);
+    private void updateButtonColour(Button button) {
+        ColorStateList colorStateList = new ColorStateList(new int[][]{new int[0]}, new int[]{getResources().getColor(R.color.app_buttonColour)});
+        button.setBackgroundTintList(colorStateList);
     }
-
     private void completeRecord() {
         if (!newRecord.isValid()) {
             Toast.makeText(this,"Record has no data",Toast.LENGTH_SHORT).show();

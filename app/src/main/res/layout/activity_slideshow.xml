@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragmentSlideshow.Base"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/popup_background">
+    android:layout_height="match_parent">
 
     <Button
         android:id="@+id/activitySlideshow.NextButton"
@@ -30,6 +29,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:background="@drawable/popup_background"
         android:contentDescription="@string/fragmentSlideshow.Image"
         app:layout_constraintBottom_toTopOf="@+id/activitySlideshow.PreviousButton"
         app:layout_constraintEnd_toEndOf="parent"

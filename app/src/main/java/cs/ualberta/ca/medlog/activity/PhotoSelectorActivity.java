@@ -1,5 +1,6 @@
 package cs.ualberta.ca.medlog.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -7,7 +8,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -26,41 +26,40 @@ import cs.ualberta.ca.medlog.entity.Photo;
  * </p>
  * <p>
  *     Issues: <br>
- *         Fix issues in grabbing added photos and displaying them.
+ *         None.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.2
- * @see PhotoBitmapAdapter
+ * @version 0.6
+ * @see PhotoAdapter
  */
 public class PhotoSelectorActivity extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int REQUEST_LOAD_IMAGE = 2;
 
-    private ArrayList<Bitmap> photos = new ArrayList<>();
+    private ArrayList<Photo> photos;
+    private PhotoAdapter photoAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_selector);
 
-        Intent passedIntent = getIntent();
-        Bitmap guidePhoto = passedIntent.getParcelableExtra("GUIDE_PHOTOS");
-        ArrayList<Photo> passedPhotos = passedIntent.getParcelableExtra("PHOTOS");
-
-        for(Photo p: passedPhotos) {
-            photos.add(p.getPhotoBitmap());
+        Intent intent = getIntent();
+        Photo guidePhoto = intent.getParcelableExtra("GUIDE_PHOTO");
+        photos = intent.getParcelableArrayListExtra("PHOTOS");
+        if (photos == null) {
+            photos = new ArrayList<>();
         }
 
         if (guidePhoto != null) {
             ImageView guideImageView = findViewById(R.id.activityPhotoSelector_GuideImage);
-            guideImageView.setImageBitmap(guidePhoto);
+            guideImageView.setImageBitmap(guidePhoto.getPhotoBitmap());
         }
 
         final GridView photoGrid = findViewById(R.id.activityPhotoSelector_PhotoGridView);
-        ArrayAdapter<Bitmap> gridAdapter = new PhotoBitmapAdapter(this,photos);
-        gridAdapter.setNotifyOnChange(true);
-        photoGrid.setAdapter(gridAdapter);
+        photoAdapter = new PhotoAdapter(this,photos);
+        photoGrid.setAdapter(photoAdapter);
 
         Button takeNewButton = findViewById(R.id.activityPhotoSelector_TakeNewButton);
         Button addExistingButton = findViewById(R.id.activityPhotoSelector_AddExistingButton);
@@ -77,6 +76,21 @@ public class PhotoSelectorActivity extends AppCompatActivity {
             }
         });
 
+
+        Button saveButton = findViewById(R.id.activityPhotoSelector_SaveButton);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                if (photos.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "No photos added", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                intent.putParcelableArrayListExtra("PHOTOS",photos);
+                setResult(Activity.RESULT_OK,intent);
+                finish();
+            }
+        });
     }
 
     private void dispatchTakePictureIntent() {
@@ -93,28 +107,28 @@ public class PhotoSelectorActivity extends AppCompatActivity {
         }
     }
 
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Toast.makeText(this,"Photo Added",Toast.LENGTH_SHORT).show();
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
-            photos.add(imageBitmap);
+            photos.add(new Photo(imageBitmap));
+            photoAdapter.notifyDataSetChanged();
         }
         else if (requestCode == REQUEST_LOAD_IMAGE && resultCode == RESULT_OK) {
-            Toast.makeText(this,"Photo Added",Toast.LENGTH_SHORT).show();
             Uri imageUri = data.getData();
-            Bitmap imageBitmap = null;
+            Bitmap imageBitmap;
             try {
                 imageBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                Toast.makeText(this,"Photo Added",Toast.LENGTH_SHORT).show();
             }
             catch (IOException e) {
                 Toast.makeText(this,"Couldn't Load Image",Toast.LENGTH_SHORT).show();
+                return;
             }
-            if (photos != null) {
-                photos.add(imageBitmap);
-            }
+            photos.add(new Photo(imageBitmap));
+            photoAdapter.notifyDataSetChanged();
         }
         else if (resultCode != RESULT_OK){
             Toast.makeText(this,"Cancelled",Toast.LENGTH_SHORT).show();

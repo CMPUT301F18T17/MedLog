@@ -27,7 +27,7 @@ import cs.ualberta.ca.medlog.entity.Record;
  * </p>
  *
  * @author Tyler Gobran
- * @version 1.0
+ * @version 1.1
  * @see PatientProblemViewActivity
  * @see ProviderProblemViewActivity
  * @see PatientRecordViewActivity
@@ -58,15 +58,10 @@ public class SlideshowActivity extends AppCompatActivity {
             }
         });
 
-        retrievePhotoBitmaps((ArrayList<Photo>) getIntent().getParcelableExtra("PHOTOS"));
+        retrievePhotoBitmaps(getIntent().getParcelableArrayListExtra("PHOTOS"));
 
         imageView = findViewById(R.id.activitySlideshow_ImageView);
-        if (photoBitmaps.isEmpty()) {
-            Toast.makeText(this,"No record photos",Toast.LENGTH_SHORT).show();
-        }
-        else {
-            imageView.setImageBitmap(photoBitmaps.get(index));
-        }
+        imageView.setImageBitmap(photoBitmaps.get(index));
     }
 
     private void retrievePhotoBitmaps(ArrayList<Photo> photos) {
@@ -86,7 +81,7 @@ public class SlideshowActivity extends AppCompatActivity {
     }
 
     private void displayNextPhoto() {
-        if (index < photoBitmaps.size()) {
+        if (index+1 < photoBitmaps.size()) {
             imageView.setImageBitmap(photoBitmaps.get(++index));
         }
         else {

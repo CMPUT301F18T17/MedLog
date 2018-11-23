@@ -140,4 +140,5 @@
     <string name="fragmentAddPatientNavigation.ViewButton">View Patient</string>
     <string name="fragmentAddPatientNavigation.AddButton">Add Another</string>
     <string name="fragmentAddPatientNavigation.MenuButton">Main Menu</string>
+    <string name="activityPhotoSelector.SaveButton">Save Photos</string>
 </resources>

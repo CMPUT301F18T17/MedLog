@@ -8,11 +8,12 @@
 
     <ImageView
         android:id="@+id/activityPhotoSelector.GuideImage"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/popup_background"
         android:contentDescription="@string/fragmentPhotoSelector.GuideImageDesc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.25"
@@ -26,25 +27,29 @@
         android:id="@+id/activityPhotoSelector.PhotoGridView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/popup_background"
+        android:numColumns="3"
+        android:stretchMode="columnWidth"
         app:layout_constraintBottom_toTopOf="@+id/activityPhotoSelector.TakeNewButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activityPhotoSelector.GuideImage" />
+        app:layout_constraintTop_toBottomOf="@+id/activityPhotoSelector.GuideImage"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/activityPhotoSelector.TakeNewButton"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:backgroundTint="@color/app_buttonColour"
         android:text="@string/fragmentPhotoSelector.TakeNewButton"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/activityPhotoSelector.SaveButton"
         app:layout_constraintEnd_toStartOf="@+id/activityPhotoSelector.AddExistingButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
@@ -61,5 +66,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/activityPhotoSelector.TakeNewButton" />
+
+    <Button
+        android:id="@+id/activityPhotoSelector.SaveButton"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/app_buttonColour"
+        android:text="@string/activityPhotoSelector.SaveButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
