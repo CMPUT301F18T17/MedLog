@@ -150,6 +150,30 @@ public class Database {
         return success;
     }
 
+    /**
+     * <p>Check if the username is available.</p>
+     * @param username The username to check.
+     * @return If the username is available to take.
+     * @throws ConnectException If we cannot connect to the database.
+     */
+    public boolean usernameAvailable(String username) throws ConnectException{
+        boolean success = false;
+
+        // Try and load a patient with that username
+        try{
+            Patient p = loadPatient(username);
+        }catch(UserNotFoundException e){
+            success = true;
+        }
+
+        // Try and load a careprovider with that username
+        try{
+            CareProvider p = loadProvider(username);
+            success = false;
+        }catch(UserNotFoundException ignore){ }
+        return success;
+    }
+
 
     /**
      * <p>Push a patient to the database if a connection can be established, save to disc otherwise</p>
