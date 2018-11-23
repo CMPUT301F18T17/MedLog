@@ -46,7 +46,7 @@ public class RecordTest {
     @Test
     public void testBodyLocation(){
         Record testRecord = new Record("John Doe");
-        Photo photo = new Photo(1, null);
+        Photo photo = new Photo(null);
 
         BodyLocation bodyLocation = new BodyLocation(photo, 10, 20);
         assertNull(testRecord.getBodyLocation());
@@ -72,7 +72,7 @@ public class RecordTest {
         assertTrue(testRecord.getPhotos().isEmpty());
 
         for (int i = 0; i < 5; i++) {
-            Photo photo = new Photo(i, null);
+            Photo photo = new Photo(null);
             testRecord.addPhoto(photo);
             photoList.add(photo);
 

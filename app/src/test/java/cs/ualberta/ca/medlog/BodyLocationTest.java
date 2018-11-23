@@ -18,7 +18,7 @@ public class BodyLocationTest {
 
     @Test
     public void testGetPhoto(){
-        Photo photo = new Photo(0, null);
+        Photo photo = new Photo(null);
         BodyLocation location = new BodyLocation(photo, 10, 5);
 
         assertEquals(photo, location.getPhoto());
@@ -26,7 +26,7 @@ public class BodyLocationTest {
 
     @Test
     public void testGetX(){
-        Photo photo = new Photo(0, null);
+        Photo photo = new Photo( null);
         BodyLocation location = new BodyLocation(photo, 10, 5);
 
         assertEquals(location.getX(), 10);
@@ -34,7 +34,7 @@ public class BodyLocationTest {
 
     @Test
     public void testGetY(){
-        Photo photo = new Photo(0, null);
+        Photo photo = new Photo(null);
         BodyLocation location = new BodyLocation(photo, 10, 5);
 
         assertEquals(location.getY(), 5);

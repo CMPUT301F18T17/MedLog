@@ -17,26 +17,8 @@ import static org.junit.Assert.assertNull;
 public class PhotoTest {
 
     @Test
-    public void testGetIdentifier() {
-
-        // With a positive identifier
-        Photo p1 = new Photo(100, null);
-        assertEquals(p1.getIdentifier(), 100);
-
-        // With a negative identifier
-        Photo p2;
-
-        try {
-            p2 = new Photo(-100, null);
-        } catch(RuntimeException e) {
-            p2 = null;
-        }
-        assertNull(p2);
-    }
-
-    @Test
     public void testGetPhotoBitmap() {
-        Photo p = new Photo(1000, null);
+        Photo p = new Photo(null);
         assertNull(p.getPhotoBitmap());
     }
 }
