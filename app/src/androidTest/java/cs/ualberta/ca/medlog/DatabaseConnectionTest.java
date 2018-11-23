@@ -366,6 +366,8 @@ public class DatabaseConnectionTest {
     public void testSearchPatients() {
 
         Database db = new Database(null);
+        fail("Tests not implemented");
+        /*
         try {
             ArrayList<String> keywords = new ArrayList<>();
             keywords.add("Leg");
@@ -387,13 +389,15 @@ public class DatabaseConnectionTest {
         }catch(UserNotFoundException e){
             e.printStackTrace();
             fail("User was not found yet should have been (testuser)");
-        }
+        }*/
     }
 
     @Test
     public void testSearchProviders() {
 
         Database db = new Database(null);
+        fail("Test not implemented.");
+        /*
         try {
             ArrayList<String> keywords = new ArrayList<>();
             keywords.add("Leg");
@@ -415,7 +419,7 @@ public class DatabaseConnectionTest {
         }catch(UserNotFoundException e){
             e.printStackTrace();
             fail("User was not found yet should have been (testuser)");
-        }
+        }*/
     }
 
 }

@@ -24,7 +24,7 @@ public class SearchResult {
     private Record record;
     private Problem problem;
 
-    public SearchResult(Patient p, Record r, Problem pr){
+    public SearchResult(Patient p, Problem pr,  Record r){
         this.patient = p;
         this.record = r;
         this.problem = pr;

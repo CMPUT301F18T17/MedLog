@@ -11,9 +11,11 @@ import cs.ualberta.ca.medlog.entity.BodyLocation;
 import cs.ualberta.ca.medlog.entity.MapLocation;
 import cs.ualberta.ca.medlog.entity.Problem;
 import cs.ualberta.ca.medlog.entity.Record;
+import cs.ualberta.ca.medlog.entity.SearchResult;
 import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.exception.UserNotFoundException;
+import io.searchbox.core.Search;
 
 /**
  *
@@ -300,11 +302,11 @@ public class Database {
      * @param keywords The keywords we are looking for. Can be null.
      * @param map The map location we are looking for. Can be null.
      * @param bl The body location we are looking for. Can be null.
-     * @return An ArrayList of problems that match our search.
+     * @return An ArrayList of search results that match our search
      * @throws UserNotFoundException if the patient cannot be found.3
      * @throws ConnectException if the database could not be loaded and the user is not found locally.
      */
-    public ArrayList<Problem> searchPatient(String username, ArrayList<String> keywords, MapLocation map, BodyLocation bl) throws UserNotFoundException, ConnectException{
+    public ArrayList<SearchResult> searchPatient(String username, ArrayList<String> keywords, MapLocation map, BodyLocation bl) throws UserNotFoundException, ConnectException{
         Patient p = loadPatient(username);
         return searchPatient(p, keywords, map, bl);
     }
@@ -315,10 +317,10 @@ public class Database {
      * @param keywords The keywords we are looking for. Can be null.
      * @param map The map location we are looking for. Can be null.
      * @param bl The body location we are looking for. Can be null.
-     * @return An ArrayList of problems that match our search.
+     * @return An ArrayList of search results that match our search.
      */
-    public ArrayList<Problem> searchPatient(Patient patient, ArrayList<String> keywords, MapLocation map, BodyLocation bl){
-        ArrayList<Problem> output = new ArrayList<>();
+    public ArrayList<SearchResult> searchPatient(Patient patient, ArrayList<String> keywords, MapLocation map, BodyLocation bl){
+        ArrayList<SearchResult> output = new ArrayList<>();
 
         if(keywords != null) {
             for (int i = 0; i < keywords.size(); i++) {
@@ -343,7 +345,7 @@ public class Database {
                 // If there is a map we are searching for and the record has a map location
                 if(map != null && r.getMapLocation() != null){
                     if(r.getMapLocation().isNear(map)){
-                        output.add(p);
+                        output.add(new SearchResult(patient, p, r));
                         added = true;
                         break;
                     }
@@ -352,7 +354,7 @@ public class Database {
                 // If there is a body location we are searching for and a record has a body location
                 if(bl != null && r.getBodyLocation() != null){
                     if(r.getBodyLocation().isNear(bl)){
-                        output.add(p);
+                        output.add(new SearchResult(patient, p, r));
                         added = true;
                         break;
                     }
@@ -367,7 +369,7 @@ public class Database {
             // If the strings contains all keywords, we add it to the list.
             if(keywords != null) {
                 if (strings.containsAll(keywords)) {
-                    output.add(p);
+                    output.add(new SearchResult(patient, p, null));
                 }
             }
         }
@@ -380,10 +382,10 @@ public class Database {
      * @param keywords  The keywords, can be null.
      * @param map The Map location, can be null.
      * @param bl The body location, can be null.
-     * @return A list of problems that match all of the keywords, map, or body location.
+     * @return A list of search results that match all of the keywords, map, or body location.
      */
-    public ArrayList<Problem> searchCareProvider(CareProvider careProvider, ArrayList<String> keywords, MapLocation map, BodyLocation bl){
-        ArrayList<Problem> problems = new ArrayList<>();
+    public ArrayList<SearchResult> searchCareProvider(CareProvider careProvider, ArrayList<String> keywords, MapLocation map, BodyLocation bl){
+        ArrayList<SearchResult> problems = new ArrayList<>();
         for(Patient p : careProvider.getPatients()){
             problems.addAll(searchPatient(p, keywords, map, bl));
         }
@@ -396,11 +398,11 @@ public class Database {
      * @param keywords  The keywords, can be null.
      * @param map The Map location, can be null.
      * @param bl The body location, can be null.
-     * @return A list of problems that match all of the keywords, map, or body location.
+     * @return A list of search results that match all of the keywords, map, or body location.
      * @throws UserNotFoundException if the care provider cannot be found.
      * @throws ConnectException if the database could not be loaded and the user is not found locally.
      */
-    public ArrayList<Problem> searchCareProvider(String username, ArrayList<String> keywords, MapLocation map, BodyLocation bl) throws UserNotFoundException, ConnectException{
+    public ArrayList<SearchResult> searchCareProvider(String username, ArrayList<String> keywords, MapLocation map, BodyLocation bl) throws UserNotFoundException, ConnectException{
         CareProvider careProvider = loadProvider(username);
         return searchCareProvider(careProvider, keywords, map, bl);
     }
