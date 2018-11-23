@@ -51,7 +51,7 @@ public class Encryption {
      * @param username The username (key).
      * @param data The data to encrypt as a byte array.
      * @return A string of the encrypted data.
-     * @throws EncryptionException If the encryption throes and exception.
+     * @throws EncryptionException If the encryption throws and exception.
      */
     public static String encryptData(String username, byte[] data) throws EncryptionException {
         try {
