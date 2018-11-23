@@ -56,12 +56,11 @@ public class DatabaseConnectionTest {
 
     @After
     public void deinit(){
-        /*
         try{
             assertTrue(cleanupTestDatabase());
         }catch (UserNotFoundException e){
             fail("User was not found in the deletion of the database.");
-        }*/
+        }
     }
 
     @Test
