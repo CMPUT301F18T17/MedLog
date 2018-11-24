@@ -1,6 +1,7 @@
 package cs.ualberta.ca.medlog.activity;
 
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.controller.PatientController;
 import cs.ualberta.ca.medlog.entity.MapLocation;
+import cs.ualberta.ca.medlog.entity.Photo;
 import cs.ualberta.ca.medlog.entity.Problem;
 import cs.ualberta.ca.medlog.entity.Record;
 import cs.ualberta.ca.medlog.entity.user.Patient;
@@ -34,15 +36,18 @@ import cs.ualberta.ca.medlog.singleton.AppStatus;
  * </p>
  * <p>
  *     Issues: <br>
- *         Transfer to a Body Pictures editing activity must be added.
+ *         None.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.6
+ * @version 1.0
  * @see PatientMenuActivity
  * @see ViewMapLocationActivity
+ * @see PhotoSelectorActivity
  */
 public class PatientProfileActivity extends AppCompatActivity implements TextEditorFragment.OnTextSetListener {
+    final int PHOTO_REQUEST = 1;
+
     private Patient patient;
 
     @Override
@@ -151,7 +156,21 @@ public class PatientProfileActivity extends AppCompatActivity implements TextEdi
     }
 
     private void openBodyPictures() {
-        //TODO Add code to open a body pictures fragment.
+        Intent intent = new Intent(this, PhotoSelectorActivity.class);
+        intent.putExtra("PHOTOS",patient.getBodyPhotos());
+        startActivityForResult(intent, PHOTO_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == PHOTO_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                Toast.makeText(this,"Body images added",Toast.LENGTH_SHORT).show();
+                ArrayList<Photo> photos = (ArrayList<Photo>)data.getSerializableExtra("PHOTOS");
+                PatientController controller = new PatientController(this);
+                controller.addBodyPhotos((Patient)AppStatus.getInstance().getCurrentUser(),photos);
+            }
+        }
     }
 
     private void openRecordsMap() {

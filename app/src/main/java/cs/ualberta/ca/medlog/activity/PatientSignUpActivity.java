@@ -105,6 +105,7 @@ public class PatientSignUpActivity extends AppCompatActivity {
         }
 
         Intent intent = new Intent(this, PatientMenuActivity.class);
+        intent.putExtra("FIRST",true);
         startActivity(intent);
     }
 }

@@ -6,8 +6,7 @@ import java.io.Serializable;
  * <p>
  *     Description: <br>
  *         Class for holding a record body location. It contains the related body photo and the x
- *         y coordinates on the photo of the selected body location, as well as an optional label
- *         for the photograph.
+ *         y coordinates on the photo of the selected body location.
  * </p>
  * <p>
  *     Issues: <br>
@@ -20,25 +19,9 @@ import java.io.Serializable;
  */
 public class BodyLocation implements Serializable {
     private Photo photo;
-    private String label;
     private int x, y;
 
     private static final double SEARCHDISTBODY = 25;
-
-    /**
-     * Creates the body location with the specified body photo and x-y coordinates of the location,
-     * as well as a label for the photo.
-     * @param photo The body photo.
-     * @param x The x coordinate of the selected location.
-     * @param y The y coordinate of the selected location.
-     * @param text The text for the photo label.
-     */
-    public BodyLocation(Photo photo, int x, int y, String text){
-        this.photo = photo;
-        this.x = x;
-        this.y = y;
-        this.label = text;
-    }
 
     /**
      * Creates the body location with the specified body photo and x-y coordinates of the location.
@@ -50,7 +33,6 @@ public class BodyLocation implements Serializable {
         this.photo = photo;
         this.x = x;
         this.y = y;
-        this.label = "";
     }
 
     /**
@@ -75,14 +57,6 @@ public class BodyLocation implements Serializable {
      */
     public int getY() {
         return y;
-    }
-
-    /**
-     * Retrieves the label for the body location.
-     * @return The label as a string.
-     */
-    public String getLabel() {
-        return label;
     }
 
     /**

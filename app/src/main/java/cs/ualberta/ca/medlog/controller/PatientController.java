@@ -1,6 +1,10 @@
 package cs.ualberta.ca.medlog.controller;
 
 import android.content.Context;
+
+import java.util.ArrayList;
+
+import cs.ualberta.ca.medlog.entity.Photo;
 import cs.ualberta.ca.medlog.entity.Problem;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.helper.Database;
@@ -75,6 +79,21 @@ public class PatientController {
     public void deleteProblem(Patient patient, Problem problem) {
         try {
             patient.getProblems().remove(problem);
+            database.updatePatient(patient);
+        } catch (Exception ignore) {
+        }
+    }
+
+    /**
+     * The controller method for the gui to add Body Photos to the Patient.
+     * @param patient The patient who is having body photos added.
+     * @param newPhotos The new photos which are added.
+     */
+    public void addBodyPhotos(Patient patient, ArrayList<Photo> newPhotos) {
+        try {
+            for(Photo photo: newPhotos) {
+                patient.addBodyPhoto(photo);
+            }
             database.updatePatient(patient);
         } catch (Exception ignore) {
         }

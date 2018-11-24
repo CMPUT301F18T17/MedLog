@@ -141,4 +141,8 @@
     <string name="fragmentAddPatientNavigation.AddButton">Add Another</string>
     <string name="fragmentAddPatientNavigation.MenuButton">Main Menu</string>
     <string name="activityPhotoSelector.SaveButton">Save Photos</string>
+    <string name="fragmentAddBodyLocations.TitleText">Welcome to MedLog</string>
+    <string name="fragmentAddBodyLocations.GuideText">Would you like to enter custom body photos?</string>
+    <string name="fragmentAddBodyLocations.AddButton">Yes</string>
+    <string name="fragmentAddBodyLocations.IgnoreButton">No</string>
 </resources>

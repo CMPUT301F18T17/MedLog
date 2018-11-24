@@ -1,15 +1,27 @@
 package cs.ualberta.ca.medlog.activity;
 
 import android.content.Intent;
+import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.PopupWindow;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import cs.ualberta.ca.medlog.R;
+import cs.ualberta.ca.medlog.controller.PatientController;
+import cs.ualberta.ca.medlog.entity.Photo;
+import cs.ualberta.ca.medlog.entity.user.Patient;
+import cs.ualberta.ca.medlog.helper.ElasticSearchController;
 import cs.ualberta.ca.medlog.singleton.AppStatus;
 
 /**
@@ -25,11 +37,11 @@ import cs.ualberta.ca.medlog.singleton.AppStatus;
  * </p>
  * <p>
  *     Issues: <br>
- *         Creation and handling of a body picture prompt on first login must be added.
+ *         None.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.7
+ * @version 1.1
  * @see StartScreenActivity
  * @see PatientLoginActivity
  * @see PatientSignUpActivity
@@ -37,8 +49,10 @@ import cs.ualberta.ca.medlog.singleton.AppStatus;
  * @see PatientAddProblemActivity
  * @see PatientViewProblemsActivity
  * @see PatientSearchActivity
+ * @see PhotoSelectorActivity
  */
 public class PatientMenuActivity extends AppCompatActivity {
+    final int PHOTO_REQUEST = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,10 +81,12 @@ public class PatientMenuActivity extends AppCompatActivity {
             }
         });
 
-        if(getParent() != null) {
-            if (getParent().getLocalClassName() == "PatientSignUpActivity") {
-                //TODO Add body pictures popup prompt code.
-            }
+        boolean firstCreation = getIntent().getBooleanExtra("FIRST",false);
+
+        if(firstCreation) {
+            Intent intent = new Intent(this, PhotoSelectorActivity.class);
+            Toast.makeText(this, "Add body photos", Toast.LENGTH_SHORT).show();
+            startActivityForResult(intent, PHOTO_REQUEST);
         }
     }
 
@@ -120,5 +136,17 @@ public class PatientMenuActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, StartScreenActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == PHOTO_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                Toast.makeText(this,"Body images added",Toast.LENGTH_SHORT).show();
+                ArrayList<Photo> photos = (ArrayList<Photo>)data.getSerializableExtra("PHOTOS");
+                PatientController controller = new PatientController(this);
+                controller.addBodyPhotos((Patient)AppStatus.getInstance().getCurrentUser(),photos);
+            }
+        }
     }
 }

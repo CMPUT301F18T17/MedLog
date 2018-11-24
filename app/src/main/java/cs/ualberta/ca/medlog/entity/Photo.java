@@ -12,7 +12,8 @@ import java.io.Serializable;
  *
  *  <p>
  *     Description: <br>
- *         The purpose of this class is to hold a representation of a photo.
+ *         The purpose of this class is to hold a representation of a photo as well as an optional
+ *         label for the photograph.
  *
  * </p>
  *
@@ -23,9 +24,26 @@ public class Photo implements Serializable {
     private String path;
     private String id;
 
+    private String label;
+
     public Photo(String path) {
         this.path = path;
+        this.label = "";
     }
+
+    public Photo(String path, String label) {
+        this.path = path;
+        this.label = label;
+    }
+
+    /**
+     * Retrieves the label for the body location.
+     * @return The label as a string.
+     */
+    public String getLabel() {
+        return label;
+    }
+
     /**
      * Get the photos path.
      * @return The photos path.
