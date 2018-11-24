@@ -35,19 +35,21 @@ import cs.ualberta.ca.medlog.singleton.AppStatus;
  * <p>
  *     Issues: <br>
  *         Using a map location in the search must be added.
- *         Transfer to a Body Location Selector Fragment must be added.
+ *         Using a body location in the search must be added.
  *         Transfer to a Problem or Record View by clicking them must be added.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.4
+ * @version 0.5
  * @see PatientMenuActivity
  * @see PatientProblemViewActivity
  * @see PatientRecordViewActivity
  * @see AddMapLocationActivity
+ * @see AddBodyLocationActivity
  */
 public class PatientSearchActivity extends AppCompatActivity {
     final int MAP_LOCATION_REQUEST = 1;
+    final int BODY_LOCATION_REQUEST = 2;
 
     private SearchAdapter adapter;
 
@@ -111,7 +113,13 @@ public class PatientSearchActivity extends AppCompatActivity {
     }
 
     private void openBodyLocationSelector() {
-        //TODO Add code to open a body location selector fragment.
+        if (!((Patient)AppStatus.getInstance().getCurrentUser()).getBodyPhotos().isEmpty()) {
+            Intent intent = new Intent(this, AddBodyLocationActivity.class);
+            startActivityForResult(intent, BODY_LOCATION_REQUEST);
+        }
+        else {
+            Toast.makeText(this,"No body photos present",Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -125,6 +133,12 @@ public class PatientSearchActivity extends AppCompatActivity {
             }
             else { // If the select location button was tapped, but the user never selected a position on the map
                 Toast.makeText(this, R.string.activityPatientAddRecordActivity_NoLocationAdded, Toast.LENGTH_LONG).show();
+            }
+        }
+        else if (requestCode == BODY_LOCATION_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                bodyLocation = (BodyLocation)data.getSerializableExtra("BODY_LOCATION");
+                Toast.makeText(this,"Body Location added",Toast.LENGTH_SHORT).show();
             }
         }
     }

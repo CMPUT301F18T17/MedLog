@@ -34,16 +34,16 @@ import cs.ualberta.ca.medlog.singleton.AppStatus;
  * </p>
  * <p>
  *     Issues: <br>
- *         Transfer to a body location fragment must be added
- *
+ *         None.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.7
+ * @version 1.0
  * @see PatientViewRecordsActivity
  * @see PatientSearchActivity
  * @see SlideshowActivity
  * @see ViewMapLocationActivity
+ * @see ViewBodyLocationActivity
  * @see PopupWindow
  */
 public class PatientRecordViewActivity extends AppCompatActivity {
@@ -128,7 +128,9 @@ public class PatientRecordViewActivity extends AppCompatActivity {
     }
 
     private void openBodyLocationFragment() {
-        //TODO Add transfer to body location fragment
+        Intent intent = new Intent(this, ViewBodyLocationActivity.class);
+        intent.putExtra("BODY_LOCATION", record.getBodyLocation());
+        startActivity(intent);
     }
 
     private void openMapLocationFragment() {

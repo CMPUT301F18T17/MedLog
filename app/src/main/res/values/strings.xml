@@ -145,4 +145,7 @@
     <string name="fragmentAddBodyLocations.GuideText">Would you like to enter custom body photos?</string>
     <string name="fragmentAddBodyLocations.AddButton">Yes</string>
     <string name="fragmentAddBodyLocations.IgnoreButton">No</string>
+    <string name="activityAddBodyLocation.SaveButton">Save</string>
+    <string name="activityAddBodyLocation.PreviousButton">Previous</string>
+    <string name="activityAddBodyLocation.NextButton">Next</string>
 </resources>

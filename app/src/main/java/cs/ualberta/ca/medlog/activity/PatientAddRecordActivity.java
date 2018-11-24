@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import cs.ualberta.ca.medlog.R;
 
 import cs.ualberta.ca.medlog.controller.ProblemController;
+import cs.ualberta.ca.medlog.entity.BodyLocation;
 import cs.ualberta.ca.medlog.entity.MapLocation;
 import cs.ualberta.ca.medlog.entity.Photo;
 import cs.ualberta.ca.medlog.entity.Record;
@@ -33,19 +34,21 @@ import cs.ualberta.ca.medlog.singleton.AppStatus;
  * </p>
  * <p>
  *     Issues: <br>
- *         Transfer to a Body Location Selector Fragment must be added.
+ *         None.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.9
+ * @version 1.0
  * @see PatientProblemViewActivity
+ * @see AddBodyLocationActivity
  * @see AddMapLocationActivity
  * @see PhotoSelectorActivity
  * @see TextEditorFragment
  */
 public class PatientAddRecordActivity extends AppCompatActivity implements TextEditorFragment.OnTextSetListener {
     final int MAP_LOCATION_REQUEST = 1;
-    final int PHOTO_REQUEST = 2;
+    final int BODY_LOCATION_REQUEST = 2;
+    final int PHOTO_REQUEST = 3;
 
     private Record newRecord;
 
@@ -141,7 +144,13 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
     }
 
     private void openBodyLocationSelector() {
-        //TODO Add transfer to a body location selector fragment.
+        if (!((Patient)AppStatus.getInstance().getCurrentUser()).getBodyPhotos().isEmpty()) {
+            Intent intent = new Intent(this, AddBodyLocationActivity.class);
+            startActivityForResult(intent, BODY_LOCATION_REQUEST);
+        }
+        else {
+            Toast.makeText(this,"No body photos present",Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void openMapLocationSelector() {
@@ -170,6 +179,14 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
             }
             else { // If the select location button was tapped, but the user never selected a position on the map
                 Toast.makeText(this, R.string.activityPatientAddRecordActivity_NoLocationAdded, Toast.LENGTH_LONG).show();
+            }
+        }
+        else if (requestCode == BODY_LOCATION_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                BodyLocation bodyLocation = (BodyLocation)data.getSerializableExtra("BODY_LOCATION");
+                Toast.makeText(this,"Body Location added",Toast.LENGTH_SHORT).show();
+                newRecord.setBodyLocation(bodyLocation);
+                updateButtonColour(findViewById(R.id.activityPatientAddRecord_BodyLocationButton));
             }
         }
         else if (requestCode == PHOTO_REQUEST) {
