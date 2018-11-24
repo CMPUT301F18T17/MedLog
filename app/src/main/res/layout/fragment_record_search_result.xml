@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragmentRecordSearchResult.Base"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/fragmentRecordSearchResult.OwnerTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/fragmentRecordSearchResult.OwnerTextDefault"
+        android:textColor="@color/app_normalTextColour"
+        android:textSize="14sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/fragmentRecordSearchResult.ProblemTextView"
+        app:layout_constraintEnd_toStartOf="@+id/fragmentRecordSearchResult.SeparatorView"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/fragmentRecordSearchResult.ProblemTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:text="@string/fragmentRecordSearchResult.ProblemDefault"
+        android:textAlignment="center"
+        android:textColor="@color/app_lightTextColour"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/fragmentRecordSearchResult.RecordTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/fragmentRecordSearchResult.SeparatorView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:targetApi="o" />
+
+    <TextView
+        android:id="@+id/fragmentRecordSearchResult.SeparatorView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/fragmentRecordSearchResult.Separator"
+        android:textColor="@color/app_boldTextColour"
+        android:textSize="18sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/fragmentRecordSearchResult.ProblemTextView"
+        app:layout_constraintEnd_toStartOf="@+id/fragmentRecordSearchResult.ProblemTextView"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/fragmentRecordSearchResult.OwnerTextView" />
+
+    <TextView
+        android:id="@+id/fragmentRecordSearchResult.RecordTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:text="@string/fragmentRecordSearchResult.RecordDefault"
+        android:textAlignment="textEnd"
+        android:textColor="@color/app_lightTextColour"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.552"
+        tools:targetApi="o" />
+</android.support.constraint.ConstraintLayout>

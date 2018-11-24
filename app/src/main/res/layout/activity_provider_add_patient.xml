@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/activityProviderAddPatient.TitleEditText"
+        android:id="@+id/activityProviderAddPatient.CodeEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -32,10 +32,10 @@
         android:layout_marginBottom="8dp"
         android:ems="10"
         android:gravity="center"
-        android:hint="@string/activityProviderAddPatient.UsernameHint"
+        android:hint="@string/activityProviderAddPatient.CodeHint"
         android:importantForAutofill="no"
         android:inputType="text"
-        android:maxLength="20"
+        android:maxLength="30"
         android:singleLine="true"
         app:layout_constraintBottom_toTopOf="@+id/activityProviderAddPatient.AddButton"
         app:layout_constraintEnd_toEndOf="parent"

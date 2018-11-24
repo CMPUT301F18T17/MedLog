@@ -16,16 +16,18 @@ import cs.ualberta.ca.medlog.controller.ProviderController;
 import cs.ualberta.ca.medlog.entity.Problem;
 import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.entity.user.Patient;
+import cs.ualberta.ca.medlog.exception.EncryptionException;
 import cs.ualberta.ca.medlog.helper.Database;
+import cs.ualberta.ca.medlog.helper.Encryption;
 import cs.ualberta.ca.medlog.singleton.AppStatus;
 
 /**
  * <p>
  *     Description: <br>
  *         The Activity for the Care Provider add patient screen, this presents the gui for a
- *         Provider to add a patient they are assigned via their username. From there the Provider
- *         is prompted on further navigation to either add another patient, return to the main menu
- *         or to view their newly added patient..
+ *         Provider to add a patient they are assigned via a provided register code. From there the
+ *         Provider is prompted on further navigation to either add another patient, return to the
+ *         main menu or to view their newly added patient..
  * </p>
  * <p>
  *     Issues: <br>
@@ -33,7 +35,7 @@ import cs.ualberta.ca.medlog.singleton.AppStatus;
  * </p>
  *
  * @author Tyler Gobran
- * @version 1.0
+ * @version 1.2
  * @see ProviderMenuActivity
  * @see ProviderPatientProfileActivity
  * @see PopupWindow
@@ -55,11 +57,20 @@ public class ProviderAddPatientActivity extends AppCompatActivity {
     }
 
     private void finalizeAddingPatient() {
-        EditText usernameField = findViewById(R.id.activityProviderAddPatient_TitleEditText);
-        String username = usernameField.getText().toString();
+        EditText codeField = findViewById(R.id.activityProviderAddPatient_CodeEditText);
+        String code = codeField.getText().toString();
 
-        if (username.isEmpty()) {
-            Toast.makeText(this,"No username entered",Toast.LENGTH_SHORT).show();
+        if (code.isEmpty()) {
+            Toast.makeText(this,"No code entered",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String username;
+        try {
+            username = Encryption.byteArrayToString(Encryption.decryptData("CODE", code));
+        } catch (EncryptionException e) {
+            e.printStackTrace();
+            Toast.makeText(this,"Couldn't read code.",Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -68,7 +79,7 @@ public class ProviderAddPatientActivity extends AppCompatActivity {
         try {
             newPatient = db.loadPatient(username);
         } catch(Exception e){
-            Toast.makeText(this,"Invalid patient username",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Invalid register code",Toast.LENGTH_SHORT).show();
             return;
         }
 

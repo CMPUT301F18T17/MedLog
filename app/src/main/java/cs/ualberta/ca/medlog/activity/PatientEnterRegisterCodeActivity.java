@@ -60,7 +60,7 @@ public class PatientEnterRegisterCodeActivity extends AppCompatActivity {
 
         String username;
         try {
-            username = Encryption.decryptData("CODE", code).toString();
+            username = Encryption.byteArrayToString(Encryption.decryptData("CODE", code));
         } catch (EncryptionException e) {
             e.printStackTrace();
             Toast.makeText(this,"Couldn't read code.",Toast.LENGTH_SHORT).show();

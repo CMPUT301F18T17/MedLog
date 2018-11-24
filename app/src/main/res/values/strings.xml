@@ -79,7 +79,6 @@
     <string name="activityPatientAddRecord.MapLocationButton">Map Location</string>
     <string name="activityPatientAddRecord.PhotosButton">Photos</string>
     <string name="activityProviderAddPatient.TitleText">Add Patient</string>
-    <string name="activityProviderAddPatient.UsernameHint">Enter Patient Username</string>
     <string name="activityProviderAddPatient.AddButton">Add</string>
     <string name="activityProviderViewPatients.TitleText">Patients</string>
     <string name="activityPatientRecordView.TitleText">Record</string>
@@ -156,4 +155,12 @@
     <string name="activityEnterRegisterCode.TitleText">Enter a Patient Registration Code</string>
     <string name="activityPatientEnterRegisterCode.CodeEditHint">Enter the Register Code</string>
     <string name="activityPatientEnterRegisterCode.RegisterButton">Register</string>
+    <string name="activityProviderAddPatient.CodeHint">Enter Patient Register Code</string>
+    <string name="fragmentProblemSearchResult.ProblemDefault">PROBLEM INFO</string>
+    <string name="fragmentProblemSearchResult.OwnerTextView">OWNER USERNAME</string>
+    <string name="fragmentProblemSearchResult.SeparatorView">|</string>
+    <string name="fragmentRecordSearchResult.RecordDefault">RECORD INFO</string>
+    <string name="fragmentRecordSearchResult.ProblemDefault">PROBLEM INFO</string>
+    <string name="fragmentRecordSearchResult.OwnerTextDefault">OWNER USERNAME</string>
+    <string name="fragmentRecordSearchResult.Separator">|</string>
 </resources>

@@ -36,11 +36,10 @@ import cs.ualberta.ca.medlog.singleton.AppStatus;
  *     Issues: <br>
  *         Using a map location in the search must be added.
  *         Using a body location in the search must be added.
- *         Transfer to a Problem or Record View by clicking them must be added.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.5
+ * @version 0.6
  * @see PatientMenuActivity
  * @see PatientProblemViewActivity
  * @see PatientRecordViewActivity
@@ -51,6 +50,7 @@ public class PatientSearchActivity extends AppCompatActivity {
     final int MAP_LOCATION_REQUEST = 1;
     final int BODY_LOCATION_REQUEST = 2;
 
+    private ArrayList<SearchResult> searchResults;
     private SearchAdapter adapter;
 
     private MapLocation mapLocation;
@@ -103,7 +103,9 @@ public class PatientSearchActivity extends AppCompatActivity {
         adapter.clear();
 
         //TODO: Map and Body Location need to be selectable.
-        adapter.addAll(db.searchPatient((Patient)AppStatus.getInstance().getCurrentUser(), keywords, null,  null));
+
+        searchResults = db.searchPatient((Patient)AppStatus.getInstance().getCurrentUser(), keywords, null,  null);
+        adapter.addAll(searchResults);
         adapter.notifyDataSetChanged();
     }
 
@@ -144,6 +146,18 @@ public class PatientSearchActivity extends AppCompatActivity {
     }
 
     private void openItemView(int index) {
-        //TODO Add code to open the given problem or records view.
+        SearchResult selected = searchResults.get(index);
+
+        if (selected.getRecord() == null) {
+            Intent intent = new Intent(this,PatientProblemViewActivity.class);
+            AppStatus.getInstance().setViewedProblem(selected.getProblem());
+            startActivity(intent);
+        }
+        else {
+            Intent intent = new Intent(this,PatientProblemViewActivity.class);
+            AppStatus.getInstance().setViewedProblem(selected.getProblem());
+            AppStatus.getInstance().setViewedRecord(selected.getRecord());
+            startActivity(intent);
+        }
     }
 }
