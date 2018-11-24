@@ -8,16 +8,16 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 
 import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.entity.user.Patient;
+import cs.ualberta.ca.medlog.exception.EncryptionException;
+import cs.ualberta.ca.medlog.singleton.AppStatus;
 import io.searchbox.client.JestResult;
 import io.searchbox.core.Delete;
 import io.searchbox.core.DocumentResult;
 import io.searchbox.core.Get;
 import io.searchbox.core.Index;
-import io.searchbox.core.Update;
 
 /**
  *
@@ -327,6 +327,135 @@ public class ElasticSearchController {
         @Override
         protected Boolean doInBackground(Void... voids) {
             return checkConnectivity(databaseAddress);
+        }
+    }
+
+
+    /**
+     * <p>Saves photo data to the server</p>
+     * @deprecated Use the Asynchronous Method in Production.
+     * @param photoData The photo byte data.
+     * @return The id of the photo in the database, null if it failed.
+     */
+    public static String savePhotoData(byte[] photoData) {
+        setClient();
+        try {
+            // Try and encrypt the photo before uploading to the server.
+            String output = Encryption.encryptData(AppStatus.getInstance().getCurrentUser().getUsername(), photoData);
+
+            // Get the index and execute the put.
+            Index index = new Index.Builder(photoData)
+                    .index(INDEX_NAME)
+                    .type("photos")
+                    .build();
+
+            DocumentResult result = client.execute(index);
+            if (result.isSucceeded()) {
+                Log.d(cs.ualberta.ca.medlog.helper.Database.class.toString(),
+                        String.format("Photo has been saved!"));
+                return result.getId();
+            } else {
+                System.out.println(result.getErrorMessage());
+            }
+        } catch (EncryptionException | IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * <p>Loads photo bytes from elastic search.</p>
+     * @deprecated Use the Asynchronous Method in Production.
+     * @param id The photo ID to load.
+     * @return The bytes of the photo.
+     */
+    public static byte[] loadPhoto(String username, String id){
+        setClient();
+        Get get = new Get.Builder(INDEX_NAME, id).type("photos").build();
+        try{
+            JestResult result = client.execute(get);
+            if(result.isSucceeded()){
+                String enc = result.getSourceAsString();
+                return Encryption.decryptData(username, enc);
+            }
+        }catch(EncryptionException | IOException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * <p>Deletes a photo from the Elastic Search Server.</p>
+     * @deprecated Use the Asynchronous Method in Production.
+     * @param id The photo id to delete.
+     * @return A boolean if the operation succeeded.
+     */
+    public static Boolean deletePhoto(String id){
+        setClient();
+        boolean success = false;
+        Delete delete = new Delete.Builder(id).index(INDEX_NAME).type("photos").build();
+        try{
+            DocumentResult result = client.execute(delete);
+            if(result.isSucceeded()){
+                success = true;
+            }else{
+                System.out.println(result.getErrorMessage());
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+            Log.d(ElasticSearchController.class.getName(), "Failed to delete the photo with ID: " + id);
+        }
+        return success;
+    }
+
+
+    /**
+     *  Saves a Photo to the Elastic Search Database
+     */
+    public static class SavePhotoTask extends AsyncTask<byte[], Void, String> {
+
+        /**
+         * Saves a Photo asynchronously
+         * @param data The byte array.
+         * @return The id of the photo on the ES server.
+         */
+        @Override
+        protected String doInBackground(byte[]... data) {
+            return savePhotoData(data[0]);
+        }
+    }
+
+    /**
+     *  Load a Care Provider from the Elastic Search database.
+     */
+    public static class LoadPhotoTask extends AsyncTask<String, Void, byte[]>{
+        /**
+         * Loads the Photo provided asynchronously
+         * @param params The USERNAME and ID of the photo. MUST SUPPLY BOTH!
+         * @return the byte data of the photo from the database.
+         * @throws IllegalArgumentException If there arn't two parameters.
+         */
+        @Override
+        protected byte[] doInBackground(String... params) {
+            if(params.length != 1){
+                throw new IllegalArgumentException("Load Photo requires a username and id!");
+            }
+            return loadPhoto(params[0], params[1]);
+        }
+    }
+
+    /**
+     *  Delete a Care Provider from the Elastic Search database
+     */
+    public static class DeletePhotoTask extends AsyncTask<String, Void, Boolean>{
+        /**
+         * Deletes the Photo provided asynchronously
+         * @param strings the ID of the username (first arg).
+         * @return if the operation succeeded.
+         */
+        @Override
+        protected Boolean doInBackground(String... strings) {
+            return deletePhoto(strings[0]);
         }
     }
 

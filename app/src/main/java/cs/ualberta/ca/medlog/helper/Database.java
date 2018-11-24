@@ -6,6 +6,7 @@ import android.util.Log;
 import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.concurrent.ExecutionException;
 
 import cs.ualberta.ca.medlog.entity.BodyLocation;
 import cs.ualberta.ca.medlog.entity.MapLocation;
@@ -15,7 +16,7 @@ import cs.ualberta.ca.medlog.entity.SearchResult;
 import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.exception.UserNotFoundException;
-import io.searchbox.core.Search;
+import cs.ualberta.ca.medlog.entity.Photo;
 
 /**
  *
@@ -174,6 +175,38 @@ public class Database {
             success = false;
         }catch(UserNotFoundException ignore){ }
         return success;
+    }
+
+
+    public Photo savePhoto(Photo photo){
+        return null;
+    }
+
+    /**
+     * <p>Loads a photo onto the devices disk.</p>
+     * @param photo The photo to attempt to load on disk.
+     * @return A boolean if the photo was loaded correctly.
+     */
+    public boolean loadPhoto(Photo photo){
+        return false;
+    }
+
+    /**
+     * <p>Delete a photo from the DB.</p>
+     * @param photo The photo to delete.
+     * @return A boolean if the operation was a success.
+     */
+    public boolean deletePhoto(Photo photo) throws ConnectException{
+        if(checkConnectivity()){
+            try {
+                return new ElasticSearchController.DeletePhotoTask().execute(photo.getId()).get();
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }else{
+            throw new ConnectException("Failed to connect to ES.");
+        }
     }
 
 

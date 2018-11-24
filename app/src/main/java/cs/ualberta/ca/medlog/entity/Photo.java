@@ -1,7 +1,5 @@
 package cs.ualberta.ca.medlog.entity;
 
-import android.graphics.Bitmap;
-
 import java.io.Serializable;
 
 /**
@@ -16,21 +14,31 @@ import java.io.Serializable;
  *
  * </p>
  *
- * @author homas Roskewich
+ * @author Thomas Roskewich
  * @contact roskewic@ualberta.ca
  */
 public class Photo implements Serializable {
-    private Bitmap photoBitmap;
+    private String path;
+    private String id;
 
-    public Photo(Bitmap photoBitmap) {
-        this.photoBitmap = photoBitmap;
+    public Photo(String path) {
+
+        this.path = path;
     }
 
     /**
-     * <p>Get the photo as a bitmap.</p>
-     * @return The bitmap of the photo.
+     * Get the photos path.
+     * @return The photos path.
      */
-    public Bitmap getPhotoBitmap() {
-        return photoBitmap;
+    public String getPath(){
+        return path;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
