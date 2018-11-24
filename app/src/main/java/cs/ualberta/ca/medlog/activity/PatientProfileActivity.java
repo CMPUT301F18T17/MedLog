@@ -32,7 +32,9 @@ import cs.ualberta.ca.medlog.singleton.AppStatus;
  *         for the patient to view their username and contact information. From here they can proceed
  *         to screens to add additional body photos or ot view a map of all their records with a
  *         map location.
- *         An options menu is also present which allows patients to edit their contact information.
+ *         An options menu is also present which allows patients to edit their contact information
+ *         as well as proceed to a screen where they can see to add another phone as a possible
+ *         location to view the Patient's account.
  * </p>
  * <p>
  *     Issues: <br>
@@ -40,10 +42,12 @@ import cs.ualberta.ca.medlog.singleton.AppStatus;
  * </p>
  *
  * @author Tyler Gobran
- * @version 1.0
+ * @version 1.1
  * @see PatientMenuActivity
  * @see ViewMapLocationActivity
  * @see PhotoSelectorActivity
+ * @see TextEditorFragment
+ * @see PatientViewRegisterCodeActivity
  */
 public class PatientProfileActivity extends AppCompatActivity implements TextEditorFragment.OnTextSetListener {
     final int PHOTO_REQUEST = 1;
@@ -94,6 +98,9 @@ public class PatientProfileActivity extends AppCompatActivity implements TextEdi
             case R.id.menuPatientProfile_EditPhoneNumber:
                 openPhoneNumberEditor();
                 return true;
+            case R.id.menuPatientProfile_GenerateCode:
+                openRegisterCodeView();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -121,6 +128,11 @@ public class PatientProfileActivity extends AppCompatActivity implements TextEdi
         editorData.putInt("argMaxLength",20);
         newFragment.setArguments(editorData);
         newFragment.show(getSupportFragmentManager(),"phoneNumberEditor");
+    }
+
+    private  void openRegisterCodeView() {
+        Intent intent = new Intent(this, PatientViewRegisterCodeActivity.class);
+        startActivity(intent);
     }
 
     public void onTextSet(String newText, int editorId) {

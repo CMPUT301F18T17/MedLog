@@ -148,4 +148,12 @@
     <string name="activityAddBodyLocation.SaveButton">Save</string>
     <string name="activityAddBodyLocation.PreviousButton">Previous</string>
     <string name="activityAddBodyLocation.NextButton">Next</string>
+    <string name="menuPatientProfile.GenerateNewLoginCode">Generate Login Code</string>
+    <string name="activityViewRegisterCode.TitleText">Patient Registration Code</string>
+    <string name="activityViewRegisterCode.DescText">Enter this code in another phone to verify your account on it.</string>
+    <string name="activityViewRegisterCode.CodeDefault">CODE</string>
+    <string name="activityPatientLogin.RegisterPhoneButton">Register Phone</string>
+    <string name="activityEnterRegisterCode.TitleText">Enter a Patient Registration Code</string>
+    <string name="activityPatientEnterRegisterCode.CodeEditHint">Enter the Register Code</string>
+    <string name="activityPatientEnterRegisterCode.RegisterButton">Register</string>
 </resources>

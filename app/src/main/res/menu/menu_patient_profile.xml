@@ -6,4 +6,7 @@
     <item
         android:id="@+id/menuPatientProfile.EditPhoneNumber"
         android:title="@string/menuPatientProfile.EditPhoneNumber" />
+    <item
+        android:id="@+id/menuPatientProfile.GenerateCode"
+        android:title="@string/menuPatientProfile.GenerateNewLoginCode" />
 </menu>

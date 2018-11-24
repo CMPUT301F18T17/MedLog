@@ -19,6 +19,8 @@ import cs.ualberta.ca.medlog.singleton.AppStatus;
  *         The patient login screen activity for the Application, this presents the gui for a
  *         Patient to enter their username and proceed to login, or to move to a Patient sign up
  *         screen if they don't have an account.
+ *         Patient's can also proceed to a registration screen in order to register their given
+ *         phone to their account so that they can login on it.
  * </p>
  * <p>
  *     Issues: <br>
@@ -26,10 +28,11 @@ import cs.ualberta.ca.medlog.singleton.AppStatus;
  * </p>
  *
  * @author Tyler Gobran
- * @version 1.0
+ * @version 1.1
  * @see StartScreenActivity
  * @see PatientMenuActivity
  * @see PatientSignUpActivity
+ * @see PatientEnterRegisterCodeActivity
  */
 public class PatientLoginActivity extends AppCompatActivity {
 
@@ -39,11 +42,18 @@ public class PatientLoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_patient_login);
 
         Button loginButton = findViewById(R.id.activityPatientLogin_LoginButton);
+        Button registerButton = findViewById(R.id.activityPatientLogin_RegisterPhoneButton);
         Button signUpButton = findViewById(R.id.activityPatientLogin_SignUpButton);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 performPatientLogin();
+            }
+        });
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openPatientRegisterPhone();
             }
         });
         signUpButton.setOnClickListener(new View.OnClickListener() {
@@ -90,6 +100,11 @@ public class PatientLoginActivity extends AppCompatActivity {
         else {
             Toast.makeText(this,"Failed to login",Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void openPatientRegisterPhone() {
+        Intent intent = new Intent(this, PatientEnterRegisterCodeActivity.class);
+        startActivity(intent);
     }
 
     private void openPatientSignUp() {
