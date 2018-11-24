@@ -58,7 +58,7 @@ public class SlideshowActivity extends AppCompatActivity {
             }
         });
 
-        retrievePhotoBitmaps(getIntent().getParcelableArrayListExtra("PHOTOS"));
+        retrievePhotoBitmaps((ArrayList<Photo>)getIntent().getSerializableExtra("PHOTOS"));
 
         imageView = findViewById(R.id.activitySlideshow_ImageView);
         imageView.setImageBitmap(photoBitmaps.get(index));
@@ -67,7 +67,7 @@ public class SlideshowActivity extends AppCompatActivity {
     private void retrievePhotoBitmaps(ArrayList<Photo> photos) {
         photoBitmaps = new ArrayList<>();
         for(Photo photo: photos) {
-            photoBitmaps.add(photo.getPhotoBitmap());
+            photoBitmaps.add(photo.getBitmap(50,50));
         }
     }
 

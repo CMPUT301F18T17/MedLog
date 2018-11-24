@@ -18,6 +18,7 @@ import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.entity.BodyLocation;
 import cs.ualberta.ca.medlog.entity.MapLocation;
 import cs.ualberta.ca.medlog.entity.Problem;
+import cs.ualberta.ca.medlog.entity.SearchResult;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.helper.Database;
 import cs.ualberta.ca.medlog.singleton.AppStatus;
@@ -88,7 +89,7 @@ public class PatientSearchActivity extends AppCompatActivity {
             }
         });
 
-        adapter = new SearchAdapter(this, new ArrayList<Problem>());
+        adapter = new SearchAdapter(this, new ArrayList<SearchResult>());
         resultsListView.setAdapter(adapter);
     }
 

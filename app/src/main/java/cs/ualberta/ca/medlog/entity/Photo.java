@@ -1,4 +1,7 @@
 package cs.ualberta.ca.medlog.entity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 import java.io.Serializable;
 
 /**
@@ -37,6 +40,21 @@ public class Photo implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public Bitmap getBitmap(int width, int height) {
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bmOptions.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(path, bmOptions);
+        int photoW = bmOptions.outWidth;
+        int photoH = bmOptions.outHeight;
+
+        //int scaleFactor = Math.min(photoW/width, photoH/height);
+
+        bmOptions.inJustDecodeBounds = false;
+        //bmOptions.inSampleSize = scaleFactor;
+
+        return BitmapFactory.decodeFile(path, bmOptions);
     }
 
 

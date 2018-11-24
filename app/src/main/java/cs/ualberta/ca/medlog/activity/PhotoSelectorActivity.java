@@ -2,20 +2,29 @@ package cs.ualberta.ca.medlog.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
+import java.util.Date;
+
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.entity.Photo;
+import cs.ualberta.ca.medlog.helper.Database;
+import cs.ualberta.ca.medlog.singleton.AppStatus;
 
 /**
  * <p>
@@ -26,11 +35,11 @@ import cs.ualberta.ca.medlog.entity.Photo;
  * </p>
  * <p>
  *     Issues: <br>
- *         None.
+ *         Fix potential failure with choose photo.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.6
+ * @version 0.8
  * @see PhotoAdapter
  */
 public class PhotoSelectorActivity extends AppCompatActivity {
@@ -40,21 +49,23 @@ public class PhotoSelectorActivity extends AppCompatActivity {
     private ArrayList<Photo> photos;
     private PhotoAdapter photoAdapter;
 
+    private String photoPath;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_selector);
 
         Intent intent = getIntent();
-        Photo guidePhoto = intent.getParcelableExtra("GUIDE_PHOTO");
-        photos = intent.getParcelableArrayListExtra("PHOTOS");
+        Photo guidePhoto = (Photo)intent.getSerializableExtra("GUIDE_PHOTO");
+        photos = (ArrayList<Photo>)intent.getSerializableExtra("PHOTOS");
         if (photos == null) {
             photos = new ArrayList<>();
         }
 
         if (guidePhoto != null) {
             ImageView guideImageView = findViewById(R.id.activityPhotoSelector_GuideImage);
-            guideImageView.setImageBitmap(guidePhoto.getPhotoBitmap());
+            guideImageView.setImageBitmap(guidePhoto.getBitmap(guideImageView.getWidth(),guideImageView.getHeight()));
         }
 
         final GridView photoGrid = findViewById(R.id.activityPhotoSelector_PhotoGridView);
@@ -76,6 +87,7 @@ public class PhotoSelectorActivity extends AppCompatActivity {
             }
         });
 
+        Database db = new Database(this);
 
         Button saveButton = findViewById(R.id.activityPhotoSelector_SaveButton);
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -86,7 +98,15 @@ public class PhotoSelectorActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "No photos added", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                intent.putParcelableArrayListExtra("PHOTOS",photos);
+                for(Photo photo:photos) {
+                    try {
+                        db.savePhoto(photo);
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), "Failed to save photos", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+                intent.putExtra("PHOTOS",photos);
                 setResult(Activity.RESULT_OK,intent);
                 finish();
             }
@@ -96,7 +116,27 @@ public class PhotoSelectorActivity extends AppCompatActivity {
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            File photoFile = null;
+
+            String username = AppStatus.getInstance().getCurrentUser().getUsername();
+            String timeStamp = Long.toHexString(new Date().getTime());
+            String imageFileName = "JPEG_" + "_" + username + "_" + timeStamp + "_";
+            try {
+                photoFile = File.createTempFile(imageFileName,".jpg",getFilesDir());
+                photoPath = photoFile.getPath();
+            } catch (IOException e) {
+                Toast.makeText(this, "Failed to find photo space", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (photoFile != null) {
+                Uri photoUri = FileProvider.getUriForFile(this, "cs.ualberta.ca.medlog.fileprovider", photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            }
+            else {
+                Toast.makeText(this, "Failed to find photo space", Toast.LENGTH_SHORT).show();
+                return;
+            }
         }
     }
 
@@ -111,27 +151,53 @@ public class PhotoSelectorActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Toast.makeText(this,"Photo Added",Toast.LENGTH_SHORT).show();
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            photos.add(new Photo(imageBitmap));
+            photos.add(new Photo(photoPath));
             photoAdapter.notifyDataSetChanged();
         }
         else if (requestCode == REQUEST_LOAD_IMAGE && resultCode == RESULT_OK) {
-            Uri imageUri = data.getData();
-            Bitmap imageBitmap;
+            String sourceFilename = getRealPathFromURI(data.getData());
+            Toast.makeText(this,sourceFilename,Toast.LENGTH_SHORT).show();
+
+            File photoFile;
+
+            String username = AppStatus.getInstance().getCurrentUser().getUsername();
+            String timeStamp = Long.toHexString(new Date().getTime());
+            String imageFileName = "JPEG_" + "_" + username + "_" + timeStamp + "_";
             try {
-                imageBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
-                Toast.makeText(this,"Photo Added",Toast.LENGTH_SHORT).show();
-            }
-            catch (IOException e) {
-                Toast.makeText(this,"Couldn't Load Image",Toast.LENGTH_SHORT).show();
+                photoFile = File.createTempFile(imageFileName, ".jpg", getFilesDir());
+
+                FileInputStream inStream = new FileInputStream(sourceFilename);
+                FileOutputStream outStream = new FileOutputStream(photoFile);
+                FileChannel inChannel = inStream.getChannel();
+                FileChannel outChannel = outStream.getChannel();
+                inChannel.transferTo(0, inChannel.size(), outChannel);
+                inStream.close();
+                outStream.close();
+
+                photoPath = photoFile.getPath();
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Failed to find photo space", Toast.LENGTH_SHORT).show();
                 return;
             }
-            photos.add(new Photo(imageBitmap));
+
+            Toast.makeText(this,"Photo Added",Toast.LENGTH_SHORT).show();
+            photos.add(new Photo(photoPath));
             photoAdapter.notifyDataSetChanged();
         }
         else if (resultCode != RESULT_OK){
             Toast.makeText(this,"Cancelled",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private String getRealPathFromURI(Uri contentURI) {
+        Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
+        if (cursor == null) {
+            return contentURI.getPath();
+        } else {
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            return cursor.getString(idx);
         }
     }
 }

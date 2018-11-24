@@ -122,7 +122,7 @@ public class ProviderProblemViewActivity extends AppCompatActivity implements Te
         }
 
         Intent intent = new Intent(this, SlideshowActivity.class);
-        intent.putParcelableArrayListExtra("PHOTOS",photos);
+        intent.putExtra("PHOTOS",photos);
         startActivity(intent);
     }
 

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.entity.Problem;
+import cs.ualberta.ca.medlog.entity.SearchResult;
 
 /**
  * <p>
@@ -26,9 +27,9 @@ import cs.ualberta.ca.medlog.entity.Problem;
  * @author Tyler Gobran
  * @version 1.0
  */
-public class SearchAdapter extends ArrayAdapter<Problem> {
-    public SearchAdapter(Context context, ArrayList<Problem> problemsList) {
-        super(context,0,problemsList);
+public class SearchAdapter extends ArrayAdapter<SearchResult> {
+    public SearchAdapter(Context context, ArrayList<SearchResult> searchResultsList) {
+        super(context,0,searchResultsList);
     }
 
     @Override

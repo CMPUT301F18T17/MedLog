@@ -154,7 +154,7 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
         if (newRecord.getBodyLocation() != null) {
             intent.putExtra("GUIDE_PHOTO", newRecord.getBodyLocation().getPhoto());
         }
-        intent.putParcelableArrayListExtra("PHOTOS",newRecord.getPhotos());
+        intent.putExtra("PHOTOS",newRecord.getPhotos());
         startActivityForResult(intent,PHOTO_REQUEST);
     }
 
@@ -175,7 +175,7 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
         else if (requestCode == PHOTO_REQUEST) {
             if (resultCode == RESULT_OK) {
                 Toast.makeText(this,"Images added",Toast.LENGTH_SHORT).show();
-                ArrayList<Photo> photos = data.getParcelableArrayListExtra("PHOTOS");
+                ArrayList<Photo> photos = (ArrayList<Photo>)data.getSerializableExtra("PHOTOS");
                 newRecord.setPhotos(photos);
                 updateButtonColour(findViewById(R.id.activityPatientAddRecord_PhotosButton));
             }

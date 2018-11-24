@@ -141,7 +141,7 @@ public class PatientRecordViewActivity extends AppCompatActivity {
 
     private void openSlideshowFragment() {
         Intent intent = new Intent(this, SlideshowActivity.class);
-        intent.putParcelableArrayListExtra("PHOTOS", record.getPhotos());
+        intent.putExtra("PHOTOS", record.getPhotos());
         startActivity(intent);
     }
 
