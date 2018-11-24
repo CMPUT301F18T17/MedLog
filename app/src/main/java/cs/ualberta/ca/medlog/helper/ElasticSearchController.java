@@ -346,7 +346,7 @@ public class ElasticSearchController {
             // Get the index and execute the put.
             Index index = new Index.Builder(photoData)
                     .index(INDEX_NAME)
-                    .type("photos")
+                    .type("photo")
                     .build();
 
             DocumentResult result = client.execute(index);
@@ -371,7 +371,7 @@ public class ElasticSearchController {
      */
     public static byte[] loadPhoto(String username, String id){
         setClient();
-        Get get = new Get.Builder(INDEX_NAME, id).type("photos").build();
+        Get get = new Get.Builder(INDEX_NAME, id).type("photo").build();
         try{
             JestResult result = client.execute(get);
             if(result.isSucceeded()){
@@ -393,7 +393,7 @@ public class ElasticSearchController {
     public static Boolean deletePhoto(String id){
         setClient();
         boolean success = false;
-        Delete delete = new Delete.Builder(id).index(INDEX_NAME).type("photos").build();
+        Delete delete = new Delete.Builder(id).index(INDEX_NAME).type("photo").build();
         try{
             DocumentResult result = client.execute(delete);
             if(result.isSucceeded()){
