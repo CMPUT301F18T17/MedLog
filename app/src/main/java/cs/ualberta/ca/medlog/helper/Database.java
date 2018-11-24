@@ -1,11 +1,20 @@
 package cs.ualberta.ca.medlog.helper;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.concurrent.ExecutionException;
 
 import cs.ualberta.ca.medlog.entity.BodyLocation;
 import cs.ualberta.ca.medlog.entity.MapLocation;
@@ -15,7 +24,7 @@ import cs.ualberta.ca.medlog.entity.SearchResult;
 import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.exception.UserNotFoundException;
-import io.searchbox.core.Search;
+import cs.ualberta.ca.medlog.entity.Photo;
 
 /**
  *
@@ -174,6 +183,86 @@ public class Database {
             success = false;
         }catch(UserNotFoundException ignore){ }
         return success;
+    }
+
+
+    // https://stackoverflow.com/questions/10513976/how-to-convert-image-into-byte-array-and-byte-array-to-base64-string-in-android
+
+    /**
+     * <p>Saves a photo to the elastic search database</p>
+     * @param photo The photo to save to the elastic search db
+     * @return The id of the photo. THIS MUST BE SET IN THE PHOTO CLASS!
+     * @throws IllegalArgumentException The file does not have a path.
+     */
+    public String savePhoto(Photo photo) throws IllegalArgumentException, InterruptedException, IllegalStateException{
+        File file = new File(photo.getPath());
+        if(file.exists()){
+            try {
+
+                // Load the file, convert to bitmap, compress as JPEG, and then save the photo on ES
+                FileInputStream fis = new FileInputStream(file);
+                Bitmap bitmap = BitmapFactory.decodeStream(fis);
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100,baos);
+                String id =  new ElasticSearchController.SavePhotoTask().execute(baos.toByteArray()).get();
+                photo.setId(id);
+                return id;
+            } catch (FileNotFoundException | ExecutionException e) {
+                e.printStackTrace();
+                throw new IllegalStateException("File was not found yet initial checks found it!");
+            }
+        }else{
+            throw new IllegalArgumentException("The provided photo does not have a path!");
+        }
+    }
+
+    /**
+     * <p>Loads a photo onto the devices disk.</p>
+     * @param username The username of the photo owner. If this is incorrect decryption will fail!
+     * @param photo The photo to attempt to load on disk.
+     * @return The String path of the photo
+     */
+    public String loadPhoto(String username, Photo photo) throws IOException{
+        File file = new File(photo.getPath());
+        if(file.exists()){
+            return photo.getPath();
+        }else{
+            if(checkConnectivity()) {
+                try {
+                    byte[] data = new ElasticSearchController.LoadPhotoTask().execute(username, photo.getId()).get();
+                    FileOutputStream fos = new FileOutputStream(file.getPath());
+                    fos.write(data);
+                    fos.close();
+                } catch (ExecutionException | InterruptedException e) {
+                    e.printStackTrace();
+                } catch (FileNotFoundException e){
+                    Log.d(this.getClass().getName(), "FileNotFound: This error should not be happening!");
+                    e.printStackTrace();
+                }
+            }else{
+                throw new ConnectException("Failed to connect to the database.");
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * <p>Delete a photo from the DB.</p>
+     * @param photo The photo to delete.
+     * @return A boolean if the operation was a success.
+     */
+    public boolean deletePhoto(Photo photo) throws ConnectException{
+        if(checkConnectivity()){
+            try {
+                return new ElasticSearchController.DeletePhotoTask().execute(photo.getId()).get();
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }else{
+            throw new ConnectException("Failed to connect to ES.");
+        }
     }
 
 

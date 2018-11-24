@@ -1,9 +1,4 @@
 package cs.ualberta.ca.medlog.entity;
-
-import android.graphics.Bitmap;
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import java.io.Serializable;
 
 /**
@@ -18,44 +13,30 @@ import java.io.Serializable;
  *
  * </p>
  *
- * @author homas Roskewich
+ * @author Thomas Roskewich
  * @contact roskewic@ualberta.ca
  */
-public class Photo implements Parcelable {
-    private Bitmap photoBitmap;
+public class Photo implements Serializable {
+    private String path;
+    private String id;
 
-    public Photo(Bitmap photoBitmap) {
-        this.photoBitmap = photoBitmap;
+    public Photo(String path) {
+        this.path = path;
     }
-
-    private Photo(Parcel in) {
-        photoBitmap = in.readParcelable(ClassLoader.getSystemClassLoader());
-    }
-
-    public void writeToParcel(Parcel out, int flags) {
-        out.writeParcelable(photoBitmap,0);
-    }
-
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Parcelable.Creator<Photo> CREATOR = new Parcelable.Creator<Photo>() {
-        public Photo createFromParcel(Parcel in) {
-            return new Photo(in);
-        }
-
-        public Photo[] newArray(int size) {
-            return new Photo[size];
-        }
-    };
-
     /**
-     * <p>Get the photo as a bitmap.</p>
-     * @return The bitmap of the photo.
+     * Get the photos path.
+     * @return The photos path.
      */
-    public Bitmap getPhotoBitmap() {
-        return photoBitmap;
+    public String getPath(){
+        return path;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
 
