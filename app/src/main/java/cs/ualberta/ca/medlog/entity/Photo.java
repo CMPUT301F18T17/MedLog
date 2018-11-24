@@ -22,7 +22,6 @@ public class Photo implements Serializable {
     private String id;
 
     public Photo(String path) {
-
         this.path = path;
     }
 

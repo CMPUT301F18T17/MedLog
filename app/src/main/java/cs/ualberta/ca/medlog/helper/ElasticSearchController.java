@@ -437,7 +437,7 @@ public class ElasticSearchController {
          */
         @Override
         protected byte[] doInBackground(String... params) {
-            if(params.length != 1){
+            if(params.length != 2){
                 throw new IllegalArgumentException("Load Photo requires a username and id!");
             }
             return loadPhoto(params[0], params[1]);
