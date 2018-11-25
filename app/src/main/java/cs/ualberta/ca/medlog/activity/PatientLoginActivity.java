@@ -93,6 +93,7 @@ public class PatientLoginActivity extends AppCompatActivity {
 
         if (toLogin != null) {
             AppStatus.getInstance().setCurrentUser(toLogin);
+            sc.downloadAllPhotos(toLogin);
 
             Intent intent = new Intent(this, PatientMenuActivity.class);
             startActivity(intent);

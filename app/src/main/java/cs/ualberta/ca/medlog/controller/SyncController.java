@@ -1,18 +1,21 @@
-//TODO: FINISH THE TWO FUNCTIONS!
 package cs.ualberta.ca.medlog.controller;
 
 import android.content.Context;
 import android.util.Log;
 
+import java.io.IOException;
 import java.net.ConnectException;
 import java.util.ArrayList;
 
+import cs.ualberta.ca.medlog.entity.Problem;
+import cs.ualberta.ca.medlog.entity.Record;
 import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.entity.user.User;
 import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 import cs.ualberta.ca.medlog.helper.Database;
 import cs.ualberta.ca.medlog.helper.FileSaver;
+import cs.ualberta.ca.medlog.entity.Photo;
 
 /**
  * <p>
@@ -174,6 +177,37 @@ public class SyncController {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Download all patient photos from the database at once.
+     * @param p The patient to get all photos for
+     * @return A boolean if all photos downloaded properly.
+     */
+    public Boolean downloadAllPhotos(Patient p){
+        Database db = new Database(ctx);
+        boolean success = true;
+        if(p.getProblems() != null) {
+            for (Problem problem : p.getProblems()) {
+                if (problem.getRecords() != null) {
+                    for (Record record : problem.getRecords()) {
+                        if (record.getPhotos() != null) {
+                            if (record.getPhotos().size() > 0) {
+                                for (Photo photo : record.getPhotos()) {
+                                    try {
+                                        db.downloadPhoto(p.getUsername(), photo);
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                        success = false;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return success;
     }
 
 }

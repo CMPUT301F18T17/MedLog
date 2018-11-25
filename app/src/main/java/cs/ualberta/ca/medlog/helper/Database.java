@@ -222,7 +222,7 @@ public class Database {
      * @param photo The photo to attempt to load on disk.
      * @return The String path of the photo
      */
-    public String loadPhoto(String username, Photo photo) throws IOException{
+    public String downloadPhoto(String username, Photo photo) throws IOException{
         File file = new File(photo.getPath());
         if(file.exists()){
             return photo.getPath();
