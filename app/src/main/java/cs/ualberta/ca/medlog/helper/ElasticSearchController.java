@@ -1,5 +1,6 @@
 package cs.ualberta.ca.medlog.helper;
 import android.os.AsyncTask;
+import android.util.Base64;
 import android.util.Log;
 import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
@@ -9,6 +10,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import cs.ualberta.ca.medlog.entity.EncryptedPhoto;
 import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.exception.EncryptionException;
@@ -342,9 +344,9 @@ public class ElasticSearchController {
         try {
             // Try and encrypt the photo before uploading to the server.
             String output = Encryption.encryptData(AppStatus.getInstance().getCurrentUser().getUsername(), photoData);
-
+            EncryptedPhoto ep = new EncryptedPhoto(output);
             // Get the index and execute the put.
-            Index index = new Index.Builder(photoData)
+            Index index = new Index.Builder(ep)
                     .index(INDEX_NAME)
                     .type("photo")
                     .build();
@@ -355,7 +357,7 @@ public class ElasticSearchController {
                         String.format("Photo has been saved!"));
                 return result.getId();
             } else {
-                System.out.println(result.getErrorMessage());
+                System.out.println("PHOTO DATA ERROR: " + result.getErrorMessage());
             }
         } catch (EncryptionException | IOException e) {
             e.printStackTrace();
@@ -375,8 +377,8 @@ public class ElasticSearchController {
         try{
             JestResult result = client.execute(get);
             if(result.isSucceeded()){
-                String enc = result.getSourceAsString();
-                return Encryption.decryptData(username, enc);
+                EncryptedPhoto enc = result.getSourceAsObject(EncryptedPhoto.class);
+                return Encryption.decryptData(username, enc.getData());
             }
         }catch(EncryptionException | IOException e){
             e.printStackTrace();
