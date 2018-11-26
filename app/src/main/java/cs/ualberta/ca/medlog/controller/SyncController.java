@@ -12,7 +12,6 @@ import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.entity.user.User;
 import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 import cs.ualberta.ca.medlog.helper.Database;
-import cs.ualberta.ca.medlog.helper.LocalCache;
 
 /**
  * <p>
@@ -48,20 +47,21 @@ public class SyncController {
     public void syncPatient(String username) throws ConnectException, IllegalStateException{
         // Check if we are connected.
         if(dbs.checkConnectivity()){
-            LocalCache fs = new LocalCache(ctx);
-
             // Try and load the user locally
             Patient local, remote;
             try {
-                local = fs.loadPatient();
-                if(local == null) { return; }
-                if(!local.getUsername().equals(username)){
-                    // Sync the old user. Could be either a care provider or patient so we have to call both.
+                local = dbs.cache.loadPatient();
+                if(local == null) {
+                    return;
+                }
+
+                // Sync the old user. Could be either a care provider or patient so we have to call both.
+                if (!local.getUsername().equals(username)) {
                     syncCareProvider(username);
                     syncPatient(username);
                     return;
                 }
-            }catch(UserNotFoundException e){
+            } catch(UserNotFoundException e) {
                 return;
             }
 
@@ -99,12 +99,10 @@ public class SyncController {
     public void syncCareProvider(String username) throws ConnectException, IllegalStateException{
         // Check if we are connected.
         if(dbs.checkConnectivity()){
-            LocalCache fs = new LocalCache(ctx);
-
             // Try and load the user locally
             CareProvider local, remote;
             try {
-                local = fs.loadCareProvider();
+                local = dbs.cache.loadCareProvider();
                 if(local == null) { return; }
                 if(!local.getUsername().equals(username)){
                     // Sync the old user. Could be either a care provider or patient so we have to call both.

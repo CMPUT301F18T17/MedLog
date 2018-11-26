@@ -43,7 +43,7 @@ import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 
 public class Database {
     public Context context;
-    private LocalCache cache;
+    public LocalCache cache;
 
     public Database(Context c){
         this.context = c;
@@ -166,17 +166,17 @@ public class Database {
      * @return Boolean if the save operation succeeded.
      */
     public boolean savePatient(Patient patient){
+        cache.savePatient(patient);
         patient.setUpdated();
+
         if (checkConnectivity()) {
             try {
-                cache.savePatient(patient);
                 return new ElasticSearchController.SavePatientTask().execute(patient).get();
             } catch (Exception e){
                 e.printStackTrace();
                 return false;
             }
         } else {
-            cache.savePatient(patient);
             return true;
         }
     }
@@ -187,16 +187,17 @@ public class Database {
      * @param provider Provider to be saved
      */
     public boolean saveProvider(CareProvider provider){
+        cache.saveCareProvider(provider);
         provider.setUpdated();
+
         if (checkConnectivity()) {
             try {
                 return new ElasticSearchController.SaveCareProviderTask().execute(provider).get();
-            } catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 return false;
             }
         } else {
-            cache.saveCareProvider(provider);
             return true;
         }
     }
@@ -208,10 +209,10 @@ public class Database {
      * @throws ConnectException if we cannot connect to the database.
      */
     public Boolean deletePatient(String username) throws ConnectException{
-        if(checkConnectivity()){
+        if (checkConnectivity()) {
             try {
                 return new ElasticSearchController.DeletePatientTask().execute(username).get();
-            } catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 return false;
             }
@@ -228,11 +229,12 @@ public class Database {
      */
     public Boolean updatePatient(Patient patient) throws ConnectException{
         patient.setUpdated();
-        if(checkConnectivity()){
+        cache.savePatient(patient);
+
+        if (checkConnectivity()) {
             try {
-                cache.savePatient(patient);
                 return new ElasticSearchController.SavePatientTask().execute(patient).get();
-            } catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 return false;
             }
@@ -249,15 +251,16 @@ public class Database {
      */
     public Boolean updateCareProvider(CareProvider careProvider) throws ConnectException{
         careProvider.setUpdated();
-        if(checkConnectivity()){
+        cache.saveCareProvider(careProvider);
+
+        if (checkConnectivity()) {
             try {
-                cache.saveCareProvider(careProvider);
                 return new ElasticSearchController.SaveCareProviderTask().execute(careProvider).get();
-            } catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 return false;
             }
-        }else{
+        } else {
             throw new ConnectException("Failed to connect to the server for care provider updating.");
         }
     }
@@ -268,14 +271,14 @@ public class Database {
      * @return Boolean whether the operation succeeded.
      */
     public Boolean deleteProvider(String username) throws ConnectException{
-        if(checkConnectivity()){
+        if (checkConnectivity()) {
             try {
                 return new ElasticSearchController.DeleteCareProviderTask().execute(username).get();
-            } catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 return false;
             }
-        }else{
+        } else {
             throw new ConnectException("Failed to connect to the server for deletion.");
         }
     }
