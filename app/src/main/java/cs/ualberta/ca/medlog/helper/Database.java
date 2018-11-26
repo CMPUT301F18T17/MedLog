@@ -230,9 +230,13 @@ public class Database {
             if(checkConnectivity()) {
                 try {
                     byte[] data = new ElasticSearchController.LoadPhotoTask().execute(username, photo.getId()).get();
-                    FileOutputStream fos = new FileOutputStream(file.getPath());
-                    fos.write(data);
-                    fos.close();
+                    if(data != null) {
+                        FileOutputStream fos = new FileOutputStream(file.getPath());
+                        fos.write(data);
+                        fos.close();
+                    }else{
+                        Log.d(this.getClass().getName(), "Failed to download photo.");
+                    }
                 } catch (ExecutionException | InterruptedException e) {
                     e.printStackTrace();
                 } catch (FileNotFoundException e){
