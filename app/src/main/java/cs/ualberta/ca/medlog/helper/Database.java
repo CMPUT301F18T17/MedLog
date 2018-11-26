@@ -43,9 +43,11 @@ import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 
 public class Database {
     public Context context;
+    private LocalCache cache;
 
     public Database(Context c){
         this.context = c;
+        this.cache = new LocalCache(context);
     }
 
     public Context getDatabaseContext() {
@@ -60,28 +62,30 @@ public class Database {
      * @throws ConnectException if we could not connect to the database and could not load the user locally.
      */
     public Patient loadPatient(String username) throws UserNotFoundException, ConnectException{
-        Patient patient = null;
-        if(username.isEmpty()){ throw new UserNotFoundException("Users cannot have an empty username."); }
-        // Check if there is connectivity
+        Patient patient;
+
+        if(username.isEmpty()){
+            throw new UserNotFoundException("Users cannot have an empty username.");
+        }
+
+        // Load patient from database if there is a connection, from local save if there isn't
         if (checkConnectivity()) {
             try {
-                // If there is, try to load a patient. If it returns null, user was not found.
                 patient = new ElasticSearchController.LoadPatientTask().execute(username).get();
-                if(patient == null){
+                cache.savePatient(patient);
+
+                if (patient == null) {
                     throw new UserNotFoundException("Patient " + username + " was not found.");
                 }
-            }catch(Exception e){
-                // There was an exception in the async execution
-                Log.d(Database.class.getName(), "Failed to load user: " + username);
+
+            } catch (Exception e) {  // There was an exception in the async execution
                 throw new UserNotFoundException("Patient " + username + " failed to load.");
             }
         } else {
 
-            try {
-                // Offline mode, try and load the patient from local data
-                LocalCache saver = new LocalCache(context);
-                patient = saver.loadPatient();
-            }catch(UserNotFoundException e){
+            try { // Offline mode, try and load the patient from local data
+                patient = cache.loadPatient();
+            } catch (UserNotFoundException e) {
                 throw new ConnectException("Failed to connect to database and could not load the user locally.");
             }
         }
@@ -97,21 +101,25 @@ public class Database {
      * @throws ConnectException if we could not connect to the database and could not load the user locally.
      */
     public CareProvider loadProvider(String username) throws UserNotFoundException, ConnectException {
-        CareProvider provider = null;
+        CareProvider provider;
+
+        // Load provider from database if there is a connection, from local save if there isn't
         if (checkConnectivity()) {
             try {
                 provider = new ElasticSearchController.LoadCareProviderTask().execute(username).get();
-                if(provider == null){
+                cache.saveCareProvider(provider);
+
+                if (provider == null) {
                     throw new UserNotFoundException("Care Povider " + username + " was not found.");
                 }
             } catch (Exception e){
                 throw new UserNotFoundException("Failed to load provider.");
             }
+
         } else {
             try {
-                LocalCache saver = new LocalCache(context);
-                provider = saver.loadCareProvider();
-            }catch(UserNotFoundException e){
+                provider = cache.loadCareProvider();
+            } catch(UserNotFoundException e) {
                 throw new ConnectException("Failed to connect to database and could not load the user locally.");
             }
         }
@@ -153,7 +161,7 @@ public class Database {
 
 
     /**
-     * <p>Push a patient to the database if a connection can be established, save to disc otherwise</p>
+     * <p>Push a patient to the database</p>
      * @param patient Patient to be saved
      * @return Boolean if the save operation succeeded.
      */
@@ -161,14 +169,14 @@ public class Database {
         patient.setUpdated();
         if (checkConnectivity()) {
             try {
+                cache.savePatient(patient);
                 return new ElasticSearchController.SavePatientTask().execute(patient).get();
             } catch (Exception e){
                 e.printStackTrace();
                 return false;
             }
         } else {
-            LocalCache saver = new LocalCache(context);
-            saver.savePatient(patient);
+            cache.savePatient(patient);
             return true;
         }
     }
@@ -188,8 +196,7 @@ public class Database {
                 return false;
             }
         } else {
-            LocalCache saver = new LocalCache(context);
-            saver.saveCareProvider(provider);
+            cache.saveCareProvider(provider);
             return true;
         }
     }
@@ -223,6 +230,7 @@ public class Database {
         patient.setUpdated();
         if(checkConnectivity()){
             try {
+                cache.savePatient(patient);
                 return new ElasticSearchController.SavePatientTask().execute(patient).get();
             } catch (Exception e){
                 e.printStackTrace();
@@ -243,6 +251,7 @@ public class Database {
         careProvider.setUpdated();
         if(checkConnectivity()){
             try {
+                cache.saveCareProvider(careProvider);
                 return new ElasticSearchController.SaveCareProviderTask().execute(careProvider).get();
             } catch (Exception e){
                 e.printStackTrace();
