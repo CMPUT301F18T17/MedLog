@@ -48,7 +48,6 @@ import cs.ualberta.ca.medlog.entity.Photo;
  * </p>
  *
  * @author Tem Tamre, Thomas Roskewich
- * @contact ttamre@ualberta.ca, roskewic@ualberta.ca
  * @see Cache
  */
 public class Database {
