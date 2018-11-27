@@ -49,19 +49,32 @@ import cs.ualberta.ca.medlog.entity.Photo;
  *
  * @author Tem Tamre, Thomas Roskewich
  * @contact ttamre@ualberta.ca, roskewic@ualberta.ca
- * @see cs.ualberta.ca.medlog.helper.FileSaver
+ * @see Cache
  */
 public class Database {
     public Context context;
+    public Cache cache;
 
     public Database(Context c){
         this.context = c;
+        this.cache = new Cache(context);
     }
 
     public Context getDatabaseContext() {
         return context;
     }
 
+    public Cache getDatabaseCache() {
+        return cache;
+    }
+
+    public void setDatabaseContext(Context ctx) {
+        this.context = ctx;
+    }
+
+    public void setDatabaseCache(Cache che) {
+        this.cache = che;
+    }
 
     /**
      * <p>Get a patient from the database if a connection can be established, load from disc otherwise</p>
@@ -70,34 +83,37 @@ public class Database {
      * @throws ConnectException if we could not connect to the database and could not load the user locally.
      */
     public Patient loadPatient(String username) throws UserNotFoundException, ConnectException{
-        Patient patient = null;
-        if(username.isEmpty()){ throw new UserNotFoundException("Users cannot have an empty username."); }
-        // Check if there is connectivity
+        Patient patient;
+
+        if(username.isEmpty()){
+            throw new UserNotFoundException("Users cannot have an empty username.");
+        }
+
+        // Load patient from database if there is a connection, from local save if there isn't
         if (checkConnectivity()) {
             try {
-                // If there is, try to load a patient. If it returns null, user was not found.
                 patient = new ElasticSearchController.LoadPatientTask().execute(username).get();
-                if(patient == null){
+                cache.savePatient(patient);
+
+                if (patient == null) {
                     throw new UserNotFoundException("Patient " + username + " was not found.");
                 }
-            }catch(Exception e){
-                // There was an exception in the async execution
-                Log.d(Database.class.getName(), "Failed to load user: " + username);
+
+            } catch (Exception e) {  // There was an exception in the async execution
                 throw new UserNotFoundException("Patient " + username + " failed to load.");
             }
         } else {
 
-            try {
-                // Offline mode, try and load the patient from local data
-                FileSaver saver = new FileSaver(context);
-                patient = saver.loadPatient();
-            }catch(UserNotFoundException e){
+            try { // Offline mode, try and load the patient from local data
+                patient = cache.loadPatient();
+            } catch (UserNotFoundException e) {
+
+            }
                 throw new ConnectException("Failed to connect to database and could not load the user locally.");
             }
-        }
-
         return patient;
     }
+
 
 
     /**
@@ -107,21 +123,26 @@ public class Database {
      * @throws ConnectException if we could not connect to the database and could not load the user locally.
      */
     public CareProvider loadProvider(String username) throws UserNotFoundException, ConnectException {
-        CareProvider provider = null;
+        CareProvider provider;
+
+        // Load provider from database if there is a connection, from local save if there isn't
         if (checkConnectivity()) {
             try {
                 provider = new ElasticSearchController.LoadCareProviderTask().execute(username).get();
-                if(provider == null){
+                cache.saveCareProvider(provider);
+
+                if (provider == null) {
                     throw new UserNotFoundException("Care Povider " + username + " was not found.");
                 }
             } catch (Exception e){
                 throw new UserNotFoundException("Failed to load provider.");
             }
+
         } else {
             try {
-                FileSaver saver = new FileSaver(context);
-                provider = saver.loadCareProvider();
-            }catch(UserNotFoundException e){
+                provider = cache.loadCareProvider();
+
+            } catch(UserNotFoundException e) {
                 throw new ConnectException("Failed to connect to database and could not load the user locally.");
             }
         }
@@ -271,12 +292,14 @@ public class Database {
 
 
     /**
-     * <p>Push a patient to the database if a connection can be established, save to disc otherwise</p>
+     * <p>Push a patient to the database</p>
      * @param patient Patient to be saved
      * @return Boolean if the save operation succeeded.
      */
     public boolean savePatient(Patient patient){
+        cache.savePatient(patient);
         patient.setUpdated();
+
         if (checkConnectivity()) {
             try {
                 return new ElasticSearchController.SavePatientTask().execute(patient).get();
@@ -285,8 +308,6 @@ public class Database {
                 return false;
             }
         } else {
-            FileSaver saver = new FileSaver(context);
-            saver.savePatient(patient);
             return true;
         }
     }
@@ -297,17 +318,17 @@ public class Database {
      * @param provider Provider to be saved
      */
     public boolean saveProvider(CareProvider provider){
+        cache.saveCareProvider(provider);
         provider.setUpdated();
+
         if (checkConnectivity()) {
             try {
                 return new ElasticSearchController.SaveCareProviderTask().execute(provider).get();
-            } catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 return false;
             }
         } else {
-            FileSaver saver = new FileSaver(context);
-            saver.saveCareProvider(provider);
             return true;
         }
     }
@@ -319,10 +340,10 @@ public class Database {
      * @throws ConnectException if we cannot connect to the database.
      */
     public Boolean deletePatient(String username) throws ConnectException{
-        if(checkConnectivity()){
+        if (checkConnectivity()) {
             try {
                 return new ElasticSearchController.DeletePatientTask().execute(username).get();
-            } catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 return false;
             }
@@ -338,11 +359,13 @@ public class Database {
      * @throws ConnectException if we cannot connect to the database.
      */
     public Boolean updatePatient(Patient patient) throws ConnectException{
+        cache.savePatient(patient);
         patient.setUpdated();
-        if(checkConnectivity()){
+
+        if (checkConnectivity()) {
             try {
                 return new ElasticSearchController.SavePatientTask().execute(patient).get();
-            } catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 return false;
             }
@@ -358,15 +381,17 @@ public class Database {
      * @throws ConnectException if we cannot connect to the database.
      */
     public Boolean updateCareProvider(CareProvider careProvider) throws ConnectException{
+        cache.saveCareProvider(careProvider);
         careProvider.setUpdated();
-        if(checkConnectivity()){
+
+        if (checkConnectivity()) {
             try {
                 return new ElasticSearchController.SaveCareProviderTask().execute(careProvider).get();
-            } catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 return false;
             }
-        }else{
+        } else {
             throw new ConnectException("Failed to connect to the server for care provider updating.");
         }
     }
@@ -377,14 +402,14 @@ public class Database {
      * @return Boolean whether the operation succeeded.
      */
     public Boolean deleteProvider(String username) throws ConnectException{
-        if(checkConnectivity()){
+        if (checkConnectivity()) {
             try {
                 return new ElasticSearchController.DeleteCareProviderTask().execute(username).get();
-            } catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 return false;
             }
-        }else{
+        } else {
             throw new ConnectException("Failed to connect to the server for deletion.");
         }
     }
