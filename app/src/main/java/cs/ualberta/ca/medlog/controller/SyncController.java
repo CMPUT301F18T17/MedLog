@@ -14,7 +14,6 @@ import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.entity.user.User;
 import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 import cs.ualberta.ca.medlog.helper.Database;
-import cs.ualberta.ca.medlog.helper.Cache;
 import cs.ualberta.ca.medlog.entity.Photo;
 
 /**
@@ -27,7 +26,8 @@ import cs.ualberta.ca.medlog.entity.Photo;
  *         The two functions must be finished.
  * </p>
  *
- * @author Thomas Roskewich
+ * @author Thomas Roskewich, Tem Tamre
+ * @contact roskewic@ualberta.ca, ttamre@ualberta.ca
  * @version 1.0
  * @see Patient
  * @see CareProvider
