@@ -9,6 +9,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.entity.BodyLocation;
 import cs.ualberta.ca.medlog.entity.Photo;
+import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.singleton.AppStatus;
 
@@ -34,7 +36,7 @@ import cs.ualberta.ca.medlog.singleton.AppStatus;
  * </p>
  *
  * @author Tyler Gobran
- * @version 1.1
+ * @version 1.3
  * @see PatientAddRecordActivity
  * @see PatientSearchActivity
  */
@@ -47,7 +49,6 @@ public class AddBodyLocationActivity extends AppCompatActivity {
     private Photo selectedPhoto;
     private int locationX;
     private int locationY;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,11 +77,19 @@ public class AddBodyLocationActivity extends AppCompatActivity {
             }
         });
 
-        photos = ((Patient)AppStatus.getInstance().getCurrentUser()).getBodyPhotos();
+        if (AppStatus.getInstance().getCurrentUser() instanceof CareProvider) {
+            photos = new ArrayList<>();
+            for(Patient patient: ((CareProvider)AppStatus.getInstance().getCurrentUser()).getPatients()) {
+                photos.addAll(patient.getBodyPhotos());
+            }
+        }
+        else {
+            photos = ((Patient)AppStatus.getInstance().getCurrentUser()).getBodyPhotos();
+        }
         retrievePhotoBitmaps(photos);
 
         imageView = findViewById(R.id.activitySlideshow_ImageView);
-        imageView.setImageBitmap(photoBitmaps.get(index));
+        updateBodyPhotoDisplay();
         imageView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -97,14 +106,13 @@ public class AddBodyLocationActivity extends AppCompatActivity {
     private void retrievePhotoBitmaps(ArrayList<Photo> photos) {
         photoBitmaps = new ArrayList<>();
         for(Photo photo: photos) {
-            photoBitmaps.add(photo.getBitmap(50,50));
+            photoBitmaps.add(photo.getBitmap());
         }
     }
 
     private void displayPreviousPhoto() {
         if (index > 0) {
-            imageView.setImageBitmap(photoBitmaps.get(--index));
-            resetLocation();
+            updateBodyPhotoDisplay();
         }
         else {
             Toast.makeText(this,"No previous photo",Toast.LENGTH_SHORT).show();
@@ -113,18 +121,21 @@ public class AddBodyLocationActivity extends AppCompatActivity {
 
     private void displayNextPhoto() {
         if (index+1 < photoBitmaps.size()) {
-            imageView.setImageBitmap(photoBitmaps.get(++index));
-            resetLocation();
+            updateBodyPhotoDisplay();
         }
         else {
             Toast.makeText(this,"No next photo",Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void resetLocation() {
+    private void updateBodyPhotoDisplay() {
+        imageView.setImageBitmap(photoBitmaps.get(index));
+        TextView labelView = findViewById(R.id.activityAddBodyLocation_BodyPhotoLabelView);
+        labelView.setText(photos.get(index).getLabel());
         selectedPhoto = null;
         ImageView markerView = findViewById(R.id.activityAddBodyLocation_MarkerView);
         markerView.setVisibility(View.INVISIBLE);
+
     }
 
     private void updateLocationMarkerPlace() {

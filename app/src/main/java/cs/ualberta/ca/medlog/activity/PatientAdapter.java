@@ -24,7 +24,7 @@ import cs.ualberta.ca.medlog.entity.user.Patient;
  * </p>
  *
  * @author Tyler Gobran
- * @version 1.0
+ * @version 1.1
  * @see Patient
  */
 public class PatientAdapter extends ArrayAdapter<Patient> {
@@ -41,8 +41,11 @@ public class PatientAdapter extends ArrayAdapter<Patient> {
         }
 
         Patient patient = getItem(position);
-        TextView textView = convertView.findViewById(R.id.fragmentListItem_TextView);
-        textView.setText(patient.getUsername());
+
+        if (patient != null) {
+            TextView textView = convertView.findViewById(R.id.fragmentListItem_TextView);
+            textView.setText(patient.getUsername());
+        }
 
         return convertView;
     }

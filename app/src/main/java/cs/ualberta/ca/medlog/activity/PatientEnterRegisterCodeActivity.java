@@ -60,7 +60,7 @@ public class PatientEnterRegisterCodeActivity extends AppCompatActivity {
 
         String username;
         try {
-            username = Encryption.byteArrayToString(Encryption.decryptData("CODE", code));
+            username = Encryption.byteArrayToString(Encryption.decryptData("CODE", code+"=="));
         } catch (EncryptionException e) {
             e.printStackTrace();
             Toast.makeText(this,"Couldn't read code.",Toast.LENGTH_SHORT).show();
@@ -87,6 +87,8 @@ public class PatientEnterRegisterCodeActivity extends AppCompatActivity {
 
         if (toLogin != null) {
             AppStatus.getInstance().setCurrentUser(toLogin);
+
+            //TODO: Add code to register patient to the phone.
 
             Toast.makeText(this,"Phone Registered",Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, PatientMenuActivity.class);

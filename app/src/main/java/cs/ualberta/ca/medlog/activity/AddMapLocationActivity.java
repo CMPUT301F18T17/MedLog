@@ -52,7 +52,6 @@ public class AddMapLocationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         Mapbox.getInstance(this, getString(R.string.mapboxAccessToken));
         setContentView(R.layout.activity_patient_add_map_location);
 

@@ -34,12 +34,11 @@ import cs.ualberta.ca.medlog.singleton.AppStatus;
  * </p>
  * <p>
  *     Issues: <br>
- *         Using a map location in the search must be added.
- *         Using a body location in the search must be added.
+ *         None.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.6
+ * @version 1.0
  * @see PatientMenuActivity
  * @see PatientProblemViewActivity
  * @see PatientRecordViewActivity
@@ -53,8 +52,8 @@ public class PatientSearchActivity extends AppCompatActivity {
     private ArrayList<SearchResult> searchResults;
     private SearchAdapter adapter;
 
-    private MapLocation mapLocation;
-    private BodyLocation bodyLocation;
+    private MapLocation mapLocation = null;
+    private BodyLocation bodyLocation = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,9 +101,7 @@ public class PatientSearchActivity extends AppCompatActivity {
         ArrayList<String> keywords = new ArrayList<>(Arrays.asList(et.getText().toString().split(" ")));
         adapter.clear();
 
-        //TODO: Map and Body Location need to be selectable.
-
-        searchResults = db.searchPatient((Patient)AppStatus.getInstance().getCurrentUser(), keywords, null,  null);
+        searchResults = db.searchPatient((Patient)AppStatus.getInstance().getCurrentUser(), keywords, mapLocation,  bodyLocation);
         adapter.addAll(searchResults);
         adapter.notifyDataSetChanged();
     }

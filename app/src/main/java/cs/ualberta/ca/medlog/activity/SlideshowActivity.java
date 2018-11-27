@@ -67,7 +67,7 @@ public class SlideshowActivity extends AppCompatActivity {
     private void retrievePhotoBitmaps(ArrayList<Photo> photos) {
         photoBitmaps = new ArrayList<>();
         for(Photo photo: photos) {
-            photoBitmaps.add(photo.getBitmap(50,50));
+            photoBitmaps.add(photo.getBitmap());
         }
     }
 

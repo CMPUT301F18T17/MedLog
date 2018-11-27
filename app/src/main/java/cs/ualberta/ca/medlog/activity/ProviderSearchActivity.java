@@ -16,6 +16,7 @@ import java.util.Arrays;
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.entity.BodyLocation;
 import cs.ualberta.ca.medlog.entity.MapLocation;
+import cs.ualberta.ca.medlog.entity.Photo;
 import cs.ualberta.ca.medlog.entity.Problem;
 import cs.ualberta.ca.medlog.entity.SearchResult;
 import cs.ualberta.ca.medlog.entity.user.CareProvider;
@@ -33,12 +34,11 @@ import cs.ualberta.ca.medlog.singleton.AppStatus;
  * </p>
  * <p>
  *     Issues: <br>
- *         Using a map location in the search must be added.
- *         Using a body location in the search must be added.
+ *         None.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.6
+ * @version 1.0
  * @see ProviderMenuActivity
  * @see ProviderPatientProfileActivity
  * @see ProviderProblemViewActivity
@@ -54,8 +54,8 @@ public class ProviderSearchActivity extends AppCompatActivity {
     private ArrayList<SearchResult> searchResults;
     private SearchAdapter adapter;
 
-    private MapLocation mapLocation;
-    private BodyLocation bodyLocation;
+    private MapLocation mapLocation = null;
+    private BodyLocation bodyLocation = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,8 +106,7 @@ public class ProviderSearchActivity extends AppCompatActivity {
         // Clear the adapter
         adapter.clear();
 
-        //TODO: Map and Body Location need to be selectable.
-        searchResults = db.searchCareProvider((CareProvider) AppStatus.getInstance().getCurrentUser(), keywords, null,  null);
+        searchResults = db.searchCareProvider((CareProvider) AppStatus.getInstance().getCurrentUser(), keywords, mapLocation,  bodyLocation);
         adapter.addAll(searchResults);
         adapter.notifyDataSetChanged();
     }
@@ -118,8 +117,18 @@ public class ProviderSearchActivity extends AppCompatActivity {
     }
 
     private void openBodyLocationSelector() {
-        //TODO We might need more here
-        Toast.makeText(this,"No body photos present",Toast.LENGTH_SHORT).show();
+        ArrayList<Photo> bodyPhotos = new ArrayList<>();
+        for(Patient patient: ((CareProvider)AppStatus.getInstance().getCurrentUser()).getPatients()) {
+            bodyPhotos.addAll(patient.getBodyPhotos());
+        }
+
+        if (!bodyPhotos.isEmpty()) {
+            Intent intent = new Intent(this, AddBodyLocationActivity.class);
+            startActivityForResult(intent, BODY_LOCATION_REQUEST);
+        }
+        else {
+            Toast.makeText(this,"No patient body photos present",Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

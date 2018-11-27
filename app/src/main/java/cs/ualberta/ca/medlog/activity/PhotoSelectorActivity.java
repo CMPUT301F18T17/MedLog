@@ -6,17 +6,22 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.ConnectException;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Date;
@@ -39,10 +44,11 @@ import cs.ualberta.ca.medlog.singleton.AppStatus;
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.8
+ * @version 0.9
  * @see PhotoAdapter
+ * @see TextEditorFragment
  */
-public class PhotoSelectorActivity extends AppCompatActivity {
+public class PhotoSelectorActivity extends AppCompatActivity implements TextEditorFragment.OnTextSetListener {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int REQUEST_LOAD_IMAGE = 2;
 
@@ -50,6 +56,7 @@ public class PhotoSelectorActivity extends AppCompatActivity {
     private PhotoAdapter photoAdapter;
 
     private String photoPath;
+    private int selectedIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,10 +72,45 @@ public class PhotoSelectorActivity extends AppCompatActivity {
 
         if (guidePhoto != null) {
             ImageView guideImageView = findViewById(R.id.activityPhotoSelector_GuideImage);
-            guideImageView.setImageBitmap(guidePhoto.getBitmap(guideImageView.getWidth(),guideImageView.getHeight()));
+            guideImageView.setImageBitmap(guidePhoto.getBitmap());
         }
 
         final GridView photoGrid = findViewById(R.id.activityPhotoSelector_PhotoGridView);
+        photoGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                PopupMenu menu = new PopupMenu(getApplicationContext(),view);
+                menu.inflate(R.menu.menu_photo_editing);
+                menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        if (item.getItemId() == 0) {
+                            selectedIndex = position;
+
+                            DialogFragment newFragment = new TextEditorFragment();
+                            Bundle editorData = new Bundle();
+                            editorData.putInt("argEditorId",0);
+                            editorData.putString("argHint",getString(R.string.fragmentTextEditor_LabelHint));
+                            editorData.putString("argInitialText",photos.get(position).getLabel());
+                            editorData.putInt("argMaxLength",20);
+                            newFragment.setArguments(editorData);
+                            newFragment.show(getSupportFragmentManager(),"labelEditor");
+                        }
+                        else {
+                            Database db = new Database(getApplicationContext());
+                            try {
+                                db.deletePhoto(photos.get(position));
+                            } catch (ConnectException e) {
+                                return false;
+                            }
+                            photos.remove(position);
+                            photoAdapter.notifyDataSetChanged();
+                        }
+                        return false;
+                    }
+                });
+            }
+        });
         photoAdapter = new PhotoAdapter(this,photos);
         photoGrid.setAdapter(photoAdapter);
 
@@ -128,15 +170,10 @@ public class PhotoSelectorActivity extends AppCompatActivity {
                 Toast.makeText(this, "Failed to find photo space", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (photoFile != null) {
-                Uri photoUri = FileProvider.getUriForFile(this, "cs.ualberta.ca.medlog.fileprovider", photoFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-            }
-            else {
-                Toast.makeText(this, "Failed to find photo space", Toast.LENGTH_SHORT).show();
-                return;
-            }
+
+            Uri photoUri = FileProvider.getUriForFile(this, "cs.ualberta.ca.medlog.fileprovider", photoFile);
+            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
     }
 
@@ -187,6 +224,15 @@ public class PhotoSelectorActivity extends AppCompatActivity {
         }
         else if (resultCode != RESULT_OK){
             Toast.makeText(this,"Cancelled",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void onTextSet(String newText, int editorId) {
+        if (newText.isEmpty()) {
+            Toast.makeText(this,"No label entered",Toast.LENGTH_SHORT).show();
+        }
+        else {
+            photos.get(selectedIndex).setLabel(newText);
         }
     }
 

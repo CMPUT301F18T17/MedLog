@@ -3,6 +3,7 @@ package cs.ualberta.ca.medlog.activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.entity.BodyLocation;
@@ -32,7 +33,10 @@ public class ViewBodyLocationActivity extends AppCompatActivity {
         BodyLocation bodyLocation = (BodyLocation)getIntent().getSerializableExtra("BODY_LOCATION");
 
         ImageView bodyPhotoView = findViewById(R.id.activityViewBodyLocation_ImageView);
-        bodyPhotoView.setImageBitmap(bodyLocation.getPhoto().getBitmap(50,50));
+        bodyPhotoView.setImageBitmap(bodyLocation.getPhoto().getBitmap());
+
+        TextView labelView = findViewById(R.id.activityAddBodyLocation_BodyPhotoLabelView);
+        labelView.setText(bodyLocation.getPhoto().getLabel());
 
         ImageView marker = findViewById(R.id.activityViewBodyLocation_MarkerView);
         marker.setX(bodyPhotoView.getX() + bodyLocation.getX());

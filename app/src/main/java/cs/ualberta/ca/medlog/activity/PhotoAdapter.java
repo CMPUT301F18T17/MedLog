@@ -42,7 +42,7 @@ public class PhotoAdapter extends ArrayAdapter<Photo> {
         }
 
         ImageView photoView = convertView.findViewById(R.id.fragmentPhotoItem_PhotoView);
-        photoView.setImageBitmap(getItem(position).getBitmap(photoView.getWidth(),photoView.getHeight()));
+        photoView.setImageBitmap(getItem(position).getBitmap());
 
         return convertView;
     }

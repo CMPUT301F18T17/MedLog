@@ -38,7 +38,8 @@ public class PatientViewRegisterCodeActivity extends AppCompatActivity {
         TextView registrationCode = findViewById(R.id.activityViewRegisterCode_CodeView);
         byte[] data = AppStatus.getInstance().getCurrentUser().getUsername().getBytes();
         try {
-            registrationCode.setText(Encryption.encryptData("CODE",data));
+            String code = Encryption.encryptData("CODE",data);
+            registrationCode.setText(code.substring(0,code.length()-2));
         } catch (EncryptionException e) {
             Toast.makeText(this,"Couldn't generate code",Toast.LENGTH_SHORT).show();
         }

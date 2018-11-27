@@ -55,6 +55,7 @@
     <string name="fragmentTextEditor.EmailHint">Enter an Email</string>
     <string name="fragmentTextEditor.PhoneNumberHint">Enter a Phone Number</string>
     <string name="fragmentTextEditor.CommentHint">Enter a Comment</string>
+    <string name="fragmentTextEditor.LabelHint">Enter a Label</string>
     <string name="fragmentSlideshow.PreviousButton">Previous</string>
     <string name="fragmentSlideshow.Image">Image</string>
     <string name="fragmentSlideshow.NextButton">Next</string>
@@ -163,4 +164,9 @@
     <string name="fragmentRecordSearchResult.ProblemDefault">PROBLEM INFO</string>
     <string name="fragmentRecordSearchResult.OwnerTextDefault">OWNER USERNAME</string>
     <string name="fragmentRecordSearchResult.Separator">|</string>
+    <string name="menuPhotoEditing.EditLabel">Edit Label</string>
+    <string name="menuPhotoEditing.DeletePhoto">Delete Photo</string>
+    <string name="activityViewBodyLocation.BodyPhotoLabelDefault">LABEL</string>
+    <string name="activityAddBodyLocation.BodyPhotoLabelDefault">LABEL</string>
+    <string name="activitySlideshow.PhotoLabelDefault">LABEL</string>
 </resources>
