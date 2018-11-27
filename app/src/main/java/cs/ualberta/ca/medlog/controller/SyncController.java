@@ -14,7 +14,7 @@ import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.entity.user.User;
 import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 import cs.ualberta.ca.medlog.helper.Database;
-import cs.ualberta.ca.medlog.helper.FileSaver;
+import cs.ualberta.ca.medlog.helper.Cache;
 import cs.ualberta.ca.medlog.entity.Photo;
 
 /**
@@ -51,7 +51,7 @@ public class SyncController {
     public void syncPatient(String username) throws ConnectException, IllegalStateException{
         // Check if we are connected.
         if(dbs.checkConnectivity()){
-            FileSaver fs = new FileSaver(ctx);
+            Cache fs = new Cache(ctx);
 
             // Try and load the user locally
             Patient local, remote;
@@ -102,7 +102,7 @@ public class SyncController {
     public void syncCareProvider(String username) throws ConnectException, IllegalStateException{
         // Check if we are connected.
         if(dbs.checkConnectivity()){
-            FileSaver fs = new FileSaver(ctx);
+            Cache fs = new Cache(ctx);
 
             // Try and load the user locally
             CareProvider local, remote;

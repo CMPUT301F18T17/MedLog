@@ -37,8 +37,8 @@ import static org.junit.Assert.*;
  *
  * </p>
  *
- * @author Thomas Roskewich
- * @contact roskewic@ualberta.ca
+ * @author Thomas Roskewich, Tem Tamre
+ * @contact roskewic@ualberta.ca, ttamre@ualberta.ca
  * @see cs.ualberta.ca.medlog.helper.Database
  */
 @RunWith(AndroidJUnit4.class)
@@ -64,10 +64,31 @@ public class DatabaseConnectionTest {
     }
 
     @Test
-    public void testLoadPatientLocal() {}
+    public void testLoadPatientLocal() throws UserNotFoundException{
+        ContactInfo info = new ContactInfo("7804444444", "test@email.com");
+        Patient patientA = new Patient(info, "testLoadPatientLocal");
+        assertNotNull(patientA);
+
+        Database db = new Database(null);
+        db.cache.savePatient(patientA);
+        Patient patientB = db.cache.loadPatient();
+
+        assertNotNull(patientB);
+        assertEquals(patientA, patientB);
+    }
 
     @Test
-    public void testLoadProviderLocal() {}
+    public void testLoadProviderLocal() throws UserNotFoundException{
+        CareProvider providerA = new CareProvider("testLoadProviderLocal");
+        assertNotNull(providerA);
+
+        Database db = new Database(null);
+        db.cache.saveCareProvider(providerA);
+        CareProvider providerB = db.cache.loadCareProvider();
+
+        assertNotNull(providerB);
+        assertEquals(providerA, providerB);
+    }
 
     @Test
     public void testUpdatingPatient(){
@@ -216,7 +237,17 @@ public class DatabaseConnectionTest {
     /* Tests for saving/PUT methods */
 
     @Test
-    public void testSavePatientLocal() {}
+    public void testSavePatientLocal() throws UserNotFoundException{
+        ContactInfo info = new ContactInfo("7804444444", "test@email.com");
+        Patient patientA = new Patient(info, "testLoadPatientLocal");
+        assertNotNull(patientA);
+
+        Database db = new Database(null);
+        db.cache.savePatient(patientA);
+        patientA = db.cache.loadPatient();
+
+        assertNotNull(patientA);
+    }
 
 
     /* We need to delete test users from the db, so I combined the test cases into one. */
@@ -261,7 +292,16 @@ public class DatabaseConnectionTest {
     }
 
     @Test
-    public void testSaveProviderLocal() {}
+    public void testSaveProviderLocal() throws UserNotFoundException {
+        CareProvider providerA = new CareProvider("testLoadProviderLocal");
+        assertNotNull(providerA);
+
+        Database db = new Database(null);
+        db.cache.saveCareProvider(providerA);
+        providerA = db.cache.loadCareProvider();
+
+        assertNotNull(providerA);
+    }
 
     @Test
     public void testSaveProviderRemote() {}

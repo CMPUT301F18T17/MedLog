@@ -69,25 +69,25 @@ import java.io.OutputStreamWriter;
  * @contact ttamre@ualberta.ca
  * @see cs.ualberta.ca.medlog.helper.Database
  */
-public class FileSaver {
+public class Cache {
     private String filename;
     private Context context;
 
     /**
-     * <p>Initialize a FileSaver instance for the current context with the default filename</p>
+     * <p>Initialize a Cache instance for the current context with the default filename</p>
      * @param c current application context
      */
-    public FileSaver(Context c) {
+    public Cache(Context c) {
         this.context = c;
         this.filename = "data.ser";
     }
 
     /**
-     * <p>Initialize a FileSaver instance for the current context with the given filename</p>
+     * <p>Initialize a Cache instance for the current context with the given filename</p>
      * @param c current application context
      * @param filename filename to be used
      */
-    public FileSaver(Context c, String filename) {
+    public Cache(Context c, String filename) {
         this.context = c;
         this.filename = filename;
     }
@@ -122,7 +122,7 @@ public class FileSaver {
             }
 
         } catch (IOException e) {
-            Log.d("FileSaver", "IOException thrown in FileSaver.loadPatient(patient)");
+            Log.d("Cache", "IOException thrown in Cache.loadPatient(patient)");
             throw new UserNotFoundException("Could not load user locally.");
         }
 
@@ -156,7 +156,7 @@ public class FileSaver {
             }
 
         } catch (IOException e) {
-            Log.d("FileSaver", "IOException thrown in FileSaver.loadPatient(patient)");
+            Log.d("Cache", "IOException thrown in Cache.loadPatient(patient)");
             throw new UserNotFoundException("Could not load user locally.");
         }
 
@@ -179,7 +179,7 @@ public class FileSaver {
             osw.write(json);
             osw.close();
         } catch (IOException e) {
-            Log.d("FileSaver", "IOException thrown in FileSaver.savePatient(patient)");
+            Log.d("Cache", "IOException thrown in Cache.savePatient(patient)");
             e.printStackTrace();
         }
     }
@@ -197,7 +197,7 @@ public class FileSaver {
             osw.write(json);
             osw.close();
         } catch (IOException e) {
-            Log.d("FileSaver", "IOException thrown in FileSaver.saveCareProvider(CareProvider)");
+            Log.d("Cache", "IOException thrown in Cache.saveCareProvider(CareProvider)");
             e.printStackTrace();
         }
     }
