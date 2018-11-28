@@ -62,11 +62,10 @@ import java.io.OutputStreamWriter;
  *         https://stackoverflow.com/a/14377185
  *         https://stackoverflow.com/users/1080355/vsb
  *         https://stackoverflow.com/users/1912085/r9j
- *         Published 2013-01-07, edited 2016-08-10, accessed 2018-11-09
+ *         Answered 2013-01-07, edited 2016-08-10, accessed 2018-11-09
  * </p>
  *
  * @author Tem Tamre
- * @contact ttamre@ualberta.ca
  * @see cs.ualberta.ca.medlog.helper.Database
  */
 public class Cache {
