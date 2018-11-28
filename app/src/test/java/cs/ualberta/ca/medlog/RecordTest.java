@@ -73,7 +73,9 @@ public class RecordTest {
 
         for (int i = 0; i < 5; i++) {
             Photo photo = new Photo(null);
-            testRecord.addPhoto(photo);
+            ArrayList<Photo> photos = new ArrayList<>();
+            photos.add(photo);
+            testRecord.setPhotos(photos);
             photoList.add(photo);
 
             assertEquals(testRecord.getPhotos(), photoList);

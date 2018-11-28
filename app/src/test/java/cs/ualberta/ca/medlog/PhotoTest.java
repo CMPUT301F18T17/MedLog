@@ -11,14 +11,18 @@ package cs.ualberta.ca.medlog;
 import cs.ualberta.ca.medlog.entity.Photo;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
+@RunWith(RobolectricTestRunner.class)
 public class PhotoTest {
 
     @Test
     public void testGetPhotoBitmap() {
-        Photo p = new Photo(null);
-        assertNull(p.getPhotoBitmap());
+        Photo p = new Photo("/d/test.png");
+        assertNull(p.getBitmap());
     }
 }

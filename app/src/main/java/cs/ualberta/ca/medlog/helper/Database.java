@@ -220,14 +220,13 @@ public class Database {
             try {
 
                 // Load the file, convert to bitmap, compress as JPEG, and then save the photo on ES
-                FileInputStream fis = new FileInputStream(file);
-                Bitmap bitmap = BitmapFactory.decodeStream(fis);
+                Bitmap bitmap = photo.getBitmap();
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100,baos);
                 String id =  new ElasticSearchController.SavePhotoTask().execute(baos.toByteArray()).get();
                 photo.setId(id);
                 return id;
-            } catch (FileNotFoundException | ExecutionException e) {
+            } catch (ExecutionException e) {
                 e.printStackTrace();
                 throw new IllegalStateException("File was not found yet initial checks found it!");
             }

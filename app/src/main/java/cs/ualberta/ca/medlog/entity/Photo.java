@@ -78,7 +78,7 @@ public class Photo implements Serializable {
     }
 
     /**
-     * Retrieves a bitmap of the given photo. First checks if one is alread cached, if not loads
+     * Retrieves a bitmap of the given photo. First checks if one is already cached, if not loads
      * from memory again.
      * @return The bitmap.
      */
