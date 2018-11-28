@@ -297,9 +297,6 @@ public class Database {
     public boolean savePatient(Patient patient){
         cache.savePatient(patient);
         patient.setUpdated();
-        for(Photo photo : patient.getBodyPhotos()){
-            photo.nullBitMap();
-        }
         if (checkConnectivity()) {
             try {
                 return new ElasticSearchController.SavePatientTask().execute(patient).get();
@@ -361,9 +358,6 @@ public class Database {
     public Boolean updatePatient(Patient patient) throws ConnectException{
         cache.savePatient(patient);
         patient.setUpdated();
-        for(Photo photo : patient.getBodyPhotos()){
-            photo.nullBitMap();
-        }
         if (checkConnectivity()) {
             try {
                 return new ElasticSearchController.SavePatientTask().execute(patient).get();
