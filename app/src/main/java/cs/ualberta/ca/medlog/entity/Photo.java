@@ -94,5 +94,12 @@ public class Photo implements Serializable {
         return bitmap;
     }
 
+    /**
+     * Sets the bitmap to null in order to save in the database.
+     */
+    public void nullBitMap(){
+        bitmap = null;
+    }
+
 
 }
