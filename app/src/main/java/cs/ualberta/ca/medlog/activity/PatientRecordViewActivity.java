@@ -1,6 +1,7 @@
 package cs.ualberta.ca.medlog.activity;
 
 import android.content.Intent;
+import android.content.SyncContext;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.ColorDrawable;
 import android.support.constraint.ConstraintLayout;
@@ -14,10 +15,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import cs.ualberta.ca.medlog.R;
+import cs.ualberta.ca.medlog.controller.SyncController;
 import cs.ualberta.ca.medlog.entity.MapLocation;
 import cs.ualberta.ca.medlog.entity.Record;
 import cs.ualberta.ca.medlog.singleton.AppStatus;
@@ -143,8 +146,13 @@ public class PatientRecordViewActivity extends AppCompatActivity {
 
     private void openSlideshowFragment() {
         Intent intent = new Intent(this, SlideshowActivity.class);
-        intent.putExtra("PHOTOS", record.getPhotos());
-        startActivity(intent);
+        SyncController sc = new SyncController(this);
+        if(sc.downloadAllPhotos(AppStatus.getInstance().getCurrentUser().getUsername(), record.getPhotos())) {
+            intent.putExtra("PHOTOS", record.getPhotos());
+            startActivity(intent);
+        }else{
+            Toast.makeText(this,"Failed to download all photos.",Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

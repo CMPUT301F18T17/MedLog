@@ -178,6 +178,27 @@ public class SyncController {
         return false;
     }
 
+
+    /**
+     * Download all photos in a photos array provided the patient username
+     * @param username The patients username. MUST BE THE PHOTO OWNER!
+     * @param photos An array of photos.
+     * @return A boolean if they were downloaded successfully.
+     */
+    public Boolean downloadAllPhotos(String username, ArrayList<Photo> photos){
+        Database db = new Database(ctx);
+        boolean success = true;
+        for(Photo photo : photos){
+            try {
+                db.downloadPhoto(username, photo);
+            }catch(IOException e){
+                e.printStackTrace();
+                success = false;
+            }
+        }
+        return success;
+    }
+
     /**
      * Download all patient photos from the database at once.
      * @param p The patient to get all photos for
