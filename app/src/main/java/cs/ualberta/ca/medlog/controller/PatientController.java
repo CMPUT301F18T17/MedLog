@@ -99,4 +99,6 @@ public class PatientController {
         } catch (Exception ignore) {
         }
     }
+    // Used for testing purposes
+    public Database getDatabase(){return database;}
 }

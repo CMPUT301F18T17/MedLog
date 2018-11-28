@@ -93,4 +93,5 @@ public class PatientTest {
 
         assertEquals(patient.getContactInfo(), info);
     }
+
 }
