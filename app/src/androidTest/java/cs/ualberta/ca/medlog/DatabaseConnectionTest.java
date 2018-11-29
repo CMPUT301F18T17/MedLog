@@ -6,7 +6,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import java.util.ArrayList;
 import java.util.Date;
 import cs.ualberta.ca.medlog.entity.BodyLocation;
 import cs.ualberta.ca.medlog.entity.MapLocation;
@@ -18,7 +17,7 @@ import cs.ualberta.ca.medlog.entity.user.ContactInfo;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 import cs.ualberta.ca.medlog.helper.Database;
-import cs.ualberta.ca.medlog.helper.ElasticSearchController;
+import cs.ualberta.ca.medlog.controller.ElasticSearchController;
 
 import static org.junit.Assert.*;
 
@@ -70,7 +69,7 @@ public class DatabaseConnectionTest {
         assertNotNull(patientA);
 
         Database db = new Database(null);
-        db.cache.savePatient(patientA);
+        db.cache.save(patientA);
         Patient patientB = db.cache.loadPatient();
 
         assertNotNull(patientB);
@@ -83,7 +82,7 @@ public class DatabaseConnectionTest {
         assertNotNull(providerA);
 
         Database db = new Database(null);
-        db.cache.saveCareProvider(providerA);
+        db.cache.save(providerA);
         CareProvider providerB = db.cache.loadCareProvider();
 
         assertNotNull(providerB);
@@ -243,7 +242,7 @@ public class DatabaseConnectionTest {
         assertNotNull(patientA);
 
         Database db = new Database(null);
-        db.cache.savePatient(patientA);
+        db.cache.save(patientA);
         patientA = db.cache.loadPatient();
 
         assertNotNull(patientA);
@@ -297,7 +296,7 @@ public class DatabaseConnectionTest {
         assertNotNull(providerA);
 
         Database db = new Database(null);
-        db.cache.saveCareProvider(providerA);
+        db.cache.save(providerA);
         providerA = db.cache.loadCareProvider();
 
         assertNotNull(providerA);
