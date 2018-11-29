@@ -23,6 +23,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.nio.channels.FileChannel;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -40,17 +41,16 @@ import cs.ualberta.ca.medlog.singleton.AppStatus;
  * </p>
  * <p>
  *     Issues: <br>
- *         Fix potential failure with choose photo.
+ *         None.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.9
+ * @version 1.0
  * @see PhotoAdapter
  * @see TextEditorFragment
  */
 public class PhotoSelectorActivity extends AppCompatActivity implements TextEditorFragment.OnTextSetListener {
     static final int REQUEST_IMAGE_CAPTURE = 1;
-    static final int REQUEST_LOAD_IMAGE = 2;
 
     private ArrayList<Photo> photos;
     private PhotoAdapter photoAdapter;
@@ -115,17 +115,10 @@ public class PhotoSelectorActivity extends AppCompatActivity implements TextEdit
         photoGrid.setAdapter(photoAdapter);
 
         Button takeNewButton = findViewById(R.id.activityPhotoSelector_TakeNewButton);
-        Button addExistingButton = findViewById(R.id.activityPhotoSelector_AddExistingButton);
         takeNewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dispatchTakePictureIntent();
-            }
-        });
-        addExistingButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dispatchChoosePictureIntent();
             }
         });
 
@@ -177,47 +170,9 @@ public class PhotoSelectorActivity extends AppCompatActivity implements TextEdit
         }
     }
 
-    private void dispatchChoosePictureIntent() {
-        Intent choosePictureIntent = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        if (choosePictureIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(choosePictureIntent, REQUEST_LOAD_IMAGE);
-        }
-    }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Toast.makeText(this,"Photo Added",Toast.LENGTH_SHORT).show();
-            photos.add(new Photo(photoPath));
-            photoAdapter.notifyDataSetChanged();
-        }
-        else if (requestCode == REQUEST_LOAD_IMAGE && resultCode == RESULT_OK) {
-            String sourceFilename = getRealPathFromURI(data.getData());
-            Toast.makeText(this,sourceFilename,Toast.LENGTH_SHORT).show();
-
-            File photoFile;
-
-            String username = AppStatus.getInstance().getCurrentUser().getUsername();
-            String timeStamp = Long.toHexString(new Date().getTime());
-            String imageFileName = "JPEG_" + "_" + username + "_" + timeStamp + "_";
-            try {
-                photoFile = File.createTempFile(imageFileName, ".jpg", getFilesDir());
-
-                FileInputStream inStream = new FileInputStream(sourceFilename);
-                FileOutputStream outStream = new FileOutputStream(photoFile);
-                FileChannel inChannel = inStream.getChannel();
-                FileChannel outChannel = outStream.getChannel();
-                inChannel.transferTo(0, inChannel.size(), outChannel);
-                inStream.close();
-                outStream.close();
-
-                photoPath = photoFile.getPath();
-            } catch (IOException e) {
-                e.printStackTrace();
-                Toast.makeText(this, "Failed to find photo space", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
             Toast.makeText(this,"Photo Added",Toast.LENGTH_SHORT).show();
             photos.add(new Photo(photoPath));
             photoAdapter.notifyDataSetChanged();
@@ -233,17 +188,6 @@ public class PhotoSelectorActivity extends AppCompatActivity implements TextEdit
         }
         else {
             photos.get(selectedIndex).setLabel(newText);
-        }
-    }
-
-    private String getRealPathFromURI(Uri contentURI) {
-        Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
-        if (cursor == null) {
-            return contentURI.getPath();
-        } else {
-            cursor.moveToFirst();
-            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-            return cursor.getString(idx);
         }
     }
 }
