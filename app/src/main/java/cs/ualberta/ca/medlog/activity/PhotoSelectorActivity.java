@@ -130,14 +130,14 @@ public class PhotoSelectorActivity extends AppCompatActivity implements TextEdit
             public void onClick(View v) {
                 Intent intent = new Intent();
                 if (photos.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "No photos added", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.activityPhotoSelector_NoPhotos, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 for(Photo photo:photos) {
                     try {
                         db.savePhoto(photo);
                     } catch (Exception e) {
-                        Toast.makeText(getApplicationContext(), "Failed to save photos", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), R.string.activityPhotoSelector_FailedSavePhotos, Toast.LENGTH_SHORT).show();
                         return;
                     }
                 }
@@ -160,11 +160,11 @@ public class PhotoSelectorActivity extends AppCompatActivity implements TextEdit
                 photoFile = File.createTempFile(imageFileName,".jpg",getFilesDir());
                 photoPath = photoFile.getPath();
             } catch (IOException e) {
-                Toast.makeText(this, "Failed to find photo space", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.activityPhotoSelector_NoSpace, Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            Uri photoUri = FileProvider.getUriForFile(this, "cs.ualberta.ca.medlog.fileprovider", photoFile);
+            Uri photoUri = FileProvider.getUriForFile(this, getResources().getString(R.string.fileProviderPath), photoFile);
             takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
@@ -173,20 +173,21 @@ public class PhotoSelectorActivity extends AppCompatActivity implements TextEdit
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Toast.makeText(this,"Photo Added",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.activityPhotoSelector_PhotoAdded,Toast.LENGTH_SHORT).show();
             photos.add(new Photo(photoPath));
             photoAdapter.notifyDataSetChanged();
         }
         else if (resultCode != RESULT_OK){
-            Toast.makeText(this,"Cancelled",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.activityPhotoSelector_CancelledAdd,Toast.LENGTH_SHORT).show();
         }
     }
 
     public void onTextSet(String newText, int editorId) {
         if (newText.isEmpty()) {
-            Toast.makeText(this,"No label entered",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.activityPhotoSelector_NoLabel,Toast.LENGTH_SHORT).show();
         }
         else {
+            Toast.makeText(this,R.string.activityPhotoSelector_LabelAdded,Toast.LENGTH_SHORT).show();
             photos.get(selectedIndex).setLabel(newText);
         }
     }

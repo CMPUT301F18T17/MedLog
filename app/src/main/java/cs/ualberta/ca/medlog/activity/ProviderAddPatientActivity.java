@@ -11,12 +11,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.Toast;
+
+import java.net.ConnectException;
+
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.controller.ProviderController;
 import cs.ualberta.ca.medlog.entity.Problem;
 import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.exception.EncryptionException;
+import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 import cs.ualberta.ca.medlog.helper.Database;
 import cs.ualberta.ca.medlog.helper.Encryption;
 import cs.ualberta.ca.medlog.singleton.AppStatus;
@@ -61,7 +65,7 @@ public class ProviderAddPatientActivity extends AppCompatActivity {
         String code = codeField.getText().toString();
 
         if (code.isEmpty()) {
-            Toast.makeText(this,"No code entered",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.activityProviderAddPatient_NoCode,Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -70,7 +74,7 @@ public class ProviderAddPatientActivity extends AppCompatActivity {
             username = Encryption.byteArrayToString(Encryption.decryptData("CODE", code));
         } catch (EncryptionException e) {
             e.printStackTrace();
-            Toast.makeText(this,"Couldn't read code.",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.activityProviderAddPatient_CodeUnreadable,Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -78,19 +82,17 @@ public class ProviderAddPatientActivity extends AppCompatActivity {
         Patient newPatient;
         try {
             newPatient = db.loadPatient(username);
-        } catch(Exception e){
-            Toast.makeText(this,"Invalid register code",Toast.LENGTH_SHORT).show();
+        } catch(UserNotFoundException e){
+            Toast.makeText(this,R.string.activityProviderAddPatient_NoPatient,Toast.LENGTH_SHORT).show();
             return;
-        }
-
-        if (newPatient == null) {
-            Toast.makeText(this,"Failed to find patient",Toast.LENGTH_SHORT).show();
+        } catch (ConnectException e) {
+            Toast.makeText(this,R.string.activityProviderAddPatient_NoServer,Toast.LENGTH_SHORT).show();
             return;
         }
 
         CareProvider provider = (CareProvider)AppStatus.getInstance().getCurrentUser();
         if (provider.getPatients().contains(newPatient)) {
-            Toast.makeText(this,"Patient already added",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.activityProviderAddPatient_AlreadyAdded,Toast.LENGTH_SHORT).show();
             return;
         }
 

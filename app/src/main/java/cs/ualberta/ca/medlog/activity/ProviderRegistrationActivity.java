@@ -50,7 +50,7 @@ public class ProviderRegistrationActivity extends AppCompatActivity {
         EditText usernameField = findViewById(R.id.activityProviderRegistration_UsernameEditText);
         String username = usernameField.getText().toString();
         if (username.isEmpty()) {
-            Toast.makeText(this,"No username entered",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.activityProviderRegistration_NoUsername,Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -59,23 +59,24 @@ public class ProviderRegistrationActivity extends AppCompatActivity {
         try {
             usernameAvailable = db.usernameAvailable(username);
         } catch(ConnectException e){
-            Toast.makeText(this,"Could not connect",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.activityProviderRegistration_NoServer,Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (!usernameAvailable) {
-            Toast.makeText(this,"Username already used",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.activityProviderRegistration_ExistingUsername,Toast.LENGTH_SHORT).show();
             return;
         }
 
         CareProvider toSignUp = new CareProvider(username);
         if (db.saveProvider(toSignUp)) {
             AppStatus.getInstance().setCurrentUser(toSignUp);
+            Toast.makeText(this,R.string.activityProviderRegistration_Registered,Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, ProviderMenuActivity.class);
             startActivity(intent);
         }
         else {
-            Toast.makeText(this,"Failed to register care provider",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.activityProviderRegistration_FailedRegister,Toast.LENGTH_SHORT).show();
         }
     }
 }

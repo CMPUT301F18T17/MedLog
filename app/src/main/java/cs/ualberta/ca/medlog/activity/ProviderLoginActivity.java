@@ -59,7 +59,7 @@ public class ProviderLoginActivity extends AppCompatActivity {
         String username = usernameField.getText().toString();
 
         if (username.isEmpty()) {
-            Toast.makeText(this,"No username entered",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.activityProviderLogin_NoUsername,Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -67,7 +67,7 @@ public class ProviderLoginActivity extends AppCompatActivity {
         try{
             sc.syncCareProvider(username);
         }catch(Exception e){
-            Toast.makeText(this,"Failed to connect to server",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.activityProviderLogin_NoServer,Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -78,17 +78,18 @@ public class ProviderLoginActivity extends AppCompatActivity {
             toLogin = db.loadProvider(username);
             toLogin = sc.updateCareProviderPatients(toLogin);
         } catch(Exception e) {
-            Toast.makeText(this, "Couldn't find user", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.activityProviderLogin_NoCareProvider, Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (toLogin != null) {
             AppStatus.getInstance().setCurrentUser(toLogin);
             Intent intent = new Intent(this, ProviderMenuActivity.class);
+            Toast.makeText(this,R.string.activityProviderLogin_LoggedIn,Toast.LENGTH_SHORT).show();
             startActivity(intent);
         }
         else {
-            Toast.makeText(this,"Failed to login",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.activityProviderLogin_FailedLogin,Toast.LENGTH_SHORT).show();
         }
     }
 

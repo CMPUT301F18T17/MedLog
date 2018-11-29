@@ -78,6 +78,7 @@
     <string name="activityPatientViewRegisterCode.TitleText">Patient Registration Code</string>
     <string name="activityPatientViewRegisterCode.DescText">Enter this code in another phone to verify your account on it.</string>
     <string name="activityPatientViewRegisterCode.CodeDefault">CODE</string>
+    <string name="activityPatientViewRegisterCode.FailedGeneration">Failed to Generate a Code</string>
 
     <string name="activityPatientSearch.TitleText">Search</string>
     <string name="activityPatientSearch.KeywordHint">Enter Keywords</string>
@@ -117,10 +118,21 @@
     <string name="activityProviderLogin.UsernameEditHint">Enter Username</string>
     <string name="activityProviderLogin.LoginButton">Login</string>
     <string name="activityProviderLogin.RegisterButton">Register</string>
+    <string name="activityProviderLogin.NoUsername">No Username Entered</string>
+    <string name="activityProviderLogin.NoServer">Failed Server Connection</string>
+    <string name="activityProviderLogin.NoCareProvider">Care Provider Not Found</string>
+    <string name="activityProviderLogin.FailedLogin">Failed to Login</string>
+    <string name="activityProviderLogin.LoggedIn">Care Provider Logged In</string>
+
 
     <string name="activityProviderRegistration.TitleText">Care Provider Registration</string>
     <string name="activityProviderRegistration.UsernameEditHint">Enter a Username</string>
     <string name="activityProviderRegistration.CompleteButton">Complete</string>
+    <string name="activityProviderRegistration.NoUsername">No Username Entered</string>
+    <string name="activityProviderRegistration.NoServer">Failed Server Connection</string>
+    <string name="activityProviderRegistration.ExistingUsername">Username Already Taken</string>
+    <string name="activityProviderRegistration.FailedRegister">Failed to Register</string>
+    <string name="activityProviderRegistration.Registered">Registered Care Provider</string>
 
     <string name="activityProviderMenu.SearchProblemsButton">Search Problems</string>
     <string name="activityProviderMenu.ViewPatientsButton">View Patients</string>
@@ -132,6 +144,12 @@
     <string name="activityProviderAddPatient.TitleText">Add Patient</string>
     <string name="activityProviderAddPatient.AddButton">Add</string>
     <string name="activityProviderAddPatient.CodeHint">Enter Patient Register Code</string>
+    <string name="activityProviderAddPatient.NoCode">No Code Entered</string>
+    <string name="activityProviderAddPatient.CodeUnreadable">Code Not Valid</string>
+    <string name="activityProviderAddPatient.NoPatient">No Patient Matches the Code</string>
+    <string name="activityProviderAddPatient.NoServer">Failed Server Connection</string>
+    <string name="activityProviderAddPatient.AlreadyAdded">Patient Already Added</string>
+    <string name="activityProviderAddPatient.Registered">Registered Phone</string>
 
     <string name="fragmentAddPatientNavigation.TitleText">Patient Added</string>
     <string name="fragmentAddPatientNavigation.ViewButton">View Patient</string>
@@ -151,7 +169,11 @@
     <string name="activityProviderSearch.KeywordHint">Enter Keywords</string>
     <string name="activityProviderSearch.SearchButton">Search</string>
     <string name="activityProviderSearch.BodyLocationButton">Body Location</string>
+    <string name="activityProviderSearch.NoPatientBodyPhotos">No Patient Body Photos</string>
+    <string name="activityProviderSearch.BodyLocationAdded">Body Location Set</string>
     <string name="activityProviderSearch.MapLocationButton">Map Location</string>
+    <string name="activityProviderSearch.MapLocationAdded">Map Location Set</string>
+
 
     <string name="activityProviderPatientViewProblems.TitleText">Patient Problems</string>
 
@@ -163,6 +185,11 @@
     <string name="activityProviderProblemView.ViewRecordsButton">View Records</string>
     <string name="activityProviderProblemView.SlideshowButton">Slideshow</string>
     <string name="activityProviderProblemView.AddRecordButton">Add Comment Record</string>
+    <string name="activityProviderProblemView.NoPatient">Patient Not Found</string>
+    <string name="activityProviderProblemView.FailedPatientFind">Failed to Find Patient Data</string>
+    <string name="activityProviderProblemView.NoComment">No Comment Entered</string>
+    <string name="activityProviderProblemView.NoPhotos">No Record Photos</string>
+    <string name="activityProviderProblemView.FailedPhotoDownload">Failed to Download Photos</string>
 
     <string name="activityProviderPatientViewRecords.TitleText">Records</string>
 
@@ -174,6 +201,8 @@
     <string name="activityProviderRecordView.BodyLocationButton">Body Location</string>
     <string name="activityProviderRecordView.MapLocationButton">Map Location</string>
     <string name="activityProviderRecordView.SlideshowButton">Photos</string>
+    <string name="activityProviderRecordView.FailedPhotoDownload">Failed to Download Photos</string>
+
 
     <string name="fragmentTextEditor.EditHint">Enter Text</string>
     <string name="fragmentTextEditor.ConfirmButton">Ok</string>
@@ -188,10 +217,12 @@
     <string name="fragmentTitleComment.CommentDefault">COMMENT</string>
     <string name="fragmentTitleComment.TitleDefault">TITLE</string>
 
-    <string name="activitySlideshow.PreviousButton">Previous</string>
-    <string name="activitySlideshow.Image">Image</string>
-    <string name="activitySlideshow.NextButton">Next</string>
     <string name="activitySlideshow.PhotoLabelDefault">LABEL</string>
+    <string name="activitySlideshow.Image">Image</string>
+    <string name="activitySlideshow.PreviousButton">Previous</string>
+    <string name="activitySlideshow.NoPrevious">No Previous Photo</string>
+    <string name="activitySlideshow.NextButton">Next</string>
+    <string name="activitySlideshow.NoNext">No Next Photo</string>
 
     <string name="activityAddBodyLocations.TitleText">Welcome to MedLog</string>
     <string name="activityAddBodyLocations.GuideText">Would you like to enter custom body photos?</string>
@@ -202,6 +233,13 @@
     <string name="activityPhotoSelector.AddExistingButton">Add Existing Photo</string>
     <string name="activityPhotoSelector.SaveButton">Save Photos</string>
     <string name="activityPhotoSelector.GuideImageDesc">Guide for taking photographs.</string>
+    <string name="activityPhotoSelector.PhotoAdded">Photo Added</string>
+    <string name="activityPhotoSelector.CancelledAdd">Cancelled Adding the Photo</string>
+    <string name="activityPhotoSelector.LabelAdded">Label Added</string>
+    <string name="activityPhotoSelector.NoLabel">No Label Entered</string>
+    <string name="activityPhotoSelector.NoSpace">No Storage Space for Photos</string>
+    <string name="activityPhotoSelector.NoPhotos">No Photos to Save</string>
+    <string name="activityPhotoSelector.FailedSavePhotos">Failed to Save Photos</string>
 
     <string name="menuPhotoEditing.EditLabel">Edit Label</string>
     <string name="menuPhotoEditing.DeletePhoto">Delete Photo</string>
@@ -229,5 +267,6 @@
     <string name="fragmentRecordSearchResult.OwnerTextDefault">OWNER USERNAME</string>
     <string name="fragmentRecordSearchResult.Separator">|</string>
 
+    <string name="fileProviderPath">cs.ualberta.ca.medlog.fileprovider</string>
     <string name="mapboxAccessToken">pk.eyJ1IjoidmVyeXJhbmRvbXBlcnNvbiIsImEiOiJjam9nZmxxY3QwZW53M3FscGhzZTg4ZnA2In0.IEYLgLCNOfnIczHn1kaycQ</string>
 </resources>

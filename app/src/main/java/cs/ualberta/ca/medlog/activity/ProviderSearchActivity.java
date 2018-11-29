@@ -128,7 +128,7 @@ public class ProviderSearchActivity extends AppCompatActivity {
             startActivityForResult(intent, BODY_LOCATION_REQUEST);
         }
         else {
-            Toast.makeText(this,"No patient body photos present",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.activityProviderSearch_NoPatientBodyPhotos,Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -138,14 +138,14 @@ public class ProviderSearchActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) { // If a map location was selected
                 double latitude = data.getDoubleExtra("LATITUDE", -1);
                 double longitude = data.getDoubleExtra("LONGITUDE", -1);
-                Toast.makeText(this, R.string.activityPatientAddRecord_RecordAdded, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.activityProviderSearch_MapLocationAdded, Toast.LENGTH_SHORT).show();
                 mapLocation = new MapLocation(latitude,longitude);
             }
         }
         else if (requestCode == BODY_LOCATION_REQUEST) {
             if (resultCode == RESULT_OK) {
                 bodyLocation = (BodyLocation)data.getSerializableExtra("BODY_LOCATION");
-                Toast.makeText(this,"Body Location added",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,R.string.activityProviderSearch_BodyLocationAdded,Toast.LENGTH_SHORT).show();
             }
         }
     }

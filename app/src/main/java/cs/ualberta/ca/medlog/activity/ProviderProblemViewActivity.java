@@ -118,7 +118,7 @@ public class ProviderProblemViewActivity extends AppCompatActivity implements Te
         }
 
         if (photos.isEmpty()) {
-            Toast.makeText(this,"No record photos",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.activityProviderProblemView_NoPhotos,Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -128,7 +128,7 @@ public class ProviderProblemViewActivity extends AppCompatActivity implements Te
             intent.putExtra("PHOTOS", photos);
             startActivity(intent);
         }else{
-            Toast.makeText(this,"Failed to download all photos.",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.activityProviderProblemView_FailedPhotoDownload,Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -145,7 +145,7 @@ public class ProviderProblemViewActivity extends AppCompatActivity implements Te
 
     public void onTextSet(String newText, int editorId) {
         if(newText.isEmpty()) {
-            Toast.makeText(this,"No comment entered", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.activityProviderProblemView_NoComment, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -154,10 +154,10 @@ public class ProviderProblemViewActivity extends AppCompatActivity implements Te
         try {
             patient = db.loadPatient(patientUsername);
         } catch(UserNotFoundException e) {
-            Toast.makeText(this,"Patient doesn't exist", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.activityProviderProblemView_NoPatient, Toast.LENGTH_SHORT).show();
             return;
         } catch(ConnectException e) {
-            Toast.makeText(this, "Failed to connect", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.activityProviderProblemView_FailedPatientFind, Toast.LENGTH_SHORT).show();
             return;
         }
 

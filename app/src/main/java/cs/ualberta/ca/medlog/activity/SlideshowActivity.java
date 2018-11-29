@@ -76,7 +76,7 @@ public class SlideshowActivity extends AppCompatActivity {
             imageView.setImageBitmap(photoBitmaps.get(--index));
         }
         else {
-            Toast.makeText(this,"No previous photo",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.activitySlideshow_NoPrevious,Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -85,7 +85,7 @@ public class SlideshowActivity extends AppCompatActivity {
             imageView.setImageBitmap(photoBitmaps.get(++index));
         }
         else {
-            Toast.makeText(this,"No next photo",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.activitySlideshow_NoNext,Toast.LENGTH_SHORT).show();
         }
     }
 }

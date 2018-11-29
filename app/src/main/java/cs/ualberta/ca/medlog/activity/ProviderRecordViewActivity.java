@@ -165,7 +165,7 @@ public class ProviderRecordViewActivity extends AppCompatActivity {
             intent.putExtra("PHOTOS", record.getPhotos());
             startActivity(intent);
         }else{
-            Toast.makeText(this,"Failed to download all photos.",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.activityProviderRecordView_FailedPhotoDownload,Toast.LENGTH_SHORT).show();
         }
     }
 

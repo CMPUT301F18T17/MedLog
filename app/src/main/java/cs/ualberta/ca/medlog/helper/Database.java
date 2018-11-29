@@ -103,14 +103,12 @@ public class Database {
                 throw new UserNotFoundException("Patient " + username + " failed to load.");
             }
         } else {
-
             try { // Offline mode, try and load the patient from local data
                 patient = cache.load(Patient.class);
             } catch (UserNotFoundException e) {
-
-            }
                 throw new ConnectException("Failed to connect to database and could not load the user locally.");
             }
+        }
         return patient;
     }
 
