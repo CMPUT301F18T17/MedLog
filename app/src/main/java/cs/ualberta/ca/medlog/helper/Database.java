@@ -278,6 +278,8 @@ public class Database {
     public boolean deletePhoto(Photo photo) throws ConnectException{
         if(checkConnectivity()){
             try {
+                File f = new File(photo.getPath());
+                f.delete();
                 return new ElasticSearchController.DeletePhotoTask().execute(photo.getId()).get();
             } catch (ExecutionException | InterruptedException e) {
                 e.printStackTrace();
