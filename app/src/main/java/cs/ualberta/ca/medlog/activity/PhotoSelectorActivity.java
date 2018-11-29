@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.PopupWindow;
 import android.widget.Toast;
 import java.io.File;
 import java.io.FileInputStream;
@@ -53,6 +54,7 @@ public class PhotoSelectorActivity extends AppCompatActivity implements TextEdit
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
     private ArrayList<Photo> photos;
+    private ArrayList<Photo> toDelete = new ArrayList<>();
     private PhotoAdapter photoAdapter;
 
     private String photoPath;
@@ -84,7 +86,8 @@ public class PhotoSelectorActivity extends AppCompatActivity implements TextEdit
                 menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                        if (item.getItemId() == 0) {
+                        if (item.getItemId() == R.id.menuPhotoEditing_EditLabel) {
+
                             selectedIndex = position;
 
                             DialogFragment newFragment = new TextEditorFragment();
@@ -97,18 +100,14 @@ public class PhotoSelectorActivity extends AppCompatActivity implements TextEdit
                             newFragment.show(getSupportFragmentManager(),"labelEditor");
                         }
                         else {
-                            Database db = new Database(getApplicationContext());
-                            try {
-                                db.deletePhoto(photos.get(position));
-                            } catch (ConnectException e) {
-                                return false;
-                            }
+                            toDelete.add(photos.get(position));
                             photos.remove(position);
                             photoAdapter.notifyDataSetChanged();
                         }
                         return false;
                     }
                 });
+                menu.show();
             }
         });
         photoAdapter = new PhotoAdapter(this,photos);
@@ -129,7 +128,7 @@ public class PhotoSelectorActivity extends AppCompatActivity implements TextEdit
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                if (photos.isEmpty()) {
+                if (photos.isEmpty() && toDelete.isEmpty()) {
                     Toast.makeText(getApplicationContext(), R.string.activityPhotoSelector_NoPhotos, Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -138,6 +137,14 @@ public class PhotoSelectorActivity extends AppCompatActivity implements TextEdit
                         db.savePhoto(photo);
                     } catch (Exception e) {
                         Toast.makeText(getApplicationContext(), R.string.activityPhotoSelector_FailedSavePhotos, Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+                for(Photo photo:toDelete) {
+                    try {
+                        db.deletePhoto(photo);
+                    } catch (ConnectException e) {
+                        Toast.makeText(getApplicationContext(), R.string.activityPhotoSelector_FailedDeletePhotos, Toast.LENGTH_SHORT).show();
                         return;
                     }
                 }
@@ -151,7 +158,7 @@ public class PhotoSelectorActivity extends AppCompatActivity implements TextEdit
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            File photoFile = null;
+            File photoFile;
 
             String username = AppStatus.getInstance().getCurrentUser().getUsername();
             String timeStamp = Long.toHexString(new Date().getTime());
@@ -172,13 +179,15 @@ public class PhotoSelectorActivity extends AppCompatActivity implements TextEdit
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Toast.makeText(this, R.string.activityPhotoSelector_PhotoAdded,Toast.LENGTH_SHORT).show();
-            photos.add(new Photo(photoPath));
-            photoAdapter.notifyDataSetChanged();
-        }
-        else if (resultCode != RESULT_OK){
-            Toast.makeText(this,R.string.activityPhotoSelector_CancelledAdd,Toast.LENGTH_SHORT).show();
+        if (resultCode == RESULT_OK) {
+            if (requestCode == REQUEST_IMAGE_CAPTURE) {
+                Toast.makeText(this, R.string.activityPhotoSelector_PhotoAdded,Toast.LENGTH_SHORT).show();
+                photos.add(new Photo(photoPath));
+                photoAdapter.notifyDataSetChanged();
+            }
+            else {
+                Toast.makeText(this,R.string.activityPhotoSelector_CancelledAdd,Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

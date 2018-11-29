@@ -35,7 +35,7 @@ public class ViewBodyLocationActivity extends AppCompatActivity {
         ImageView bodyPhotoView = findViewById(R.id.activityViewBodyLocation_ImageView);
         bodyPhotoView.setImageBitmap(bodyLocation.getPhoto().getBitmap());
 
-        TextView labelView = findViewById(R.id.activityAddBodyLocation_BodyPhotoLabelView);
+        TextView labelView = findViewById(R.id.activityViewBodyLocation_BodyPhotoLabelView);
         labelView.setText(bodyLocation.getPhoto().getLabel());
 
         ImageView marker = findViewById(R.id.activityViewBodyLocation_MarkerView);

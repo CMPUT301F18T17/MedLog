@@ -126,16 +126,14 @@ public class PatientSearchActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == MAP_LOCATION_REQUEST) {
-            if (resultCode == RESULT_OK) { // If a map location was selected
+        if (resultCode == RESULT_OK) {
+            if (requestCode == MAP_LOCATION_REQUEST) { // If a map location was selected
                 double latitude = data.getDoubleExtra("LATITUDE", -1);
                 double longitude = data.getDoubleExtra("LONGITUDE", -1);
                 Toast.makeText(this, R.string.activityPatientSearch_MapLocationAdded, Toast.LENGTH_SHORT).show();
                 mapLocation = new MapLocation(latitude,longitude);
             }
-        }
-        else if (requestCode == BODY_LOCATION_REQUEST) {
-            if (resultCode == RESULT_OK) {
+            else if (requestCode == BODY_LOCATION_REQUEST) {
                 bodyLocation = (BodyLocation)data.getSerializableExtra("BODY_LOCATION");
                 Toast.makeText(this,R.string.activityPatientSearch_BodyLocationAdded,Toast.LENGTH_SHORT).show();
             }

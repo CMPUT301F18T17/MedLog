@@ -2,7 +2,6 @@ package cs.ualberta.ca.medlog.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -17,9 +16,6 @@ import java.util.ArrayList;
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.entity.BodyLocation;
 import cs.ualberta.ca.medlog.entity.Photo;
-import cs.ualberta.ca.medlog.entity.user.CareProvider;
-import cs.ualberta.ca.medlog.entity.user.Patient;
-import cs.ualberta.ca.medlog.singleton.AppStatus;
 
 /**
  * <p>
@@ -43,7 +39,6 @@ import cs.ualberta.ca.medlog.singleton.AppStatus;
 public class AddBodyLocationActivity extends AppCompatActivity {
     private ImageView imageView;
     private ArrayList<Photo> photos;
-    private ArrayList<Bitmap> photoBitmaps;
     private int index = 0;
 
     private Photo selectedPhoto;
@@ -79,41 +74,28 @@ public class AddBodyLocationActivity extends AppCompatActivity {
 
         photos = (ArrayList<Photo>)getIntent().getSerializableExtra("BODY_PHOTOS");
 
-        if (AppStatus.getInstance().getCurrentUser() instanceof CareProvider) {
-            photos = new ArrayList<>();
-            for(Patient patient: ((CareProvider)AppStatus.getInstance().getCurrentUser()).getPatients()) {
-                photos.addAll(patient.getBodyPhotos());
-            }
-        }
-        else {
-            photos = ((Patient)AppStatus.getInstance().getCurrentUser()).getBodyPhotos();
-        }
-        retrievePhotoBitmaps(photos);
 
-        imageView = findViewById(R.id.activitySlideshow_ImageView);
-        updateBodyPhotoDisplay();
+
+        imageView = findViewById(R.id.activityAddBodyLocation_ImageView);
         imageView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getActionMasked() == MotionEvent.ACTION_DOWN) {
-                    locationX = Math.round(event.getX());
-                    locationY = Math.round(event.getY());
+                    locationX = Math.round(event.getRawX());
+                    locationY = Math.round(event.getRawY());
                     updateLocationMarkerPlace();
                 }
                 return false;
             }
         });
-    }
 
-    private void retrievePhotoBitmaps(ArrayList<Photo> photos) {
-        photoBitmaps = new ArrayList<>();
-        for(Photo photo: photos) {
-            photoBitmaps.add(photo.getBitmap());
-        }
+
+        updateBodyPhotoDisplay();
     }
 
     private void displayPreviousPhoto() {
         if (index > 0) {
+            index--;
             updateBodyPhotoDisplay();
         }
         else {
@@ -122,7 +104,8 @@ public class AddBodyLocationActivity extends AppCompatActivity {
     }
 
     private void displayNextPhoto() {
-        if (index+1 < photoBitmaps.size()) {
+        if (index+1 < photos.size()) {
+            index++;
             updateBodyPhotoDisplay();
         }
         else {
@@ -131,7 +114,7 @@ public class AddBodyLocationActivity extends AppCompatActivity {
     }
 
     private void updateBodyPhotoDisplay() {
-        imageView.setImageBitmap(photoBitmaps.get(index));
+        imageView.setImageBitmap(photos.get(index).getBitmap());
         TextView labelView = findViewById(R.id.activityAddBodyLocation_BodyPhotoLabelView);
         labelView.setText(photos.get(index).getLabel());
         selectedPhoto = null;
@@ -144,15 +127,21 @@ public class AddBodyLocationActivity extends AppCompatActivity {
         selectedPhoto = photos.get(index);
         ImageView markerView = findViewById(R.id.activityAddBodyLocation_MarkerView);
         markerView.setVisibility(View.VISIBLE);
-        markerView.setX(imageView.getX() + locationX);
-        markerView.setY(imageView.getY() + locationY);
+        markerView.setX(locationX);
+        markerView.setY(locationY);
     }
 
     private void saveBodyLocation() {
+        if (selectedPhoto == null) {
+            Toast.makeText(this,R.string.activityAddBodyLocation_NoLocation,Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         BodyLocation location = new BodyLocation(selectedPhoto,locationX,locationY);
 
         Intent intent = new Intent();
         intent.putExtra("BODY_LOCATION",location);
         setResult(Activity.RESULT_OK, intent);
+        finish();
     }
 }

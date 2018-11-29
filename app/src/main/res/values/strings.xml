@@ -270,6 +270,7 @@
     <string name="activityPhotoSelector.NoSpace">No Storage Space for Photos</string>
     <string name="activityPhotoSelector.NoPhotos">No Photos to Save</string>
     <string name="activityPhotoSelector.FailedSavePhotos">Failed to Save Photos</string>
+    <string name="activityPhotoSelector.FailedDeletePhotos">Failed to Delete Photos</string>
 
     <string name="menuPhotoEditing.EditLabel">Edit Label</string>
     <string name="menuPhotoEditing.DeletePhoto">Delete Photo</string>
@@ -278,12 +279,13 @@
     <string name="activityAddMapLocation.LocationTitleDefault">LOCATION</string>
     <string name="activityAddMapLocation.NoLocationSet">No Map Location Selected</string>
 
+    <string name="activityAddBodyLocation.BodyPhotoLabelDefault">LABEL</string>
     <string name="activityAddBodyLocation.SaveButton">Save</string>
     <string name="activityAddBodyLocation.PreviousButton">Previous</string>
     <string name="activityAddBodyLocation.NoPrevious">No Previous Photo</string>
     <string name="activityAddBodyLocation.NextButton">Next</string>
     <string name="activityAddBodyLocation.NoNext">No Next Photo</string>
-    <string name="activityAddBodyLocation.BodyPhotoLabelDefault">LABEL</string>
+    <string name="activityAddBodyLocation.NoLocation">No Location Selected</string>
 
     <string name="activityViewBodyLocation.BodyPhotoLabelDefault">LABEL</string>
 

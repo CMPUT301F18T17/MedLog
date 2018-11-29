@@ -118,32 +118,29 @@ public class ProviderSearchActivity extends AppCompatActivity {
 
     private void openBodyLocationSelector() {
         ArrayList<Photo> bodyPhotos = new ArrayList<>();
-        for(Patient patient: ((CareProvider)AppStatus.getInstance().getCurrentUser()).getPatients()) {
+        for (Patient patient : ((CareProvider) AppStatus.getInstance().getCurrentUser()).getPatients()) {
             bodyPhotos.addAll(patient.getBodyPhotos());
         }
 
         if (!bodyPhotos.isEmpty()) {
             Intent intent = new Intent(this, AddBodyLocationActivity.class);
-            intent.putExtra("BODY_PHOTOS",bodyPhotos);
+            intent.putExtra("BODY_PHOTOS", bodyPhotos);
             startActivityForResult(intent, BODY_LOCATION_REQUEST);
-        }
-        else {
-            Toast.makeText(this,R.string.activityProviderSearch_NoPatientBodyPhotos,Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, R.string.activityProviderSearch_NoPatientBodyPhotos, Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == MAP_LOCATION_REQUEST) {
-            if (resultCode == RESULT_OK) { // If a map location was selected
+        if (resultCode == RESULT_OK) {
+            if (requestCode == MAP_LOCATION_REQUEST) { // If a map location was selected
                 double latitude = data.getDoubleExtra("LATITUDE", -1);
                 double longitude = data.getDoubleExtra("LONGITUDE", -1);
                 Toast.makeText(this, R.string.activityProviderSearch_MapLocationAdded, Toast.LENGTH_SHORT).show();
                 mapLocation = new MapLocation(latitude,longitude);
             }
-        }
-        else if (requestCode == BODY_LOCATION_REQUEST) {
-            if (resultCode == RESULT_OK) {
+            else if (requestCode == BODY_LOCATION_REQUEST) {
                 bodyLocation = (BodyLocation)data.getSerializableExtra("BODY_LOCATION");
                 Toast.makeText(this,R.string.activityProviderSearch_BodyLocationAdded,Toast.LENGTH_SHORT).show();
             }

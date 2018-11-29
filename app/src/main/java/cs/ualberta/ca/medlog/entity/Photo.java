@@ -2,6 +2,7 @@ package cs.ualberta.ca.medlog.entity;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.widget.Toast;
 
 import java.io.Serializable;
 
@@ -85,8 +86,6 @@ public class Photo implements Serializable {
     public Bitmap getBitmap() {
         if (bitmap == null || bitmap.isRecycled()) {
             BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-            bmOptions.inJustDecodeBounds = true;
-            BitmapFactory.decodeFile(path, bmOptions);
             bmOptions.inJustDecodeBounds = false;
             bitmap = BitmapFactory.decodeFile(path, bmOptions);
         }

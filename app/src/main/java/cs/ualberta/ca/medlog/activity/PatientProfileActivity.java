@@ -177,8 +177,8 @@ public class PatientProfileActivity extends AppCompatActivity implements TextEdi
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == PHOTO_REQUEST) {
-            if (resultCode == RESULT_OK) {
+        if (resultCode == RESULT_OK) {
+            if (requestCode == PHOTO_REQUEST) {
                 ArrayList<Photo> photos = (ArrayList<Photo>)data.getSerializableExtra("PHOTOS");
                 PatientController controller = new PatientController(this);
                 controller.setBodyPhotos((Patient)AppStatus.getInstance().getCurrentUser(),photos);
