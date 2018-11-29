@@ -49,7 +49,6 @@ public class SyncController {
      * @throws IllegalStateException If we have a local copy but a remote one does not exist
      */
     public void syncPatient(String username) throws ConnectException, IllegalStateException{
-        /*
         // Check if we are connected.
         if(dbs.checkConnectivity()){
             // Try and load the user locally
@@ -91,7 +90,7 @@ public class SyncController {
             }
         }else {
             throw new ConnectException("Could not connect to the database!");
-        }*/
+        }
     }
 
 
