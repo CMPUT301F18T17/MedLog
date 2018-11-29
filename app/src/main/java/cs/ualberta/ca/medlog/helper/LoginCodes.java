@@ -62,7 +62,7 @@ import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 public class LoginCodes {
     public Context context;
     private String filename;
-    private ArrayList<String> codes;
+    private ArrayList<String> codes = new ArrayList<>();
 
     /**
      * Initialize a LoginCodes object
