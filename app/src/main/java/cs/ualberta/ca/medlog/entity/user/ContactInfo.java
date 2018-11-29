@@ -1,3 +1,5 @@
+package cs.ualberta.ca.medlog.entity.user;
+
 /**
  *
  * <h1>
@@ -11,11 +13,9 @@
  * </p>
  *
  * @author Thomas Roskewich, Tem Tamre
- * @contact roskewic@ualberta.ca, ttamre@ualberta.ca
+ * @version 1.0
  * @see cs.ualberta.ca.medlog.entity.user.Patient
  */
-
-package cs.ualberta.ca.medlog.entity.user;
 
 public class ContactInfo {
 

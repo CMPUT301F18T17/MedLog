@@ -30,7 +30,7 @@ import cs.ualberta.ca.medlog.entity.Photo;
 /**
  *
  * <h1>
- Database
+ *     Database
  * </h1>
  *
  *  <p>
@@ -49,6 +49,7 @@ import cs.ualberta.ca.medlog.entity.Photo;
  * </p>
  *
  * @author Tem Tamre, Thomas Roskewich
+ * @version 1.1
  * @see Cache
  */
 public class Database {

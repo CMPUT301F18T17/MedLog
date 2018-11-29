@@ -59,7 +59,7 @@ import cs.ualberta.ca.medlog.exception.UserNotFoundException;
  * </p>
  *
  * @author Tem Tamre
- * @contact ttamre@ualberta.ca
+ * @version 1.0
  */
 public class LoginCodes {
     public Context context;

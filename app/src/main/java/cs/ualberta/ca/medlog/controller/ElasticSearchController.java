@@ -473,11 +473,7 @@ public class ElasticSearchController {
             HttpURLConnection urlConn = (HttpURLConnection) urlServer.openConnection();
             urlConn.setConnectTimeout(timeout);
             urlConn.connect();
-            if (urlConn.getResponseCode() == 200) {
-                return true;
-            } else {
-                return false;
-            }
+            return urlConn.getResponseCode() == 200;
         } catch (MalformedURLException e1) {
             return false;
         } catch (IOException e) {

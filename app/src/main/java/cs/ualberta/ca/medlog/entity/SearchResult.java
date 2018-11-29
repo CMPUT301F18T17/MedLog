@@ -16,8 +16,8 @@ import cs.ualberta.ca.medlog.entity.user.Patient;
  * @contact roskewic@ualberta.ca
  * @version 1.0
  * @see cs.ualberta.ca.medlog.entity.user.Patient
- * @see Problem
- * @see Record
+ * @see cs.ualberta.ca.medlog.entity.Problem
+ * @see cs.ualberta.ca.medlog.entity.Record
  */
 public class SearchResult {
     private Patient patient;

@@ -1,3 +1,8 @@
+package cs.ualberta.ca.medlog.entity;
+
+import java.util.ArrayList;
+import java.util.Date;
+
 /**
  * <p>
  *     Description: <br>
@@ -12,10 +17,6 @@
  * @version 1.0
  * @see cs.ualberta.ca.medlog.entity.Record
  */
-package cs.ualberta.ca.medlog.entity;
-
-import java.util.ArrayList;
-import java.util.Date;
 
 public class Problem {
     private String title;

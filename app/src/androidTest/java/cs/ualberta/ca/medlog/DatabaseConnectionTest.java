@@ -63,7 +63,7 @@ public class DatabaseConnectionTest {
     }
 
     @Test
-    public void testLoadPatientLocal() throws UserNotFoundException{
+    public void testLoadPatientLocal() {
         ContactInfo info = new ContactInfo("7804444444", "test@email.com");
         Patient patientA = new Patient(info, "testLoadPatientLocal");
         assertNotNull(patientA);
@@ -77,7 +77,7 @@ public class DatabaseConnectionTest {
     }
 
     @Test
-    public void testLoadProviderLocal() throws UserNotFoundException{
+    public void testLoadProviderLocal() {
         CareProvider providerA = new CareProvider("testLoadProviderLocal");
         assertNotNull(providerA);
 
@@ -236,7 +236,7 @@ public class DatabaseConnectionTest {
     /* Tests for saving/PUT methods */
 
     @Test
-    public void testSavePatientLocal() throws UserNotFoundException{
+    public void testSavePatientLocal() {
         ContactInfo info = new ContactInfo("7804444444", "test@email.com");
         Patient patientA = new Patient(info, "testLoadPatientLocal");
         assertNotNull(patientA);
@@ -291,7 +291,7 @@ public class DatabaseConnectionTest {
     }
 
     @Test
-    public void testSaveProviderLocal() throws UserNotFoundException {
+    public void testSaveProviderLocal() {
         CareProvider providerA = new CareProvider("testLoadProviderLocal");
         assertNotNull(providerA);
 
@@ -312,7 +312,7 @@ public class DatabaseConnectionTest {
      * Used in initializing a database for further testing.
      * @return If the database was successfully initialized.
      */
-    private boolean initializeTestDatabaase() throws UserNotFoundException {
+    private boolean initializeTestDatabaase() {
 
         // Initialize Patients
         Patient patient = new Patient(new ContactInfo("123456789", "me@da.ca"), "testuser");
@@ -374,7 +374,7 @@ public class DatabaseConnectionTest {
      * Cleaup the test database
      * @return if the operation succeeded.
      */
-    private boolean cleanupTestDatabase() throws UserNotFoundException {
+    private boolean cleanupTestDatabase() {
         return ElasticSearchController.deletePatient("testuser")
                 && ElasticSearchController.deletePatient("superuser")
                 && ElasticSearchController.deletePatient("megauser")
@@ -388,7 +388,7 @@ public class DatabaseConnectionTest {
      * @param username The username of the patient
      * @return The patient
      */
-    private Patient loadPatientES(String username) throws UserNotFoundException{
+    private Patient loadPatientES(String username) {
         return ElasticSearchController.loadPatient(username);
     }
 
@@ -397,7 +397,7 @@ public class DatabaseConnectionTest {
      * @param username The username of the patient
      * @return The Care Provider
      */
-    private CareProvider loadCareES(String username) throws UserNotFoundException{
+    private CareProvider loadCareES(String username) {
         return ElasticSearchController.loadCareProvider(username);
     }
 

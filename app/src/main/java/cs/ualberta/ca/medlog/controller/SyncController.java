@@ -27,7 +27,6 @@ import cs.ualberta.ca.medlog.entity.Photo;
  * </p>
  *
  * @author Thomas Roskewich, Tem Tamre
- * @contact roskewic@ualberta.ca, ttamre@ualberta.ca
  * @version 1.0
  * @see Patient
  * @see CareProvider
@@ -172,10 +171,7 @@ public class SyncController {
      * @return If the server needs to update.
      */
     private Boolean determineIfUpdateRequired(User local, User remote){
-        if(local.getLastUpdated().after(remote.getLastUpdated())){
-            return true;
-        }
-        return false;
+        return local.getLastUpdated().after(remote.getLastUpdated());
     }
 
     /**

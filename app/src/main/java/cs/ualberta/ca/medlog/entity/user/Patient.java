@@ -1,3 +1,5 @@
+package cs.ualberta.ca.medlog.entity.user;
+
 /**
  *
  * <h1>
@@ -14,8 +16,6 @@
  * @contact roskewic@ualberta.ca
  * @see cs.ualberta.ca.medlog.entity.user.User
  */
-
-package cs.ualberta.ca.medlog.entity.user;
 
 import java.util.ArrayList;
 
