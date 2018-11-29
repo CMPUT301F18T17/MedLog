@@ -144,8 +144,10 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
     }
 
     private void openBodyLocationSelector() {
-        if (!((Patient)AppStatus.getInstance().getCurrentUser()).getBodyPhotos().isEmpty()) {
+        ArrayList<Photo> bodyPhotos = ((Patient)AppStatus.getInstance().getCurrentUser()).getBodyPhotos();
+        if (!bodyPhotos.isEmpty()) {
             Intent intent = new Intent(this, AddBodyLocationActivity.class);
+            intent.putExtra("BODY_PHOTOS",bodyPhotos);
             startActivityForResult(intent, BODY_LOCATION_REQUEST);
         }
         else {

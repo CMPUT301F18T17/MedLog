@@ -17,6 +17,7 @@ import java.util.Arrays;
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.entity.BodyLocation;
 import cs.ualberta.ca.medlog.entity.MapLocation;
+import cs.ualberta.ca.medlog.entity.Photo;
 import cs.ualberta.ca.medlog.entity.Problem;
 import cs.ualberta.ca.medlog.entity.SearchResult;
 import cs.ualberta.ca.medlog.entity.user.Patient;
@@ -112,8 +113,10 @@ public class PatientSearchActivity extends AppCompatActivity {
     }
 
     private void openBodyLocationSelector() {
-        if (!((Patient)AppStatus.getInstance().getCurrentUser()).getBodyPhotos().isEmpty()) {
+        ArrayList<Photo> bodyPhotos = ((Patient)AppStatus.getInstance().getCurrentUser()).getBodyPhotos();
+        if (!bodyPhotos.isEmpty()) {
             Intent intent = new Intent(this, AddBodyLocationActivity.class);
+            intent.putExtra("BODY_PHOTOS",bodyPhotos);
             startActivityForResult(intent, BODY_LOCATION_REQUEST);
         }
         else {

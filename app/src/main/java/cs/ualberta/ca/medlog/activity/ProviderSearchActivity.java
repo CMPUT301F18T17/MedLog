@@ -124,6 +124,7 @@ public class ProviderSearchActivity extends AppCompatActivity {
 
         if (!bodyPhotos.isEmpty()) {
             Intent intent = new Intent(this, AddBodyLocationActivity.class);
+            intent.putExtra("BODY_PHOTOS",bodyPhotos);
             startActivityForResult(intent, BODY_LOCATION_REQUEST);
         }
         else {

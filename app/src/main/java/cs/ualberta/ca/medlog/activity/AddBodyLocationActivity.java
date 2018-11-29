@@ -77,6 +77,8 @@ public class AddBodyLocationActivity extends AppCompatActivity {
             }
         });
 
+        photos = (ArrayList<Photo>)getIntent().getSerializableExtra("BODY_PHOTOS");
+
         if (AppStatus.getInstance().getCurrentUser() instanceof CareProvider) {
             photos = new ArrayList<>();
             for(Patient patient: ((CareProvider)AppStatus.getInstance().getCurrentUser()).getPatients()) {
