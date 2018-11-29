@@ -137,11 +137,8 @@ public class ProviderSearchActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) { // If a map location was selected
                 double latitude = data.getDoubleExtra("Latitude", -1);
                 double longitude = data.getDoubleExtra("Longitude", -1);
-                Toast.makeText(this, R.string.activityPatientAddRecordActivity_MapLocationAdded, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.activityPatientAddRecord_RecordAdded, Toast.LENGTH_SHORT).show();
                 mapLocation = new MapLocation(latitude,longitude);
-            }
-            else { // If the select location button was tapped, but the user never selected a position on the map
-                Toast.makeText(this, R.string.activityPatientAddRecordActivity_NoLocationAdded, Toast.LENGTH_LONG).show();
             }
         }
         else if (requestCode == BODY_LOCATION_REQUEST) {
