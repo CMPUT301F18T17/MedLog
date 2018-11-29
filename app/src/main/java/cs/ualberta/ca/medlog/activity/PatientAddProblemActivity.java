@@ -35,7 +35,7 @@ import cs.ualberta.ca.medlog.singleton.AppStatus;
  * </p>
  *
  * @author Tyler Gobran
- * @version 1.0
+ * @version 1.1
  * @see PatientMenuActivity
  * @see PatientProblemViewActivity
  * @see DatePickerFragment
@@ -95,23 +95,14 @@ public class PatientAddProblemActivity extends AppCompatActivity implements Date
         EditText titleField = findViewById(R.id.activityPatientAddProblem_TitleEditText);
         String title = titleField.getText().toString();
         if (title.isEmpty()) {
-            Toast.makeText(this,"No title entered",Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (title.length()>30) {
-            Toast.makeText(this,"Title too long",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.activityPatientAddProblem_NoTitle,Toast.LENGTH_SHORT).show();
             return;
         }
 
         EditText descField = findViewById(R.id.activityPatientAddProblem_DescriptionEditText);
         String description = descField.getText().toString();
         if (description.isEmpty()) {
-            Toast.makeText(this,"No description entered",Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (description.length()>300) {
-            Toast.makeText(this,"Description too long",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.activityPatientAddProblem_NoDesc,Toast.LENGTH_SHORT).show();
             return;
         }
 

@@ -55,7 +55,7 @@ public class PatientEnterRegisterCodeActivity extends AppCompatActivity {
         String code = codeField.getText().toString();
 
         if (code.isEmpty()) {
-            Toast.makeText(this,"No code entered",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.activityPatientEnterRegisterCode_NoCode,Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -64,7 +64,7 @@ public class PatientEnterRegisterCodeActivity extends AppCompatActivity {
             username = Encryption.byteArrayToString(Encryption.decryptData("CODE", code+"=="));
         } catch (EncryptionException e) {
             e.printStackTrace();
-            Toast.makeText(this,"Couldn't read code.",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.activityPatientEnterRegisterCode_CodeUnreadable,Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -73,7 +73,7 @@ public class PatientEnterRegisterCodeActivity extends AppCompatActivity {
             sc.syncPatient(username);
         }catch(Exception e){
             e.printStackTrace();
-            Toast.makeText(this,"Failed to connect to server",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.activityPatientEnterRegisterCode_NoServer,Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -82,7 +82,7 @@ public class PatientEnterRegisterCodeActivity extends AppCompatActivity {
         try {
             toLogin = db.loadPatient(username);
         } catch(Exception e){
-            Toast.makeText(this, "Failed to register", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.activityPatientEnterRegisterCode_NoRegister, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -92,12 +92,12 @@ public class PatientEnterRegisterCodeActivity extends AppCompatActivity {
             LoginCodes loginCodes = new LoginCodes(this);
             loginCodes.addCode(username);
 
-            Toast.makeText(this,"Phone Registered",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.activityPatientEnterRegisterCode_Registered,Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, PatientMenuActivity.class);
             startActivity(intent);
         }
         else {
-            Toast.makeText(this,"Failed to register",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.activityPatientEnterRegisterCode_NoRegister,Toast.LENGTH_SHORT).show();
         }
     }
 }

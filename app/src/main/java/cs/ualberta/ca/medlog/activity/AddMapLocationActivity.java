@@ -71,7 +71,7 @@ public class AddMapLocationActivity extends AppCompatActivity {
                     finish();
                 }
                 else {
-                    Toast.makeText(getApplicationContext(),"No Map Location Selected",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),R.string.activityAddMapLocation_NoLocationSet,Toast.LENGTH_SHORT).show();
                 }
             }
         });

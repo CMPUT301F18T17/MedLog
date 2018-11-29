@@ -14,6 +14,11 @@
     <string name="activityPatientEnterRegisterCode.TitleText">Enter a Patient Registration Code</string>
     <string name="activityPatientEnterRegisterCode.CodeEditHint">Enter the Register Code</string>
     <string name="activityPatientEnterRegisterCode.RegisterButton">Register</string>
+    <string name="activityPatientEnterRegisterCode.NoCode">No Code Entered</string>
+    <string name="activityPatientEnterRegisterCode.CodeUnreadable">Code Not Valid</string>
+    <string name="activityPatientEnterRegisterCode.NoServer">Failed Server Connection</string>
+    <string name="activityPatientEnterRegisterCode.NoRegister">Failed Registration</string>
+    <string name="activityPatientEnterRegisterCode.Registered">Registered Phone</string>
 
     <string name="activityPatientSignUp.TitleText">Patient Sign Up</string>
     <string name="activityPatientSignUp.UsernameEditHint">Enter a Username</string>
@@ -34,6 +39,8 @@
     <string name="activityPatientAddProblem.DescriptionEditText">Enter a Description</string>
     <string name="activityPatientAddProblem.DateButtonDefault">YYYY/MM/DD</string>
     <string name="activityPatientAddProblem.AddButton">Add</string>
+    <string name="activityPatientAddProblem.NoTitle">No Title Entered</string>
+    <string name="activityPatientAddProblem.NoDesc">No Description Entered</string>
 
     <string name="fragmentAddProblemNavigation.TitleText">Problem Added</string>
     <string name="fragmentAddProblemNavigation.ViewButton">View Problem</string>
@@ -199,6 +206,7 @@
 
     <string name="activityAddMapLocation.AddButton">Add Location</string>
     <string name="activityAddMapLocation.LocationTitleDefault">LOCATION</string>
+    <string name="activityAddMapLocation.NoLocationSet">No Map Location Selected</string>
 
     <string name="activityAddBodyLocation.SaveButton">Save</string>
     <string name="activityAddBodyLocation.PreviousButton">Previous</string>
