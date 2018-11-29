@@ -1,6 +1,5 @@
-package cs.ualberta.ca.medlog.helper;
+package cs.ualberta.ca.medlog.controller;
 import android.os.AsyncTask;
-import android.util.Base64;
 import android.util.Log;
 import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
@@ -14,6 +13,7 @@ import cs.ualberta.ca.medlog.entity.EncryptedPhoto;
 import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.exception.EncryptionException;
+import cs.ualberta.ca.medlog.helper.Encryption;
 import cs.ualberta.ca.medlog.singleton.AppStatus;
 import io.searchbox.client.JestResult;
 import io.searchbox.core.Delete;

@@ -10,8 +10,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.security.Provider;
 import java.util.ArrayList;
 
+import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.entity.user.User;
 import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 
@@ -69,12 +71,20 @@ public class LoginCodes {
      * @param context
      */
     public LoginCodes(Context context){
-        this.filename = "users.sav";
+        this.filename = "codes.sav";
         this.context = context;
     }
 
 
     /* Getter methods */
+
+    /**
+     * Getter method for the context in use
+     * @return context
+     */
+    public Context getContext() {
+        return context;
+    }
 
     /**
      * Getter method for the filename in use
@@ -96,6 +106,14 @@ public class LoginCodes {
     /* Setter methods */
 
     /**
+     * Setter method for the context
+     * @param context
+     */
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
+    /**
      * Setter method for the filename
      * NOTE: Changing the filename means that the old list of codes will not be accessible
      * @param filename
@@ -106,14 +124,14 @@ public class LoginCodes {
 
     /**
      * Setter method for the code array
-     * NOTE: The next invocation of saveCodes() will effectively wipe the old code list and replace
-     *  it with this
+     * NOTE: This will wipe {@code this.codes}
      * @param codes
      */
     public void setCodes(ArrayList<String> codes) {
         this.codes = codes;
-        saveCodes();
+        save();
     }
+
 
     /* Main functionality */
 
@@ -123,7 +141,7 @@ public class LoginCodes {
      */
     public void addCode(String code) {
         codes.add(code);
-        saveCodes();
+        save();
     }
 
     /**
@@ -134,7 +152,7 @@ public class LoginCodes {
     public void deleteCode(String code) throws UserNotFoundException {
         if (codes.contains(code)) {
             codes.remove(code);
-            saveCodes();
+            save();
         } else {
             throw new UserNotFoundException("Code was not found on the device");
         }
@@ -145,7 +163,7 @@ public class LoginCodes {
      * This function is private because it is already called within this class whenever a change is
      *  made to the codes ArrayList
      */
-    private void saveCodes() {
+    private void save() {
         Gson gson = new Gson();
         String json = gson.toJson(codes);
 
@@ -154,7 +172,7 @@ public class LoginCodes {
             osw.write(json);
             osw.close();
         } catch (IOException e) {
-            Log.d("LoginCodes", "IOException thrown in LoginCodes.saveCodes()");
+            Log.d("LoginCodes", "IOException thrown in LoginCodes.save()");
             e.printStackTrace();
         }
     }
@@ -165,7 +183,7 @@ public class LoginCodes {
      * This function is private because it is already called within this class whenever a comparison
      *  is made with the codes ArrayList
      */
-    private void loadCodes() {
+    private void load() {
         Gson gson = new Gson();
         String json;
 
@@ -188,7 +206,6 @@ public class LoginCodes {
             }
 
         } catch (IOException e) {
-            Log.d("LoginCodes", "IOException thrown in LoginCodes.loadCodes()");
             e.printStackTrace();
         }
     }
@@ -199,7 +216,7 @@ public class LoginCodes {
      * @return True if the code exists in the ArrayList, false otherwise
      */
     public boolean checkCode(String code) {
-        loadCodes();
+        load();
         return codes.contains(code);
     }
 }

@@ -54,7 +54,7 @@ public class SyncController {
             // Try and load the user locally
             Patient local, remote;
             try {
-                local = dbs.cache.loadPatient();
+                local = dbs.cache.load(Patient.class);
                 if(local == null) {
                     return;
                 }
@@ -106,7 +106,7 @@ public class SyncController {
             // Try and load the user locally
             CareProvider local, remote;
             try {
-                local = dbs.cache.loadCareProvider();
+                local = dbs.cache.load(CareProvider.class);
                 if(local == null) { return; }
                 if(!local.getUsername().equals(username)){
                     // Sync the old user. Could be either a care provider or patient so we have to call both.

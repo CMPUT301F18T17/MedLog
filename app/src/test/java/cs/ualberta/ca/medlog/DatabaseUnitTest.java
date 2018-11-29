@@ -5,7 +5,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
 import cs.ualberta.ca.medlog.helper.Database;
-import cs.ualberta.ca.medlog.helper.ElasticSearchController;
+import cs.ualberta.ca.medlog.controller.ElasticSearchController;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertFalse;
