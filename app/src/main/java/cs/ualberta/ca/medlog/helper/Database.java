@@ -222,7 +222,7 @@ public class Database {
                 // Load the file, convert to bitmap, compress as JPEG, and then save the photo on ES
                 Bitmap bitmap = photo.getBitmap();
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100,baos);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 50,baos);
                 String id =  new ElasticSearchController.SavePhotoTask().execute(baos.toByteArray()).get();
                 photo.setId(id);
                 return id;

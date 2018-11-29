@@ -344,6 +344,8 @@ public class ElasticSearchController {
         try {
             // Try and encrypt the photo before uploading to the server.
             String output = Encryption.encryptData(AppStatus.getInstance().getCurrentUser().getUsername(), photoData);
+            System.out.println(output);
+            System.out.println(output.length());
             EncryptedPhoto ep = new EncryptedPhoto(output);
             // Get the index and execute the put.
             Index index = new Index.Builder(ep)
