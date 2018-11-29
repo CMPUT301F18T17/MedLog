@@ -7,9 +7,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.net.ConnectException;
+
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.controller.SyncController;
 import cs.ualberta.ca.medlog.entity.user.Patient;
+import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 import cs.ualberta.ca.medlog.helper.Database;
 import cs.ualberta.ca.medlog.helper.LoginCodes;
 import cs.ualberta.ca.medlog.singleton.AppStatus;
@@ -93,14 +97,16 @@ public class PatientLoginActivity extends AppCompatActivity {
         Patient toLogin;
         try {
             toLogin = db.loadPatient(username);
-        } catch(Exception e){
-            Toast.makeText(this, "Failed to login", Toast.LENGTH_SHORT).show();
+        } catch(UserNotFoundException e){
+            Toast.makeText(this, "Patient not found", Toast.LENGTH_SHORT).show();
+            return;
+        } catch (ConnectException e) {
+            Toast.makeText(this, "Failed to connect to server", Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (toLogin != null) {
             AppStatus.getInstance().setCurrentUser(toLogin);
-            sc.downloadAllPhotos(toLogin);
 
             Intent intent = new Intent(this, PatientMenuActivity.class);
             startActivity(intent);

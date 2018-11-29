@@ -25,7 +25,7 @@ import java.io.Serializable;
 public class Photo implements Serializable {
     private String path;
     private String id;
-    private Bitmap bitmap;
+    private transient Bitmap bitmap;
     private String label;
 
     /**
@@ -92,6 +92,13 @@ public class Photo implements Serializable {
         }
 
         return bitmap;
+    }
+
+    /**
+     * Sets the bitmap to null in order to save in the database.
+     */
+    public void nullBitMap(){
+        bitmap = null;
     }
 
 

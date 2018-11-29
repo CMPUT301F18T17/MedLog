@@ -42,7 +42,7 @@ public class ElasticSearchController {
     public static String databaseAddress = "http://cmput301.softwareprocess.es:8080";
     private static JestDroidClient client = null;
     private static final String INDEX_NAME = "cmput301f18t17";
-    private static final int timeout = 1000;
+    private static final int timeout = 500;
 
 
     /**

@@ -20,6 +20,7 @@ import java.net.ConnectException;
 import java.util.ArrayList;
 
 import cs.ualberta.ca.medlog.R;
+import cs.ualberta.ca.medlog.controller.SyncController;
 import cs.ualberta.ca.medlog.entity.MapLocation;
 import cs.ualberta.ca.medlog.entity.Record;
 import cs.ualberta.ca.medlog.entity.user.Patient;
@@ -159,8 +160,13 @@ public class ProviderRecordViewActivity extends AppCompatActivity {
 
     private void openSlideshowFragment() {
         Intent intent = new Intent(this, SlideshowActivity.class);
-        intent.putExtra("PHOTOS", record.getPhotos());
-        startActivity(intent);
+        SyncController sc = new SyncController(this);
+        if(sc.downloadAllPhotos(AppStatus.getInstance().getViewedPatient().getUsername(), record.getPhotos())) {
+            intent.putExtra("PHOTOS", record.getPhotos());
+            startActivity(intent);
+        }else{
+            Toast.makeText(this,"Failed to download all photos.",Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void openPatientProfile() {

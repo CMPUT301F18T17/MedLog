@@ -19,6 +19,7 @@ import java.util.Locale;
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.controller.PatientController;
 import cs.ualberta.ca.medlog.controller.ProblemController;
+import cs.ualberta.ca.medlog.controller.SyncController;
 import cs.ualberta.ca.medlog.entity.Photo;
 import cs.ualberta.ca.medlog.entity.Problem;
 import cs.ualberta.ca.medlog.entity.Record;
@@ -137,9 +138,14 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
             return;
         }
 
-        Intent intent = new Intent(this, SlideshowActivity.class);
-        intent.putExtra("PHOTOS",photos);
-        startActivity(intent);
+        SyncController sc = new SyncController(this);
+        if(sc.downloadAllPhotos(AppStatus.getInstance().getCurrentUser().getUsername(), photos)) {
+            Intent intent = new Intent(this, SlideshowActivity.class);
+            intent.putExtra("PHOTOS", photos);
+            startActivity(intent);
+        }else{
+            Toast.makeText(this,"Failed to download all photos.",Toast.LENGTH_SHORT).show();
+        }
     }
 
 

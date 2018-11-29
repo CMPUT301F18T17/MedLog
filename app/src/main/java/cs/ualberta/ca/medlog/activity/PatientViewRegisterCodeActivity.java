@@ -39,7 +39,7 @@ public class PatientViewRegisterCodeActivity extends AppCompatActivity {
         byte[] data = AppStatus.getInstance().getCurrentUser().getUsername().getBytes();
         try {
             String code = Encryption.encryptData("CODE",data);
-            registrationCode.setText(code.substring(0,code.length()-2));
+            registrationCode.setText(code.substring(0,code.length()-3));
         } catch (EncryptionException e) {
             Toast.makeText(this,"Couldn't generate code",Toast.LENGTH_SHORT).show();
         }

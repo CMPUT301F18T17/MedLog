@@ -41,4 +41,6 @@ public class ProviderController {
             e.printStackTrace();
         }
     }
+    // Used for testing purposes
+    public Database getDatabase(){return database;}
 }
