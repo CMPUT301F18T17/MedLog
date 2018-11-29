@@ -180,7 +180,7 @@ public class PatientProfileActivity extends AppCompatActivity implements TextEdi
                 Toast.makeText(this,"Body images added",Toast.LENGTH_SHORT).show();
                 ArrayList<Photo> photos = (ArrayList<Photo>)data.getSerializableExtra("PHOTOS");
                 PatientController controller = new PatientController(this);
-                controller.addBodyPhotos((Patient)AppStatus.getInstance().getCurrentUser(),photos);
+                controller.setBodyPhotos((Patient)AppStatus.getInstance().getCurrentUser(),photos);
             }
         }
     }

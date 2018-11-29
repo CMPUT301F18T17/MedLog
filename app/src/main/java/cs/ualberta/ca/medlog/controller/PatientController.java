@@ -21,7 +21,7 @@ import cs.ualberta.ca.medlog.helper.Database;
  * </p>
  *
  * @author Thomas Roskewich
- * @version 1.0
+ * @version 1.1
  * @see Patient
  */
 public class PatientController {
@@ -29,6 +29,19 @@ public class PatientController {
 
     public PatientController(Context ctx) {
         database = new Database(ctx);
+    }
+
+    /**
+     * The controller method for the gui to set Body Photos for the Patient.
+     * @param patient The patient who is having body photos added.
+     * @param newPhotos The new photos which are set.
+     */
+    public void setBodyPhotos(Patient patient, ArrayList<Photo> newPhotos) {
+        try {
+            patient.setBodyPhotos(newPhotos);
+            database.updatePatient(patient);
+        } catch (Exception ignore) {
+        }
     }
 
     /**
@@ -79,26 +92,12 @@ public class PatientController {
      */
     public void deleteProblem(Patient patient, Problem problem) {
         try {
-            patient.getProblems().remove(problem);
+            patient.deleteProblem(problem.getId());
             database.updatePatient(patient);
         } catch (Exception ignore) {
         }
     }
 
-    /**
-     * The controller method for the gui to add Body Photos to the Patient.
-     * @param patient The patient who is having body photos added.
-     * @param newPhotos The new photos which are added.
-     */
-    public void addBodyPhotos(Patient patient, ArrayList<Photo> newPhotos) {
-        try {
-            for(Photo photo: newPhotos) {
-                patient.addBodyPhoto(photo);
-            }
-            database.updatePatient(patient);
-        } catch (Exception ignore) {
-        }
-    }
     // Used for testing purposes
     public Database getDatabase(){return database;}
 }
