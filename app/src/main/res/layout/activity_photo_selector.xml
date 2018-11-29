@@ -49,36 +49,23 @@
         android:layout_marginStart="8dp"
         android:backgroundTint="@color/app_buttonColour"
         android:text="@string/activityPhotoSelector.TakeNewButton"
-        app:layout_constraintBottom_toTopOf="@+id/activityPhotoSelector.SaveButton"
-        app:layout_constraintEnd_toStartOf="@+id/activityPhotoSelector.AddExistingButton"
+        app:layout_constraintBaseline_toBaselineOf="@+id/activityPhotoSelector.SaveButton"
+        app:layout_constraintEnd_toStartOf="@+id/activityPhotoSelector.SaveButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/activityPhotoSelector.AddExistingButton"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:backgroundTint="@color/app_buttonColour"
-        android:text="@string/activityPhotoSelector.AddExistingButton"
-        app:layout_constraintBaseline_toBaselineOf="@+id/activityPhotoSelector.TakeNewButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/activityPhotoSelector.TakeNewButton" />
 
     <Button
         android:id="@+id/activityPhotoSelector.SaveButton"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:backgroundTint="@color/app_buttonColour"
         android:text="@string/activityPhotoSelector.SaveButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/activityPhotoSelector.TakeNewButton" />
 
 </android.support.constraint.ConstraintLayout>
