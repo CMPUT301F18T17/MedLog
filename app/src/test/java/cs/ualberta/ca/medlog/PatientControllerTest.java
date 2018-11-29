@@ -1,7 +1,6 @@
 package cs.ualberta.ca.medlog;
 
 import android.content.Context;
-import android.provider.ContactsContract;
 
 import org.junit.Test;
 
@@ -29,7 +28,6 @@ public class PatientControllerTest {
 
     @Test
     public void testsetEmail(Context ctx){
-        Context context;
         PatientController controller = new PatientController(ctx);
         ContactInfo info = new ContactInfo("0000000000", "email@email.ca");
         Patient patient= new Patient(info,"Test Patient");
@@ -45,7 +43,6 @@ public class PatientControllerTest {
 
     @ Test
     public void testsetPhoneNumber(Context ctx){
-        Context context;
         PatientController controller = new PatientController(ctx);
         ContactInfo info = new ContactInfo("0000000000", "email@email.ca");
         Patient patient= new Patient(info,"Test Patient");
@@ -60,7 +57,6 @@ public class PatientControllerTest {
     }
     @Test
     public void testaddProblem(Context ctx){
-        Context context;
         PatientController controller = new PatientController(ctx);
         ContactInfo info = new ContactInfo("0000000000", "email@email.ca");
         Patient patient= new Patient(info,"Test Patient");
@@ -76,7 +72,6 @@ public class PatientControllerTest {
 
     @Test
     public void testdeleteProblem(Context ctx){
-        Context context;
         PatientController controller = new PatientController(ctx);
         ContactInfo info = new ContactInfo("0000000000", "email@email.ca");
         Patient patient= new Patient(info,"Test Patient");
@@ -95,7 +90,6 @@ public class PatientControllerTest {
 
     @Test
     public void testaddBodyPhotos(Context ctx){
-        Context context;
         PatientController controller = new PatientController(ctx);
         ContactInfo info = new ContactInfo("0000000000", "email@email.ca");
         Patient patient= new Patient(info,"Test Patient");
