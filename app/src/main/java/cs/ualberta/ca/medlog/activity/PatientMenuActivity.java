@@ -80,7 +80,7 @@ public class PatientMenuActivity extends AppCompatActivity {
 
         if(firstCreation) {
             Intent intent = new Intent(this, PhotoSelectorActivity.class);
-            Toast.makeText(this, "Add body photos", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.activityPatientMenu_AddBodyPhotos , Toast.LENGTH_LONG).show();
             startActivityForResult(intent, PHOTO_REQUEST);
         }
     }
@@ -137,7 +137,7 @@ public class PatientMenuActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == PHOTO_REQUEST) {
             if (resultCode == RESULT_OK) {
-                Toast.makeText(this,"Body images added",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,R.string.activityPatientMenu_BodyPhotosAdded,Toast.LENGTH_SHORT).show();
                 ArrayList<Photo> photos = (ArrayList<Photo>)data.getSerializableExtra("PHOTOS");
                 PatientController controller = new PatientController(this);
                 controller.setBodyPhotos((Patient)AppStatus.getInstance().getCurrentUser(),photos);

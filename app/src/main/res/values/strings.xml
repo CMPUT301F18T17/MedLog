@@ -11,7 +11,11 @@
     <string name="activityPatientLogin.SignUpButton">Sign Up</string>
     <string name="activityPatientLogin.RegisterPhoneButton">Register Phone</string>
     <string name="activityPatientLogin.NoUsername">No Username Entered</string>
-    <string name="activityPatientLogin.NotRegistered">Patient Not Registered</string>
+    <string name="activityPatientLogin.NoRegister">Patient Not Registered to Device</string>
+    <string name="activityPatientLogin.NoServer">Failed Server Connection</string>
+    <string name="activityPatientLogin.NoPatient">Patient Not Found</string>
+    <string name="activityPatientLogin.FailedLogin">Failed to Login</string>
+    <string name="activityPatientLogin.LoggedIn">Patient Logged In</string>
 
     <string name="activityPatientEnterRegisterCode.TitleText">Enter a Patient Registration Code</string>
     <string name="activityPatientEnterRegisterCode.CodeEditHint">Enter the Register Code</string>
@@ -27,11 +31,22 @@
     <string name="activityPatientSignUp.EmailEditHint">Enter your Email</string>
     <string name="activityPatientSignUp.PhoneEditHint">Enter your Phone Number</string>
     <string name="activityPatientSignUp.CompleteButton">Complete</string>
+    <string name="activityPatientSignUp.NoUsername">No Username Entered</string>
+    <string name="activityPatientSignUp.TooShort">Username Too Short</string>
+    <string name="activityPatientSignUp.NoServer">Failed Server Connection</string>
+    <string name="activityPatientSignUp.ExistingUsername">Username Already Taken</string>
+    <string name="activityPatientSignUp.NoEmail">No Email Entered</string>
+    <string name="activityPatientSignUp.NoPhone">No Phone Number Entered</string>
+    <string name="activityPatientSignUp.InvalidContact">Invalid Email or Phone Number</string>
+    <string name="activityPatientSignUp.FailedSignUp">Failed to Sign Up Patient</string>
+    <string name="activityPatientSignUp.SignedUp">Signed Up Care Provider</string>
 
     <string name="activityPatientMenu.PatientText">Patient</string>
     <string name="activityPatientMenu.AddProblemButton">Add Problem</string>
     <string name="activityPatientMenu.ViewProblemsButton">View Problems</string>
     <string name="activityPatientMenu.SearchProblemsButton">Search Problems</string>
+    <string name="activityPatientMenu.AddBodyPhotos">Add Body Photos</string>
+    <string name="activityPatientMenu.BodyPhotosAdded">Body Photos Added</string>
 
     <string name="menuPatientMain.ViewProfile">View Profile</string>
     <string name="menuPatientMain.Logout">Logout</string>
@@ -58,6 +73,12 @@
     <string name="activityPatientProblemView.DescriptionDefault">DESCRIPTION</string>
     <string name="activityPatientProblemView.DateDefault">Since: YYYY/MM/DD</string>
     <string name="activityPatientProblemView.TitleDefault">TITLE</string>
+    <string name="activityPatientProblemView.NoTitle">No Title Entered</string>
+    <string name="activityPatientProblemView.TitleSet">New Title Set</string>
+    <string name="activityPatientProblemView.NoDesc">No Description Entered</string>
+    <string name="activityPatientProblemView.DescSet">New Description Set</string>
+    <string name="activityPatientProblemView.NoPhotos">No Record Photos</string>
+    <string name="activityPatientProblemView.FailedPhotoDownload">Failed to Download Photos</string>
 
     <string name="menuPatientProblemView.EditTitle">Edit Title</string>
     <string name="menuPatientProblemView.EditDate">Edit Date</string>
@@ -70,6 +91,11 @@
     <string name="activityPatientProfile.EmailDefault">NAME@ADDRESS.DOMAIN</string>
     <string name="activityPatientProfile.PhoneNumberDefault">#-(###)-###-#####</string>
     <string name="activityPatientProfile.UsernameDefault">USERNAME</string>
+    <string name="activityPatientProfile.EmailSet">New Email Set</string>
+    <string name="activityPatientProfile.NoEmail">No Email Entered</string>
+    <string name="activityPatientProfile.PhoneSet">New Phone Number Set</string>
+    <string name="activityPatientProfile.NoPhone">No Phone Number Entered</string>
+    <string name="activityPatientProfile.BodyPhotosAdded">Body Photos Added</string>
 
     <string name="menuPatientProfile.EditEmail">Edit Email</string>
     <string name="menuPatientProfile.EditPhoneNumber">Edit Phone Number</string>
@@ -84,7 +110,10 @@
     <string name="activityPatientSearch.KeywordHint">Enter Keywords</string>
     <string name="activityPatientSearch.SearchButton">Search</string>
     <string name="activityPatientSearch.BodyLocationButton">Body Location</string>
+    <string name="activityPatientSearch.NoBodyPhotos">No Body Photos</string>
+    <string name="activityPatientSearch.BodyLocationAdded">Body Location Set</string>
     <string name="activityPatientSearch.MapLocationButton">Map Location</string>
+    <string name="activityPatientSearch.MapLocationAdded">Map Location Set</string>
 
     <string name="activityPatientViewRecords.TitleText">Records</string>
 
@@ -96,6 +125,7 @@
     <string name="activityPatientRecordView.ProblemTitleDefault">PROBLEM TITLE</string>
     <string name="activityPatientRecordView.CreatorDefault">CREATOR USERNAME</string>
     <string name="activityPatientRecordView.TimestampDefault">ISO 1806</string>
+    <string name="activityPatientRecordView.FailedPhotoDownload">Failed to Download Photos</string>
 
     <string name="activityPatientAddRecord.TitleText">Add Record</string>
     <string name="activityPatientAddRecord.SaveButton">Save</string>

@@ -80,7 +80,7 @@ public class PatientLoginActivity extends AppCompatActivity {
 
         LoginCodes codeChecker = new LoginCodes(this);
         if (!codeChecker.checkCode(username)) {
-            Toast.makeText(this,"Patient not registered to the device",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.activityPatientLogin_NoRegister,Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -89,7 +89,7 @@ public class PatientLoginActivity extends AppCompatActivity {
             sc.syncPatient(username);
         }catch(Exception e){
             e.printStackTrace();
-            Toast.makeText(this,"Failed to connect to server",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.activityPatientLogin_NoServer,Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -98,10 +98,10 @@ public class PatientLoginActivity extends AppCompatActivity {
         try {
             toLogin = db.loadPatient(username);
         } catch(UserNotFoundException e){
-            Toast.makeText(this, "Patient not found", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.activityPatientLogin_NoPatient, Toast.LENGTH_SHORT).show();
             return;
         } catch (ConnectException e) {
-            Toast.makeText(this, "Failed to connect to server", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.activityPatientLogin_NoServer, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -109,10 +109,11 @@ public class PatientLoginActivity extends AppCompatActivity {
             AppStatus.getInstance().setCurrentUser(toLogin);
 
             Intent intent = new Intent(this, PatientMenuActivity.class);
+            Toast.makeText(this,R.string.activityPatientLogin_LoggedIn,Toast.LENGTH_SHORT).show();
             startActivity(intent);
         }
         else {
-            Toast.makeText(this,"Failed to login",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.activityPatientLogin_FailedLogin,Toast.LENGTH_SHORT).show();
         }
     }
 

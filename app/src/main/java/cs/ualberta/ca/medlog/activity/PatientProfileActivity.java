@@ -140,18 +140,20 @@ public class PatientProfileActivity extends AppCompatActivity implements TextEdi
         switch (editorId) {
             case 0:
                 if (newText.isEmpty()) {
-                    Toast.makeText(this, "No email entered", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,R.string.activityPatientProfile_NoEmail, Toast.LENGTH_SHORT).show();
                     break;
                 }
                 controller.setEmail(patient,newText);
+                Toast.makeText(this, R.string.activityPatientProfile_EmailSet, Toast.LENGTH_SHORT).show();
                 updateEmailDisplay(newText);
                 break;
             case 1:
                 if (newText.isEmpty()) {
-                    Toast.makeText(this, "No phone number entered", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.activityPatientProfile_NoPhone, Toast.LENGTH_SHORT).show();
                     break;
                 }
                 controller.setPhoneNumber(patient,newText);
+                Toast.makeText(this, R.string.activityPatientProfile_PhoneSet, Toast.LENGTH_SHORT).show();
                 updatePhoneNumberDisplay(newText);
                 break;
         }
@@ -177,10 +179,10 @@ public class PatientProfileActivity extends AppCompatActivity implements TextEdi
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == PHOTO_REQUEST) {
             if (resultCode == RESULT_OK) {
-                Toast.makeText(this,"Body images added",Toast.LENGTH_SHORT).show();
                 ArrayList<Photo> photos = (ArrayList<Photo>)data.getSerializableExtra("PHOTOS");
                 PatientController controller = new PatientController(this);
                 controller.setBodyPhotos((Patient)AppStatus.getInstance().getCurrentUser(),photos);
+                Toast.makeText(this,R.string.activityPatientProfile_BodyPhotosAdded,Toast.LENGTH_SHORT).show();
             }
         }
     }

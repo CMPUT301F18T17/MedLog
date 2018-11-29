@@ -134,7 +134,7 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
         }
 
         if (photos.isEmpty()) {
-            Toast.makeText(this,"No record photos",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.activityPatientProblemView_NoPhotos,Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -144,7 +144,7 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
             intent.putExtra("PHOTOS", photos);
             startActivity(intent);
         }else{
-            Toast.makeText(this,"Failed to download all photos.",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.activityPatientProblemView_FailedPhotoDownload,Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -181,18 +181,20 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
         switch(editorId) {
             case 0:
                 if (newText.isEmpty()) {
-                    Toast.makeText(this,"No title entered",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,R.string.activityPatientProblemView_NoTitle,Toast.LENGTH_SHORT).show();
                     break;
                 }
                 controller.setTitle((Patient)AppStatus.getInstance().getCurrentUser(),problem,newText);
+                Toast.makeText(this,R.string.activityPatientProblemView_TitleSet,Toast.LENGTH_SHORT).show();
                 updateTitleDisplay(newText);
                 break;
             case 1:
                 if (newText.isEmpty()) {
-                    Toast.makeText(this,"No description entered",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,R.string.activityPatientProblemView_NoDesc,Toast.LENGTH_SHORT).show();
                     break;
                 }
                 controller.setDesc((Patient)AppStatus.getInstance().getCurrentUser(),problem,newText);
+                Toast.makeText(this,R.string.activityPatientProblemView_DescSet,Toast.LENGTH_SHORT).show();
                 updateDescriptionDisplay(newText);
                 break;
         }

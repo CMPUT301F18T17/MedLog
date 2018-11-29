@@ -52,11 +52,11 @@ public class PatientSignUpActivity extends AppCompatActivity {
         EditText usernameField = findViewById(R.id.activityPatientSignUp_UsernameEditText);
         String username = usernameField.getText().toString();
         if (username.isEmpty()) {
-            Toast.makeText(this,"No username entered",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.activityPatientSignUp_NoUsername,Toast.LENGTH_SHORT).show();
             return;
         }
         else if (username.length() < 8) {
-            Toast.makeText(this,"Username is too short",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.activityPatientSignUp_TooShort,Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -65,26 +65,26 @@ public class PatientSignUpActivity extends AppCompatActivity {
         try {
             usernameAvailable = db.usernameAvailable(username);
         }catch(ConnectException e){
-            Toast.makeText(this, "Failed to connect.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.activityPatientSignUp_NoServer, Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (!usernameAvailable) {
-            Toast.makeText(this,"Username already used",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.activityPatientSignUp_ExistingUsername,Toast.LENGTH_SHORT).show();
             return;
         }
 
         EditText emailField = findViewById(R.id.activityPatientSignUp_EmailEditText);
         String email = emailField.getText().toString();
         if (email.isEmpty()) {
-            Toast.makeText(this,"No email entered",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.activityPatientSignUp_NoEmail,Toast.LENGTH_SHORT).show();
             return;
         }
 
         EditText phoneNumberField = findViewById(R.id.activityPatientSignUp_PhoneEditText);
         String phoneNumber = phoneNumberField.getText().toString().replace(" ", "");
         if (phoneNumber.isEmpty()) {
-            Toast.makeText(this,"No phone number entered",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.activityPatientSignUp_NoPhone,Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -92,7 +92,7 @@ public class PatientSignUpActivity extends AppCompatActivity {
         try{
             contactInfo = new ContactInfo(phoneNumber, email);
         }catch(RuntimeException e){
-            Toast.makeText(this, "Invalid email or phone number.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.activityPatientSignUp_InvalidContact, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -101,7 +101,7 @@ public class PatientSignUpActivity extends AppCompatActivity {
         if(db.savePatient(patient)){
             AppStatus.getInstance().setCurrentUser(patient);
         }else{
-            Toast.makeText(this, "Failed to sign up patient", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.activityPatientSignUp_FailedSignUp, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -109,6 +109,7 @@ public class PatientSignUpActivity extends AppCompatActivity {
         loginCodes.addCode(username);
 
         Intent intent = new Intent(this, PatientMenuActivity.class);
+        Toast.makeText(this, R.string.activityPatientSignUp_SignedUp, Toast.LENGTH_SHORT).show();
         intent.putExtra("FIRST",true);
         startActivity(intent);
     }
