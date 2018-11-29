@@ -14,6 +14,7 @@ import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.exception.EncryptionException;
 import cs.ualberta.ca.medlog.helper.Database;
 import cs.ualberta.ca.medlog.helper.Encryption;
+import cs.ualberta.ca.medlog.helper.LoginCodes;
 import cs.ualberta.ca.medlog.singleton.AppStatus;
 
 /**
@@ -25,11 +26,11 @@ import cs.ualberta.ca.medlog.singleton.AppStatus;
  * </p>
  * <p>
  *     Issues: <br>
- *         Need actual code to register the patient to the phone.
+ *         None.
  * </p>
  *
  * @author Tyler Gobran
- * @version 0.2
+ * @version 1.0
  * @see PatientLoginActivity
  * @see PatientMenuActivity
  */
@@ -88,7 +89,8 @@ public class PatientEnterRegisterCodeActivity extends AppCompatActivity {
         if (toLogin != null) {
             AppStatus.getInstance().setCurrentUser(toLogin);
 
-            //TODO: Add code to register patient to the phone.
+            LoginCodes loginCodes = new LoginCodes(this);
+            loginCodes.addCode(username);
 
             Toast.makeText(this,"Phone Registered",Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, PatientMenuActivity.class);

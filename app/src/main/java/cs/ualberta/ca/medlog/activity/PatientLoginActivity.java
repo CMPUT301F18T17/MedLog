@@ -11,6 +11,7 @@ import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.controller.SyncController;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.helper.Database;
+import cs.ualberta.ca.medlog.helper.LoginCodes;
 import cs.ualberta.ca.medlog.singleton.AppStatus;
 
 /**
@@ -28,7 +29,7 @@ import cs.ualberta.ca.medlog.singleton.AppStatus;
  * </p>
  *
  * @author Tyler Gobran
- * @version 1.1
+ * @version 1.2
  * @see StartScreenActivity
  * @see PatientMenuActivity
  * @see PatientSignUpActivity
@@ -70,6 +71,12 @@ public class PatientLoginActivity extends AppCompatActivity {
 
         if (username.isEmpty()) {
             Toast.makeText(this,"No username entered",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        LoginCodes codeChecker = new LoginCodes(this);
+        if (!codeChecker.checkCode(username)) {
+            Toast.makeText(this,"Patient not registered to the device",Toast.LENGTH_SHORT).show();
             return;
         }
 

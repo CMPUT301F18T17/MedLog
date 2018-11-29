@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -37,7 +38,7 @@ import cs.ualberta.ca.medlog.R;
  * </p>
  *
  * @author Calvin Chomyc
- * @version 1.0
+ * @version 1.1
  * @see PatientAddRecordActivity
  * @see PatientSearchActivity
  */
@@ -67,11 +68,11 @@ public class AddMapLocationActivity extends AppCompatActivity {
                     intent.putExtra("Latitude", clickedPosition.getLatitude());
                     intent.putExtra("Longitude", clickedPosition.getLongitude());
                     setResult(Activity.RESULT_OK, intent);
+                    finish();
                 }
                 else {
-                    setResult(Activity.RESULT_CANCELED, intent);
+                    Toast.makeText(getApplicationContext(),"No Map Location Selected",Toast.LENGTH_SHORT).show();
                 }
-                finish();
             }
         });
 

@@ -57,7 +57,7 @@ public class ProviderRegistrationActivity extends AppCompatActivity {
         boolean usernameAvailable;
         Database db = new Database(this);
         try {
-            usernameAvailable = db.providerUsernameAvailable(username);
+            usernameAvailable = db.usernameAvailable(username);
         } catch(ConnectException e){
             Toast.makeText(this,"Could not connect",Toast.LENGTH_SHORT).show();
             return;

@@ -12,6 +12,7 @@ import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.entity.user.ContactInfo;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.helper.Database;
+import cs.ualberta.ca.medlog.helper.LoginCodes;
 import cs.ualberta.ca.medlog.singleton.AppStatus;
 
 /**
@@ -62,7 +63,7 @@ public class PatientSignUpActivity extends AppCompatActivity {
         Database db = new Database(this);
         boolean usernameAvailable;
         try {
-            usernameAvailable = db.patientUsernameAvailable(username);
+            usernameAvailable = db.usernameAvailable(username);
         }catch(ConnectException e){
             Toast.makeText(this, "Failed to connect.", Toast.LENGTH_SHORT).show();
             return;
@@ -103,6 +104,9 @@ public class PatientSignUpActivity extends AppCompatActivity {
             Toast.makeText(this, "Failed to sign up patient", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        LoginCodes loginCodes = new LoginCodes(this);
+        loginCodes.addCode(username);
 
         Intent intent = new Intent(this, PatientMenuActivity.class);
         intent.putExtra("FIRST",true);

@@ -38,7 +38,7 @@ import cs.ualberta.ca.medlog.singleton.AppStatus;
  * </p>
  *
  * @author Tyler Gobran
- * @version 1.0
+ * @version 1.1
  * @see PatientProblemViewActivity
  * @see AddBodyLocationActivity
  * @see AddMapLocationActivity
@@ -123,22 +123,22 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
         switch (editorId) {
             case 0:
                 if (newText.isEmpty()) {
-                    Toast.makeText(this,"No title entered",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,R.string.activityPatientAddRecord_NoTitleEntered,Toast.LENGTH_SHORT).show();
                     break;
                 }
                 newRecord.setTitleComment(newText,newRecord.getComment());
+                Toast.makeText(this,R.string.activityPatientAddRecord_TitleAdded,Toast.LENGTH_SHORT).show();
                 openCommentEditor();
                 break;
 
             case 1:
                 updateButtonColour(findViewById(R.id.activityPatientAddRecord_TitleCommentButton));
                 if (newText.isEmpty()) {
-                    Toast.makeText(this,"No comment entered",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,R.string.activityPatientAddRecord_NoCommentEntered,Toast.LENGTH_SHORT).show();
                     break;
                 }
                 newRecord.setTitleComment(newRecord.getTitle(),newText);
-
-                Toast.makeText(this,"Title & Comment added",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.activityPatientAddRecord_CommentAdded, Toast.LENGTH_SHORT).show();
                 break;
         }
     }
@@ -149,7 +149,7 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
             startActivityForResult(intent, BODY_LOCATION_REQUEST);
         }
         else {
-            Toast.makeText(this,"No body photos present",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.activityPatientAddRecord_NoBodyPhotos,Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -169,30 +169,23 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == MAP_LOCATION_REQUEST) {
-            if (resultCode == RESULT_OK) { // If a map location was selected
+        if (resultCode == RESULT_OK) {
+            if (requestCode == MAP_LOCATION_REQUEST) {
                 double latitude = data.getDoubleExtra("Latitude", -1);
                 double longitude = data.getDoubleExtra("Longitude", -1);
-                Toast.makeText(this, R.string.activityPatientAddRecordActivity_MapLocationAdded, Toast.LENGTH_SHORT).show();
-                newRecord.setMapLocation(new MapLocation(latitude,longitude));
+                Toast.makeText(this, R.string.activityPatientAddRecord_MapLocationAdded, Toast.LENGTH_SHORT).show();
+                newRecord.setMapLocation(new MapLocation(latitude, longitude));
                 updateButtonColour(findViewById(R.id.activityPatientAddRecord_MapLocationButton));
             }
-            else { // If the select location button was tapped, but the user never selected a position on the map
-                Toast.makeText(this, R.string.activityPatientAddRecordActivity_NoLocationAdded, Toast.LENGTH_LONG).show();
-            }
-        }
-        else if (requestCode == BODY_LOCATION_REQUEST) {
-            if (resultCode == RESULT_OK) {
+            else if (requestCode == BODY_LOCATION_REQUEST) {
                 BodyLocation bodyLocation = (BodyLocation)data.getSerializableExtra("BODY_LOCATION");
-                Toast.makeText(this,"Body Location added",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,R.string.activityPatientAddRecord_BodyLocationAdded,Toast.LENGTH_SHORT).show();
                 newRecord.setBodyLocation(bodyLocation);
                 updateButtonColour(findViewById(R.id.activityPatientAddRecord_BodyLocationButton));
             }
-        }
-        else if (requestCode == PHOTO_REQUEST) {
-            if (resultCode == RESULT_OK) {
-                Toast.makeText(this,"Images added",Toast.LENGTH_SHORT).show();
+            else if (requestCode == PHOTO_REQUEST) {
                 ArrayList<Photo> photos = (ArrayList<Photo>)data.getSerializableExtra("PHOTOS");
+                Toast.makeText(this, R.string.activityPatientAddRecord_PhotosAdded,Toast.LENGTH_SHORT).show();
                 newRecord.setPhotos(photos);
                 updateButtonColour(findViewById(R.id.activityPatientAddRecord_PhotosButton));
             }
@@ -205,12 +198,13 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
     }
     private void completeRecord() {
         if (!newRecord.isValid()) {
-            Toast.makeText(this,"Record has no data",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.activityPatientAddRecord_NoRecordData,Toast.LENGTH_SHORT).show();
             return;
         }
 
         ProblemController controller = new ProblemController(this);
         controller.addRecord((Patient)AppStatus.getInstance().getCurrentUser(),AppStatus.getInstance().getViewedProblem(),newRecord);
+        Toast.makeText(this,R.string.activityPatientAddRecord_RecordAdded,Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(this, PatientProblemViewActivity.class);
         AppStatus.getInstance().setViewedRecord(newRecord);
