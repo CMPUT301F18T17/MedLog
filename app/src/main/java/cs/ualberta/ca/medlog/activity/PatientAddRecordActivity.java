@@ -171,8 +171,8 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (resultCode == RESULT_OK) {
             if (requestCode == MAP_LOCATION_REQUEST) {
-                double latitude = data.getDoubleExtra("Latitude", -1);
-                double longitude = data.getDoubleExtra("Longitude", -1);
+                double latitude = data.getDoubleExtra("LATITUDE", -1);
+                double longitude = data.getDoubleExtra("LONGITUDE", -1);
                 Toast.makeText(this, R.string.activityPatientAddRecord_MapLocationAdded, Toast.LENGTH_SHORT).show();
                 newRecord.setMapLocation(new MapLocation(latitude, longitude));
                 updateButtonColour(findViewById(R.id.activityPatientAddRecord_MapLocationButton));

@@ -125,8 +125,8 @@ public class PatientSearchActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == MAP_LOCATION_REQUEST) {
             if (resultCode == RESULT_OK) { // If a map location was selected
-                double latitude = data.getDoubleExtra("Latitude", -1);
-                double longitude = data.getDoubleExtra("Longitude", -1);
+                double latitude = data.getDoubleExtra("LATITUDE", -1);
+                double longitude = data.getDoubleExtra("LONGITUDE", -1);
                 Toast.makeText(this, R.string.activityPatientAddRecord_MapLocationAdded, Toast.LENGTH_SHORT).show();
                 mapLocation = new MapLocation(latitude,longitude);
             }

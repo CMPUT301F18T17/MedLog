@@ -104,9 +104,6 @@
     <string name="activityPatientAddRecord.NoRecordData">Record has no Data</string>
     <string name="activityPatientAddRecord.RecordAdded">Record Added</string>
 
-    <string name="activityPatientAddMapLocation.SelectButton">Select location</string>
-    <string name="activityPatientAddMapLocation.NewMarkerTitle">Record Location</string>
-
     <string name="activityProviderLogin.TitleText">Care Provider Login</string>
     <string name="activityProviderLogin.UsernameEditHint">Enter Username</string>
     <string name="activityProviderLogin.LoginButton">Login</string>
@@ -187,14 +184,10 @@
     <string name="activitySlideshow.NextButton">Next</string>
     <string name="activitySlideshow.PhotoLabelDefault">LABEL</string>
 
-
     <string name="activityAddBodyLocations.TitleText">Welcome to MedLog</string>
     <string name="activityAddBodyLocations.GuideText">Would you like to enter custom body photos?</string>
     <string name="activityAddBodyLocations.AddButton">Yes</string>
     <string name="activityAddBodyLocations.IgnoreButton">No</string>
-    <string name="activityAddBodyLocation.SaveButton">Save</string>
-    <string name="activityAddBodyLocation.PreviousButton">Previous</string>
-    <string name="activityAddBodyLocation.NextButton">Next</string>
 
     <string name="activityPhotoSelector.TakeNewButton">Take New Photo</string>
     <string name="activityPhotoSelector.AddExistingButton">Add Existing Photo</string>
@@ -204,6 +197,14 @@
     <string name="menuPhotoEditing.EditLabel">Edit Label</string>
     <string name="menuPhotoEditing.DeletePhoto">Delete Photo</string>
 
+    <string name="activityAddMapLocation.AddButton">Add Location</string>
+    <string name="activityAddMapLocation.LocationTitleDefault">LOCATION</string>
+
+    <string name="activityAddBodyLocation.SaveButton">Save</string>
+    <string name="activityAddBodyLocation.PreviousButton">Previous</string>
+    <string name="activityAddBodyLocation.NoPrevious">No Previous Photo</string>
+    <string name="activityAddBodyLocation.NextButton">Next</string>
+    <string name="activityAddBodyLocation.NoNext">No Next Photo</string>
     <string name="activityAddBodyLocation.BodyPhotoLabelDefault">LABEL</string>
 
     <string name="activityViewBodyLocation.BodyPhotoLabelDefault">LABEL</string>

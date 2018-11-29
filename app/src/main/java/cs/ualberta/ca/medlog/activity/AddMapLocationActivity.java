@@ -38,7 +38,7 @@ import cs.ualberta.ca.medlog.R;
  * </p>
  *
  * @author Calvin Chomyc
- * @version 1.1
+ * @version 1.2
  * @see PatientAddRecordActivity
  * @see PatientSearchActivity
  */
@@ -54,19 +54,19 @@ public class AddMapLocationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Mapbox.getInstance(this, getString(R.string.mapboxAccessToken));
-        setContentView(R.layout.activity_patient_add_map_location);
+        setContentView(R.layout.activity_add_map_location);
 
-        Button selectButton = findViewById(R.id.selectButton);
-        mapView = findViewById(R.id.addLocationMapView);
+        mapView = findViewById(R.id.activityAddMapLocation_MapView);
         mapView.onCreate(savedInstanceState);
 
+        Button selectButton = findViewById(R.id.activityAddMapLocation_AddButton);
         selectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
                 if (clickMarker != null) {
-                    intent.putExtra("Latitude", clickedPosition.getLatitude());
-                    intent.putExtra("Longitude", clickedPosition.getLongitude());
+                    intent.putExtra("LATITUDE", clickedPosition.getLatitude());
+                    intent.putExtra("LONGITUDE", clickedPosition.getLongitude());
                     setResult(Activity.RESULT_OK, intent);
                     finish();
                 }
@@ -115,7 +115,7 @@ public class AddMapLocationActivity extends AppCompatActivity {
         clickedPosition = new LatLng(point.getLatitude(), point.getLongitude());
         final MarkerOptions newMarkerOptions = new MarkerOptions();
         newMarkerOptions.position(clickedPosition);
-        String markerTitle = getString(R.string.activityPatientAddMapLocation_NewMarkerTitle);
+        String markerTitle = getString(R.string.activityAddMapLocation_LocationTitleDefault);
         newMarkerOptions.title(markerTitle);
 
         mapView.getMapAsync(new OnMapReadyCallback() {

@@ -36,7 +36,7 @@ import cs.ualberta.ca.medlog.singleton.AppStatus;
  * </p>
  *
  * @author Tyler Gobran
- * @version 1.3
+ * @version 1.4
  * @see PatientAddRecordActivity
  * @see PatientSearchActivity
  */
@@ -115,7 +115,7 @@ public class AddBodyLocationActivity extends AppCompatActivity {
             updateBodyPhotoDisplay();
         }
         else {
-            Toast.makeText(this,"No previous photo",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.activityAddBodyLocation_NoPrevious,Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -124,7 +124,7 @@ public class AddBodyLocationActivity extends AppCompatActivity {
             updateBodyPhotoDisplay();
         }
         else {
-            Toast.makeText(this,"No next photo",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.activityAddBodyLocation_NoNext,Toast.LENGTH_SHORT).show();
         }
     }
 

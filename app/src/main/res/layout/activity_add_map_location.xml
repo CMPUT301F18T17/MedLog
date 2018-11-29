@@ -2,11 +2,12 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:mapbox="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <com.mapbox.mapboxsdk.maps.MapView
-        android:id="@+id/addLocationMapView"
+        android:id="@+id/activityAddMapLocation.MapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         mapbox:mapbox_cameraTargetLat="53.5232"
@@ -16,16 +17,19 @@
         mapbox:mapbox_uiZoomControls="true">
 
         <android.support.constraint.ConstraintLayout
+            android:id="@+id/activityAddMapLocation.MapViewBase"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <Button
-                android:id="@+id/selectButton"
-                android:layout_width="93dp"
-                android:layout_height="56dp"
+                android:id="@+id/activityAddMapLocation.AddButton"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="@string/activityPatientAddMapLocation.SelectButton"
+                android:backgroundTint="@color/app_buttonColour"
+                android:text="@string/activityAddMapLocation.AddButton"
                 mapbox:layout_constraintBottom_toBottomOf="parent"
                 mapbox:layout_constraintEnd_toEndOf="parent" />
         </android.support.constraint.ConstraintLayout>
