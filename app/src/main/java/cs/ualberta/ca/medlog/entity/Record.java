@@ -1,8 +1,3 @@
-package cs.ualberta.ca.medlog.entity;
-
-import java.util.ArrayList;
-import java.util.Date;
-
 /**
  *
  * <h1>
@@ -19,6 +14,11 @@ import java.util.Date;
  * @contact roskewic@ualberta.ca
  * @see cs.ualberta.ca.medlog.entity.Problem
  */
+
+package cs.ualberta.ca.medlog.entity;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 public class Record {
 

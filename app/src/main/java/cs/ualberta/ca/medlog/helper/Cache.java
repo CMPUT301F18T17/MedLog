@@ -16,10 +16,13 @@
 
 package cs.ualberta.ca.medlog.helper;
 
+import cs.ualberta.ca.medlog.entity.user.Patient;
+import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.entity.user.User;
 import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 
 import android.content.Context;
+import android.util.Log;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -63,7 +66,6 @@ import java.io.OutputStreamWriter;
  * </p>
  *
  * @author Tem Tamre
- * @version 1.1
  * @see cs.ualberta.ca.medlog.helper.Database
  */
 public class Cache {
@@ -83,16 +85,11 @@ public class Cache {
     /**
      * <p>
      *     Load the JSON file into a string, then deserialize it and return it as an objectClass object
-     * </p>
      *
-     * <p>
      *     Usage: <br>
-     *
      *         {@code Cache cache = new Cache(getContext());}
-     *
      *         {@code Patient p = cache.load(Patient.class);}
      * </p>
-     *
      * @param objectClass the class that is to be returned
      * @return user
      */
@@ -129,16 +126,11 @@ public class Cache {
     /**
      * <p>
      *     Serialize an object and save it to disc
-     * </p>
      *
-     * <p>
      *     Usage: <br>
-     *
      *         {@code Patient p;}
-     *
      *         {@code Cache cache = new Cache(getContext());}
-     *
-     *         {@code cache.save(p);}
+     *         {@code cache.save(p)}
      * </p>
      * @param user the object to be serialized saved to disc
      */
