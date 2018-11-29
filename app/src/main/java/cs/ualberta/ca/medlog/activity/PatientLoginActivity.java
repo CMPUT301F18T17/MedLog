@@ -74,7 +74,7 @@ public class PatientLoginActivity extends AppCompatActivity {
         String username = usernameField.getText().toString();
 
         if (username.isEmpty()) {
-            Toast.makeText(this,"No username entered",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.activityPatientLogin_NoUsername,Toast.LENGTH_SHORT).show();
             return;
         }
 

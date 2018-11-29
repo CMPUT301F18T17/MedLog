@@ -10,6 +10,8 @@
     <string name="activityPatientLogin.LoginButton">Login</string>
     <string name="activityPatientLogin.SignUpButton">Sign Up</string>
     <string name="activityPatientLogin.RegisterPhoneButton">Register Phone</string>
+    <string name="activityPatientLogin.NoUsername">No Username Entered</string>
+    <string name="activityPatientLogin.NotRegistered">Patient Not Registered</string>
 
     <string name="activityPatientEnterRegisterCode.TitleText">Enter a Patient Registration Code</string>
     <string name="activityPatientEnterRegisterCode.CodeEditHint">Enter the Register Code</string>
