@@ -81,8 +81,8 @@ public class AddBodyLocationActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getActionMasked() == MotionEvent.ACTION_DOWN) {
-                    locationX = Math.round(event.getRawX());
-                    locationY = Math.round(event.getRawY());
+                    locationX = Math.round(event.getX());
+                    locationY = Math.round(event.getY());
                     updateLocationMarkerPlace();
                 }
                 return false;
@@ -127,8 +127,8 @@ public class AddBodyLocationActivity extends AppCompatActivity {
         selectedPhoto = photos.get(index);
         ImageView markerView = findViewById(R.id.activityAddBodyLocation_MarkerView);
         markerView.setVisibility(View.VISIBLE);
-        markerView.setX(locationX);
-        markerView.setY(locationY);
+        markerView.setX(markerView.getX() + locationX);
+        markerView.setY(markerView.getY() + locationY);
     }
 
     private void saveBodyLocation() {
