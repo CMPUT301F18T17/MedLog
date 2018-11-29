@@ -1,5 +1,7 @@
 package cs.ualberta.ca.medlog.exception;
 
+import cs.ualberta.ca.medlog.controller.ElasticSearchController;
+
 /**
  *
  * <h1>
@@ -13,7 +15,7 @@ package cs.ualberta.ca.medlog.exception;
  *  </p>
  *
  * @author Thomas Roskewich
- * @see cs.ualberta.ca.medlog.helper.ElasticSearchController
+ * @see ElasticSearchController
  * @see cs.ualberta.ca.medlog.helper.Database
  */
 public class UserNotFoundException extends Exception{

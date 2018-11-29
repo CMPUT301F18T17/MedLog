@@ -34,7 +34,7 @@ import java.io.OutputStreamWriter;
 /**
  *
  * <h1>
- *     Local file saver
+ *     Local cache
  * </h1>
  *
  *
@@ -74,31 +74,26 @@ public class Cache {
 
     /**
      * <p>Initialize a Cache instance for the current context with the default filename</p>
-     * @param c current application context
+     * @param context current application context
      */
-    public Cache(Context c) {
-        this.context = c;
-        this.filename = "data.ser";
-    }
-
-    /**
-     * <p>Initialize a Cache instance for the current context with the given filename</p>
-     * @param c current application context
-     * @param filename filename to be used
-     */
-    public Cache(Context c, String filename) {
-        this.context = c;
-        this.filename = filename;
+    public Cache(Context context) {
+        this.context = context;
+        this.filename = "cache.ser";
     }
 
 
-    /* Loading methods */
-
     /**
-     * <p>Load the JSON file into a string, then deserialize it and return it as a patient object</p>
-     * @return patient:Patient (the patient represented in the JSON data)
+     * <p>
+     *     Load the JSON file into a string, then deserialize it and return it as an objectClass object
+     *
+     *     Usage: <br>
+     *         {@code Cache cache = new Cache(getContext());}
+     *         {@code Patient p = cache.load(Patient.class);}
+     * </p>
+     * @param objectClass the class that is to be returned
+     * @return user
      */
-    public Patient loadPatient() throws UserNotFoundException {
+    public <T> T load(Class<T> objectClass) throws UserNotFoundException {
         Gson gson = new Gson();
         String json;
 
@@ -117,45 +112,10 @@ public class Cache {
 
                 inStream.close();
                 json = stringBuilder.toString();
-                return gson.fromJson(json, Patient.class);
+                return gson.fromJson(json, objectClass);
             }
 
         } catch (IOException e) {
-            Log.d("Cache", "IOException thrown in Cache.loadPatient(patient)");
-            throw new UserNotFoundException("Could not load user locally.");
-        }
-
-        return null;
-    }
-
-    /**
-     * <p>Load the JSON file into a string, then deserialize it and return it as a CareProvider object</p>
-     * @return CareProvider:CareProvider (the CareProvider represented in the JSON data)
-     */
-    public CareProvider loadCareProvider() throws UserNotFoundException{
-        Gson gson = new Gson();
-        String json;
-
-        try {
-            InputStream inStream = context.openFileInput(filename);
-
-            if (inStream != null) {
-                InputStreamReader isr = new InputStreamReader(inStream);
-                BufferedReader bufferedReader = new BufferedReader(isr);
-                String next;
-                StringBuilder stringBuilder = new StringBuilder();
-
-                while((next = bufferedReader.readLine()) != null) {
-                    stringBuilder.append(next);
-                }
-
-                inStream.close();
-                json = stringBuilder.toString();
-                return gson.fromJson(json, CareProvider.class);
-            }
-
-        } catch (IOException e) {
-            Log.d("Cache", "IOException thrown in Cache.loadPatient(patient)");
             throw new UserNotFoundException("Could not load user locally.");
         }
 
@@ -163,40 +123,26 @@ public class Cache {
     }
 
 
-    /* Saving methods */
-
     /**
-     * <p>Serialize a patient's data and save it to disc</p>
-     * @param patient patient to be saved to disc
+     * <p>
+     *     Serialize an object and save it to disc
+     *
+     *     Usage: <br>
+     *         {@code Patient p;}
+     *         {@code Cache cache = new Cache(getContext());}
+     *         {@code cache.save(p)}
+     * </p>
+     * @param user the object to be serialized saved to disc
      */
-    public void savePatient(Patient patient) {
+    public void save(User user) {
         Gson gson = new Gson();
-        String json = gson.toJson(patient);
+        String json = gson.toJson(user);
 
         try {
             OutputStreamWriter osw = new OutputStreamWriter(context.openFileOutput(filename, Context.MODE_PRIVATE));
             osw.write(json);
             osw.close();
         } catch (IOException e) {
-            Log.d("Cache", "IOException thrown in Cache.savePatient(patient)");
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * <p>Serialize a CareProvider's data ands save it to disc</p>
-     * @param provider CareProvider to be saved to disc
-     */
-    public void saveCareProvider(CareProvider provider) {
-        Gson gson = new Gson();
-        String json = gson.toJson(provider);
-
-        try {
-            OutputStreamWriter osw = new OutputStreamWriter(context.openFileOutput(filename, Context.MODE_PRIVATE));
-            osw.write(json);
-            osw.close();
-        } catch (IOException e) {
-            Log.d("Cache", "IOException thrown in Cache.saveCareProvider(CareProvider)");
             e.printStackTrace();
         }
     }

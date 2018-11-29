@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 
+import cs.ualberta.ca.medlog.controller.ElasticSearchController;
 import cs.ualberta.ca.medlog.entity.BodyLocation;
 import cs.ualberta.ca.medlog.entity.MapLocation;
 import cs.ualberta.ca.medlog.entity.Problem;
@@ -92,7 +93,7 @@ public class Database {
         if (checkConnectivity()) {
             try {
                 patient = new ElasticSearchController.LoadPatientTask().execute(username).get();
-                cache.savePatient(patient);
+                cache.save(patient);
 
                 if (patient == null) {
                     throw new UserNotFoundException("Patient " + username + " was not found.");
@@ -104,7 +105,7 @@ public class Database {
         } else {
 
             try { // Offline mode, try and load the patient from local data
-                patient = cache.loadPatient();
+                patient = cache.load(Patient.class);
             } catch (UserNotFoundException e) {
 
             }
@@ -128,7 +129,7 @@ public class Database {
         if (checkConnectivity()) {
             try {
                 provider = new ElasticSearchController.LoadCareProviderTask().execute(username).get();
-                cache.saveCareProvider(provider);
+                cache.save(provider);
 
                 if (provider == null) {
                     throw new UserNotFoundException("Care Povider " + username + " was not found.");
@@ -139,7 +140,7 @@ public class Database {
 
         } else {
             try {
-                provider = cache.loadCareProvider();
+                provider = cache.load(CareProvider.class);
 
             } catch(UserNotFoundException e) {
                 throw new ConnectException("Failed to connect to database and could not load the user locally.");
@@ -297,7 +298,7 @@ public class Database {
      * @return Boolean if the save operation succeeded.
      */
     public boolean savePatient(Patient patient){
-        cache.savePatient(patient);
+        cache.save(patient);
         patient.setUpdated();
         if (checkConnectivity()) {
             try {
@@ -317,7 +318,7 @@ public class Database {
      * @param provider Provider to be saved
      */
     public boolean saveProvider(CareProvider provider){
-        cache.saveCareProvider(provider);
+        cache.save(provider);
         provider.setUpdated();
 
         if (checkConnectivity()) {
@@ -358,7 +359,7 @@ public class Database {
      * @throws ConnectException if we cannot connect to the database.
      */
     public Boolean updatePatient(Patient patient) throws ConnectException{
-        cache.savePatient(patient);
+        cache.save(patient);
         patient.setUpdated();
         if (checkConnectivity()) {
             try {
@@ -379,7 +380,7 @@ public class Database {
      * @throws ConnectException if we cannot connect to the database.
      */
     public Boolean updateCareProvider(CareProvider careProvider) throws ConnectException{
-        cache.saveCareProvider(careProvider);
+        cache.save(careProvider);
         careProvider.setUpdated();
 
         if (checkConnectivity()) {
