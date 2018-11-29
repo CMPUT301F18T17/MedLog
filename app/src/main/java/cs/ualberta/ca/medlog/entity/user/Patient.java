@@ -71,11 +71,11 @@ public class Patient extends User {
     }
 
     /**
-     * <p>Add a body photo to the patient.</p>
-     * @param newPhoto The photo to add.
+     * <p>Set new body photos for the patient.</p>
+     * @param newPhotos The photos to add.
      */
-    public void addBodyPhoto(Photo newPhoto){
-        bodyPhotos.add(newPhoto);
+    public void setBodyPhotos(ArrayList<Photo> newPhotos) {
+        bodyPhotos = newPhotos;
     }
 
     /**
