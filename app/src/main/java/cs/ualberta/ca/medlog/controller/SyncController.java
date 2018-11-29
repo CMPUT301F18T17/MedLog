@@ -62,7 +62,7 @@ public class SyncController {
                 // Sync the old user. Could be either a care provider or patient so we have to call both.
                 if (!local.getUsername().equals(username)) {
                     syncCareProvider(username);
-                    syncPatient(username);
+                    //syncPatient(username);
                     return;
                 }
             } catch(UserNotFoundException e) {
@@ -111,7 +111,7 @@ public class SyncController {
                 if(!local.getUsername().equals(username)){
                     // Sync the old user. Could be either a care provider or patient so we have to call both.
                     syncCareProvider(username);
-                    syncPatient(username);
+                    //syncPatient(username);
                     return;
                 }
             }catch(UserNotFoundException e){
