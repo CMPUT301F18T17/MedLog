@@ -19,8 +19,9 @@ import cs.ualberta.ca.medlog.activity.ProviderLoginActivity;
 import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.entity.user.ContactInfo;
 import cs.ualberta.ca.medlog.entity.user.Patient;
+import cs.ualberta.ca.medlog.exception.EncryptionException;
 import cs.ualberta.ca.medlog.helper.Database;
-import cs.ualberta.ca.medlog.helper.LoginCodes;
+import cs.ualberta.ca.medlog.helper.Encryption;
 
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
@@ -143,8 +144,21 @@ public class LoginActivityTest {
     }
 
     @Test
-    public void patientCodeLogin() {
-        Log.e("AndroidTest", "Begin LoginActivityTest.patientCodeLogin()");
+    public void patientCodeLogin() throws EncryptionException {
+        assertEquals(patientRule.getActivity().getClass(), PatientLoginActivity.class);
+        Log.e("AndroidTest", "Begin LoginActivityTest.patientUsernameLogin()");
+
+        // Get code
+        String username = usedPatient.getUsername();
+        byte[] usernameBytes = username.getBytes();
+        String code = Encryption.encryptData("CODE", usernameBytes);
+
+        // Active username
+        Espresso.onView((withId(R.id.activityPatientEnterRegisterCode_CodeEditText))).perform(ViewActions
+                .typeText(code));
+
+        Espresso.onView(withId(R.id.activityPatientEnterRegisterCode_CodeEditText)).check(matches(withText(usedPatient.getUsername())));
+        Espresso.onView(withId(R.id.activityPatientEnterRegisterCode_RegisterButton)).perform(ViewActions.click());
     }
 
     @Test
