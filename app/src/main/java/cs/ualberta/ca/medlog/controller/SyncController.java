@@ -78,7 +78,6 @@ public class SyncController {
 
             // Check for conflict resolution
             if(remote.equals(local)){ return; }
-            if(remote.equals(local)){ return; }
 
             // There is a conflict, most likely the local client is most up to date.
             // Update remote patient data.
@@ -111,7 +110,7 @@ public class SyncController {
                 if(local == null) { return; }
                 if(!local.getUsername().equals(username)){
                     // Sync the old user. Could be either a care provider or patient so we have to call both.
-                    syncCareProvider(username);
+                    //syncCareProvider(username);
                     //syncPatient(username);
                     return;
                 }
