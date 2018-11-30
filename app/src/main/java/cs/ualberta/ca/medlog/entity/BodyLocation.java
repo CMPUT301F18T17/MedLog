@@ -6,7 +6,7 @@ import java.io.Serializable;
  * <p>
  *     Description: <br>
  *         Class for holding a record body location. It contains the related body photo and the x
- *         y coordinates on the photo of the selected body location.
+ *         y percentages on the photo of the selected body location.
  * </p>
  * <p>
  *     Issues: <br>
@@ -14,22 +14,22 @@ import java.io.Serializable;
  * </p>
  *
  * @author Thomas Roskewich
- * @version 1.1
+ * @version 1.2
  * @see Photo
  */
 public class BodyLocation implements Serializable {
     private Photo photo;
-    private int x, y;
+    private float x, y;
 
     private static final double SEARCHDISTBODY = 25;
 
     /**
-     * Creates the body location with the specified body photo and x-y coordinates of the location.
+     * Creates the body location with the specified body photo and x-y percentages of the location.
      * @param photo The body photo.
-     * @param x The x coordinate of the selected location.
-     * @param y The y coordinate of the selected location.
+     * @param x The x percentage of the selected location.
+     * @param y The y percentage of the selected location.
      */
-    public BodyLocation(Photo photo, int x, int y){
+    public BodyLocation(Photo photo, float x, float y){
         this.photo = photo;
         this.x = x;
         this.y = y;
@@ -44,18 +44,18 @@ public class BodyLocation implements Serializable {
     }
 
     /**
-     * Retrieves the x coordinate of the body location.
-     * @return The x coordinate.
+     * Retrieves the x percentage of the body location.
+     * @return The x percentage.
      */
-    public int getX() {
+    public float getX() {
         return x;
     }
 
     /**
-     * Retrieves the y coordinate of the body location.
-     * @return The y coordinate.
+     * Retrieves the y percentage of the body location.
+     * @return The y percentage.
      */
-    public int getY() {
+    public float getY() {
         return y;
     }
 

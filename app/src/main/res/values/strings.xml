@@ -271,6 +271,7 @@
     <string name="activityPhotoSelector.NoPhotos">No Photos to Save</string>
     <string name="activityPhotoSelector.FailedSavePhotos">Failed to Save Photos</string>
     <string name="activityPhotoSelector.FailedDeletePhotos">Failed to Delete Photos</string>
+    <string name="activityPhotoSelector.MaxPhotos">Maximum Photos Selected</string>
 
     <string name="menuPhotoEditing.EditLabel">Edit Label</string>
     <string name="menuPhotoEditing.DeletePhoto">Delete Photo</string>

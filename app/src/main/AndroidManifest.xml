@@ -151,11 +151,7 @@
         <activity android:name=".activity.SlideshowActivity" />
         <activity android:name=".activity.PhotoSelectorActivity" />
         <activity android:name=".activity.ViewMapLocationActivity" />
-        <activity android:name=".activity.AddBodyLocationActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.PatientAddRecordActivity" />
-        </activity>
+        <activity android:name=".activity.AddBodyLocationActivity" />
         <activity android:name=".activity.ViewBodyLocationActivity" />
         <activity android:name=".activity.PatientViewRegisterCodeActivity">
             <meta-data

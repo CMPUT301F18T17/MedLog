@@ -53,6 +53,8 @@ import cs.ualberta.ca.medlog.singleton.AppStatus;
 public class PhotoSelectorActivity extends AppCompatActivity implements TextEditorFragment.OnTextSetListener {
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
+    static final int MAX_PHOTOS = 10;
+
     private ArrayList<Photo> photos;
     private ArrayList<Photo> toDelete = new ArrayList<>();
     private PhotoAdapter photoAdapter;
@@ -117,7 +119,12 @@ public class PhotoSelectorActivity extends AppCompatActivity implements TextEdit
         takeNewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dispatchTakePictureIntent();
+                if (photos.size() < MAX_PHOTOS) {
+                    dispatchTakePictureIntent();
+                }
+                else {
+                    Toast.makeText(getApplicationContext(),R.string.activityPhotoSelector_MaxPhotos,Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
