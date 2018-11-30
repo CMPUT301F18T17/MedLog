@@ -29,7 +29,7 @@ public class BodyLocationTest {
         Photo photo = new Photo( null);
         BodyLocation location = new BodyLocation(photo, 10, 5);
 
-        assertEquals(location.getX(), 10);
+        assertEquals((int)location.getX(), 10);
     }
 
     @Test
@@ -37,7 +37,7 @@ public class BodyLocationTest {
         Photo photo = new Photo(null);
         BodyLocation location = new BodyLocation(photo, 10, 5);
 
-        assertEquals(location.getY(), 5);
+        assertEquals((int)location.getY(), 5);
     }
 
 }
