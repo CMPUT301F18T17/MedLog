@@ -63,9 +63,9 @@ public class Encryption {
             keyV = Arrays.copyOf(keyV, 16);
 
             // Convert it to a key object for the Chipher
-            Key key = new SecretKeySpec(keyV, algorithm);
+            Key secretKeySpec = new SecretKeySpec(keyV, algorithm);
             Cipher cipher = Cipher.getInstance(algorithm);
-            cipher.init(Cipher.ENCRYPT_MODE, key);
+            cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);
 
             // Get the encrypted string and return.
             byte[] encoded = cipher.doFinal(data);
@@ -92,9 +92,9 @@ public class Encryption {
             keyV = Arrays.copyOf(keyV, 16);
 
             // Convert it to a key object for the Chipher
-            Key key = new SecretKeySpec(keyV, algorithm);
+            Key secretKeySpec = new SecretKeySpec(keyV, algorithm);
             Cipher cipher = Cipher.getInstance(algorithm);
-            cipher.init(Cipher.DECRYPT_MODE, key);
+            cipher.init(Cipher.DECRYPT_MODE, secretKeySpec);
 
             byte[] decodedVal = Base64.decode(data, Base64.DEFAULT);
             byte[] decVal = cipher.doFinal(decodedVal);
