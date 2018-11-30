@@ -19,7 +19,7 @@ public class SingletonTest {
         assertEquals(p, k);
 
         CareProvider cp = new CareProvider("super");
-        AppStatus.getInstance().setCurrentUser(p);
+        AppStatus.getInstance().setCurrentUser(cp);
         CareProvider ck = (CareProvider)AppStatus.getInstance().getCurrentUser();
         assertEquals(cp, ck);
     }
