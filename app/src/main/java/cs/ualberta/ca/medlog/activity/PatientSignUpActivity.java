@@ -12,7 +12,6 @@ import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.entity.user.ContactInfo;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.helper.Database;
-import cs.ualberta.ca.medlog.helper.LoginCodes;
 import cs.ualberta.ca.medlog.singleton.AppStatus;
 
 /**
@@ -105,8 +104,7 @@ public class PatientSignUpActivity extends AppCompatActivity {
             return;
         }
 
-        LoginCodes loginCodes = new LoginCodes(this);
-        loginCodes.addCode(username);
+        db.addLoginCode(username);
 
         Intent intent = new Intent(this, PatientMenuActivity.class);
         Toast.makeText(this, R.string.activityPatientSignUp_SignedUp, Toast.LENGTH_SHORT).show();

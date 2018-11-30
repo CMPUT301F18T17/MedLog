@@ -15,7 +15,6 @@ import cs.ualberta.ca.medlog.controller.SyncController;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 import cs.ualberta.ca.medlog.helper.Database;
-import cs.ualberta.ca.medlog.helper.LoginCodes;
 import cs.ualberta.ca.medlog.singleton.AppStatus;
 
 /**
@@ -32,8 +31,8 @@ import cs.ualberta.ca.medlog.singleton.AppStatus;
  *         None.
  * </p>
  *
- * @author Tyler Gobran
- * @version 1.2
+ * @author Tyler Gobran, Tem Tamre
+ * @version 1.1
  * @see StartScreenActivity
  * @see PatientMenuActivity
  * @see PatientSignUpActivity
@@ -78,9 +77,9 @@ public class PatientLoginActivity extends AppCompatActivity {
             return;
         }
 
-        LoginCodes codeChecker = new LoginCodes(this);
-        if (!codeChecker.checkCode(username)) {
-            Toast.makeText(this,R.string.activityPatientLogin_NoRegister,Toast.LENGTH_SHORT).show();
+        Database db = new Database(this);
+        if (!db.checkLoginCode(username)) {
+            Toast.makeText(this, R.string.activityPatientLogin_NoRegister,Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -93,8 +92,8 @@ public class PatientLoginActivity extends AppCompatActivity {
             return;
         }
 
-        Database db = new Database(this);
-        Patient toLogin;
+
+        Patient toLogin = null;
         try {
             toLogin = db.loadPatient(username);
         } catch(UserNotFoundException e){

@@ -14,7 +14,6 @@ import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.exception.EncryptionException;
 import cs.ualberta.ca.medlog.helper.Database;
 import cs.ualberta.ca.medlog.helper.Encryption;
-import cs.ualberta.ca.medlog.helper.LoginCodes;
 import cs.ualberta.ca.medlog.singleton.AppStatus;
 
 /**
@@ -29,7 +28,7 @@ import cs.ualberta.ca.medlog.singleton.AppStatus;
  *         None.
  * </p>
  *
- * @author Tyler Gobran
+ * @author Tyler Gobran, Tem Tamre
  * @version 1.0
  * @see PatientLoginActivity
  * @see PatientMenuActivity
@@ -59,12 +58,14 @@ public class PatientEnterRegisterCodeActivity extends AppCompatActivity {
             return;
         }
 
+        Database db = new Database(this);
         String username;
         try {
             username = Encryption.byteArrayToString(Encryption.decryptData("CODE", code+"=="));
+            db.addLoginCode(username);
         } catch (EncryptionException e) {
             e.printStackTrace();
-            Toast.makeText(this,R.string.activityPatientEnterRegisterCode_CodeUnreadable,Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.activityPatientEnterRegisterCode_CodeUnreadable,Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -77,7 +78,7 @@ public class PatientEnterRegisterCodeActivity extends AppCompatActivity {
             return;
         }
 
-        Database db = new Database(this);
+
         Patient toLogin;
         try {
             toLogin = db.loadPatient(username);
@@ -89,8 +90,7 @@ public class PatientEnterRegisterCodeActivity extends AppCompatActivity {
         if (toLogin != null) {
             AppStatus.getInstance().setCurrentUser(toLogin);
 
-            LoginCodes loginCodes = new LoginCodes(this);
-            loginCodes.addCode(username);
+            db.addLoginCode(username);
 
             Toast.makeText(this,R.string.activityPatientEnterRegisterCode_Registered,Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, PatientMenuActivity.class);
