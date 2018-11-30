@@ -125,7 +125,6 @@ public class AddBodyLocationActivity extends AppCompatActivity {
         selectedPhoto = photos.get(index);
         ImageView markerView = findViewById(R.id.activityAddBodyLocation_MarkerView);
         markerView.setVisibility(View.VISIBLE);
-        Toast.makeText(this,imageView.getWidth() + " " + imageView.getHeight(),Toast.LENGTH_SHORT).show();
         markerView.setX((imageView.getWidth()*percentageX) - markerView.getWidth()/4);
         markerView.setY((imageView.getHeight()*percentageY) - markerView.getHeight()/4);
     }
