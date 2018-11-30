@@ -24,6 +24,7 @@ import cs.ualberta.ca.medlog.entity.Record;
 import cs.ualberta.ca.medlog.entity.SearchResult;
 import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.entity.user.Patient;
+import cs.ualberta.ca.medlog.entity.user.User;
 import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 import cs.ualberta.ca.medlog.entity.Photo;
 
@@ -54,27 +55,125 @@ import cs.ualberta.ca.medlog.entity.Photo;
 public class Database {
     public Context context;
     public Cache cache;
+    public Codes codes;
 
     public Database(Context c){
         this.context = c;
         this.cache = new Cache(context);
+        this.codes = new Codes(context);
     }
 
+
+    /* Getter methods */
+
+    /**
+     * Getter method for context
+     * @return context
+     */
     public Context getDatabaseContext() {
         return context;
     }
 
+    /**
+     * Getter method for the cache
+     * @return cache
+     */
     public Cache getDatabaseCache() {
         return cache;
     }
 
+    /**
+     * Getter method for the codes
+     * @return codes
+     */
+    public Codes getDatabaseCodes() {
+        return codes;
+    }
+
+
+    /* Setter methods */
+
+    /**
+     * Setter method for the context
+     * @param ctx context
+     */
     public void setDatabaseContext(Context ctx) {
         this.context = ctx;
     }
 
+    /**
+     * Setter method for the cache
+     * @param che cache
+     */
     public void setDatabaseCache(Cache che) {
         this.cache = che;
     }
+
+    /**
+     * Setter method for the codes
+     * @param cds codes
+     */
+    public void setDatabaseCodes(Codes cds) {
+        this.codes = cds;
+    }
+
+
+    /* Cache methods */
+
+    /**
+     * Invocation of cache's load method
+     * @param type The class of object to be returned
+     * @param <T> type parameters
+     * @return the object returned by cache.load(type)
+     * @throws UserNotFoundException
+     * @see Cache
+     */
+    public <T> T cacheLoad(Class<T> type) throws UserNotFoundException{
+        return cache.load(type);
+    }
+
+    /**
+     * Invocation of cache's save method
+     * @param user the user to be saved to disc
+     * @see Cache
+     */
+    public void cacheSave(User user) {
+        cache.save(user);
+    }
+
+
+    /* Codes methods */
+
+    /**
+     * Invocation of code's getCodes method
+     * @return String ArrayList of login codes on the current device
+     * @see Codes
+     */
+    public ArrayList<String> getLoginCodes() {
+        return codes.getCodes();
+    }
+
+    /**
+     * Invocation of code's addCode method
+     * @param code
+     * @see Codes
+     */
+    public void addLoginCode(String code) {
+        codes.addCode(code);
+    }
+
+    /**
+     * Invocation of code's checkCode method
+     * @param code
+     * @return True if code exists on device, false otherwise
+     * @see Codes
+     */
+    public boolean checkLoginCode(String code) {
+        return codes.checkCode(code);
+    }
+
+
+    /* Database methods */
 
     /**
      * <p>Get a patient from the database if a connection can be established, load from disc otherwise</p>
@@ -103,17 +202,15 @@ public class Database {
                 throw new UserNotFoundException("Patient " + username + " failed to load.");
             }
         } else {
-
-            try { // Offline mode, try and load the patient from local data
+            // Offline mode, try and load the patient from local data
+            try {
                 patient = cache.load(Patient.class);
             } catch (UserNotFoundException e) {
-
-            }
                 throw new ConnectException("Failed to connect to database and could not load the user locally.");
             }
+        }
         return patient;
     }
-
 
 
     /**

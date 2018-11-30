@@ -28,7 +28,7 @@ import cs.ualberta.ca.medlog.singleton.AppStatus;
  *         Need actual code to register the patient to the phone.
  * </p>
  *
- * @author Tyler Gobran
+ * @author Tyler Gobran, Tem Tamre
  * @version 0.2
  * @see PatientLoginActivity
  * @see PatientMenuActivity
@@ -58,9 +58,11 @@ public class PatientEnterRegisterCodeActivity extends AppCompatActivity {
             return;
         }
 
+        Database db = new Database(this);
         String username;
         try {
             username = Encryption.byteArrayToString(Encryption.decryptData("CODE", code));
+            db.addLoginCode(username);
         } catch (EncryptionException e) {
             e.printStackTrace();
             Toast.makeText(this,"Couldn't read code.",Toast.LENGTH_SHORT).show();
@@ -76,7 +78,7 @@ public class PatientEnterRegisterCodeActivity extends AppCompatActivity {
             return;
         }
 
-        Database db = new Database(this);
+
         Patient toLogin;
         try {
             toLogin = db.loadPatient(username);

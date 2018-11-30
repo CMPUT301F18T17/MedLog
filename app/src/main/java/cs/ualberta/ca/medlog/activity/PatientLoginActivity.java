@@ -27,7 +27,7 @@ import cs.ualberta.ca.medlog.singleton.AppStatus;
  *         None.
  * </p>
  *
- * @author Tyler Gobran
+ * @author Tyler Gobran, Tem Tamre
  * @version 1.1
  * @see StartScreenActivity
  * @see PatientMenuActivity
@@ -83,9 +83,11 @@ public class PatientLoginActivity extends AppCompatActivity {
         }
 
         Database db = new Database(this);
-        Patient toLogin;
+        Patient toLogin = null;
         try {
-            toLogin = db.loadPatient(username);
+            if (db.checkLoginCode(username)) {
+                toLogin = db.loadPatient(username);
+            }
         } catch(Exception e){
             Toast.makeText(this, "Failed to login", Toast.LENGTH_SHORT).show();
             return;

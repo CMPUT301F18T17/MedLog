@@ -54,7 +54,7 @@ public class SyncController {
             // Try and load the user locally
             Patient local, remote;
             try {
-                local = dbs.cache.load(Patient.class);
+                local = dbs.cacheLoad(Patient.class);
                 if(local == null) {
                     return;
                 }
@@ -77,6 +77,7 @@ public class SyncController {
             }
 
             // Check for conflict resolution
+            if(remote.equals(local)){ return; }
             if(remote.equals(local)){ return; }
 
             // There is a conflict, most likely the local client is most up to date.
@@ -106,7 +107,7 @@ public class SyncController {
             // Try and load the user locally
             CareProvider local, remote;
             try {
-                local = dbs.cache.load(CareProvider.class);
+                local = dbs.cacheLoad(CareProvider.class);
                 if(local == null) { return; }
                 if(!local.getUsername().equals(username)){
                     // Sync the old user. Could be either a care provider or patient so we have to call both.

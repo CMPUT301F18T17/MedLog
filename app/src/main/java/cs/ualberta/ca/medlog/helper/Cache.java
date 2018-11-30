@@ -63,9 +63,14 @@ import java.io.OutputStreamWriter;
  *         https://stackoverflow.com/users/1080355/vsb
  *         https://stackoverflow.com/users/1912085/r9j
  *         Answered 2013-01-07, edited 2016-08-10, accessed 2018-11-09
+ *
+ *         Jakob Jenkov, Java Generics - Class Objects as Type Literals
+ *         http://tutorials.jenkov.com/java-generics/class-objects-as-type-literals.html
+ *         Last updated 2014-06-23, acccessed 2018-11-28
  * </p>
  *
  * @author Tem Tamre
+ * @version 1.1
  * @see cs.ualberta.ca.medlog.helper.Database
  */
 public class Cache {

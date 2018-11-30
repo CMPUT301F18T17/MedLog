@@ -37,13 +37,13 @@ import cs.ualberta.ca.medlog.exception.UserNotFoundException;
  * <p>
  *     User Guide: <br>
  *         Attempted code login: <br>
- *             <l1>Instantiate new LoginCodes (ex. {@code LoginCodes codes = new LoginCodes(getContext()})</l1>
+ *             <l1>Instantiate new Codes (ex. {@code Codes codes = new Codes(getContext()})</l1>
  *             <li>Check if login code has been saved (ex. {@code if (codes.checkCode(userCode) {}})</li>
  *             <li>If true, login</li>
  *             <li>If false, login and add user (ex. {@code codes.addCode(userCode)}</li>
  *
  *         Attempted username login: <br>
- *             <li><l1>Instantiate new LoginCodes (ex. {@code LoginCodes codes = new LoginCodes(getContext()})</l1></li>
+ *             <li><l1>Instantiate new Codes (ex. {@code Codes codes = new Codes(getContext()})</l1></li>
  *             <li>Get user's login code (ex. {@code String userCode = //getter method for user login code})</li>
  *             <li>Check if login code has been saved (ex. {@code if (codes.checkCode(userCode) {...} })</li>
  *             <li>If true, login</li>
@@ -61,16 +61,16 @@ import cs.ualberta.ca.medlog.exception.UserNotFoundException;
  * @author Tem Tamre
  * @contact ttamre@ualberta.ca
  */
-public class LoginCodes {
+public class Codes {
     public Context context;
     private String filename;
     private ArrayList<String> codes;
 
     /**
-     * Initialize a LoginCodes object
+     * Initialize a Codes object
      * @param context
      */
-    public LoginCodes(Context context){
+    public Codes(Context context){
         this.filename = "codes.sav";
         this.context = context;
     }
@@ -159,6 +159,16 @@ public class LoginCodes {
     }
 
     /**
+     * Checks if the given code is in the codes ArrayList
+     * @param code the code to be checked
+     * @return True if the code exists in the ArrayList, false otherwise
+     */
+    public boolean checkCode(String code) {
+        load();
+        return codes.contains(code);
+    }
+
+    /**
      * Save the current code ArrayList to the device
      * This function is private because it is already called within this class whenever a change is
      *  made to the codes ArrayList
@@ -172,7 +182,7 @@ public class LoginCodes {
             osw.write(json);
             osw.close();
         } catch (IOException e) {
-            Log.d("LoginCodes", "IOException thrown in LoginCodes.save()");
+            Log.d("Codes", "IOException thrown in Codes.save()");
             e.printStackTrace();
         }
     }
@@ -208,15 +218,5 @@ public class LoginCodes {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * Checks if the given code is in the codes ArrayList
-     * @param code the code to be checked
-     * @return True if the code exists in the ArrayList, false otherwise
-     */
-    public boolean checkCode(String code) {
-        load();
-        return codes.contains(code);
     }
 }
