@@ -105,8 +105,6 @@ public class PatientRecordViewActivity extends AppCompatActivity {
             slideshowButton.setBackgroundTintList(colorStateList);
         }
 
-        TextView recordTitleView = findViewById(R.id.activityPatientRecordView_TitleView);
-        recordTitleView.setText(record.getTitle());
         TextView problemTitleView = findViewById(R.id.activityPatientRecordView_ProblemTitleView);
         problemTitleView.setText(AppStatus.getInstance().getViewedProblem().getTitle());
         TextView creatorView = findViewById(R.id.activityPatientRecordView_CreatorView);

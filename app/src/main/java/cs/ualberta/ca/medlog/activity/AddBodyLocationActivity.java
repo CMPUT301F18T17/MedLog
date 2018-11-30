@@ -42,8 +42,8 @@ public class AddBodyLocationActivity extends AppCompatActivity {
     private int index = 0;
 
     private Photo selectedPhoto;
-    private int locationX;
-    private int locationY;
+    private float percentageX;
+    private float percentageY;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,15 +74,13 @@ public class AddBodyLocationActivity extends AppCompatActivity {
 
         photos = (ArrayList<Photo>)getIntent().getSerializableExtra("BODY_PHOTOS");
 
-
-
         imageView = findViewById(R.id.activityAddBodyLocation_ImageView);
         imageView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getActionMasked() == MotionEvent.ACTION_DOWN) {
-                    locationX = Math.round(event.getX());
-                    locationY = Math.round(event.getY());
+                    percentageX = event.getX()/v.getWidth();
+                    percentageY = event.getY()/v.getHeight();
                     updateLocationMarkerPlace();
                 }
                 return false;
@@ -127,8 +125,9 @@ public class AddBodyLocationActivity extends AppCompatActivity {
         selectedPhoto = photos.get(index);
         ImageView markerView = findViewById(R.id.activityAddBodyLocation_MarkerView);
         markerView.setVisibility(View.VISIBLE);
-        markerView.setX(markerView.getX() + locationX);
-        markerView.setY(markerView.getY() + locationY);
+        Toast.makeText(this,imageView.getWidth() + " " + imageView.getHeight(),Toast.LENGTH_SHORT).show();
+        markerView.setX((imageView.getWidth()*percentageX) - markerView.getWidth()/4);
+        markerView.setY((imageView.getHeight()*percentageY) - markerView.getHeight()/4);
     }
 
     private void saveBodyLocation() {
@@ -137,7 +136,7 @@ public class AddBodyLocationActivity extends AppCompatActivity {
             return;
         }
 
-        BodyLocation location = new BodyLocation(selectedPhoto,locationX,locationY);
+        BodyLocation location = new BodyLocation(selectedPhoto,percentageX,percentageY);
 
         Intent intent = new Intent();
         intent.putExtra("BODY_LOCATION",location);

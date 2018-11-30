@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.entity.BodyLocation;
@@ -24,22 +25,30 @@ import cs.ualberta.ca.medlog.entity.BodyLocation;
  * @see PatientViewRecordsActivity
  */
 public class ViewBodyLocationActivity extends AppCompatActivity {
+    private ImageView imageView;
+    private BodyLocation bodyLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_body_location);
 
-        BodyLocation bodyLocation = (BodyLocation)getIntent().getSerializableExtra("BODY_LOCATION");
+        bodyLocation = (BodyLocation)getIntent().getSerializableExtra("BODY_LOCATION");
 
-        ImageView bodyPhotoView = findViewById(R.id.activityViewBodyLocation_ImageView);
-        bodyPhotoView.setImageBitmap(bodyLocation.getPhoto().getBitmap());
+        imageView = findViewById(R.id.activityViewBodyLocation_ImageView);
+        imageView.setImageBitmap(bodyLocation.getPhoto().getBitmap());
 
         TextView labelView = findViewById(R.id.activityViewBodyLocation_BodyPhotoLabelView);
         labelView.setText(bodyLocation.getPhoto().getLabel());
+    }
 
-        ImageView marker = findViewById(R.id.activityViewBodyLocation_MarkerView);
-        marker.setX(bodyPhotoView.getX() + bodyLocation.getX());
-        marker.setY(bodyPhotoView.getY() + bodyLocation.getY());
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if(hasFocus) {
+            ImageView markerView = findViewById(R.id.activityViewBodyLocation_MarkerView);
+            markerView.setX((imageView.getWidth()*bodyLocation.getX()) - markerView.getWidth()/4);
+            markerView.setY((imageView.getHeight()*bodyLocation.getY()) - markerView.getHeight()/4);
+        }
     }
 }
