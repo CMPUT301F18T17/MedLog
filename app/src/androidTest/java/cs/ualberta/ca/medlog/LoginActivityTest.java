@@ -1,5 +1,6 @@
 package cs.ualberta.ca.medlog;
 
+import android.content.res.Resources;
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.filters.LargeTest;
@@ -53,16 +54,12 @@ import static junit.framework.TestCase.assertTrue;
  *
  * </p>
  *
- * TODO
- *  1) Figure out how the test determines what activity it's in
- *  2) Figure out how the test moves through activities
- *  3) Figure out what @Rule does
- *  4) Code login tests
- *
  * @author Tem Tamre
- * @version 1.1
+ * @version 1.0
  * @see PatientLoginActivity
  * @see ProviderLoginActivity
+ * @see Patient
+ * @see CareProvider
  */
 
 @RunWith(AndroidJUnit4.class)
@@ -107,7 +104,7 @@ public class LoginActivityTest {
     }
 
     @Test
-    private void prepareUsers() throws ConnectException {
+    public void testPrepareUsers() throws ConnectException {
         Database db = new Database(null);
 
         // Create users
@@ -131,7 +128,7 @@ public class LoginActivityTest {
     /* Instrumented Tests */
 
     @Test
-    public void patientUsernameLogin() {
+    public void testPatientUsernameLogin() {
         assertEquals(patientRule.getActivity().getClass(), PatientLoginActivity.class);
         Log.e("AndroidTest", "Begin LoginActivityTest.patientUsernameLogin()");
 
@@ -144,14 +141,15 @@ public class LoginActivityTest {
     }
 
     @Test
-    public void patientCodeLogin() throws EncryptionException {
+    public void testPatientCodeLogin() throws EncryptionException {
         assertEquals(patientRule.getActivity().getClass(), PatientLoginActivity.class);
         Log.e("AndroidTest", "Begin LoginActivityTest.patientUsernameLogin()");
 
         // Get code
         String username = usedPatient.getUsername();
         byte[] usernameBytes = username.getBytes();
-        String code = Encryption.encryptData("CODE", usernameBytes);
+        String encryptionKey = Resources.getSystem().getString(R.string.EncryptionKey);
+        String code = Encryption.encryptData(encryptionKey, usernameBytes);
 
         // Active username
         Espresso.onView((withId(R.id.activityPatientEnterRegisterCode_CodeEditText))).perform(ViewActions
@@ -162,7 +160,7 @@ public class LoginActivityTest {
     }
 
     @Test
-    public void patientSignup() {
+    public void testPatientSignup() {
         Log.e("AndroidTest", "Begin LoginActivityTest.patientRegister()");
 
         Espresso.onView((withId(R.id.activityPatientSignUp_UsernameEditText))).perform(ViewActions
@@ -183,7 +181,7 @@ public class LoginActivityTest {
     }
 
     @Test
-    public void providerUsernameLogin() {
+    public void testProviderUsernameLogin() {
         assertEquals(providerRule.getActivity().getClass(), ProviderLoginActivity.class);
         Log.e("AndroidTest", "Begin LoginActivityTest.patientUsernameLogin()");
 
@@ -196,7 +194,7 @@ public class LoginActivityTest {
     }
 
     @Test
-    public void providerSignup() {
+    public void testProviderSignup() {
         Log.e("AndroidTest", "Begin LoginActivityTest.patientRegister()");
 
         Espresso.onView((withId(R.id.activityProviderRegistration_UsernameEditText))).perform(ViewActions

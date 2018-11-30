@@ -1,6 +1,7 @@
 package cs.ualberta.ca.medlog.activity;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -26,6 +27,15 @@ import cs.ualberta.ca.medlog.singleton.AppStatus;
  * <p>
  *     Issues: <br>
  *         None.
+ * </p>
+ *
+ * <p>
+ *     Resources: <br>
+ *         Robertas Uldukis, Response to StackOverflow question "How to read value from string.xml in android?"
+ *         https://stackoverflow.com/a/20075784
+ *         https://stackoverflow.com/users/2343261/robertas-uldukis
+ *         Answered 2013-11-09, accessed 2018-11-30
+ *
  * </p>
  *
  * @author Tyler Gobran, Tem Tamre
@@ -61,7 +71,8 @@ public class PatientEnterRegisterCodeActivity extends AppCompatActivity {
         Database db = new Database(this);
         String username;
         try {
-            username = Encryption.byteArrayToString(Encryption.decryptData("CODE", code+"=="));
+            String encryptionKey = Resources.getSystem().getString(R.string.EncryptionKey);
+            username = Encryption.byteArrayToString(Encryption.decryptData(encryptionKey, code+"=="));
             db.addLoginCode(username);
         } catch (EncryptionException e) {
             e.printStackTrace();
