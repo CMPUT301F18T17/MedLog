@@ -48,16 +48,16 @@ public class Encryption {
 
     /**
      * <p>Encrypt the data using AES</p>
-     * @param username The username (key).
+     * @param key The username (key).
      * @param data The data to encrypt as a byte array.
      * @return A string of the encrypted data.
      * @throws EncryptionException If the encryption throws and exception.
      */
-    public static String encryptData(String username, byte[] data) throws EncryptionException {
+    public static String encryptData(String key, byte[] data) throws EncryptionException {
         try {
 
             // Generate a key based off the username using SHA-1
-            byte[] keyV = username.getBytes();
+            byte[] keyV = key.getBytes();
             MessageDigest sha = MessageDigest.getInstance("SHA-1");
             keyV = sha.digest(keyV);
             keyV = Arrays.copyOf(keyV, 16);
@@ -78,15 +78,15 @@ public class Encryption {
 
     /**
      * <p>Decrypt the data provided using AES.</p>
-     * @param username The username (key).
+     * @param key The username (key).
      * @param data The data to decrypt as a string.
      * @return The byte array of the data decrypted.
      * @throws EncryptionException If the encryption caused an exception.
      */
-    public static byte[] decryptData(String username, String data) throws EncryptionException{
+    public static byte[] decryptData(String key, String data) throws EncryptionException{
         try{
             // Generate a key based off the username using SHA-1
-            byte[] keyV = username.getBytes("UTF-8");
+            byte[] keyV = key.getBytes("UTF-8");
             MessageDigest sha = MessageDigest.getInstance("SHA-1");
             keyV = sha.digest(keyV);
             keyV = Arrays.copyOf(keyV, 16);
