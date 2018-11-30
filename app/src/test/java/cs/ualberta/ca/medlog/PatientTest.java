@@ -65,9 +65,10 @@ public class PatientTest {
         Patient patient = new Patient(info, "Test Patient");
 
         assertEquals(0, patient.getBodyPhotos().size());
-
+        ArrayList<Photo> photos = new ArrayList<Photo>(1);
         Photo photo = new Photo( null);
-        patient.addBodyPhoto(photo);
+        photos.add(0,photo);
+        patient.setBodyPhotos(photos);
 
         assertEquals(photo, patient.getBodyPhotos().get(0));
 
@@ -77,10 +78,11 @@ public class PatientTest {
     public void addBodyPhotoTest() {
         ContactInfo info = new ContactInfo("0000000000", "email@email.ca");
         Patient patient = new Patient(info, "Test Patient");
-
+        ArrayList<Photo> photos = new ArrayList<Photo>(5);
         for (int i = 0; i < 5; i++) {
             Photo photo = new Photo(null);
-            patient.addBodyPhoto(photo);
+            photos.add(i,photo);
+            patient.setBodyPhotos(photos);
             assertEquals(photo, patient.getBodyPhotos().get(i));
             assertEquals(i+1, patient.getBodyPhotos().size());
         }

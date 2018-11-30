@@ -16,8 +16,8 @@ import static junit.framework.TestCase.assertEquals;
 public class ProviderControllerTest {
 
     @Test
-    public void testaddPatient(Context ctx) {
-        ProviderController controller = new ProviderController(ctx);
+    public void testaddPatient() {
+        ProviderController controller = new ProviderController(null);
         CareProvider provider = new CareProvider("Test Provider");
         ContactInfo info = new ContactInfo("0000000000", "email@email.ca");
         Patient patient= new Patient(info,"Test Patient");

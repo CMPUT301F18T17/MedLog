@@ -24,11 +24,13 @@ import static junit.framework.TestCase.assertEquals;
  * Contact: kandrosc@ualberta.ca
  * Created: November 28, 2018
  */
+
+// Wihtout context, these tests will always fail :/
 public class PatientControllerTest {
 
     @Test
-    public void testsetEmail(Context ctx){
-        PatientController controller = new PatientController(ctx);
+    public void testsetEmail(){
+        PatientController controller = new PatientController(null);
         ContactInfo info = new ContactInfo("0000000000", "email@email.ca");
         Patient patient= new Patient(info,"Test Patient");
         String newEmail="newemail@email.ca";
@@ -42,8 +44,8 @@ public class PatientControllerTest {
     }
 
     @ Test
-    public void testsetPhoneNumber(Context ctx){
-        PatientController controller = new PatientController(ctx);
+    public void testsetPhoneNumber(){
+        PatientController controller = new PatientController(null);
         ContactInfo info = new ContactInfo("0000000000", "email@email.ca");
         Patient patient= new Patient(info,"Test Patient");
         String newPhoneNumber="1111111111";
@@ -56,8 +58,8 @@ public class PatientControllerTest {
         assertEquals(newPhoneNumber,info.getPhoneNumber());
     }
     @Test
-    public void testaddProblem(Context ctx){
-        PatientController controller = new PatientController(ctx);
+    public void testaddProblem(){
+        PatientController controller = new PatientController(null);
         ContactInfo info = new ContactInfo("0000000000", "email@email.ca");
         Patient patient= new Patient(info,"Test Patient");
         Problem problem = new Problem("Test Problem", new Date(), "description");
@@ -71,8 +73,8 @@ public class PatientControllerTest {
     }
 
     @Test
-    public void testdeleteProblem(Context ctx){
-        PatientController controller = new PatientController(ctx);
+    public void testdeleteProblem(){
+        PatientController controller = new PatientController(null);
         ContactInfo info = new ContactInfo("0000000000", "email@email.ca");
         Patient patient= new Patient(info,"Test Patient");
         Problem problem1 = new Problem("Test Problem1", new Date(), "description");
@@ -89,8 +91,8 @@ public class PatientControllerTest {
     }
 
     @Test
-    public void testaddBodyPhotos(Context ctx){
-        PatientController controller = new PatientController(ctx);
+    public void testsetBodyPhotos(){
+        PatientController controller = new PatientController(null);
         ContactInfo info = new ContactInfo("0000000000", "email@email.ca");
         Patient patient= new Patient(info,"Test Patient");
         ArrayList<Photo> photos=new ArrayList<Photo>();
@@ -98,7 +100,7 @@ public class PatientControllerTest {
             Photo photo = new Photo(null);
             photos.set(i,photo);
         }
-        controller.addBodyPhotos(patient,photos);
+        controller.setBodyPhotos(patient,photos);
         Database database=controller.getDatabase();
         try {
             patient=database.loadPatient("Test Patient");
