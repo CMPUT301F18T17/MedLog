@@ -68,15 +68,14 @@ public class RecordTest {
     public void testPhotos() {
         Record testRecord = new Record("John Doe");
 
-        ArrayList<Photo> photoList = new ArrayList<Photo>();
+        ArrayList<Photo> photoList = new ArrayList<Photo>(5);
         assertTrue(testRecord.getPhotos().isEmpty());
-
+        ArrayList<Photo> photos = new ArrayList<>(5);
         for (int i = 0; i < 5; i++) {
             Photo photo = new Photo(null);
-            ArrayList<Photo> photos = new ArrayList<>();
-            photos.add(photo);
+            photos.add(i,photo);
             testRecord.setPhotos(photos);
-            photoList.add(photo);
+            photoList.add(i,photo);
 
             assertEquals(testRecord.getPhotos(), photoList);
             assertEquals(i + 1, testRecord.getPhotos().size());
