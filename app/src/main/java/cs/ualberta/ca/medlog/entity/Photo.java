@@ -92,12 +92,5 @@ public class Photo implements Serializable {
         this.label = newLabel;
     }
 
-    /**
-     * Sets the bitmap to null in order to save in the database.
-     */
-    public void nullBitMap(){
-        bitmap = null;
-    }
-
 
 }
