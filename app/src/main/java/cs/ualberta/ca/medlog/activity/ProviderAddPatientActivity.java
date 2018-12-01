@@ -16,7 +16,6 @@ import java.net.ConnectException;
 
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.controller.ProviderController;
-import cs.ualberta.ca.medlog.entity.Problem;
 import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.exception.EncryptionException;

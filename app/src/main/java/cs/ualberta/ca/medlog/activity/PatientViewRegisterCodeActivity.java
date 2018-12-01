@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.exception.EncryptionException;
 import cs.ualberta.ca.medlog.helper.Encryption;

@@ -18,7 +18,7 @@ import cs.ualberta.ca.medlog.singleton.AppStatus;
 /**
  * <p>
  *     Description: <br>
- *         The Activity for the view map location screen. This presents the gui of a Mapbox map
+ *         The Activity for the view map location screen. This presents the gui of a MapBox map
  *         from which a user can see a marker at the current record's map location.
  * </p>
  * <p>

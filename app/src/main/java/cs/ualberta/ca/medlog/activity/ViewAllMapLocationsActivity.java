@@ -20,7 +20,7 @@ import cs.ualberta.ca.medlog.singleton.AppStatus;
 /**
  * <p>
  *     Description: <br>
- *         The Activity for the view all map locations screen. This presents the gui of a Mapbox map
+ *         The Activity for the view all map locations screen. This presents the gui of a MapBox map
  *         from which a user can see markers at all of the current patient's map locations.
  * </p>
  * <p>
@@ -43,7 +43,7 @@ public class ViewAllMapLocationsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Mapbox.getInstance(this, getString(R.string.mapboxAccessToken));
         setContentView(R.layout.activity_view_all_map_locations);
-        mapView = (MapView) findViewById(R.id.activityViewAllMapLocations_mapView);
+        mapView = findViewById(R.id.activityViewAllMapLocations_mapView);
         mapView.onCreate(savedInstanceState);
 
         Patient currentPatient;
