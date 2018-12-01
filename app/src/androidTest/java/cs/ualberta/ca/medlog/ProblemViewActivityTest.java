@@ -21,6 +21,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import cs.ualberta.ca.medlog.activity.PatientProblemViewActivity;
@@ -28,6 +29,8 @@ import cs.ualberta.ca.medlog.controller.ElasticSearchController;
 import cs.ualberta.ca.medlog.entity.Problem;
 import cs.ualberta.ca.medlog.entity.user.ContactInfo;
 import cs.ualberta.ca.medlog.entity.user.Patient;
+import cs.ualberta.ca.medlog.entity.Photo;
+import cs.ualberta.ca.medlog.mock.MockPhoto;
 import cs.ualberta.ca.medlog.singleton.AppStatus;
 
 import static android.support.test.espresso.action.ViewActions.click;
@@ -66,6 +69,9 @@ public class ProblemViewActivityTest {
         Problem problem = new Problem("Test Problem", new Date(), "The problem to test on.");
         AppStatus.getInstance().setViewedProblem(problem);
         user.addProblem(problem);
+        ArrayList<Photo> photos = new ArrayList<>();
+        photos.add(new MockPhoto(720, 1080));
+        user.setBodyPhotos(photos);
         AppStatus.getInstance().setCurrentUser(user);
         AppStatus.getInstance().setViewedPatient(user);
         System.out.println(AppStatus.getInstance().getViewedProblem().getTitle());
@@ -125,16 +131,16 @@ public class ProblemViewActivityTest {
         Espresso.onView(withId(R.id.activityPatientAddRecord_Base)).check(matches(isDisplayed()));
 
         // Add Body Location
-        //Espresso.onView(withId(R.id.activityPatientAddRecord_BodyLocationButton)).perform(click());
-        //Espresso.onView(withId(R.id.activityAddBodyLocation_Base)).perform(clickXY(500, 500));
-        //Espresso.onView(withId(R.id.activityAddBodyLocation_SaveButton)).perform(click());
-        //Espresso.onView(withId(R.id.activityPatientAddRecord_Base)).check(matches(isDisplayed()));
+        Espresso.onView(withId(R.id.activityPatientAddRecord_BodyLocationButton)).perform(click());
+        Espresso.onView(withId(R.id.activityAddBodyLocation_Base)).perform(clickXY(501, 872));
+        Espresso.onView(withId(R.id.activityAddBodyLocation_SaveButton)).perform(click());
+        Espresso.onView(withId(R.id.activityPatientAddRecord_Base)).check(matches(isDisplayed()));
 
 
-        // Add Photo
+        // Add Photo -> Photo selector doesn't really work with testing so I have commented this out
         //Espresso.onView(withId(R.id.activityPatientAddRecord_PhotosButton)).perform(click());
         //Espresso.onView(withId(R.id.activityPhotoSelector_TakeNewButton)).perform(click());
-        // Photo selector on tests is really odd.
+        // Take photo and then submit it.
         //Espresso.onView(withId(R.id.activityPhotoSelector_SaveButton)).perform(click());
         //Espresso.onView(withId(R.id.activityPatientAddRecord_Base)).check(matches(isDisplayed()));
 
@@ -156,6 +162,9 @@ public class ProblemViewActivityTest {
         Espresso.pressBack();
         Espresso.onView(withId(R.id.activityPatientRecordView_TitleCommentButton)).perform(click());
         Espresso.onView(withText("Test Record to Add")).check(matches(isDisplayed()));
+        Espresso.pressBack();
+        Espresso.onView(withId(R.id.activityPatientRecordView_BodyLocationButton)).perform(click());
+        Espresso.onView(withId(R.id.activityViewBodyLocation_Base)).check(matches(isDisplayed()));
 
 
     }

@@ -25,7 +25,7 @@ import java.io.Serializable;
 public class Photo implements Serializable {
     private String path;
     private String id;
-    private transient Bitmap bitmap;
+    protected transient Bitmap bitmap;
     private String label;
 
     /**
