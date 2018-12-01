@@ -36,6 +36,11 @@ public class SyncController {
     private Context ctx;
     private Database dbs;
 
+    /**
+     * Constructs the provider controller with the provided application context used to construct
+     * the database.
+     * @param ctx The application context.
+     */
     public SyncController(Context ctx){
         this.ctx = ctx;
         this.dbs = new Database(ctx);
@@ -44,8 +49,8 @@ public class SyncController {
     /**
      * Sync a patient between the local and remote versions.
      * @param username The username of the patient
-     * @throws ConnectException If unable to connect to the server
-     * @throws IllegalStateException If we have a local copy but a remote one does not exist
+     * @throws ConnectException Thrown if connection to the server fails.
+     * @throws IllegalStateException Thrown if a local copy exists but an online one doesn't.
      */
     public void syncPatient(String username) throws ConnectException, IllegalStateException{
         // Check if we are connected.
@@ -96,8 +101,8 @@ public class SyncController {
     /**
      * Sync a provider between the local and remote versions.
      * @param username The username of the care provider
-     * @throws ConnectException If unable to connect to the server
-     * @throws IllegalStateException If we have a local copy but a remote one does not exist
+     * @throws ConnectException Thrown if connection to the server fails.
+     * @throws IllegalStateException Thrown if a local copy exists but an online one doesn't.
      */
     public void syncCareProvider(String username) throws ConnectException, IllegalStateException{
         // Check if we are connected.
@@ -143,7 +148,7 @@ public class SyncController {
 
     /**
      * Updated all care provider information on their patients. Should be called on login.
-     * @param careProvider The careprovider to update.
+     * @param careProvider The care provider to update.
      */
     public CareProvider updateCareProviderPatients(CareProvider careProvider){
         Database db = new Database(ctx);
@@ -179,7 +184,7 @@ public class SyncController {
 
 
     /**
-     * Download all photos in a photos array provided the patient username
+     * Download all photos in a photos array provided the patient username.
      * @param username The patients username. MUST BE THE PHOTO OWNER!
      * @param photos An array of photos.
      * @return A boolean if they were downloaded successfully.
@@ -200,7 +205,7 @@ public class SyncController {
 
     /**
      * Download all patient photos from the database at once.
-     * @param p The patient to get all photos for
+     * @param p The patient to get all photos for.
      * @return A boolean if all photos downloaded properly.
      */
     public Boolean downloadAllPhotos(Patient p){
@@ -228,5 +233,4 @@ public class SyncController {
         }
         return success;
     }
-
 }

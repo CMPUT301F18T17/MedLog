@@ -26,7 +26,7 @@ public class ProviderController {
     /**
      * Constructs the provider controller with the provided application context used to construct
      * the database.
-     * @param ctx
+     * @param ctx The application context.
      */
     public ProviderController(Context ctx){
         database = new Database(ctx);
