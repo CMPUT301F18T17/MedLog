@@ -152,11 +152,11 @@ public class ProviderRecordViewActivity extends AppCompatActivity {
 
     private void openMapLocationFragment() {
         Intent intent = new Intent(this, ViewMapLocationActivity.class);
-        ArrayList<Record> newList = new ArrayList<>();
+        /*ArrayList<Record> newList = new ArrayList<>();
         if (record.getMapLocation() != null) {
             newList.add(record);
         }
-        intent.putExtra("RECORDS", newList);
+        intent.putExtra("RECORDS", newList);*/
         startActivity(intent);
     }
 

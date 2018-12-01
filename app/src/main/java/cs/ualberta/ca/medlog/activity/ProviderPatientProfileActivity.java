@@ -71,8 +71,8 @@ public class ProviderPatientProfileActivity extends AppCompatActivity {
     }
 
     private void openRecordsMap() {
-        Intent intent = new Intent(this, ViewMapLocationActivity.class);
-        ArrayList<Record> records = new ArrayList<>();
+        Intent intent = new Intent(this, ViewAllMapLocationsActivity.class);
+        /*ArrayList<Record> records = new ArrayList<>();
         for(Problem problem : patient.getProblems()) {
             for(Record record: problem.getRecords()) {
                 if (record.getMapLocation() != null) {
@@ -80,7 +80,7 @@ public class ProviderPatientProfileActivity extends AppCompatActivity {
                 }
             }
         }
-        intent.putExtra("RECORDS", records);
+        intent.putExtra("RECORDS", records);*/
         startActivity(intent);
     }
 

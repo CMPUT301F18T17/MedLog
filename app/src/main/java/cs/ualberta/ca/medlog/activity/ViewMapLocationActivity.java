@@ -87,7 +87,7 @@ public class ViewMapLocationActivity extends AppCompatActivity {
                         LatLng recordLocation = new LatLng(location.getLatitude(), location.getLongitude());
                         MarkerOptions markerOptions = new MarkerOptions();
                         markerOptions.position(recordLocation);
-                        markerOptions.title("LOCATION");
+                        markerOptions.title(record.getTimestamp().toString());
                         mapboxMap.addMarker(markerOptions);
                         mapboxMap.moveCamera(CameraUpdateFactory.newLatLng(recordLocation));
                 }
