@@ -2,7 +2,6 @@ package cs.ualberta.ca.medlog.entity;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.widget.Toast;
 
 import java.io.Serializable;
 
@@ -30,28 +29,12 @@ public class Photo implements Serializable {
     private String label;
 
     /**
-     * Creates the photo object with a path to its file in storage.
+     * Constructs the photo object with a path to its file in storage.
      * @param path The path to its file in storage.
      */
     public Photo(String path) {
         this.path = path;
         this.label = "";
-    }
-
-    /**
-     * Retrieves the label for the photo.
-     * @return The label as a string.
-     */
-    public String getLabel() {
-        return label;
-    }
-
-    /**
-     * Sets the label for the photo.
-     * @param newLabel The new label.
-     */
-    public void setLabel(String newLabel) {
-        this.label = newLabel;
     }
 
     /**
@@ -91,6 +74,22 @@ public class Photo implements Serializable {
         }
 
         return bitmap;
+    }
+
+    /**
+     * Retrieves the label for the photo.
+     * @return The label as a string.
+     */
+    public String getLabel() {
+        return label;
+    }
+
+    /**
+     * Sets the label for the photo.
+     * @param newLabel The new label.
+     */
+    public void setLabel(String newLabel) {
+        this.label = newLabel;
     }
 
     /**
