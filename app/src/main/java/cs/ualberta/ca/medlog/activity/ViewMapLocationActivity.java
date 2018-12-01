@@ -10,7 +10,6 @@ import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
-import java.util.ArrayList;
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.entity.MapLocation;
 import cs.ualberta.ca.medlog.entity.Record;
@@ -19,8 +18,8 @@ import cs.ualberta.ca.medlog.singleton.AppStatus;
 /**
  * <p>
  *     Description: <br>
- *         The Activity for the view map locations screen, this presents the gui of a Mapbox map
- *         from which a user can see markers at the passed map locations.
+ *         The Activity for the view map location screen. This presents the gui of a Mapbox map
+ *         from which a user can see a marker at the current record's map location.
  * </p>
  * <p>
  *     Issues: <br>
@@ -32,41 +31,10 @@ import cs.ualberta.ca.medlog.singleton.AppStatus;
  * @version 1.0
  * @see PatientRecordViewActivity
  * @see ProviderRecordViewActivity
- * @see PatientProfileActivity
- * @see ProviderPatientProfileActivity
  */
 
 public class ViewMapLocationActivity extends AppCompatActivity {
     private MapView mapView;
-    private ArrayList<MapLocation> mapLocations;
-
-    /*@Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        Mapbox.getInstance(this, getString(R.string.mapboxAccessToken));
-        setContentView(R.layout.activity_view_map_location);
-
-        mapLocations = (ArrayList<MapLocation>)getIntent().getSerializableExtra("LOCATIONS");
-
-        mapView = findViewById(R.id.activityViewMapLocation_MapView);
-        mapView.onCreate(savedInstanceState);
-        mapView.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(MapboxMap mapboxMap) {
-                for (MapLocation location: mapLocations) {
-                    if (location != null) {
-                        LatLng recordLocation = new LatLng(location.getLatitude(), location.getLongitude());
-                        MarkerOptions markerOptions = new MarkerOptions();
-                        markerOptions.position(recordLocation);
-                        markerOptions.title("LOCATION");
-                        mapboxMap.addMarker(markerOptions);
-                        mapboxMap.moveCamera(CameraUpdateFactory.newLatLng(recordLocation));
-                    }
-                }
-            }
-        });
-    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

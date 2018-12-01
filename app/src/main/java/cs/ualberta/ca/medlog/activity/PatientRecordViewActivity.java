@@ -134,19 +134,8 @@ public class PatientRecordViewActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
- /*   private void openMapLocationFragment() {
-        Intent intent = new Intent(this, ViewMapLocationActivity.class);
-        ArrayList<MapLocation> newList = new ArrayList<>();
-        newList.add(record.getMapLocation());
-        intent.putExtra("LOCATIONS", newList);
-        startActivity(intent);
-    }*/
-
     private void openMapLocationFragment() {
         Intent intent = new Intent(this, ViewMapLocationActivity.class);
-        //ArrayList<MapLocation> newList = new ArrayList<>();
-        //newList.add(record.getMapLocation());
-        //intent.putExtra("LOCATIONS", newList);
         startActivity(intent);
     }
 
