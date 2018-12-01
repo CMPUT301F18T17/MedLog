@@ -26,6 +26,11 @@ import cs.ualberta.ca.medlog.singleton.AppStatus;
 public class ProblemController {
     private Database database;
 
+    /**
+     * Constructs the problem controller with the provided application context used to create
+     * the database.
+     * @param ctx The application context.
+     */
     public ProblemController(Context ctx){
         database = new Database(ctx);
     }

@@ -27,6 +27,11 @@ import cs.ualberta.ca.medlog.helper.Database;
 public class PatientController {
     private Database database;
 
+    /**
+     * Constructs the Patient controller with the provided application context used to create
+     * the database.
+     * @param ctx The application context.
+     */
     public PatientController(Context ctx) {
         database = new Database(ctx);
     }

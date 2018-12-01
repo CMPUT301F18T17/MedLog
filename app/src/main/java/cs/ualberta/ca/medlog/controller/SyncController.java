@@ -27,7 +27,6 @@ import cs.ualberta.ca.medlog.entity.Photo;
  * </p>
  *
  * @author Thomas Roskewich, Tem Tamre
- * @contact roskewic@ualberta.ca, ttamre@ualberta.ca
  * @version 1.0
  * @see Patient
  * @see CareProvider

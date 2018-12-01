@@ -4,8 +4,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
 import java.security.Key;
 import java.security.MessageDigest;
@@ -17,22 +15,18 @@ import javax.crypto.spec.SecretKeySpec;
 import cs.ualberta.ca.medlog.exception.EncryptionException;
 
 /**
- *
- * <h1>
- *     Encryption
- * </h1>
- *
- *
- *  <p>
+ * <p>
  *     Description: <br>
  *         The purpose of this class is to allow for encryption of byte arrays based off the
- *         users provided username (key).
+ *         users provided username(key).
  *
  * </p>
- *
+ * <p>
+ *     Issues: <br>
+ *         None.
+ * </p>
  * <p>
  *     References: <br>
- *
  *         https://stackoverflow.com/questions/7360403/base-64-encode-and-decode-example-code
  *         https://stackoverflow.com/questions/3451670/java-aes-and-using-my-own-key
  *         https://stackoverflow.com/questions/24910620/encode-and-decode-bitmap-to-byte-array-without-compress
@@ -40,18 +34,18 @@ import cs.ualberta.ca.medlog.exception.EncryptionException;
  * </p>
  *
  * @author Thomas Roskewic
- * @contact roskewic@ualberta.ca
+ * @version 1.0
  */
 public class Encryption {
 
     private static String algorithm = "AES";
 
     /**
-     * <p>Encrypt the data using AES</p>
-     * @param key The username (key).
-     * @param data The data to encrypt as a byte array.
-     * @return A string of the encrypted data.
-     * @throws EncryptionException If the encryption throws and exception.
+     * Encrypts the provided data using AES.
+     * @param key The key.
+     * @param data The data to be encrypted as a byte array.
+     * @return The data as an encrypted string.
+     * @throws EncryptionException Thrown if the encryption fails.
      */
     public static String encryptData(String key, byte[] data) throws EncryptionException {
         try {
@@ -77,11 +71,11 @@ public class Encryption {
     }
 
     /**
-     * <p>Decrypt the data provided using AES.</p>
-     * @param key The username (key).
+     * Decrypts the provided data using AES.
+     * @param key The key.
      * @param data The data to decrypt as a string.
      * @return The byte array of the data decrypted.
-     * @throws EncryptionException If the encryption caused an exception.
+     * @throws EncryptionException Thrown if the decryption fails.
      */
     public static byte[] decryptData(String key, String data) throws EncryptionException{
         try{
@@ -107,8 +101,8 @@ public class Encryption {
     }
 
     /**
-     * <p>Converts a bitmap to its respective byte array.</p>
-     * @param b The bitmap to get the bytes for.
+     * Converts a bitmap to its respective byte array.
+     * @param b The bitmap.
      * @return The byte array for the bitmap.
      */
     public static byte[] bitMaptoBytes(Bitmap b){
@@ -119,18 +113,18 @@ public class Encryption {
     }
 
     /**
-     * <p>Converts a byte array back into a Bitmap.</p>
+     * Converts a byte array back into a bitmap.
      * @param b The byte array.
-     * @return The bitmap from the byte array.
+     * @return The bitmap for the byte array.
      */
     public static Bitmap byteArrayToBitmap(byte[] b){
         return BitmapFactory.decodeByteArray(b, 0, b.length);
     }
 
     /**
-     * <p>Converts a byte array into a String.</p>
+     * Converts a byte array to its respective string.
      * @param b The byte array.
-     * @return A string of the byte array.
+     * @return The string for the byte array.
      */
     public static String byteArrayToString(byte[] b){
         return new String(b);

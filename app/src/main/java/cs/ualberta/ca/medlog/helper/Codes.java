@@ -10,18 +10,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.security.Provider;
 import java.util.ArrayList;
 
-import cs.ualberta.ca.medlog.entity.user.CareProvider;
-import cs.ualberta.ca.medlog.entity.user.User;
 import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 
 /**
- * <h1>
- *     Local login code functionality
- * </h1>
- *
  * <p>
  *     Description: <br>
  *         The purpose of this class is to assist in user login. If users have not logged in
@@ -32,8 +25,10 @@ import cs.ualberta.ca.medlog.exception.UserNotFoundException;
  *         New device  ->  Login with code
  *         Used device ->  Login with username
  * </p>
- *
- *
+ * <p>
+ *     Issues: <br>
+ *         None.
+ * </p>
  * <p>
  *     User Guide: <br>
  *         Attempted code login: <br>
@@ -49,7 +44,6 @@ import cs.ualberta.ca.medlog.exception.UserNotFoundException;
  *             <li>If true, login</li>
  *             <li>If false, deny login and tell the user that they must login with their user code</li>
  * </p>
- *
  * <p>
  *     References: <br>
  *         Alex, StackOverflow response to "Gson - convert from Json to a typed ArrayList<T>"
@@ -59,7 +53,7 @@ import cs.ualberta.ca.medlog.exception.UserNotFoundException;
  * </p>
  *
  * @author Tem Tamre
- * @contact ttamre@ualberta.ca
+ * @version 1.0
  */
 public class Codes {
     public Context context;
@@ -67,77 +61,74 @@ public class Codes {
     private ArrayList<String> codes = new ArrayList<>();
 
     /**
-     * Initialize a Codes object
-     * @param context
+     * Initialize a Codes object with the given application context.
+     * @param context The application context.
      */
     public Codes(Context context){
         this.filename = "codes.sav";
         this.context = context;
     }
 
-
     /* Getter methods */
 
     /**
-     * Getter method for the context in use
-     * @return context
+     * Retrieves the context used for the object.
+     * @return The context.
      */
     public Context getContext() {
         return context;
     }
 
     /**
-     * Getter method for the filename in use
-     * @return filename
+     * Retrieves the filename used for storing the codes.
+     * @return The filename.
      */
     public String getFilename() {
         return filename;
     }
 
     /**
-     * Getter method for the list of codes that are allowed on the device
-     * @return codes
+     * Retrieves all of the allowed login codes for the device.
+     * @return ArrayList of the allowed login codes.
      */
     public ArrayList<String> getCodes() {
         return codes;
     }
 
-
     /* Setter methods */
 
     /**
-     * Setter method for the context
-     * @param context
+     * Sets the context used for the object to the provided one.
+     * @param context The new context to use.
      */
     public void setContext(Context context) {
         this.context = context;
     }
 
     /**
-     * Setter method for the filename
+     * Sets a new filename for where to store the list of codes using the provided one.
      * NOTE: Changing the filename means that the old list of codes will not be accessible
-     * @param filename
+     * @param filename The new filename to use.
      */
     public void setFilename(String filename) {
         this.filename = filename;
     }
 
     /**
-     * Setter method for the code array
+     * Sets the list of allowed login codes for the device to the provided one.
      * NOTE: This will wipe {@code this.codes}
-     * @param codes
+     * @param codes The new ArrayList of login codes to use.
      */
     public void setCodes(ArrayList<String> codes) {
         this.codes = codes;
         save();
     }
 
-
     /* Main functionality */
 
     /**
-     * Add a code to the ArrayList
-     * @param code the code to be added
+     * Adds a new login code to the allowed list.
+     * @param code The new code to be added.
      */
     public void addCode(String code) {
         codes.add(code);
@@ -145,9 +136,9 @@ public class Codes {
     }
 
     /**
-     * Delete a code from the ArrayList
-     * @param code the code to be added
-     * @throws UserNotFoundException if the code being deleted isn't in the ArrayList
+     * Deletes a code from the allowed list.
+     * @param code The code to be deleted.
+     * @throws UserNotFoundException Is thrown if the code wasn't in the list.
      */
     public void deleteCode(String code) throws UserNotFoundException {
         if (codes.contains(code)) {
@@ -159,9 +150,9 @@ public class Codes {
     }
 
     /**
-     * Checks if the given code is in the codes ArrayList
-     * @param code the code to be checked
-     * @return True if the code exists in the ArrayList, false otherwise
+     * Checks if the given code is in the allowed list.
+     * @param code The code to be checked.
+     * @return Boolean of whether the code exists in the list or not.
      */
     public boolean checkCode(String code) {
         load();
@@ -169,9 +160,8 @@ public class Codes {
     }
 
     /**
-     * Save the current code ArrayList to the device
-     * This function is private because it is already called within this class whenever a change is
-     *  made to the codes ArrayList
+     * Saves the current codes list to the device memory. This function is called within this class
+     * whenever changes are made to the allowed code list.
      */
     private void save() {
         Gson gson = new Gson();
@@ -187,11 +177,9 @@ public class Codes {
         }
     }
 
-
     /**
-     * Loads the saved code list into the codes ArrayList
-     * This function is private because it is already called within this class whenever a comparison
-     *  is made with the codes ArrayList
+     * Loads the allowed code list that is stored on the device into this object. This function is
+     * called within this class whenever checking if a code is in the allowed ones is done.
      */
     private void load() {
         Gson gson = new Gson();

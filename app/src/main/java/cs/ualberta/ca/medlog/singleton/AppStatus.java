@@ -2,7 +2,6 @@ package cs.ualberta.ca.medlog.singleton;
 
 import cs.ualberta.ca.medlog.entity.Problem;
 import cs.ualberta.ca.medlog.entity.Record;
-import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.entity.user.User;
 
@@ -30,24 +29,19 @@ public class AppStatus {
     private static Problem viewedProblem = null;
     private static Record viewedRecord = null;
 
+    private AppStatus() {
+    }
+
+    /**
+     * Retrieves an instance of the AppStatus object.
+     * @return The AppStatus object.
+     */
     public static AppStatus getInstance() {
         return ourInstance;
     }
 
-    private AppStatus() {
-
-    }
-
     /**
-     * Set the current user to the provided user.
-     * @param user The user to use.
-     */
-    public void setCurrentUser(User user){
-        currentUser = user;
-    }
-
-    /**
-     * Get the current user.
+     * Retrieves the current user of the application.
      * @return The user.
      */
     public User getCurrentUser(){
@@ -55,15 +49,15 @@ public class AppStatus {
     }
 
     /**
-     * Set the viewed patient to the provided patient.
-     * @param patient The patient to use.
+     * Set the current user to the provided user.
+     * @param user The new current user.
      */
-    public void setViewedPatient(Patient patient) {
-        viewedPatient = patient;
+    public void setCurrentUser(User user){
+        currentUser = user;
     }
 
     /**
-     * Get the viewed patient.
+     * Retrieves the currently viewed patient.
      * @return The patient.
      */
     public Patient getViewedPatient(){
@@ -71,15 +65,15 @@ public class AppStatus {
     }
 
     /**
-     * Set the viewed problem to the provided problem.
-     * @param problem The problem to use.
+     * Set the viewed patient to the provided patient.
+     * @param patient The new viewed patient.
      */
-    public void setViewedProblem(Problem problem){
-        viewedProblem = problem;
+    public void setViewedPatient(Patient patient) {
+        viewedPatient = patient;
     }
 
     /**
-     * Get the viewed problem.
+     * Retrieves the currently viewed problem.
      * @return The problem.
      */
     public Problem getViewedProblem(){
@@ -87,18 +81,26 @@ public class AppStatus {
     }
 
     /**
-     * Set the viewed record to the provided record.
-     * @param record The record to use.
+     * Set the viewed problem to the provided problem.
+     * @param problem The new viewed problem.
      */
-    public void setViewedRecord(Record record){
-        viewedRecord = record;
+    public void setViewedProblem(Problem problem){
+        viewedProblem = problem;
     }
 
     /**
-     * Get the viewed record.
+     * Retrieves the currently viewed record.
      * @return The record.
      */
     public Record getViewedRecord(){
         return viewedRecord;
+    }
+
+    /**
+     * Set the viewed record to the provided record.
+     * @param record The new viewed record.
+     */
+    public void setViewedRecord(Record record){
+        viewedRecord = record;
     }
 }

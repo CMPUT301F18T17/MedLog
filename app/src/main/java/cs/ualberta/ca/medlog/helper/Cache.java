@@ -16,13 +16,10 @@
 
 package cs.ualberta.ca.medlog.helper;
 
-import cs.ualberta.ca.medlog.entity.user.Patient;
-import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.entity.user.User;
 import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 
 import android.content.Context;
-import android.util.Log;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -32,13 +29,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
 /**
- *
- * <h1>
- *     Local cache
- * </h1>
- *
- *
- *  <p>
+ * <p>
  *     Description: <br>
  *         The purpose of this class is to locally save any changes made to the user's data
  *         if internet connectivity is ever lost. Upon regaining connectivity, the changes will
@@ -50,7 +41,10 @@ import java.io.OutputStreamWriter;
  *         deserialized and loaded.
  *
  * </p>
- *
+ * <p>
+ *     Issues: <br>
+ *         None.
+ * </p>
  * <p>
  *     References: <br>
  *
@@ -78,8 +72,8 @@ public class Cache {
     private Context context;
 
     /**
-     * <p>Initialize a Cache instance for the current context with the default filename</p>
-     * @param context current application context
+     * Initialize a Cache instance for the current context with the default filename
+     * @param context The current application context.
      */
     public Cache(Context context) {
         this.context = context;
@@ -88,15 +82,15 @@ public class Cache {
 
 
     /**
+     * Load the JSON file into a string, then deserialize it and return it as an objectClass object.
      * <p>
-     *     Load the JSON file into a string, then deserialize it and return it as an objectClass object
-     *
-     *     Usage: <br>
-     *         {@code Cache cache = new Cache(getContext());}
-     *         {@code Patient p = cache.load(Patient.class);}
+     *      Usage: <br>
+     *          {@code Cache cache = new Cache(getContext());}
+     *          {@code Patient p = cache.load(Patient.class);}
      * </p>
-     * @param objectClass the class that is to be returned
-     * @return user
+     * @param objectClass The class that should be returned.
+     * @return The object of that class.
+     * @throws UserNotFoundException Thrown if the user can't be loaded.
      */
     public <T> T load(Class<T> objectClass) throws UserNotFoundException {
         Gson gson = new Gson();
@@ -129,15 +123,14 @@ public class Cache {
 
 
     /**
+     * Serialize an object and save it to disc.
      * <p>
-     *     Serialize an object and save it to disc
-     *
      *     Usage: <br>
      *         {@code Patient p;}
      *         {@code Cache cache = new Cache(getContext());}
-     *         {@code cache.save(p)}
+     *         {@code cache.save(p);}
      * </p>
-     * @param user the object to be serialized saved to disc
+     * @param user The object to be serialized and saved.
      */
     public void save(User user) {
         Gson gson = new Gson();
@@ -151,5 +144,4 @@ public class Cache {
             e.printStackTrace();
         }
     }
-
 }
