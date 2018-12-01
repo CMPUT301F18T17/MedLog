@@ -70,7 +70,7 @@ public class DatabaseConnectionTest {
 
         Database db = new Database(null);
         db.cache.save(patientA);
-        Patient patientB = db.cache.loadPatient();
+        Patient patientB = db.cache.load(Patient.class);
 
         assertNotNull(patientB);
         assertEquals(patientA, patientB);
@@ -83,7 +83,7 @@ public class DatabaseConnectionTest {
 
         Database db = new Database(null);
         db.cache.save(providerA);
-        CareProvider providerB = db.cache.loadCareProvider();
+        CareProvider providerB = db.cache.load(CareProvider.class);
 
         assertNotNull(providerB);
         assertEquals(providerA, providerB);
@@ -243,7 +243,7 @@ public class DatabaseConnectionTest {
 
         Database db = new Database(null);
         db.cache.save(patientA);
-        patientA = db.cache.loadPatient();
+        patientA = db.cache.load(Patient.class);
 
         assertNotNull(patientA);
     }
@@ -297,7 +297,7 @@ public class DatabaseConnectionTest {
 
         Database db = new Database(null);
         db.cache.save(providerA);
-        providerA = db.cache.loadCareProvider();
+        providerA = db.cache.load(CareProvider.class);
 
         assertNotNull(providerA);
     }
