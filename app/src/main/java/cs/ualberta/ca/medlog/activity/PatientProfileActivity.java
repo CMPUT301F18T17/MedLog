@@ -187,17 +187,22 @@ public class PatientProfileActivity extends AppCompatActivity implements TextEdi
         }
     }
 
-    private void openRecordsMap() {
+    /*private void openRecordsMap() {
         Intent intent = new Intent(this, ViewMapLocationActivity.class);
-        ArrayList<MapLocation> locations = new ArrayList<>();
+        ArrayList<Record> records = new ArrayList<>();
         for(Problem problem : patient.getProblems()) {
             for(Record record: problem.getRecords()) {
                 if (record.getMapLocation() != null) {
-                    locations.add(record.getMapLocation());
+                    records.add(record);
                 }
             }
         }
-        intent.putExtra("LOCATIONS",locations);
+        intent.putExtra("RECORDS", records);
+        startActivity(intent);
+    }*/
+
+    private void openRecordsMap() {
+        Intent intent = new Intent(this, ViewAllMapLocationsActivity.class);
         startActivity(intent);
     }
 }

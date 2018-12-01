@@ -72,15 +72,15 @@ public class ProviderPatientProfileActivity extends AppCompatActivity {
 
     private void openRecordsMap() {
         Intent intent = new Intent(this, ViewMapLocationActivity.class);
-        ArrayList<MapLocation> locations = new ArrayList<>();
+        ArrayList<Record> records = new ArrayList<>();
         for(Problem problem : patient.getProblems()) {
             for(Record record: problem.getRecords()) {
                 if (record.getMapLocation() != null) {
-                    locations.add(record.getMapLocation());
+                    records.add(record);
                 }
             }
         }
-        intent.putExtra("LOCATIONS",locations);
+        intent.putExtra("RECORDS", records);
         startActivity(intent);
     }
 
