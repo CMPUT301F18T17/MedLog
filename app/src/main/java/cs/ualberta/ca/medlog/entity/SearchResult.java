@@ -3,19 +3,20 @@ package cs.ualberta.ca.medlog.entity;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 
 /**
- * <h1>
- *     Search Result
- * </h1>
- *
  * <p>
  *     Description: <br>
- *         Class containing the information required from a search result.
+ *         This class represents the information required for producing search results for patients
+ *         and care providers.
+ * </p>
+ * <p>
+ *     Issues: <br>
+ *         None.
  * </p>
  *
+ *
  * @author Thomas Roskewich
- * @contact roskewic@ualberta.ca
  * @version 1.0
- * @see cs.ualberta.ca.medlog.entity.user.Patient
+ * @see Patient
  * @see Problem
  * @see Record
  */
@@ -24,6 +25,12 @@ public class SearchResult {
     private Record record;
     private Problem problem;
 
+    /**
+     * Constructs a new SearchResult with the given patient, problem and record objects.
+     * @param p The patient.
+     * @param pr the problem.
+     * @param r The record.
+     */
     public SearchResult(Patient p, Problem pr,  Record r){
         this.patient = p;
         this.record = r;
@@ -31,26 +38,26 @@ public class SearchResult {
     }
 
     /**
-     * <p>Get the search results patient.</p>
-     * @return The search results patient.
+     * Retrieves the search result's patient.
+     * @return The patient.
      */
     public Patient getPatient() {
         return patient;
     }
 
     /**
-     * <p>Get the record of the search result.</p>
-     * @return The record of the search result
-     */
-    public Record getRecord() {
-        return record;
-    }
-
-    /**
-     * <p>Get the problem of the search result.</p>
-     * @return The problem of the search result.
+     * Retrieves the search result's problem.
+     * @return The problem.
      */
     public Problem getProblem() {
         return problem;
+    }
+
+    /**
+     * Retrieves the search result's record.
+     * @return The record.
+     */
+    public Record getRecord() {
+        return record;
     }
 }

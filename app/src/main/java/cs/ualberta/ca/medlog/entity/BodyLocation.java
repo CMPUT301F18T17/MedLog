@@ -5,8 +5,8 @@ import java.io.Serializable;
 /**
  * <p>
  *     Description: <br>
- *         Class for holding a record body location. It contains the related body photo and the x
- *         y percentages on the photo of the selected body location.
+ *         Class representing a record's body location in the application. It contains the related
+ *         body photo and the x,y percentages of the location selected on the photo.
  * </p>
  * <p>
  *     Issues: <br>
@@ -21,10 +21,10 @@ public class BodyLocation implements Serializable {
     private Photo photo;
     private float x, y;
 
-    private static final double SEARCHDISTBODY = 25;
+    private static final double SEARCH_DIST_BODY = 25;
 
     /**
-     * Creates the body location with the specified body photo and x-y percentages of the location.
+     * Constructs the body location with the specified body photo and x-y percentages of the location.
      * @param photo The body photo.
      * @param x The x percentage of the selected location.
      * @param y The y percentage of the selected location.
@@ -79,7 +79,7 @@ public class BodyLocation implements Serializable {
      * @return If its less than or equal to the max dist.
      */
     public boolean isNear(BodyLocation bl){
-        double dist = Math.sqrt(Math.pow(x - bl.x, 2) + Math.pow(y - bl.y, 2));
-        return dist <= SEARCHDISTBODY;
+        double dist = Math.sqrt(Math.pow((x - bl.x)*100, 2) + Math.pow((y - bl.y)*100, 2));
+        return dist <= SEARCH_DIST_BODY;
     }
 }

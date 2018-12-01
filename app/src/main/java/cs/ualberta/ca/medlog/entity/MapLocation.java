@@ -1,32 +1,29 @@
 package cs.ualberta.ca.medlog.entity;
 
-
 import java.io.Serializable;
 
 /**
- * <h1>
- *     Map Location
- * </h1>
- *
  * <p>
  *     Description: <br>
- *         Class for holding a record map location. It contains the related longitude and latitude.
+ *         Class representing a record's map location in the application. It contains the related
+ *         longitude and latitude for the location as well as getters and setters for them.
  * </p>
  * <p>
  *     Issues: <br>
  *         None.
  * </p>
  *
+ *
  * @author Thomas Roskewich, Calvin Chomyc, Tem Tamre
  * @version 1.0
- * @see Photo
  */
 public class MapLocation implements Serializable {
     private double latitude, longitude;
 
-    private static final double SEARCHDISTMAP = 0.1; // 10 KM
+    private static final double SEARCH_DIST_MAP = 0.1; // 10 KM
+
     /**
-     * Creates the map location with the provided longitude and latitude. Makes sure to check that
+     * Constructs the map location with the provided longitude and latitude. Makes sure to check that
      * the provided longitude and latitude are valid
      * @param latitude The latitude of the location in double form
      * @param longitude The longitude of the location in double form
@@ -50,19 +47,19 @@ public class MapLocation implements Serializable {
     }
 
     /**
+     * Sets a new latitude for the map location.
+     * @param newLat The new latitude
+     */
+    public void setLatitude(double newLat) {
+        latitude = newLat;
+    }
+
+    /**
      * Retrieves the longitude of the map location.
      * @return The longitude in double form
      */
     public double getLongitude() {
         return longitude;
-    }
-
-    /**
-     * Sets a new latitude for the map location.
-     * @param newLat The new latitude
-     */
-    public void setLatutude(double newLat) {
-        latitude = newLat;
     }
 
     /**
@@ -93,6 +90,6 @@ public class MapLocation implements Serializable {
      */
     public boolean isNear(MapLocation ml){
         double dist = Math.sqrt(Math.pow(latitude - ml.latitude, 2) + Math.pow(longitude - ml.longitude, 2));
-        return dist <= SEARCHDISTMAP;
+        return dist <= SEARCH_DIST_MAP;
     }
 }

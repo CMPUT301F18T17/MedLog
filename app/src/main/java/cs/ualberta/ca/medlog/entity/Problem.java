@@ -1,7 +1,14 @@
+package cs.ualberta.ca.medlog.entity;
+
+import java.util.ArrayList;
+import java.util.Date;
+
 /**
  * <p>
  *     Description: <br>
- *         Class representing a Patients problem.
+ *         This class represents a patient's problem in the application, this problem possesses an
+ *         id, title, date, description and records. Furthermore there are getters and setters for
+ *         these components.
  * </p>
  * <p>
  *     Issues: <br>
@@ -10,20 +17,23 @@
  *
  * @author Thomas Roskewich, Calvin Chomyc, Tem Tamre
  * @version 1.0
- * @see cs.ualberta.ca.medlog.entity.Record
+ * @see Record
  */
-package cs.ualberta.ca.medlog.entity;
-
-import java.util.ArrayList;
-import java.util.Date;
-
 public class Problem {
+    private int id = -1;
     private String title;
     private Date date;
-    private int id = -1;
     private String description;
-    ArrayList<Record> records = new ArrayList<Record>();
+    private ArrayList<Record> records = new ArrayList<>();
 
+    /**
+     * Constructs the problem with the given title, date and description. Makes sure to check if
+     * the title or description are too long.
+     * @param title The title.
+     * @param date The date.
+     * @param description The description.
+     * @throws IllegalArgumentException If the title or description are too long.
+     */
     public Problem(String title, Date date, String description){
         if(title.length() > 30){
             throw new IllegalArgumentException("Title is over the max title size of 30.");
@@ -36,23 +46,23 @@ public class Problem {
     }
 
     /**
-     * <p>Get the problems ID</p>
-     * @return The problems id.
+     * Retrieves the problem id.
+     * @return The id.
      */
     public int getId(){
         return id;
     }
 
     /**
-     * <p>Set the problem ID.</p>
-     * @param id The id to set the id to.
+     * Sets the problem id to the new provided one.
+     * @param id The new id.
      */
     public void setId(int id){
         this.id = id;
     }
 
     /**
-     * <p>Get the title of the problem.</p>
+     * Retrieves the problem title.
      * @return The title.
      */
     public String getTitle(){
@@ -60,32 +70,7 @@ public class Problem {
     }
 
     /**
-     * <p>Get the date of creation for the problem.</p>
-     * @return The creation date.
-     */
-    public Date getDate(){
-        return date;
-    }
-
-    /**
-     * <p>Get the problems description.</p>
-     * @return The description.
-     */
-    public String getDescription(){
-        return description;
-    }
-
-    /**
-     * <p>Get the list of records this problem holds.</p>
-     * @return The records it holds.
-     */
-    public ArrayList<Record> getRecords(){
-        return records;
-    }
-
-
-    /**
-     * <p>Change the problems title.</p>
+     * Sets the problem title to the new provided one.
      * @param newTitle The new title.
      */
     public void setTitle(String newTitle){
@@ -93,7 +78,15 @@ public class Problem {
     }
 
     /**
-     * <p>Change the problems creation date.</p>
+     * Retrieves the date of creation for the problem.
+     * @return The creation date.
+     */
+    public Date getDate(){
+        return date;
+    }
+
+    /**
+     * Sets the problem creation date to the new provided one.
      * @param newDate The new date.
      */
     public void setDate(Date newDate){
@@ -101,7 +94,15 @@ public class Problem {
     }
 
     /**
-     * <p>Change the problems description.</p>
+     * Retrieves the problem's description.
+     * @return The description.
+     */
+    public String getDescription(){
+        return description;
+    }
+
+    /**
+     * Sets the description to the new provided one.
      * @param newDescription The new description.
      */
     public void setDescription(String newDescription){
@@ -109,8 +110,16 @@ public class Problem {
     }
 
     /**
-     * Add a record to the problem.
-     * @param newRecord the record to add.
+     * Retrieves all of the problem's records.
+     * @return ArrayList of the problem's records.
+     */
+    public ArrayList<Record> getRecords(){
+        return records;
+    }
+
+    /**
+     * Add a provided record to the problem's records.
+     * @param newRecord The record to add.
      */
     public void addRecord(Record newRecord){
         newRecord.setId(records.size());
@@ -118,8 +127,8 @@ public class Problem {
     }
 
     /**
-     * <p>Remove a record with the provided ID.</p>
-     * @param index The index/id of the record.
+     * Removes the problem record with the given id/index.
+     * @param index The id/index of the record to remove.
      */
     public void removeRecord(int index){
         for(int i = index; i < records.size(); i++){
@@ -128,6 +137,10 @@ public class Problem {
         records.remove(index);
     }
 
+    /**
+     * Retrieves a string representation of the patient based on their title.
+     * @return The string representation.
+     */
     public String toString(){
         return this.title;
     }

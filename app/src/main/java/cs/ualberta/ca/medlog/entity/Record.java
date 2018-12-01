@@ -1,63 +1,90 @@
-/**
- *
- * <h1>
- *     Record
- * </h1>
- *
- *  <p>
- *     Description: <br>
- *         This class represents the multiple record types which users can save.
- *
- * </p>
- *
- * @author Thomas Roskewich
- * @contact roskewic@ualberta.ca
- * @see cs.ualberta.ca.medlog.entity.Problem
- */
-
 package cs.ualberta.ca.medlog.entity;
 
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * <p>
+ *     Description: <br>
+ *         This class represents a problem's record in the application, records possess a id,
+ *         creator username and timestamp. Furthermore they can possess titles, comments map
+ *         locations, body locations and photos. There are also getters and setters for each of
+ *         these components.
+ * </p>
+ * <p>
+ *     Issues: <br>
+ *         None.
+ * </p>
+ *
+ * @author Thomas Roskewich, Calvin Chomyc, Tem Tamre
+ * @version 1.0
+ * @see MapLocation
+ * @see BodyLocation
+ * @see Photo
+ */
 public class Record {
-
+    private int id = -1;
     private String creatorUsername;
     private Date timestamp;
+
     private String title;
     private String comment;
     private MapLocation mapLocation;
     private BodyLocation bodyLocation;
     private ArrayList<Photo> photos = new ArrayList<>();
-    private int id = -1;
 
-
+    /**
+     * Constructs a new Record with the given creator username. Sets the timestamp to the current
+     * date.
+     * @param creatorUsername The username.
+     */
     public Record(String creatorUsername){
         this.creatorUsername = creatorUsername;
         this.timestamp = new Date();
     }
 
-
     /**
-     * <p>Set the records title and comment.</p>
-     * @param title The title to be set.
-     * @param comment The comment to be set.
+     * Retrieves the record id.
+     * @return The id.
      */
-    public void setTitleComment(String title, String comment){
-        this.title = title;
-        this.comment = comment;
+    public int getId() {
+        return id;
     }
 
     /**
-     * <p>Get the record creators username.</p>
-     * @return The username of the creator.
+     * Sets the record's id to the provided number.
+     * @param id The new record id.
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    /**
+     * Retrieves the record creator's username.
+     * @return The username.
      */
     public String getUsername(){
         return creatorUsername;
     }
 
     /**
-     * <p>Get the title of the record. </p>
+     * Retrieves the timestamp for the record.
+     * @return The timestamp as a Date.
+     */
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    /**
+     * Sets the record's timestamp to the provided Date.
+     * @param date The new timestamp.
+     */
+    public void setTimestamp(Date date) {
+        this.timestamp = date;
+    }
+
+    /**
+     * Retrieves the title for the record.
      * @return The title.
      */
     public String getTitle(){
@@ -65,15 +92,7 @@ public class Record {
     }
 
     /**
-     * <p>Check if the record is a valid record, i.e. title comment maplocation body location or a photo is added.</p>
-     * @return A boolean if its valid.
-     */
-    public Boolean isValid(){
-        return (title != null && comment != null) || mapLocation != null || bodyLocation != null || photos.size() > 0;
-    }
-
-    /**
-     * <p>Get the comment of the record.</p>
+     * Retrieves the comment for the record.
      * @return The comment.
      */
     public String getComment(){
@@ -81,23 +100,17 @@ public class Record {
     }
 
     /**
-     * <p>Get the timestamp.</p>
-     * @return The date timestamp.
+     * Sets the record's title and comment to the provided values.
+     * @param title The new title.
+     * @param comment The new comment.
      */
-    public Date getTimestamp() {
-        return timestamp;
+    public void setTitleComment(String title, String comment){
+        this.title = title;
+        this.comment = comment;
     }
 
     /**
-     * <p>Set the timestamp.</p>
-     * @param date The new date to set.
-     */
-    public void setTimestamp(Date date) {
-        this.timestamp = date;
-    }
-
-    /**
-     * <p>Get the map location</p>
+     * Retrieves the record map location.
      * @return The map location.
      */
     public MapLocation getMapLocation() {
@@ -105,7 +118,7 @@ public class Record {
     }
 
     /**
-     * <p>Set the map location.</p>
+     * Sets the record's map location to the provided one.
      * @param mapLocation The new map location.
      */
     public void setMapLocation(MapLocation mapLocation) {
@@ -113,7 +126,7 @@ public class Record {
     }
 
     /**
-     * <p>Get the body location.</p>
+     * Retrieves the record body location.
      * @return The body location.
      */
     public BodyLocation getBodyLocation() {
@@ -121,40 +134,33 @@ public class Record {
     }
 
     /**
-     * <p>Set the body location.</p>
-     * @param bodyLocation The new body location/
+     * Sets the record's body location to the provided one.
+     * @param bodyLocation The new body location.
      */
     public void setBodyLocation(BodyLocation bodyLocation) {
         this.bodyLocation = bodyLocation;
     }
 
     /**
-     * <p>Set the photos for a record.</p>
-     * @param newPhotos The new photos.
-     */
-    public void setPhotos(ArrayList<Photo> newPhotos){ photos = newPhotos; }
-
-    /**
-     * <p>Gets the photos in the record.</p>
-     * @return An array of photos.
+     * Retrieves the record's photos.
+     * @return ArrayList of the record's photos.
      */
     public ArrayList<Photo> getPhotos(){
         return photos;
     }
 
     /**
-     * <p>Get the record id.</p>
-     * @return The record id.
+     * Sets the record's photos to the provided ones.
+     * @param newPhotos ArrayList of new record photos.
      */
-    public int getId() {
-        return id;
-    }
+    public void setPhotos(ArrayList<Photo> newPhotos){ photos = newPhotos; }
 
     /**
-     * <p>Set the record id.</p>
-     * @param id the new record id.
+     * Checks if the record is valid, such that one of title&comment, map location, body location
+     * or photos are non-null.
+     * @return Boolean of if the record is valid.
      */
-    public void setId(int id) {
-        this.id = id;
+    public Boolean isValid(){
+        return (title != null && comment != null) || mapLocation != null || bodyLocation != null || photos.size() > 0;
     }
 }
