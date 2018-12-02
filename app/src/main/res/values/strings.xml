@@ -302,4 +302,5 @@
 
     <string name="fileProviderPath">cs.ualberta.ca.medlog.fileprovider</string>
     <string name="mapboxAccessToken">pk.eyJ1IjoidmVyeXJhbmRvbXBlcnNvbiIsImEiOiJjam9nZmxxY3QwZW53M3FscGhzZTg4ZnA2In0.IEYLgLCNOfnIczHn1kaycQ</string>
+    <string name="EncryptionKey">CODE</string>
 </resources>

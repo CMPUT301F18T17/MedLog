@@ -15,13 +15,11 @@
  */
 
 package cs.ualberta.ca.medlog.helper;
-
-import cs.ualberta.ca.medlog.entity.user.User;
+import cs.ualberta.ca.medlog.singleton.AppStatus;
 import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 
 import android.content.Context;
 import com.google.gson.Gson;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -123,18 +121,16 @@ public class Cache {
 
 
     /**
-     * Serialize an object and save it to disc.
-     * <p>
-     *     Usage: <br>
-     *         {@code Patient p;}
-     *         {@code Cache cache = new Cache(getContext());}
-     *         {@code cache.save(p);}
-     * </p>
-     * @param user The object to be serialized and saved.
+     * Serialize the current user and save it to disc
+     *
+     * Usage: <br>
+     *     {@code Patient p;}
+     *     {@code Cache cache = new Cache(getContext());}
+     *     {@code cache.save(p);}
      */
-    public void save(User user) {
+    public void save() {
         Gson gson = new Gson();
-        String json = gson.toJson(user);
+        String json = gson.toJson(AppStatus.getInstance().getCurrentUser());
 
         try {
             OutputStreamWriter osw = new OutputStreamWriter(context.openFileOutput(filename, Context.MODE_PRIVATE));

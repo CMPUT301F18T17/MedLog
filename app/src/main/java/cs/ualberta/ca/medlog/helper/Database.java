@@ -130,12 +130,11 @@ public class Database {
     }
 
     /**
-     * Calls for the database's cache to save the given user.
-     * @param user The user to be saved to disc.
+     * Invocation of cache's save method
      * @see Cache
      */
-    public void cacheSave(User user) {
-        cache.save(user);
+    public void cacheSave() {
+        cache.save();
     }
 
     /* Codes methods */
@@ -188,7 +187,7 @@ public class Database {
         if (checkConnectivity()) {
             try {
                 patient = new ElasticSearchController.LoadPatientTask().execute(username).get();
-                cache.save(patient);
+                cache.save();
 
                 if (patient == null) {
                     throw new UserNotFoundException("Patient " + username + " was not found.");
@@ -223,7 +222,7 @@ public class Database {
         if (checkConnectivity()) {
             try {
                 provider = new ElasticSearchController.LoadCareProviderTask().execute(username).get();
-                cache.save(provider);
+                cache.save();
 
                 if (provider == null) {
                     throw new UserNotFoundException("Care Povider " + username + " was not found.");
@@ -393,7 +392,7 @@ public class Database {
      * @return Boolean of whether the save operation was successful.
      */
     public boolean savePatient(Patient patient){
-        cache.save(patient);
+        cache.save();
         patient.setUpdated();
         if (checkConnectivity()) {
             try {
@@ -413,7 +412,7 @@ public class Database {
      * @return Boolean of whether the save operation was successful.
      */
     public boolean saveProvider(CareProvider provider){
-        cache.save(provider);
+        cache.save();
         provider.setUpdated();
 
         if (checkConnectivity()) {
@@ -473,7 +472,7 @@ public class Database {
      * @throws ConnectException Thrown if no connection to the database could be made.
      */
     public Boolean updatePatient(Patient patient) throws ConnectException{
-        cache.save(patient);
+        cache.save();
         patient.setUpdated();
         if (checkConnectivity()) {
             try {
@@ -494,7 +493,7 @@ public class Database {
      * @throws ConnectException Thrown if no connection to the database could be made.
      */
     public Boolean updateCareProvider(CareProvider careProvider) throws ConnectException{
-        cache.save(careProvider);
+        cache.save();
         careProvider.setUpdated();
 
         if (checkConnectivity()) {
