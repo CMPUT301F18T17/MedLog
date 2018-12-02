@@ -11,7 +11,7 @@ import cs.ualberta.ca.medlog.entity.user.ContactInfo;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.singleton.AppStatus;
 
-import static junit.framework.TestCase.*;
+import static org.junit.Assert.*;
 
 /**
  * <p>

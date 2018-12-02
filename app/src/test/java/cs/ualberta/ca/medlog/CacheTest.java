@@ -10,8 +10,8 @@
  *
  * </p>
  *
- * @author Tem Tamre
- * @contact ttamre@ualberta.ca
+ * @author Tem Tamre, Calvin Chomyc
+ * @contact ttamre@ualberta.ca, chomyc1@ualberta.ca
  * @see cs.ualberta.ca.medlog.helper.Cache
  */
 
