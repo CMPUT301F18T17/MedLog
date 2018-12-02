@@ -42,7 +42,7 @@ import cs.ualberta.ca.medlog.singleton.AppStatus;
  * </p>
  *
  * @author Tyler Gobran
- * @version 1.0
+ * @version 1.1
  * @see ProviderSearchActivity
  * @see ProviderPatientViewProblemsActivity
  * @see ProviderPatientViewRecordsActivity
@@ -102,7 +102,7 @@ public class ProviderProblemViewActivity extends AppCompatActivity implements Te
         int day = cal.get(Calendar.DAY_OF_MONTH);
         problemDateView.setText(String.format(Locale.getDefault(),"Since: %04d/%02d/%02d",year,month,day));
         TextView problemDescView = findViewById(R.id.activityProviderProblemView_ProblemDescriptionView);
-        problemDescView.setText(patientUsername);
+        problemDescView.setText(problem.getDescription());
     }
 
     private void openRecordsList() {
