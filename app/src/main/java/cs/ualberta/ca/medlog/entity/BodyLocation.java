@@ -75,11 +75,11 @@ public class BodyLocation implements Serializable {
 
     /**
      * Returns if a body location is near to another location.
-     * @param bl The body location to compare against.
+     * @param otherLocation The body location to compare against.
      * @return If its less than or equal to the max dist.
      */
-    public boolean isNear(BodyLocation bl){
-        double dist = Math.sqrt(Math.pow((x - bl.x)*100, 2) + Math.pow((y - bl.y)*100, 2));
+    public boolean isNear(BodyLocation otherLocation){
+        double dist = Math.sqrt(Math.pow((x - otherLocation.x)*100, 2) + Math.pow((y - otherLocation.y)*100, 2));
         return dist <= SEARCH_DIST_BODY;
     }
 }

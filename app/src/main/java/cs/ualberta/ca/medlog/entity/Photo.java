@@ -20,7 +20,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author Thomas Roskewich
- * @version 1.0
+ * @version 1.3
  */
 public class Photo implements Serializable {
     private String path;

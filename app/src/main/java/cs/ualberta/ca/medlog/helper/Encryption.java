@@ -33,7 +33,7 @@ import cs.ualberta.ca.medlog.exception.EncryptionException;
  *         Accessed Nov 20, 2018
  * </p>
  *
- * @author Thomas Roskewic
+ * @author Thomas Roskewich
  * @version 1.0
  */
 public class Encryption {

@@ -27,14 +27,14 @@ public class SearchResult {
 
     /**
      * Constructs a new SearchResult with the given patient, problem and record objects.
-     * @param p The patient.
-     * @param pr the problem.
-     * @param r The record.
+     * @param patient The patient.
+     * @param problem the problem.
+     * @param record The record.
      */
-    public SearchResult(Patient p, Problem pr,  Record r){
-        this.patient = p;
-        this.record = r;
-        this.problem = pr;
+    public SearchResult(Patient patient, Problem problem,  Record record){
+        this.patient = patient;
+        this.record = record;
+        this.problem = problem;
     }
 
     /**
