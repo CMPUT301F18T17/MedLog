@@ -134,11 +134,10 @@ public class Database {
 
     /**
      * Invocation of cache's save method
-     * @param user the user to be saved to disc
      * @see Cache
      */
-    public void cacheSave(User user) {
-        cache.save(user);
+    public void cacheSave() {
+        cache.save();
     }
 
 
@@ -192,7 +191,7 @@ public class Database {
         if (checkConnectivity()) {
             try {
                 patient = new ElasticSearchController.LoadPatientTask().execute(username).get();
-                cache.save(patient);
+                cache.save();
 
                 if (patient == null) {
                     throw new UserNotFoundException("Patient " + username + " was not found.");
@@ -226,7 +225,7 @@ public class Database {
         if (checkConnectivity()) {
             try {
                 provider = new ElasticSearchController.LoadCareProviderTask().execute(username).get();
-                cache.save(provider);
+                cache.save();
 
                 if (provider == null) {
                     throw new UserNotFoundException("Care Povider " + username + " was not found.");
@@ -395,7 +394,7 @@ public class Database {
      * @return Boolean if the save operation succeeded.
      */
     public boolean savePatient(Patient patient){
-        cache.save(patient);
+        cache.save();
         patient.setUpdated();
         if (checkConnectivity()) {
             try {
@@ -415,7 +414,7 @@ public class Database {
      * @param provider Provider to be saved
      */
     public boolean saveProvider(CareProvider provider){
-        cache.save(provider);
+        cache.save();
         provider.setUpdated();
 
         if (checkConnectivity()) {
@@ -456,7 +455,7 @@ public class Database {
      * @throws ConnectException if we cannot connect to the database.
      */
     public Boolean updatePatient(Patient patient) throws ConnectException{
-        cache.save(patient);
+        cache.save();
         patient.setUpdated();
         if (checkConnectivity()) {
             try {
@@ -477,7 +476,7 @@ public class Database {
      * @throws ConnectException if we cannot connect to the database.
      */
     public Boolean updateCareProvider(CareProvider careProvider) throws ConnectException{
-        cache.save(careProvider);
+        cache.save();
         careProvider.setUpdated();
 
         if (checkConnectivity()) {
