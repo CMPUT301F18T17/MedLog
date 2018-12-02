@@ -71,7 +71,7 @@ public class PatientEnterRegisterCodeActivity extends AppCompatActivity {
         Database db = new Database(this);
         String username;
         try {
-            String encryptionKey = Resources.getSystem().getString(R.string.EncryptionKey);
+            String encryptionKey = "CODE";
             username = Encryption.byteArrayToString(Encryption.decryptData(encryptionKey, code+"=="));
             db.addLoginCode(username);
         } catch (EncryptionException e) {

@@ -20,7 +20,7 @@ import java.io.Serializable;
 public class MapLocation implements Serializable {
     private double latitude, longitude;
 
-    private static final double SEARCH_DIST_MAP = 0.1; // APPROX 10 KM
+    private static final double SEARCH_DIST_MAP = 0.07; // APPROX 10 KM
 
     /**
      * Constructs the map location with the provided longitude and latitude. Makes sure to check that
