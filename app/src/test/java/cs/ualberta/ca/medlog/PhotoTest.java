@@ -1,8 +1,8 @@
 /*
  * Test class for the Photo entity
  *
- * Authors: Thomas Roskewich, Tem Tamre
- * Contact: roskewic@ualberta.ca, ttamre@ualberta.ca
+ * Authors: Thomas Roskewich, Tem Tamre, Calvin Chomyc
+ * Contact: roskewic@ualberta.ca, ttamre@ualberta.ca, chomyc1@ualberta.ca
  * Created: October 30, 2018
  */
 
