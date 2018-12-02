@@ -163,6 +163,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.PatientLoginActivity" />
         </activity>
+        <activity android:name=".activity.ViewAllMapLocationsActivity" />
     </application>
 
 </manifest>

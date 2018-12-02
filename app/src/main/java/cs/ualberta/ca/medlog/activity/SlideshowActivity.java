@@ -2,7 +2,6 @@ package cs.ualberta.ca.medlog.activity;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -13,7 +12,6 @@ import java.util.ArrayList;
 
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.entity.Photo;
-import cs.ualberta.ca.medlog.entity.Record;
 
 /**
  * <p>

@@ -1,15 +1,10 @@
 package cs.ualberta.ca.medlog.entity;
 
-
 /**
- * <h1>
- *     EncryptedPhoto
- * </h1>
- *
  * <p>
  *     Description: <br>
  *         Class for holding the string representation of an encrypted photo used in storage on the
- *         Elastic Search Server
+ *         Elastic Search Server.
  * </p>
  * <p>
  *     Issues: <br>
@@ -22,12 +17,17 @@ package cs.ualberta.ca.medlog.entity;
  */
 public class EncryptedPhoto {
     private String data;
+
+    /**
+     * Constructs the encrypted photo using the provided string data.
+     * @param data The data.
+     */
     public EncryptedPhoto(String data){
         this.data = data;
     }
 
     /**
-     * Get the encrypted photo data.
+     * Retrieves the encrypted photo data.
      * @return The encrypted photo data.
      */
     public String getData(){

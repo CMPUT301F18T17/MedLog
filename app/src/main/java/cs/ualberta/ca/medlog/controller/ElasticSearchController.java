@@ -1,4 +1,5 @@
 package cs.ualberta.ca.medlog.controller;
+
 import android.os.AsyncTask;
 import android.util.Log;
 import com.searchly.jestdroid.DroidClientConfig;
@@ -22,23 +23,21 @@ import io.searchbox.core.Get;
 import io.searchbox.core.Index;
 
 /**
- *
- * <h1>
- *     Elastic Search Controller
- * </h1>
- *
  *  <p>
  *     Description: <br>
- *         The purpose of this class is to interact directly with the Elastic Search server and query information.
- *
+ *         This controllers purpose is to interact directly with the Elastic Search server for the
+ *         application and query it for information.
+ * </p>
+ * <p>
+ *     Issues: <br>
+ *         None.
  * </p>
  *
  * @author Thomas Roskewich
- * @contact roskewic@ualberta.ca
+ * @version 1.0
  * @see cs.ualberta.ca.medlog.helper.Database
  */
 public class ElasticSearchController {
-
     public static String databaseAddress = "http://cmput301.softwareprocess.es:8080";
     private static JestDroidClient client = null;
     private static final String INDEX_NAME = "cmput301f18t17";
@@ -58,13 +57,13 @@ public class ElasticSearchController {
     }
 
     /**
-     *  Saves a patient to the Elastic Search Database
+     * Saves a patient to the Elastic Search Database.
      */
     public static class SavePatientTask extends AsyncTask<Patient, Void, Boolean> {
         /**
-         * Saves the patient provided asynchronously
-         * @param params the patient
-         * @return if the operation succeeded.
+         * Saves the patient provided to the database asynchronously.
+         * @param params The patient to be saved.
+         * @return Boolean of whether the save succeeded.
          */
         @Override
         protected Boolean doInBackground(Patient... params) {
@@ -77,9 +76,9 @@ public class ElasticSearchController {
      */
     public static class LoadPatientTask extends AsyncTask<String, Void, Patient>{
         /**
-         * Loads the patient provided asynchronously
-         * @param params the username of the patient
-         * @return the patient from the database, or null if invalid
+         * Loads the patient identified by the username asynchronously.
+         * @param params The patient username.
+         * @return The patient from the database or null if no such patient exists.
          */
         @Override
         protected Patient doInBackground(String... params) {
@@ -88,13 +87,13 @@ public class ElasticSearchController {
     }
 
     /**
-     *  Delete a patient from the Elastic Search database
+     *  Delete a patient from the Elastic Search database.
      */
     public static class DeletePatientTask extends AsyncTask<String, Void, Boolean>{
         /**
-         * Deletes the patient provided asynchronously
-         * @param strings The username of the patient.
-         * @return if the operation succeeded.
+         * Deletes the patient identified by the username from the database asynchronously.
+         * @param strings The patient username.
+         * @return Boolean of whether the deletion succeeded.
          */
         @Override
         protected Boolean doInBackground(String... strings) {
@@ -104,9 +103,9 @@ public class ElasticSearchController {
 
 
     /**
-     * <p>Loads a Patient from elastic search.</p>
+     * Loads a Patient from the Elastic Search database.
      * @deprecated Use the Asynchronous Method in Production.
-     * @param username  The username of the client to load.
+     * @param username The username of the client to load.
      * @return The Patients account information.
      */
     public static Patient loadPatient(String username){
@@ -127,10 +126,10 @@ public class ElasticSearchController {
     }
 
     /**
-     * <p>Saves the patient to the elastic search server.</p>
+     * Saves the patient to the Elastic Search Database.
      * @deprecated Use the Asynchronous Method in Production.
      * @param patient The patient to save.
-     * @return A boolean if the operation succeeded.
+     * @return Boolean of whether the save was successful.
      */
     public static Boolean savePatient(Patient patient){
         setClient();
@@ -163,10 +162,10 @@ public class ElasticSearchController {
     }
 
     /**
-     * <p>Deletes a patient from the elastic search server.</p>
+     * Deletes a patient from the Elastic Search Database.
      * @deprecated Use the Asynchronous Method in Production.
-     * @param username The patients username to delete.
-     * @return A boolean if the operation succeeded.
+     * @param username The patient's username.
+     * @return Boolean of whether the deletion was successful.
      */
     public static Boolean deletePatient(String username){
         setClient();
@@ -192,9 +191,9 @@ public class ElasticSearchController {
      */
     public static class SaveCareProviderTask extends AsyncTask<CareProvider, Void, Boolean> {
         /**
-         * Saves the Care Provider provided asynchronously
-         * @param params the Care Provider
-         * @return if the operation succeeded.
+         * Saves the Care Provider provided to the database asynchronously.
+         * @param params The provider.
+         * @return Boolean of whether the save was successful.
          */
         @Override
         protected Boolean doInBackground(CareProvider... params) {
@@ -207,9 +206,9 @@ public class ElasticSearchController {
      */
     public static class LoadCareProviderTask extends AsyncTask<String, Void, CareProvider>{
         /**
-         * Loads the Care Provider provided asynchronously
-         * @param params the username of the Care Provider
-         * @return the Care Provider from the database, or null if invalid
+         * Loads the Care Provider identified by the username from the database asynchronously.
+         * @param params The provider username.
+         * @return The provider from the database, or null if no such provider exists.
          */
         @Override
         protected CareProvider doInBackground(String... params) {
@@ -222,9 +221,9 @@ public class ElasticSearchController {
      */
     public static class DeleteCareProviderTask extends AsyncTask<String, Void, Boolean>{
         /**
-         * Deletes theCare Provider provided asynchronously
-         * @param strings The username of the Care Provider.
-         * @return if the operation succeeded.
+         * Deletes the Care Provider identified by the username from the database asynchronously.
+         * @param strings The provider username.
+         * @return Boolean of whether the deletion was successful.
          */
         @Override
         protected Boolean doInBackground(String... strings) {
@@ -234,10 +233,10 @@ public class ElasticSearchController {
 
 
     /**
-     * <p>Loads a CareProvider from elastic search.</p>
+     * Loads a CareProvider from the Elastic Search database.
      * @deprecated Use the Asynchronous Method in Production.
      * @param username  The username of the client to load.
-     * @return The Patients account information.
+     * @return The CareProvider account information.
      */
     public static CareProvider loadCareProvider(String username){
         setClient();
@@ -257,9 +256,9 @@ public class ElasticSearchController {
     }
 
     /**
-     * <p>Saves a CareProvider to the elastic search server.</p>
+     * Saves a CareProvider to the Elastic Search database.
      * @deprecated Use the Asynchronous Method in Production.
-     * @param careProvider The patient to save.
+     * @param careProvider The provider to save.
      * @return A boolean if the operation succeeded.
      */
     public static Boolean saveCareProvider(CareProvider careProvider){
@@ -291,10 +290,10 @@ public class ElasticSearchController {
     }
 
     /**
-     * <p>Deletes a CareProvider from the elastic search server.</p>
+     * Deletes a CareProvider from the Elastic Search database.
      * @deprecated Use the Asynchronous Method in Production.
-     * @param username The patients username to delete.
-     * @return A boolean if the operation succeeded.
+     * @param username The provider's username.
+     * @return Boolean of whether the deletion was successful.
      */
     public static Boolean deleteCareProvider(String username){
         setClient();
@@ -314,17 +313,14 @@ public class ElasticSearchController {
         return success;
     }
 
-
-
-
     /**
-     *  Delete a Care Provider from the Elastic Search database
+     *  Checks the connection to the Elastic Search database.
      */
     public static class CheckConnectionTask extends AsyncTask<Void, Void, Boolean>{
         /**
-         * Deletes theCare Provider provided asynchronously
+         * Checks the database connection asynchronously.
          * @param voids Ignored completely.
-         * @return if the operation succeeded.
+         * @return Boolean of whether the connection was successful.
          */
         @Override
         protected Boolean doInBackground(Void... voids) {
@@ -334,7 +330,7 @@ public class ElasticSearchController {
 
 
     /**
-     * <p>Saves photo data to the server</p>
+     * Saves photo data to the Elastic Search database.
      * @deprecated Use the Asynchronous Method in Production.
      * @param photoData The photo byte data.
      * @return The id of the photo in the database, null if it failed.
@@ -368,7 +364,7 @@ public class ElasticSearchController {
     }
 
     /**
-     * <p>Loads photo bytes from elastic search.</p>
+     * Loads photo bytes from the Elastic Search database.
      * @deprecated Use the Asynchronous Method in Production.
      * @param id The photo ID to load.
      * @return The bytes of the photo.
@@ -389,10 +385,10 @@ public class ElasticSearchController {
     }
 
     /**
-     * <p>Deletes a photo from the Elastic Search Server.</p>
+     * Deletes a photo from the Elastic Search database.
      * @deprecated Use the Asynchronous Method in Production.
-     * @param id The photo id to delete.
-     * @return A boolean if the operation succeeded.
+     * @param id The photo id.
+     * @return Boolean of whether the deletion was successful.
      */
     public static Boolean deletePhoto(String id){
         setClient();
@@ -414,14 +410,14 @@ public class ElasticSearchController {
 
 
     /**
-     *  Saves a Photo to the Elastic Search Database
+     *  Saves a Photo to the Elastic Search Database.
      */
     public static class SavePhotoTask extends AsyncTask<byte[], Void, String> {
 
         /**
-         * Saves a Photo asynchronously
-         * @param data The byte array.
-         * @return The id of the photo on the ES server.
+         * Saves a Photo to the database asynchronously.
+         * @param data The photo byte array.
+         * @return The id of the photo on the database.
          */
         @Override
         protected String doInBackground(byte[]... data) {
@@ -430,14 +426,14 @@ public class ElasticSearchController {
     }
 
     /**
-     *  Load a Care Provider from the Elastic Search database.
+     *  Load a Photo from the Elastic Search database.
      */
     public static class LoadPhotoTask extends AsyncTask<String, Void, byte[]>{
         /**
-         * Loads the Photo provided asynchronously
+         * Loads a Photo identified by a patient username and id from the database asynchronously.
          * @param params The USERNAME and ID of the photo. MUST SUPPLY BOTH!
-         * @return the byte data of the photo from the database.
-         * @throws IllegalArgumentException If there arn't two parameters.
+         * @return The byte data of the photo from the database.
+         * @throws IllegalArgumentException Thrown if the username or id are missing.
          */
         @Override
         protected byte[] doInBackground(String... params) {
@@ -449,13 +445,13 @@ public class ElasticSearchController {
     }
 
     /**
-     *  Delete a Care Provider from the Elastic Search database
+     *  Delete a Photo from the Elastic Search database.
      */
     public static class DeletePhotoTask extends AsyncTask<String, Void, Boolean>{
         /**
-         * Deletes the Photo provided asynchronously
-         * @param strings the ID of the username (first arg).
-         * @return if the operation succeeded.
+         * Deletes the Photo identified by the id from the database asynchronously.
+         * @param strings The ID of the photo.
+         * @return Boolean of whether the deletion was successful.
          */
         @Override
         protected Boolean doInBackground(String... strings) {
@@ -465,8 +461,8 @@ public class ElasticSearchController {
 
 
     /**
-     * <p>Check if we can connect to the Elastic Search server</p>
-     * @return True if a connection can be established, false otherwise
+     * Check if connection can be made to the Elastic Search database.
+     * @return Boolean of whether connection is successful.
      * @deprecated Use Asynchronous Task Instead
      */
     public static boolean checkConnectivity(String url) {

@@ -69,7 +69,8 @@ public class DatabaseConnectionTest {
         assertNotNull(patientA);
 
         Database db = new Database(null);
-        db.cacheSave(patientA);
+
+        db.cacheSave();
         Patient patientB = db.cacheLoad(Patient.class);
 
         assertNotNull(patientB);
@@ -82,7 +83,8 @@ public class DatabaseConnectionTest {
         assertNotNull(providerA);
 
         Database db = new Database(null);
-        db.cacheSave(providerA);
+
+        db.cacheSave();
         CareProvider providerB = db.cacheLoad(CareProvider.class);
 
         assertNotNull(providerB);
@@ -242,9 +244,9 @@ public class DatabaseConnectionTest {
         assertNotNull(patientA);
 
         Database db = new Database(null);
-        db.cacheSave(patientA);
-        patientA = db.cacheLoad(Patient.class);
+        db.cacheSave();
 
+        patientA = db.cacheLoad(Patient.class);
         assertNotNull(patientA);
     }
 
@@ -296,7 +298,8 @@ public class DatabaseConnectionTest {
         assertNotNull(providerA);
 
         Database db = new Database(null);
-        db.cacheSave(providerA);
+
+        db.cacheSave();
         providerA = db.cacheLoad(CareProvider.class);
 
         assertNotNull(providerA);

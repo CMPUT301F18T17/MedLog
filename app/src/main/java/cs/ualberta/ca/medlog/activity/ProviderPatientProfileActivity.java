@@ -7,12 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 import cs.ualberta.ca.medlog.R;
-import cs.ualberta.ca.medlog.entity.MapLocation;
-import cs.ualberta.ca.medlog.entity.Problem;
-import cs.ualberta.ca.medlog.entity.Record;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.singleton.AppStatus;
 
@@ -71,16 +66,7 @@ public class ProviderPatientProfileActivity extends AppCompatActivity {
     }
 
     private void openRecordsMap() {
-        Intent intent = new Intent(this, ViewMapLocationActivity.class);
-        ArrayList<MapLocation> locations = new ArrayList<>();
-        for(Problem problem : patient.getProblems()) {
-            for(Record record: problem.getRecords()) {
-                if (record.getMapLocation() != null) {
-                    locations.add(record.getMapLocation());
-                }
-            }
-        }
-        intent.putExtra("LOCATIONS",locations);
+        Intent intent = new Intent(this, ViewAllMapLocationsActivity.class);
         startActivity(intent);
     }
 

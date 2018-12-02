@@ -23,6 +23,11 @@ import cs.ualberta.ca.medlog.helper.Database;
 public class ProviderController {
     private Database database;
 
+    /**
+     * Constructs the provider controller with the provided application context used to construct
+     * the database.
+     * @param ctx The application context.
+     */
     public ProviderController(Context ctx){
         database = new Database(ctx);
     }

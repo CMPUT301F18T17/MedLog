@@ -1,20 +1,3 @@
-/**
- *
- * <h1>
- *     Patient
- * </h1>
- *
- *  <p>
- *     Description: <br>
- *         This class represents a Patient in the application.
- *
- * </p>
- *
- * @author Thomas Roskewich
- * @contact roskewic@ualberta.ca
- * @see cs.ualberta.ca.medlog.entity.user.User
- */
-
 package cs.ualberta.ca.medlog.entity.user;
 
 import java.util.ArrayList;
@@ -22,28 +5,56 @@ import java.util.ArrayList;
 import cs.ualberta.ca.medlog.entity.Photo;
 import cs.ualberta.ca.medlog.entity.Problem;
 
+/**
+ * <p>
+ *     Description: <br>
+ *         This class represents a Patient in the application, patients possess problems, body
+ *         photos and contact information and they have getters and setters for each.
+ * </p>
+ * <p>
+ *     Issues: <br>
+ *         None.
+ * </p>
+ *
+ * @author Thomas Roskewich
+ * @version 1.0
+ * @see User
+ */
 public class Patient extends User {
 
-    private ArrayList<Problem> problems = new ArrayList<Problem>();
-    private ArrayList<Photo> bodyPhotos = new ArrayList<Photo>();
+    private ArrayList<Problem> problems = new ArrayList<>();
+    private ArrayList<Photo> bodyPhotos = new ArrayList<>();
     private ContactInfo contactInfo;
 
+    /**
+     * Constructs a new Patient with the given contact information and username.
+     * @param info The patient contact information.
+     * @param username The patient username.
+     */
     public Patient(ContactInfo info, String username){
         super(username);
         contactInfo = info;
     }
 
-
     /**
-     * <p>Get all the users problems.</p>
-     * @return Arraylist of problems.
+     * Retrieves all of the patients problems.
+     * @return ArrayList of the patient's problems.
      */
     public ArrayList<Problem> getProblems() {
         return problems;
     }
 
     /**
-     * <p>Delete a problem at the given id/index</p>
+     * Adds a problem to the patient's problems.
+     * @param newProblem The problem to add.
+     */
+    public void addProblem(Problem newProblem){
+        newProblem.setId(problems.size());
+        problems.add(newProblem);
+    }
+
+    /**
+     * Deletes the patient problem with the given id/index.
      * @param problemIndex The id/index of the problem to remove.
      */
     public void deleteProblem(int problemIndex) {
@@ -54,38 +65,33 @@ public class Patient extends User {
     }
 
     /**
-     * <p>Adds a problem to the current patients problems.</p>
-     * @param newProblem The problem to add.
-     */
-    public void addProblem(Problem newProblem){
-        newProblem.setId(problems.size());
-        problems.add(newProblem);
-    }
-
-    /**
-     * <p>Get all body photos of the current patient.</p>
-     * @return An array of body photos.
+     * Retrieves all of the patients body photos.
+     * @return ArrayList of the patient's body photos.
      */
     public ArrayList<Photo> getBodyPhotos(){
         return bodyPhotos;
     }
 
     /**
-     * <p>Set new body photos for the patient.</p>
-     * @param newPhotos The photos to add.
+     * Sets new body photos for the patient.
+     * @param newPhotos The new body photos.
      */
     public void setBodyPhotos(ArrayList<Photo> newPhotos) {
         bodyPhotos = newPhotos;
     }
 
     /**
-     * <p>Get the users current contact information.</p>
-     * @return The contact info.
+     * Retrieves the patient contact information.
+     * @return The contact information.
      */
     public ContactInfo getContactInfo() {
         return contactInfo;
     }
 
+    /**
+     * Retrieves a string representation of the patient based on their email.
+     * @return The string representation.
+     */
     public String toString(){
         return contactInfo.getEmail();
     }

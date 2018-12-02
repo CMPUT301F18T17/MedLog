@@ -1,6 +1,7 @@
 package cs.ualberta.ca.medlog;
 
 import android.content.res.Resources;
+import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.filters.LargeTest;
@@ -52,6 +53,11 @@ import static junit.framework.TestCase.assertTrue;
  *         https://medium.com/@AjeshRPai
  *         Published 2018-01-31, accessed 2018-11-28
  *
+ *         userM1433372, patrickf, Response to StackOverflow question "Can't get ApplicationContext in Espresso tests"
+ *         https://stackoverflow.com/a/46582539
+ *         https://stackoverflow.com/users/1433372/userm1433372
+ *         https://stackoverflow.com/users/774398/patrickf
+ *         Answered 2017-10-05, edited 2018-02-06, accessed 2018-12-01
  * </p>
  *
  * @author Tem Tamre
@@ -99,13 +105,11 @@ public class LoginActivityTest {
 
         String availableUsername = "availableProviderLAT";
         availableProvider = new CareProvider(availableUsername);
-
-
     }
 
     @Test
     public void testPrepareUsers() throws ConnectException {
-        Database db = new Database(null);
+        Database db = new Database(InstrumentationRegistry.getInstrumentation().getTargetContext());
 
         // Create users
         createPatients();
@@ -133,8 +137,9 @@ public class LoginActivityTest {
         Log.e("AndroidTest", "Begin LoginActivityTest.patientUsernameLogin()");
 
         // Active username
-        Espresso.onView((withId(R.id.activityPatientLogin_UsernameEditText))).perform(ViewActions
-                .typeText(usedPatient.getUsername()));
+        Espresso.onView((withId(R.id.activityPatientLogin_UsernameEditText)))
+                .perform(ViewActions.typeText(usedPatient.getUsername()));
+        Espresso.closeSoftKeyboard();
 
         Espresso.onView(withId(R.id.activityPatientLogin_UsernameEditText)).check(matches(withText(usedPatient.getUsername())));
         Espresso.onView(withId(R.id.activityPatientLogin_LoginButton)).perform(ViewActions.click());
@@ -152,9 +157,10 @@ public class LoginActivityTest {
         String code = Encryption.encryptData(encryptionKey, usernameBytes);
 
         // Active username
-        Espresso.onView((withId(R.id.activityPatientEnterRegisterCode_CodeEditText))).perform(ViewActions
-                .typeText(code));
+        Espresso.onView((withId(R.id.activityPatientEnterRegisterCode_CodeEditText)))
+                .perform(ViewActions.typeText(code));
 
+        Espresso.closeSoftKeyboard();
         Espresso.onView(withId(R.id.activityPatientEnterRegisterCode_CodeEditText)).check(matches(withText(usedPatient.getUsername())));
         Espresso.onView(withId(R.id.activityPatientEnterRegisterCode_RegisterButton)).perform(ViewActions.click());
     }
@@ -163,14 +169,17 @@ public class LoginActivityTest {
     public void testPatientSignup() {
         Log.e("AndroidTest", "Begin LoginActivityTest.patientRegister()");
 
-        Espresso.onView((withId(R.id.activityPatientSignUp_UsernameEditText))).perform(ViewActions
-                .typeText(availablePatient.getUsername()));
+        Espresso.onView((withId(R.id.activityPatientSignUp_UsernameEditText)))
+                .perform(ViewActions.typeText(availablePatient.getUsername()));
+        Espresso.closeSoftKeyboard();
 
-        Espresso.onView((withId(R.id.activityPatientSignUp_EmailEditText))).perform(ViewActions
-                .typeText(availablePatient.getContactInfo().getEmail()));
+        Espresso.onView((withId(R.id.activityPatientSignUp_EmailEditText)))
+                .perform(ViewActions.typeText(availablePatient.getContactInfo().getEmail()));
+        Espresso.closeSoftKeyboard();
 
-        Espresso.onView((withId(R.id.activityPatientSignUp_PhoneEditText))).perform(ViewActions
-                .typeText(availablePatient.getContactInfo().getPhoneNumber()));
+        Espresso.onView((withId(R.id.activityPatientSignUp_PhoneEditText)))
+                .perform(ViewActions.typeText(availablePatient.getContactInfo().getPhoneNumber()));
+        Espresso.closeSoftKeyboard();
 
         // Check each EditText view to make sure the text matches the patient's values
         Espresso.onView(withId(R.id.activityPatientSignUp_UsernameEditText)).check(matches(withText(availablePatient.getUsername())));
@@ -186,19 +195,22 @@ public class LoginActivityTest {
         Log.e("AndroidTest", "Begin LoginActivityTest.patientUsernameLogin()");
 
         // Active username
-        Espresso.onView((withId(R.id.activityPatientLogin_UsernameEditText))).perform(ViewActions
-                .typeText(usedProvider.getUsername()));
+        Espresso.onView((withId(R.id.activityProviderLogin_UsernameEditText)))
+                .perform(ViewActions.typeText(usedProvider.getUsername()));
+        Espresso.closeSoftKeyboard();
 
-        Espresso.onView(withId(R.id.activityPatientLogin_LoginButton)).perform(ViewActions.click());
-        Espresso.onView(withId(R.id.activityPatientLogin_LoginButton)).check(matches(withText(usedProvider.getUsername())));
+        Espresso.onView(withId(R.id.activityProviderLogin_UsernameEditText)).check(matches(withText(usedProvider.getUsername())));
+        Espresso.onView(withId(R.id.activityProviderLogin_LoginButton)).perform(ViewActions.click());
+
     }
 
     @Test
     public void testProviderSignup() {
         Log.e("AndroidTest", "Begin LoginActivityTest.patientRegister()");
 
-        Espresso.onView((withId(R.id.activityProviderRegistration_UsernameEditText))).perform(ViewActions
-                .typeText(availableProvider.getUsername()));
+        Espresso.onView((withId(R.id.activityProviderRegistration_UsernameEditText)))
+                .perform(ViewActions.typeText(availableProvider.getUsername()));
+        Espresso.closeSoftKeyboard();
 
         // Check each EditText view to make sure the text matches the patient's values
         Espresso.onView(withId(R.id.activityProviderRegistration_UsernameEditText)).check(matches(withText(availableProvider.getUsername())));

@@ -2,12 +2,10 @@ package cs.ualberta.ca.medlog.helper;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -29,27 +27,25 @@ import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 import cs.ualberta.ca.medlog.entity.Photo;
 
 /**
- *
- * <h1>
- Database
- * </h1>
- *
- *  <p>
+ * <p>
  *     Description: <br>
  *         The purpose of this class is to interact with the ElasticSearchController to store and
  *         retrieve data to be used within the application.
  *
  * </p>
- *
+ * <p>
+ *     Issues: <br>
+ *         None.
+ * </p>
  * <p>
  *     References: <br>
- *
  *         Android Developer Guide, Determine and monitor the connectivity status
  *         https://developer.android.com/training/monitoring-device-state/connectivity-monitoring#java
  *         Last updated 2018-05-08, accessed 2018-11-09
  * </p>
  *
  * @author Tem Tamre, Thomas Roskewich
+ * @version 1.0
  * @see Cache
  */
 public class Database {
@@ -57,75 +53,76 @@ public class Database {
     public Cache cache;
     public Codes codes;
 
+    /**
+     * Initializes a database object using the provided application context.
+     * @param c The application context.
+     */
     public Database(Context c){
         this.context = c;
         this.cache = new Cache(context);
         this.codes = new Codes(context);
     }
 
-
     /* Getter methods */
 
     /**
-     * Getter method for context
-     * @return context
+     * Retrieves the context used for this object.
+     * @return The context.
      */
     public Context getDatabaseContext() {
         return context;
     }
 
     /**
-     * Getter method for the cache
-     * @return cache
+     * Retrieves the cache for this database.
+     * @return The cache.
      */
     public Cache getDatabaseCache() {
         return cache;
     }
 
     /**
-     * Getter method for the codes
-     * @return codes
+     * Retrieves the codes object for this database.
+     * @return The codes.
      */
     public Codes getDatabaseCodes() {
         return codes;
     }
 
-
     /* Setter methods */
 
     /**
-     * Setter method for the context
-     * @param ctx context
+     * Sets the context used for the object to the provided one.
+     * @param ctx The new context to use.
      */
     public void setDatabaseContext(Context ctx) {
         this.context = ctx;
     }
 
     /**
-     * Setter method for the cache
-     * @param che cache
+     * Sets the cache used for the object to the provided one.
+     * @param che The new cache to use.
      */
     public void setDatabaseCache(Cache che) {
         this.cache = che;
     }
 
     /**
-     * Setter method for the codes
-     * @param cds codes
+     * Sets the codes used for the object to the provided one.
+     * @param cds The new codes to use.
      */
     public void setDatabaseCodes(Codes cds) {
         this.codes = cds;
     }
 
-
     /* Cache methods */
 
     /**
-     * Invocation of cache's load method
-     * @param type The class of object to be returned
-     * @param <T> type parameters
-     * @return the object returned by cache.load(type)
-     * @throws UserNotFoundException
+     * Calls for the database's cache to load a class from its data.
+     * @param type The class of the object to be returned.
+     * @param <T> The type parameters.
+     * @return The object loaded from the cache.
+     * @throws UserNotFoundException Thrown if the user can't be loaded.
      * @see Cache
      */
     public <T> T cacheLoad(Class<T> type) throws UserNotFoundException{
@@ -134,19 +131,17 @@ public class Database {
 
     /**
      * Invocation of cache's save method
-     * @param user the user to be saved to disc
      * @see Cache
      */
-    public void cacheSave(User user) {
-        cache.save(user);
+    public void cacheSave() {
+        cache.save();
     }
-
 
     /* Codes methods */
 
     /**
-     * Invocation of code's getCodes method
-     * @return String ArrayList of login codes on the current device
+     * Call for the database's codes to retrieve its list of allowed codes.
+     * @return ArrayList of allowed codes for the given device.
      * @see Codes
      */
     public ArrayList<String> getLoginCodes() {
@@ -154,8 +149,8 @@ public class Database {
     }
 
     /**
-     * Invocation of code's addCode method
-     * @param code
+     * Call for the database's codes to add the provided code to the allowed list.
+     * @param code The code to be added.
      * @see Codes
      */
     public void addLoginCode(String code) {
@@ -163,23 +158,23 @@ public class Database {
     }
 
     /**
-     * Invocation of code's checkCode method
-     * @param code
-     * @return True if code exists on device, false otherwise
-     * @see Codes
+     * Call for the database's codes to check if the provided code is in the allowed list.
+     * @param code The code to be checked.
+     * @return Boolean of whether the code exists in the list or not.
      */
     public boolean checkLoginCode(String code) {
         return codes.checkCode(code);
     }
 
-
     /* Database methods */
 
     /**
-     * <p>Get a patient from the database if a connection can be established, load from disc otherwise</p>
-     * @return patient (Patient that was retrieved or loaded)
-     * @throws UserNotFoundException if the user cannot be found.
-     * @throws ConnectException if we could not connect to the database and could not load the user locally.
+     * Retrieves a patient from the online database if a connection can be established, otherwise
+     * loads the patient from disc.
+     * @param username The username of the patient to be retrieved.
+     * @return The patient object tied to the username.
+     * @throws UserNotFoundException Thrown if the patient cannot be found.
+     * @throws ConnectException Thrown if local loading fails and a connection to the database fails.
      */
     public Patient loadPatient(String username) throws UserNotFoundException, ConnectException{
         Patient patient;
@@ -192,7 +187,7 @@ public class Database {
         if (checkConnectivity()) {
             try {
                 patient = new ElasticSearchController.LoadPatientTask().execute(username).get();
-                cache.save(patient);
+                cache.save();
 
                 if (patient == null) {
                     throw new UserNotFoundException("Patient " + username + " was not found.");
@@ -212,12 +207,13 @@ public class Database {
         return patient;
     }
 
-
     /**
-     * <p>Get a provider from the database if a connection can be established, load from disc otherwise</p>
-     * @return provider (Provider that was retrieved or loaded)
-     * @throws UserNotFoundException if the user cannot be found.
-     * @throws ConnectException if we could not connect to the database and could not load the user locally.
+     * Retrieves the care provider from the online database if a connection can be established,
+     * otherwise loads the provider from disc.
+     * @param username The username of the provider to be retrieved.
+     * @return The care provider object tied to the username.
+     * @throws UserNotFoundException Thrown if the provider cannot be found.
+     * @throws ConnectException Thrown if local loading fails and a connection to the database fails.
      */
     public CareProvider loadProvider(String username) throws UserNotFoundException, ConnectException {
         CareProvider provider;
@@ -226,7 +222,7 @@ public class Database {
         if (checkConnectivity()) {
             try {
                 provider = new ElasticSearchController.LoadCareProviderTask().execute(username).get();
-                cache.save(provider);
+                cache.save();
 
                 if (provider == null) {
                     throw new UserNotFoundException("Care Povider " + username + " was not found.");
@@ -248,10 +244,10 @@ public class Database {
     }
 
     /**
-     * <p>Check if the username is available.</p>
+     * Checks if the given username is used by any patients.
      * @param username The username to check.
-     * @return If the username is available to take.
-     * @throws ConnectException If we cannot connect to the database.
+     * @return Boolean of whether the username is available or not.
+     * @throws ConnectException Thrown if a connection to the database fails.
      */
     public boolean patientUsernameAvailable(String username) throws ConnectException{
         boolean success = false;
@@ -264,10 +260,10 @@ public class Database {
     }
 
     /**
-     * <p>Check if the username is available.</p>
+     * Checks if the given username is used by any care providers.
      * @param username The username to check.
-     * @return If the username is available to take.
-     * @throws ConnectException If we cannot connect to the database.
+     * @return Boolean of whether the username is available or not.
+     * @throws ConnectException Thrown if a connection to the database fails.
      */
     public boolean providerUsernameAvailable(String username) throws ConnectException{
         boolean success = false;
@@ -280,10 +276,10 @@ public class Database {
     }
 
     /**
-     * <p>Check if the username is available.</p>
+     * Checks if the given username is used by any users.
      * @param username The username to check.
-     * @return If the username is available to take.
-     * @throws ConnectException If we cannot connect to the database.
+     * @return Boolean of whether the username is available or not.
+     * @throws ConnectException Thrown if a connection to the database fails.
      */
     public boolean usernameAvailable(String username) throws ConnectException{
         boolean success = false;
@@ -307,16 +303,17 @@ public class Database {
     // https://stackoverflow.com/questions/10513976/how-to-convert-image-into-byte-array-and-byte-array-to-base64-string-in-android
 
     /**
-     * <p>Saves a photo to the elastic search database</p>
-     * @param photo The photo to save to the elastic search db
-     * @return The id of the photo. THIS MUST BE SET IN THE PHOTO CLASS!
-     * @throws IllegalArgumentException The file does not have a path.
+     * Saves the given photo to the elastic search database.
+     * @param photo The photo to be saved.
+     * @return The id of the photo.
+     * @throws IllegalArgumentException Thrown if the photo doesn't have a file path.
+     * @throws InterruptedException Thrown if the saving is interrupted.
+     * @throws IllegalStateException Thrown if the saving cannot be done at the time.
      */
     public String savePhoto(Photo photo) throws IllegalArgumentException, InterruptedException, IllegalStateException{
         File file = new File(photo.getPath());
         if(file.exists()){
             try {
-
                 // Load the file, convert to bitmap, compress as JPEG, and then save the photo on ES
                 Bitmap bitmap = photo.getBitmap();
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -334,10 +331,11 @@ public class Database {
     }
 
     /**
-     * <p>Loads a photo onto the devices disk.</p>
-     * @param username The username of the photo owner. If this is incorrect decryption will fail!
-     * @param photo The photo to attempt to load on disk.
-     * @return The String path of the photo
+     * Loads a given patients photo onto the devices disk.
+     * @param username The patients username.
+     * @param photo The photo to be loaded.
+     * @return The path of the photo on the device.
+     * @throws IOException Thrown if the photo could not be loaded.
      */
     public String downloadPhoto(String username, Photo photo) throws IOException{
         File file = new File(photo.getPath());
@@ -364,14 +362,14 @@ public class Database {
                 throw new ConnectException("Failed to connect to the database.");
             }
         }
-
         return null;
     }
 
     /**
-     * <p>Delete a photo from the DB.</p>
-     * @param photo The photo to delete.
-     * @return A boolean if the operation was a success.
+     * Deletes a photo locally and on the elastic search database.
+     * @param photo The photo to be deleted.
+     * @return Boolean of whether the deletion succeeded.
+     * @throws ConnectException Thrown if the database cannot be connected to.
      */
     public boolean deletePhoto(Photo photo) throws ConnectException{
         if(checkConnectivity()){
@@ -388,14 +386,13 @@ public class Database {
         }
     }
 
-
     /**
-     * <p>Push a patient to the database</p>
-     * @param patient Patient to be saved
-     * @return Boolean if the save operation succeeded.
+     * Saves the patient locally and to the elastic search database.
+     * @param patient The patient to be saved.
+     * @return Boolean of whether the save operation was successful.
      */
     public boolean savePatient(Patient patient){
-        cache.save(patient);
+        cache.save();
         patient.setUpdated();
         if (checkConnectivity()) {
             try {
@@ -409,13 +406,13 @@ public class Database {
         }
     }
 
-
     /**
-     * <p>Push a provider to the database if a connection can be established, save to disc otherwise</p>
-     * @param provider Provider to be saved
+     * Saves the given care provider locally and to the elastic search database.
+     * @param provider The provider to be saved.
+     * @return Boolean of whether the save operation was successful.
      */
     public boolean saveProvider(CareProvider provider){
-        cache.save(provider);
+        cache.save();
         provider.setUpdated();
 
         if (checkConnectivity()) {
@@ -431,10 +428,10 @@ public class Database {
     }
 
     /**
-     * <p>Deletes a patient from the database. If there is no connection, throws a ConnectException</p>
-     * @param username The username of the patient to remove
-     * @return Boolean whether the operation succeeded.
-     * @throws ConnectException if we cannot connect to the database.
+     * Deletes a patient from the elastic search database.
+     * @param username The username of the patient to be deleted.
+     * @return Boolean of whether the deletion was successful.
+     * @throws ConnectException Thrown if no connection to the database could be made.
      */
     public Boolean deletePatient(String username) throws ConnectException{
         if (checkConnectivity()) {
@@ -450,52 +447,10 @@ public class Database {
     }
 
     /**
-     * <p>Updates a patient form the database. If there is no connection, throws a connection exception</p>
-     * @param patient The patient to update information for.
-     * @return If the operation was a success.
-     * @throws ConnectException if we cannot connect to the database.
-     */
-    public Boolean updatePatient(Patient patient) throws ConnectException{
-        cache.save(patient);
-        patient.setUpdated();
-        if (checkConnectivity()) {
-            try {
-                return new ElasticSearchController.SavePatientTask().execute(patient).get();
-            } catch (Exception e) {
-                e.printStackTrace();
-                return false;
-            }
-        }else{
-            throw new ConnectException("Failed to connect to the server for patient updating.");
-        }
-    }
-
-    /**
-     * <p>Updates a CareProvider form the database. If there is no connection, throws a connection exception</p>
-     * @param careProvider The patient to update information for.
-     * @return If the operation was a success.
-     * @throws ConnectException if we cannot connect to the database.
-     */
-    public Boolean updateCareProvider(CareProvider careProvider) throws ConnectException{
-        cache.save(careProvider);
-        careProvider.setUpdated();
-
-        if (checkConnectivity()) {
-            try {
-                return new ElasticSearchController.SaveCareProviderTask().execute(careProvider).get();
-            } catch (Exception e) {
-                e.printStackTrace();
-                return false;
-            }
-        } else {
-            throw new ConnectException("Failed to connect to the server for care provider updating.");
-        }
-    }
-
-    /**
-     * <p>Deletes a care provider from the database. If there is no connection, throws a ConnectException</p>
-     * @param username The username of the patient to remove
-     * @return Boolean whether the operation succeeded.
+     * Deletes a care provider from the elastic search database.
+     * @param username The username of the provider to be deleted.
+     * @return Boolean of whether the deletion was successful.
+     * @throws ConnectException Thrown if no connection to the database could be made.
      */
     public Boolean deleteProvider(String username) throws ConnectException{
         if (checkConnectivity()) {
@@ -511,14 +466,57 @@ public class Database {
     }
 
     /**
-     * <p>Search through patient problems and see if it matches any keywords.</p>
+     * Updates a given patient to match the data from the elastic search database.
+     * @param patient The patient to be updated.
+     * @return Boolean of whether the update was successful.
+     * @throws ConnectException Thrown if no connection to the database could be made.
+     */
+    public Boolean updatePatient(Patient patient) throws ConnectException{
+        cache.save();
+        patient.setUpdated();
+        if (checkConnectivity()) {
+            try {
+                return new ElasticSearchController.SavePatientTask().execute(patient).get();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+        }else{
+            throw new ConnectException("Failed to connect to the server for patient updating.");
+        }
+    }
+
+    /**
+     * Updates a given care provider to match the data from the elastic search database.
+     * @param careProvider The provider to update information for.
+     * @return Boolean of whether the operation was successful.
+     * @throws ConnectException Thrown if no connection to the database could be made.
+     */
+    public Boolean updateCareProvider(CareProvider careProvider) throws ConnectException{
+        cache.save();
+        careProvider.setUpdated();
+
+        if (checkConnectivity()) {
+            try {
+                return new ElasticSearchController.SaveCareProviderTask().execute(careProvider).get();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+        } else {
+            throw new ConnectException("Failed to connect to the server for care provider updating.");
+        }
+    }
+
+    /**
+     * Search through patient problems and see if it matches any keywords.
      * @param username The username of the patient to search.
      * @param keywords The keywords we are looking for. Can be null.
      * @param map The map location we are looking for. Can be null.
      * @param bl The body location we are looking for. Can be null.
-     * @return An ArrayList of search results that match our search
-     * @throws UserNotFoundException if the patient cannot be found.3
-     * @throws ConnectException if the database could not be loaded and the user is not found locally.
+     * @return An ArrayList of search results that match our search.
+     * @throws UserNotFoundException Thrown if the patient can't be found.
+     * @throws ConnectException Thrown if the patient can't be found locally and can't be loaded.
      */
     public ArrayList<SearchResult> searchPatient(String username, ArrayList<String> keywords, MapLocation map, BodyLocation bl) throws UserNotFoundException, ConnectException{
         Patient p = loadPatient(username);
@@ -526,7 +524,7 @@ public class Database {
     }
 
     /**
-     * <p>Search through patient problems and see if it matches any keywords.</p>
+     * Search through patient problems and see if it matches any keywords.
      * @param patient The patient to search through.
      * @param keywords The keywords we are looking for. Can be null.
      * @param map The map location we are looking for. Can be null.
@@ -591,7 +589,22 @@ public class Database {
     }
 
     /**
-     * <p>Search all care provider patients for all keywords, map, or body location.</p>
+     * Search all care provider patients for all keywords, map, or body location.
+     * @param username The username of the care provider.
+     * @param keywords  The keywords, can be null.
+     * @param map The Map location, can be null.
+     * @param bl The body location, can be null.
+     * @return A list of search results that match all of the keywords, map, or body location.
+     * @throws UserNotFoundException Thrown if the provider can't be found.
+     * @throws ConnectException Thrown if the provider can't be found locally and can't be loaded.
+     */
+    public ArrayList<SearchResult> searchCareProvider(String username, ArrayList<String> keywords, MapLocation map, BodyLocation bl) throws UserNotFoundException, ConnectException{
+        CareProvider careProvider = loadProvider(username);
+        return searchCareProvider(careProvider, keywords, map, bl);
+    }
+
+    /**
+     * Search all care provider patients for all keywords, map, or body location.
      * @param careProvider The care provider to search for
      * @param keywords  The keywords, can be null.
      * @param map The Map location, can be null.
@@ -607,23 +620,8 @@ public class Database {
     }
 
     /**
-     * <p>Search all care provider patients for all keywords, map, or body location.</p>
-     * @param username The username of the care provider.
-     * @param keywords  The keywords, can be null.
-     * @param map The Map location, can be null.
-     * @param bl The body location, can be null.
-     * @return A list of search results that match all of the keywords, map, or body location.
-     * @throws UserNotFoundException if the care provider cannot be found.
-     * @throws ConnectException if the database could not be loaded and the user is not found locally.
-     */
-    public ArrayList<SearchResult> searchCareProvider(String username, ArrayList<String> keywords, MapLocation map, BodyLocation bl) throws UserNotFoundException, ConnectException{
-        CareProvider careProvider = loadProvider(username);
-        return searchCareProvider(careProvider, keywords, map, bl);
-    }
-
-    /**
-     * <p>Check if we can connect to the Elastic Search server</p>
-     * @return True if a connection can be established, false otherwise
+     * Checks if a connection to the elastic search database is possible.
+     * @return Boolean of whether the connection can be established.
      */
     public boolean checkConnectivity() {
         try {

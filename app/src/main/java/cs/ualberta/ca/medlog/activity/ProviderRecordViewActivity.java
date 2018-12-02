@@ -2,30 +2,20 @@ package cs.ualberta.ca.medlog.activity;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.net.ConnectException;
-import java.util.ArrayList;
-
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.controller.SyncController;
-import cs.ualberta.ca.medlog.entity.MapLocation;
 import cs.ualberta.ca.medlog.entity.Record;
-import cs.ualberta.ca.medlog.entity.user.Patient;
-import cs.ualberta.ca.medlog.exception.UserNotFoundException;
-import cs.ualberta.ca.medlog.helper.Database;
 import cs.ualberta.ca.medlog.singleton.AppStatus;
 
 /**
@@ -152,9 +142,6 @@ public class ProviderRecordViewActivity extends AppCompatActivity {
 
     private void openMapLocationFragment() {
         Intent intent = new Intent(this, ViewMapLocationActivity.class);
-        ArrayList<MapLocation> newList = new ArrayList<>();
-        newList.add(record.getMapLocation());
-        intent.putExtra("LOCATIONS", newList);
         startActivity(intent);
     }
 

@@ -37,7 +37,7 @@ public class MapLocationTest {
         assertEquals(15.0, mapLocation.getLatitude());
 
         double newLat = 20;
-        mapLocation.setLatutude(newLat);
+        mapLocation.setLatitude(newLat);
         assertEquals(newLat, mapLocation.getLatitude());
     }
 
