@@ -17,14 +17,13 @@ import java.util.concurrent.ExecutionException;
 import cs.ualberta.ca.medlog.controller.ElasticSearchController;
 import cs.ualberta.ca.medlog.entity.BodyLocation;
 import cs.ualberta.ca.medlog.entity.MapLocation;
+import cs.ualberta.ca.medlog.entity.Photo;
 import cs.ualberta.ca.medlog.entity.Problem;
 import cs.ualberta.ca.medlog.entity.Record;
 import cs.ualberta.ca.medlog.entity.SearchResult;
 import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.entity.user.Patient;
-import cs.ualberta.ca.medlog.entity.user.User;
 import cs.ualberta.ca.medlog.exception.UserNotFoundException;
-import cs.ualberta.ca.medlog.entity.Photo;
 
 /**
  * <p>
@@ -298,9 +297,6 @@ public class Database {
         }catch(UserNotFoundException ignore){ }
         return success;
     }
-
-
-    // https://stackoverflow.com/questions/10513976/how-to-convert-image-into-byte-array-and-byte-array-to-base64-string-in-android
 
     /**
      * Saves the given photo to the elastic search database.

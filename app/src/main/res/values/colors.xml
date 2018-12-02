@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#d25959</color>
+    <color name="colorPrimaryDark">#891414</color>
+    <color name="colorAccent">#226656</color>
     <color name="app_buttonColour">#959595</color>
     <color name="app_buttonColourInvalid">#c9c9c9</color>
     <color name="app_boldTextColour">#3b3939</color>

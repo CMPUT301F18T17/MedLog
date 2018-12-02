@@ -1,7 +1,5 @@
 package cs.ualberta.ca.medlog;
 
-import android.content.Context;
-
 import org.junit.Test;
 
 import java.net.ConnectException;
@@ -17,6 +15,7 @@ import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 import cs.ualberta.ca.medlog.helper.Database;
 
 import static junit.framework.TestCase.assertEquals;
+
 /*
  * Test class for the Patient Controller
  *

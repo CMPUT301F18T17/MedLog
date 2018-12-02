@@ -17,7 +17,7 @@ import java.util.Date;
  * </p>
  *
  * @author Thomas Roskewich, Calvin Chomyc, Tem Tamre
- * @version 1.0
+ * @version 1.2
  * @see MapLocation
  * @see BodyLocation
  * @see Photo

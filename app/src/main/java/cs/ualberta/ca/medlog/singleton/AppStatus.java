@@ -17,7 +17,7 @@ import cs.ualberta.ca.medlog.entity.user.User;
  *         None.
  * </p>
  *
- * @author Thomas Roskewich
+ * @author Thomas Roskewich, Tyler Gobran
  * @version 1.2
  * @see User
  */

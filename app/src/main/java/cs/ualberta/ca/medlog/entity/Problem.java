@@ -16,7 +16,7 @@ import java.util.Date;
  * </p>
  *
  * @author Thomas Roskewich, Calvin Chomyc, Tem Tamre
- * @version 1.0
+ * @version 1.3
  * @see Record
  */
 public class Problem {

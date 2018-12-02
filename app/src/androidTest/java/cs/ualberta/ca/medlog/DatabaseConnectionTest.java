@@ -6,12 +6,15 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.util.ArrayList;
 import java.util.Date;
 import cs.ualberta.ca.medlog.entity.BodyLocation;
 import cs.ualberta.ca.medlog.entity.MapLocation;
 import cs.ualberta.ca.medlog.entity.Photo;
 import cs.ualberta.ca.medlog.entity.Problem;
 import cs.ualberta.ca.medlog.entity.Record;
+import cs.ualberta.ca.medlog.entity.SearchResult;
 import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.entity.user.ContactInfo;
 import cs.ualberta.ca.medlog.entity.user.Patient;
@@ -22,14 +25,10 @@ import cs.ualberta.ca.medlog.controller.ElasticSearchController;
 import static org.junit.Assert.*;
 
 /**
- *
- * <h1>
- *     DatabaseConnectionTest
- * </h1>
- *
  *  <p>
  *     Description: <br>
- *         Unit testing for the Database class
+ *         Unit testing for the Database class. Could not go in the regular test directory since
+ *         it requires some features from the android environment.
  *
  *     Note: <br>
  *         I learned about @Before and @After a bit late, so some testcases sill add users.
@@ -37,7 +36,7 @@ import static org.junit.Assert.*;
  * </p>
  *
  * @author Thomas Roskewich, Tem Tamre
- * @contact roskewic@ualberta.ca, ttamre@ualberta.ca
+ * @version 1.3
  * @see cs.ualberta.ca.medlog.helper.Database
  */
 @RunWith(AndroidJUnit4.class)
@@ -56,7 +55,7 @@ public class DatabaseConnectionTest {
     @After
     public void deinit(){
         try{
-            assertTrue(cleanupTestDatabase());
+            cleanupTestDatabase();
         }catch (UserNotFoundException e){
             fail("User was not found in the deletion of the database.");
         }
@@ -408,18 +407,16 @@ public class DatabaseConnectionTest {
     public void testSearchPatients() {
 
         Database db = new Database(null);
-        fail("Tests not implemented");
-        /*
         try {
             ArrayList<String> keywords = new ArrayList<>();
             keywords.add("Leg");
             keywords.add("Hurts");
             Patient p = loadPatientES("testuser");
             MapLocation ml = new MapLocation(10, 100);
-            ArrayList<Problem> a = db.searchPatient(p, keywords, ml, null);
+            ArrayList<SearchResult> a = db.searchPatient(p, keywords, ml, null);
             assertEquals("Received size does not match.", 2, a.size());
-            assertEquals("Title does not match.", "Leg Hurts", a.get(0).getTitle());
-            assertEquals("Map location does not match.", a.get(1).getRecords().get(0).getMapLocation(), ml);
+            assertEquals("Title does not match.", "Leg Hurts", a.get(0).getProblem().getTitle());
+            assertEquals("Map location does not match.", a.get(1).getProblem().getRecords().get(0).getMapLocation(), ml);
 
             a = db.searchPatient(p, null, null, null);
             assertEquals("Array is not empty on null search.", a.size(), 0);
@@ -431,25 +428,23 @@ public class DatabaseConnectionTest {
         }catch(UserNotFoundException e){
             e.printStackTrace();
             fail("User was not found yet should have been (testuser)");
-        }*/
+        }
     }
 
     @Test
     public void testSearchProviders() {
 
         Database db = new Database(null);
-        fail("Test not implemented.");
-        /*
         try {
             ArrayList<String> keywords = new ArrayList<>();
             keywords.add("Leg");
             keywords.add("HUrTs");
             CareProvider p = loadCareES("care");
             MapLocation ml = new MapLocation(10, 100);
-            ArrayList<Problem> a = db.searchCareProvider(p, keywords, ml, null);
+            ArrayList<SearchResult> a = db.searchCareProvider(p, keywords, ml, null);
             assertEquals("Received size does not match.", 2, a.size());
-            assertEquals("Title does not match.", "Leg Hurts", a.get(0).getTitle());
-            assertEquals("Map location does not match.", a.get(1).getRecords().get(0).getMapLocation(), ml);
+            assertEquals("Title does not match.", "Leg Hurts", a.get(0).getProblem().getTitle());
+            assertEquals("Map location does not match.", a.get(1).getProblem().getRecords().get(0).getMapLocation(), ml);
 
             a = db.searchCareProvider(p, null, null, null);
             assertEquals("Array is not empty on null search.", a.size(), 0);
@@ -461,7 +456,7 @@ public class DatabaseConnectionTest {
         }catch(UserNotFoundException e){
             e.printStackTrace();
             fail("User was not found yet should have been (testuser)");
-        }*/
+        }
     }
 
 }

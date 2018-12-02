@@ -13,8 +13,6 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.View;
 
-import junit.framework.TestCase;
-
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -26,28 +24,37 @@ import java.util.Date;
 
 import cs.ualberta.ca.medlog.activity.PatientProblemViewActivity;
 import cs.ualberta.ca.medlog.controller.ElasticSearchController;
+import cs.ualberta.ca.medlog.entity.Photo;
 import cs.ualberta.ca.medlog.entity.Problem;
+import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.entity.user.ContactInfo;
 import cs.ualberta.ca.medlog.entity.user.Patient;
-import cs.ualberta.ca.medlog.entity.Photo;
 import cs.ualberta.ca.medlog.mock.MockPhoto;
 import cs.ualberta.ca.medlog.singleton.AppStatus;
 
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
-import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withHint;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static junit.framework.TestCase.fail;
 import static org.hamcrest.Matchers.anything;
 
 
 /**
- * https://stackoverflow.com/questions/33382344/espresso-test-click-x-y-coordinates
+ * <p>
+ *     Description: <br>
+ *         Instrumented test for problem viewing / editing, and the addition of records.
+ * </p>
+ *
+ *
+ * @author Thomas Roskewich
+ * @version 1.0
+ * @see cs.ualberta.ca.medlog.activity.PatientProblemViewActivity
+ * @see CareProvider
+ * @see Patient
+ *
  */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
