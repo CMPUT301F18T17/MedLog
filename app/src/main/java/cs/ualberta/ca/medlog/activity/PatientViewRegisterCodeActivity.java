@@ -47,7 +47,7 @@ public class PatientViewRegisterCodeActivity extends AppCompatActivity {
         byte[] data = AppStatus.getInstance().getCurrentUser().getUsername().getBytes();
 
         try {
-            String encryptionKey = Resources.getSystem().getString(R.string.EncryptionKey);
+            String encryptionKey = "CODE";
             String code = Encryption.encryptData(encryptionKey, data);
             registrationCode.setText(code.substring(0,code.length()-3));
         } catch (EncryptionException e) {

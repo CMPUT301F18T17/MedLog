@@ -1,24 +1,15 @@
 package cs.ualberta.ca.medlog;
 
-import android.content.Context;
 import android.content.res.Resources;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.action.ViewActions;
-import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
-import android.support.test.runner.AndroidJUnit4;
-import android.util.Log;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
-import java.net.ConnectException;
-
-import cs.ualberta.ca.medlog.activity.PatientLoginActivity;
-import cs.ualberta.ca.medlog.activity.ProviderAddPatientActivity;
 import cs.ualberta.ca.medlog.activity.ProviderLoginActivity;
 import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.entity.user.ContactInfo;
@@ -31,14 +22,8 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertFalse;
-import static junit.framework.TestCase.assertTrue;
 
 /**
- * <h1>
- *     Provider Add Patient Instrumented Test
- * </h1>
- *
  * <p>
  *     Description: <br>
  *         Instrumented test for adding patients to a care provider's profile using the Espresso

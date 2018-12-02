@@ -49,6 +49,22 @@ import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.fail;
 
 
+/**
+ * <p>
+ *     Description: <br>
+ *         Instrumented test for searching for records and problems from both the provider
+ *         and patients pov.
+ * </p>
+ *
+ *
+ * @author Thomas Roskewich
+ * @version 1.0
+ * @see cs.ualberta.ca.medlog.activity.ProviderMenuActivity
+ * @see cs.ualberta.ca.medlog.activity.PatientMenuActivity
+ * @see CareProvider
+ * @see Patient
+ *
+ */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class SearchActivityTest {
@@ -157,6 +173,32 @@ public class SearchActivityTest {
                 .check(matches(isDisplayed()))
                 .perform(click());
         Espresso.onView(withId(R.id.activityPatientProblemView_Base)).check(matches(isDisplayed()));
+
+        Espresso.pressBack();
+
+        // Try with empty
+        Espresso.onView(withId(R.id.activityPatientSearch_KeywordEditText)).perform(clearText());
+        Espresso.onView(withId(R.id.activityPatientSearch_SearchButton)).perform(click());
+
+        try {
+            Espresso.onData(anything())
+                    .inAdapterView(withId(R.id.activityPatientSearch_ResultsListView))
+                    .atPosition(0)
+                    .check(matches(not(isDisplayed())));
+            fail("There shouldn't be any data in the result view list.");
+        }catch(Exception ignored){}
+
+        // Try with invalid
+        Espresso.onView(withId(R.id.activityPatientSearch_KeywordEditText)).perform(typeText("proble"));
+        Espresso.onView(withId(R.id.activityPatientSearch_SearchButton)).perform(click());
+
+        try {
+            Espresso.onData(anything())
+                    .inAdapterView(withId(R.id.activityPatientSearch_ResultsListView))
+                    .atPosition(0)
+                    .check(matches(not(isDisplayed())));
+            fail("There shouldn't be any data in the result view list.");
+        }catch(Exception ignored){}
     }
 
 
@@ -185,7 +227,6 @@ public class SearchActivityTest {
 
         // Search for an invalid valid body location
         Espresso.onView(withId(R.id.activityPatientSearch_BodyLocationButton)).perform(click());
-        patientMenu.getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
         Espresso.onView(withId(R.id.activityAddBodyLocation_Base)).perform(clickXY(200, 200));
         Espresso.onView(withId(R.id.activityAddBodyLocation_SaveButton)).perform(click());
         Espresso.onView(withId(R.id.activityPatientSearch_SearchButton)).perform(click());
@@ -231,6 +272,158 @@ public class SearchActivityTest {
         try {
             Espresso.onData(anything())
                     .inAdapterView(withId(R.id.activityPatientSearch_ResultsListView))
+                    .atPosition(0)
+                    .check(matches(not(isDisplayed())));
+            fail("There shouldn't be any data in the result view list.");
+        }catch(Exception ignored){}
+
+    }
+
+
+
+    @Test
+    public void testSearchProviderKeywords(){
+        AppStatus.getInstance().setCurrentUser(provider);
+        providerMenu.launchActivity(new Intent());
+        Espresso.onView(withId(R.id.activityProviderMenu_SearchProblemsButton)).perform(click());
+
+
+        // Try with one result
+        Espresso.onView(withHint("Enter Keywords")).perform(typeText("test"));
+        Espresso.onView(withId(R.id.activityProviderSearch_SearchButton)).perform(click());
+
+        Espresso.onData(anything())
+                .inAdapterView(withId(R.id.activityProviderSearch_ResultsListView))
+                .atPosition(0)
+                .check(matches(isDisplayed()))
+                .perform(click());
+
+        Espresso.onView(withId(R.id.activityProviderProblemView_Base)).check(matches(isDisplayed()));
+        Espresso.pressBack();
+
+
+        // Try with Two Results
+        Espresso.onView(withId(R.id.activityProviderSearch_KeywordEditText)).perform(clearText());
+        Espresso.onView(withHint("Enter Keywords")).perform(typeText("record"));
+        Espresso.onView(withId(R.id.activityProviderSearch_SearchButton)).perform(click());
+
+        Espresso.onData(anything())
+                .inAdapterView(withId(R.id.activityProviderSearch_ResultsListView))
+                .atPosition(1)
+                .check(matches(isDisplayed()));
+
+        Espresso.pressBack();
+
+        // Try with many keywords
+        Espresso.onView(withId(R.id.activityProviderSearch_KeywordEditText)).perform(clearText());
+        Espresso.onView(withHint("Enter Keywords")).perform(typeText("double record problem"));
+        Espresso.onView(withId(R.id.activityProviderSearch_SearchButton)).perform(click());
+
+        Espresso.onData(anything())
+                .inAdapterView(withId(R.id.activityProviderSearch_ResultsListView))
+                .atPosition(0)
+                .check(matches(isDisplayed()))
+                .perform(click());
+        Espresso.onView(withId(R.id.activityProviderProblemView_Base)).check(matches(isDisplayed()));
+        Espresso.pressBack();
+
+        // Try with empty
+        Espresso.onView(withId(R.id.activityProviderSearch_KeywordEditText)).perform(clearText());
+        Espresso.onView(withId(R.id.activityProviderSearch_SearchButton)).perform(click());
+
+        try {
+            Espresso.onData(anything())
+                    .inAdapterView(withId(R.id.activityProviderSearch_ResultsListView))
+                    .atPosition(0)
+                    .check(matches(not(isDisplayed())));
+            fail("There shouldn't be any data in the result view list.");
+        }catch(Exception ignored){}
+
+        // Try with an invalid keyword
+        Espresso.onView(withId(R.id.activityProviderSearch_KeywordEditText)).perform(typeText("proble"));
+        Espresso.onView(withId(R.id.activityProviderSearch_SearchButton)).perform(click());
+
+        try {
+            Espresso.onData(anything())
+                    .inAdapterView(withId(R.id.activityProviderSearch_ResultsListView))
+                    .atPosition(0)
+                    .check(matches(not(isDisplayed())));
+            fail("There shouldn't be any data in the result view list.");
+        }catch(Exception ignored){}
+
+    }
+
+
+    @Test
+    public void testProviderBodySearch(){
+        AppStatus.getInstance().setCurrentUser(provider);
+        providerMenu.launchActivity(new Intent());
+        Espresso.onView(withId(R.id.activityProviderMenu_SearchProblemsButton)).perform(click());
+
+        // Search for a valid body location
+        Espresso.onView(withId(R.id.activityProviderSearch_BodyLocationButton)).perform(click());
+        DisplayMetrics dm = new DisplayMetrics();
+        providerMenu.getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
+        Espresso.onView(withId(R.id.activityAddBodyLocation_Base)).perform(clickXY(dm.widthPixels / 2, dm.heightPixels / 2));
+        Espresso.onView(withId(R.id.activityAddBodyLocation_SaveButton)).perform(click());
+        Espresso.onView(withId(R.id.activityProviderSearch_SearchButton)).perform(click());
+
+        Espresso.onData(anything())
+                .inAdapterView(withId(R.id.activityProviderSearch_ResultsListView))
+                .atPosition(0)
+                .check(matches(isDisplayed()))
+                .perform(click());
+
+        Espresso.onView(withId(R.id.activityProviderRecordView_ProblemTitleView)).check(matches(withText("Record Problem")));
+        Espresso.pressBack();
+
+        // Search for an invalid valid body location
+        Espresso.onView(withId(R.id.activityProviderSearch_BodyLocationButton)).perform(click());
+        Espresso.onView(withId(R.id.activityAddBodyLocation_Base)).perform(clickXY(200, 200));
+        Espresso.onView(withId(R.id.activityAddBodyLocation_SaveButton)).perform(click());
+        Espresso.onView(withId(R.id.activityProviderSearch_SearchButton)).perform(click());
+
+
+        try {
+            Espresso.onData(anything())
+                    .inAdapterView(withId(R.id.activityProviderSearch_ResultsListView))
+                    .atPosition(0)
+                    .check(matches(not(isDisplayed())));
+            fail("There shouldn't be any data in the result view list.");
+        }catch(Exception ignored){}
+    }
+
+
+    @Test
+    public void testProviderMapLocationSearch(){
+        AppStatus.getInstance().setCurrentUser(provider);
+        providerMenu.launchActivity(new Intent());
+        Espresso.onView(withId(R.id.activityProviderMenu_SearchProblemsButton)).perform(click());
+
+        // Search for a valid map location
+        Espresso.onView(withId(R.id.activityProviderSearch_MapLocationButton)).perform(click());
+        DisplayMetrics dm = new DisplayMetrics();
+        patientMenu.getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
+        Espresso.onView(withId(R.id.activityAddMapLocation_MapViewBase)).perform(clickXY(dm.widthPixels / 2, dm.heightPixels / 2));
+        Espresso.onView(withId(R.id.activityAddMapLocation_AddButton)).perform(click());
+        Espresso.onView(withId(R.id.activityProviderSearch_SearchButton)).perform(click());
+        Espresso.onData(anything())
+                .inAdapterView(withId(R.id.activityProviderSearch_ResultsListView))
+                .atPosition(0)
+                .check(matches(isDisplayed()))
+                .perform(click());
+        Espresso.onView(withId(R.id.activityProviderRecordView_ProblemTitleView)).check(matches(withText("Record Problem")));
+        Espresso.pressBack();
+
+        // Try for an invalid map location
+        Espresso.onView(withId(R.id.activityProviderSearch_MapLocationButton)).perform(click());
+        Espresso.onView(withId(R.id.activityAddMapLocation_MapViewBase)).perform(clickXY(100, 100));
+        Espresso.onView(withId(R.id.activityAddMapLocation_AddButton)).perform(click());
+        Espresso.onView(withId(R.id.activityProviderSearch_SearchButton)).perform(click());
+
+        try {
+            Espresso.onData(anything())
+                    .inAdapterView(withId(R.id.activityProviderSearch_ResultsListView))
                     .atPosition(0)
                     .check(matches(not(isDisplayed())));
             fail("There shouldn't be any data in the result view list.");
