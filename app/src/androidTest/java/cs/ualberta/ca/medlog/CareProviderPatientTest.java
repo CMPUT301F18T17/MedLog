@@ -31,6 +31,23 @@ import static android.support.test.espresso.matcher.ViewMatchers.*;
 import static junit.framework.TestCase.fail;
 import static org.hamcrest.Matchers.anything;
 
+
+/**
+ * <p>
+ *     Description: <br>
+ *         Instrumented test for care provider patient interactions. This includes
+ *         adding comments, adding patients and viewing patients.
+ * </p>
+ *
+ *
+ * @author Thomas Roskewich
+ * @version 1.0
+ * @see cs.ualberta.ca.medlog.activity.ProviderMenuActivity
+ * @see cs.ualberta.ca.medlog.activity.PatientMenuActivity
+ * @see CareProvider
+ * @see Patient
+ *
+ */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class CareProviderPatientTest {

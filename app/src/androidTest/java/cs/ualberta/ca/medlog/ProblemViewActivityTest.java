@@ -26,6 +26,7 @@ import cs.ualberta.ca.medlog.activity.PatientProblemViewActivity;
 import cs.ualberta.ca.medlog.controller.ElasticSearchController;
 import cs.ualberta.ca.medlog.entity.Photo;
 import cs.ualberta.ca.medlog.entity.Problem;
+import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.entity.user.ContactInfo;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.mock.MockPhoto;
@@ -40,6 +41,21 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.anything;
 
+
+/**
+ * <p>
+ *     Description: <br>
+ *         Instrumented test for problem viewing / editing, and the addition of records.
+ * </p>
+ *
+ *
+ * @author Thomas Roskewich
+ * @version 1.0
+ * @see cs.ualberta.ca.medlog.activity.PatientProblemViewActivity
+ * @see CareProvider
+ * @see Patient
+ *
+ */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class ProblemViewActivityTest {

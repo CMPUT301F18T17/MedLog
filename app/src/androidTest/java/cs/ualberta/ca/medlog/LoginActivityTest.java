@@ -33,10 +33,6 @@ import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
 
 /**
- * <h1>
- *     Login Activity Instrumented Test
- * </h1>
- *
  * <p>
  *     Description: <br>
  *         Test class for login activities using the Espresso framework

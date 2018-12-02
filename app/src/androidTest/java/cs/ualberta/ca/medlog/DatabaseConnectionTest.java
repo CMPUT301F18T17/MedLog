@@ -25,14 +25,10 @@ import cs.ualberta.ca.medlog.controller.ElasticSearchController;
 import static org.junit.Assert.*;
 
 /**
- *
- * <h1>
- *     DatabaseConnectionTest
- * </h1>
- *
  *  <p>
  *     Description: <br>
- *         Unit testing for the Database class
+ *         Unit testing for the Database class. Could not go in the regular test directory since
+ *         it requires some features from the android environment.
  *
  *     Note: <br>
  *         I learned about @Before and @After a bit late, so some testcases sill add users.
@@ -40,7 +36,7 @@ import static org.junit.Assert.*;
  * </p>
  *
  * @author Thomas Roskewich, Tem Tamre
- * @contact roskewic@ualberta.ca, ttamre@ualberta.ca
+ * @version 1.3
  * @see cs.ualberta.ca.medlog.helper.Database
  */
 @RunWith(AndroidJUnit4.class)

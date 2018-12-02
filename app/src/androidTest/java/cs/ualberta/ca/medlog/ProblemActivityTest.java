@@ -2,9 +2,7 @@ package cs.ualberta.ca.medlog;
 
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.Espresso;
-import android.support.test.espresso.ViewAction;
 import android.support.test.espresso.action.ViewActions;
-import android.support.test.espresso.matcher.CursorMatchers;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -18,9 +16,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import cs.ualberta.ca.medlog.activity.PatientMenuActivity;
-import cs.ualberta.ca.medlog.activity.ProblemAdapter;
 import cs.ualberta.ca.medlog.controller.ElasticSearchController;
-import cs.ualberta.ca.medlog.entity.Problem;
+import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.entity.user.ContactInfo;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.singleton.AppStatus;
@@ -31,8 +28,21 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.anything;
 
+/**
+ * <p>
+ *     Description: <br>
+ *         Instrumented test for adding and viewing problems
+ * </p>
+ *
+ *
+ * @author Thomas Roskewich
+ * @version 1.0
+ * @see cs.ualberta.ca.medlog.activity.PatientMenuActivity
+ * @see Patient
+ *
+ */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class ProblemActivityTest {
