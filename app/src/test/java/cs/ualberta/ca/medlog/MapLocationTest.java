@@ -80,8 +80,8 @@ public class MapLocationTest {
     public void testIsNear(){
         MapLocation ml = new MapLocation(53.527695, -113.250598);
         MapLocation ml1 = new MapLocation(50, 100);
-        MapLocation ml2 = new MapLocation(53.527205, -113.342037);
-        assertTrue(ml.isNear(ml2));
+        MapLocation ml2 = new MapLocation(53.527205, -113.302037);
         assertFalse(ml.isNear(ml1));
+        assertTrue(ml.isNear(ml2));
     }
 }
