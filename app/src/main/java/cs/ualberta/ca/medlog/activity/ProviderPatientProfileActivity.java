@@ -7,8 +7,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.IOException;
+
 import cs.ualberta.ca.medlog.R;
+import cs.ualberta.ca.medlog.entity.Photo;
 import cs.ualberta.ca.medlog.entity.user.Patient;
+import cs.ualberta.ca.medlog.helper.Database;
 import cs.ualberta.ca.medlog.singleton.AppStatus;
 
 /**
@@ -63,6 +67,16 @@ public class ProviderPatientProfileActivity extends AppCompatActivity {
         emailView.setText(patient.getContactInfo().getEmail());
         TextView phoneNumberView = findViewById(R.id.activityProviderPatientProfile_PhoneNumberView);
         phoneNumberView.setText(patient.getContactInfo().getPhoneNumber());
+
+        // Download the patients body photos.
+        Database db = new Database(this);
+        try {
+            for (Photo p : patient.getBodyPhotos()) {
+                db.downloadPhoto(patient.getUsername(), p);
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
 
     private void openRecordsMap() {
