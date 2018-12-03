@@ -56,7 +56,7 @@ public class BodyLocationTest {
     }
 
     /**
-     * Tests if a bodyLocations y percentage on the photo is successfully returned.
+     * Tests if a body location is equal to another with the same photo, x value, and y value.
      */
     @Test
     public void testEquals(){

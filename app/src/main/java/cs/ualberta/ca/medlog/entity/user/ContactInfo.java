@@ -31,7 +31,7 @@ public class ContactInfo {
         this.email = email;
 
         // Temporary validation fixes, regex implementation should be used
-        if (this.phoneNumber.length() < 7 || this.phoneNumber.length() > 11) { // Phone numbers are at least 10 digits long
+        if (this.phoneNumber.length() < 7 || this.phoneNumber.length() > 11) {
             throw new RuntimeException();
         }
         if (!(this.email.contains("@"))) { // An email must include the "@" symbol

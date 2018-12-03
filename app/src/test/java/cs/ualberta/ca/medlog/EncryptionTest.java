@@ -32,7 +32,9 @@ import static junit.framework.TestCase.*;
 @RunWith(RobolectricTestRunner.class)
 public class EncryptionTest {
 
-
+    /**
+     * Tests if a message is successfully encrypted and decrypted.
+     */
     @Test
     public void testEncrypt(){
         try {
@@ -48,6 +50,9 @@ public class EncryptionTest {
         }
     }
 
+    /**
+     * Tests if a Bitmap is successfully encrypted and decrypted.
+     */
     @Test
     public void testBitmapEncrypt(){
         try{
@@ -66,7 +71,9 @@ public class EncryptionTest {
 
     }
 
-
+    /**
+     * Generates a Bitmap for encryption testing.
+     */
     private Bitmap generateBitmap(int width, int height){
         Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888, false);
         Random r = new Random();

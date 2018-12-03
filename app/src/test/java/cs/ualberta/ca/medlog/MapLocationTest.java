@@ -25,18 +25,27 @@ import static junit.framework.TestCase.assertFalse;
  */
 public class MapLocationTest {
 
+    /**
+     * Tests if a MapLocation's latitude is successfully returned.
+     */
     @Test
     public void testGetLatitude(){
         MapLocation mapLocation = new MapLocation(15.0, -50);
         assertEquals(15.0, mapLocation.getLatitude());
     }
 
+    /**
+     * Tests if a MapLocation's longitude is successfully returned.
+     */
     @Test
     public void testGetLongitude(){
         MapLocation mapLocation = new MapLocation(15.0, -50);
         assertEquals(-50.0, mapLocation.getLongitude());
     }
 
+    /**
+     * Tests if a MapLocation's latitude is successfully set and returned.
+     */
     @Test
     public void testSetLatitude(){
         MapLocation mapLocation = new MapLocation(15.0, -50);
@@ -47,6 +56,9 @@ public class MapLocationTest {
         assertEquals(newLat, mapLocation.getLatitude());
     }
 
+    /**
+     * Tests if a MapLocation's longitude is successfully set and returned.
+     */
     @Test
     public void testSetLongitude(){
         MapLocation mapLocation = new MapLocation(15.0, -50);
@@ -57,6 +69,9 @@ public class MapLocationTest {
         assertEquals(newLon, mapLocation.getLongitude());
     }
 
+    /**
+     * Tests if a MapLocation's latitude and longitude are limited to their numerical ranges.
+     */
     @Test
     public void testIncorrectGeoLocation(){
         try {
@@ -76,6 +91,9 @@ public class MapLocationTest {
         }
     }
 
+    /**
+     * Tests if one MapLocation successfully checks whether it is close to another.
+     */
     @Test
     public void testIsNear(){
         MapLocation ml = new MapLocation(53.527695, -113.250598);
