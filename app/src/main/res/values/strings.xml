@@ -156,7 +156,6 @@
     <string name="activityProviderLogin.FailedLogin">Failed to Login</string>
     <string name="activityProviderLogin.LoggedIn">Care Provider Logged In</string>
 
-
     <string name="activityProviderRegistration.TitleText">Care Provider Registration</string>
     <string name="activityProviderRegistration.UsernameEditHint">Enter a Username</string>
     <string name="activityProviderRegistration.CompleteButton">Complete</string>
@@ -221,6 +220,7 @@
     <string name="activityProviderProblemView.NoPatient">Patient Not Found</string>
     <string name="activityProviderProblemView.FailedPatientFind">Failed to Find Patient Data</string>
     <string name="activityProviderProblemView.NoComment">No Comment Entered</string>
+    <string name="activityProviderProblemView.CommentAdded">Comment Record Added</string>
     <string name="activityProviderProblemView.NoPhotos">No Record Photos</string>
     <string name="activityProviderProblemView.FailedPhotoDownload">Failed to Download Photos</string>
 

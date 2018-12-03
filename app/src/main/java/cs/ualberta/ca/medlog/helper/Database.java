@@ -544,16 +544,14 @@ public class Database {
 
             // If the problem strings contains all keywords, we add it to the list.
             if(keywords != null) {
-                if (!problemStrings.containsAll(keywords)) {
-                    break;
+                if (problemStrings.containsAll(keywords)) {
+                    output.add(new SearchResult(patient, p, null));
                 }
             }
 
-            output.add(new SearchResult(patient, p, null));
-
             // If the record contains the map location or the body description, add it and stop.
             for(Record r : p.getRecords()){
-                ArrayList<String> recordStrings = (ArrayList<String>)problemStrings.clone();
+                ArrayList<String> recordStrings = new ArrayList<>();
                 if(r.getTitle() != null) {
                     recordStrings.addAll(Arrays.asList(r.getTitle().toLowerCase().toLowerCase().split(" ")));
                 }
@@ -564,8 +562,8 @@ public class Database {
 
                 // If the record strings contain all the keywords.
                 if(keywords != null) {
-                    if (!problemStrings.containsAll(keywords)) {
-                        break;
+                    if (!recordStrings.containsAll(keywords)) {
+                        continue;
                     }
                 }
 
@@ -573,11 +571,11 @@ public class Database {
                 if(map != null) {
                     if(r.getMapLocation() != null) {
                         if(!r.getMapLocation().isNear(map)) {
-                            break;
+                            continue;
                         }
                     }
                     else {
-                        break;
+                        continue;
                     }
                 }
 
@@ -585,11 +583,11 @@ public class Database {
                 if(bl != null) {
                     if (r.getBodyLocation() != null) {
                         if(!r.getBodyLocation().isNear(bl)) {
-                            break;
+                            continue;
                         }
                     }
                     else {
-                        break;
+                        continue;
                     }
                 }
 

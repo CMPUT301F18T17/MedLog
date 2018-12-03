@@ -166,6 +166,7 @@ public class ProviderProblemViewActivity extends AppCompatActivity implements Te
 
         ProblemController controller = new ProblemController(this);
         controller.addRecord(patient,problem,newRecord);
+        Toast.makeText(this, R.string.activityProviderProblemView_CommentAdded, Toast.LENGTH_SHORT).show();
     }
 
     private void openPatientProfile() {
