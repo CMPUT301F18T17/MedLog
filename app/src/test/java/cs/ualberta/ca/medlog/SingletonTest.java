@@ -62,7 +62,7 @@ public class SingletonTest {
         assertNull(AppStatus.getInstance().getViewedPatient());
         Patient p = new Patient(new ContactInfo("1234567894", "me@md.ca"), "super");
         AppStatus.getInstance().setViewedPatient(p);
-        Patient k = (Patient)AppStatus.getInstance().getViewedPatient();
+        Patient k = AppStatus.getInstance().getViewedPatient();
         assertEquals(p, k);
     }
 
