@@ -1,20 +1,3 @@
-/**
- *
- * <h1>
- *     DatabaseUnitTest
- * </h1>
- *
- *  <p>
- *     Description: <br>
- *         Unit testing for the Database class
- *
- * </p>
- *
- * @author Thomas Roskewich, Tem Tamre
- * @contact roskewic@ualberta.ca, ttamre@ualberta.ca
- * @see cs.ualberta.ca.medlog.helper.Database
- */
-
 package cs.ualberta.ca.medlog;
 
 import org.junit.Test;
@@ -38,7 +21,7 @@ import static org.junit.Assert.assertNull;
  *         None.
  * </p>
  *
- * @author Thomas Roskewich
+ * @author Thomas Roskewich, Tem Tamre
  * @version 1.0
  * @see Database
  */

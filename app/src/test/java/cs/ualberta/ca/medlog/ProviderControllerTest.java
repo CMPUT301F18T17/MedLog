@@ -1,11 +1,3 @@
-/*
- * Test class for the Provider Controller
- *
- * Author: Kyle Androschuk
- * Contact: kandrosc@ualberta.ca
- * Created: November 28, 2018
- */
-
 package cs.ualberta.ca.medlog;
 
 import org.junit.Test;

@@ -1,11 +1,3 @@
-/*
- * Test class for the Record entity
- *
- * Author: Calvin Chomyc, Thomas Roskewich, Kyle Androschuk
- * Contact: chomyc1@ualberta.ca, roskewic@ualberta.ca, kandrosc@ualberta.ca
- * Created: November 2, 2018
- */
-
 package cs.ualberta.ca.medlog;
 
 import org.junit.Test;
