@@ -25,8 +25,8 @@ import static org.junit.Assert.*;
  *
  * @author Thomas Roskewich, Kyle Androschuk, Calvin Chomyc
  * @version 1.0
+ * @see AppStatus
  */
-
 public class SingletonTest {
 
     @Test

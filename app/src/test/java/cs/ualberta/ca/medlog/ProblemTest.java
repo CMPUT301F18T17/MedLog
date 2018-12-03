@@ -1,11 +1,3 @@
-/*
- * Test class for the Problem entity
- *
- * Authors: Calvin Chomyc, Tem Tamre
- * Contact: chomyc1@ualberta.ca, ttamre@ualberta.ca
- * Created: November 2, 2018
- */
-
 package cs.ualberta.ca.medlog;
 
 import cs.ualberta.ca.medlog.entity.Problem;
@@ -17,6 +9,20 @@ import java.util.Date;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * <p>
+ *     Description: <br>
+ *         Test class for the Problem entity.
+ * </p>
+ * <p>
+ *     Issues: <br>
+ *         None.
+ * </p>
+ *
+ * @author Calvin Chomyc, Tem Tamre
+ * @version 1.0
+ * @see Problem
+ */
 public class ProblemTest {
 
     @Test

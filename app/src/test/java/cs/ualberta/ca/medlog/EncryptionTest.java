@@ -15,6 +15,20 @@ import cs.ualberta.ca.medlog.helper.Encryption;
 
 import static junit.framework.TestCase.*;
 
+/**
+ * <p>
+ *     Description: <br>
+ *         Test class for the Encryption helper.
+ * </p>
+ * <p>
+ *     Issues: <br>
+ *         None.
+ * </p>
+ *
+ * @author Thomas Roskewich
+ * @version 1.0
+ * @see Encryption
+ */
 @RunWith(RobolectricTestRunner.class)
 public class EncryptionTest {
 

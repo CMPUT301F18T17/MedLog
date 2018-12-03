@@ -11,7 +11,20 @@ import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 
-
+/**
+ * <p>
+ *     Description: <br>
+ *         Test class for the Database helper.
+ * </p>
+ * <p>
+ *     Issues: <br>
+ *         None.
+ * </p>
+ *
+ * @author Thomas Roskewich
+ * @version 1.0
+ * @see Database
+ */
 @RunWith(RobolectricTestRunner.class)
 public class DatabaseUnitTest {
 

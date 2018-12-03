@@ -1,11 +1,3 @@
-/*
- * Test class for the CareProvider entity
- *
- * Author: Tem Tamre
- * Contact: ttamre@ualberta.ca
- * Created: October 31, 2018
- */
-
 package cs.ualberta.ca.medlog;
 
 import org.junit.Test;
@@ -18,7 +10,20 @@ import cs.ualberta.ca.medlog.entity.user.Patient;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-
+/**
+ * <p>
+ *     Description: <br>
+ *         Test class for the CareProvider entity.
+ * </p>
+ * <p>
+ *     Issues: <br>
+ *         None.
+ * </p>
+ *
+ * @author Tem Tamre, Calvin Chomyc
+ * @version 1.0
+ * @see CareProvider
+ */
 public class CareProviderTest {
 
     @Test

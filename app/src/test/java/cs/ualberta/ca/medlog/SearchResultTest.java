@@ -25,8 +25,8 @@ import static org.junit.Assert.*;
  *
  * @author Calvin Chomyc
  * @version 1.0
+ * @see SearchResult
  */
-
 public class SearchResultTest {
 
     @Test

@@ -15,6 +15,20 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * <p>
+ *     Description: <br>
+ *         Test class for the Record entity.
+ * </p>
+ * <p>
+ *     Issues: <br>
+ *         None.
+ * </p>
+ *
+ * @author Calvin Chomyc, Thomas Roskewich, Kyle Androschuk
+ * @version 1.0
+ * @see Record
+ */
 public class RecordTest {
 
     @Test

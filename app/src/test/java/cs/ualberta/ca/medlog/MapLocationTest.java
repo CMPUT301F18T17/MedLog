@@ -1,11 +1,3 @@
-/*
- * Test class for the MapLocation entity
- *
- * Authors: Thomas Roskewich, Tem Tamre
- * Contact: roskewic@ualberta.ca, ttamre@ualberta.ca
- * Created: October 30, 2018
- */
-
 package cs.ualberta.ca.medlog;
 
 import cs.ualberta.ca.medlog.entity.MapLocation;
@@ -17,6 +9,20 @@ import static junit.framework.Assert.assertTrue;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertFalse;
 
+/**
+ * <p>
+ *     Description: <br>
+ *         Test class for the MapLocation entity.
+ * </p>
+ * <p>
+ *     Issues: <br>
+ *         None.
+ * </p>
+ *
+ * @author Thomas Roskewich, Tem Tamre
+ * @version 1.0
+ * @see MapLocation
+ */
 public class MapLocationTest {
 
     @Test

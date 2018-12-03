@@ -1,11 +1,3 @@
-/*
- * Test class for the Photo entity
- *
- * Authors: Thomas Roskewich, Tem Tamre, Calvin Chomyc
- * Contact: roskewic@ualberta.ca, ttamre@ualberta.ca, chomyc1@ualberta.ca
- * Created: October 30, 2018
- */
-
 package cs.ualberta.ca.medlog;
 
 import cs.ualberta.ca.medlog.entity.Photo;
@@ -18,6 +10,20 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+/**
+ * <p>
+ *     Description: <br>
+ *         Test class for the Photo entity.
+ * </p>
+ * <p>
+ *     Issues: <br>
+ *         None.
+ * </p>
+ *
+ * @author Thomas Roskewich, Tem Tamre, Calvin Chomyc
+ * @version 1.0
+ * @see Photo
+ */
 @RunWith(RobolectricTestRunner.class)
 public class PhotoTest {
 

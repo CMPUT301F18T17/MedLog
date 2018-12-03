@@ -1,7 +1,5 @@
 package cs.ualberta.ca.medlog;
 
-import android.content.Context;
-
 import org.junit.Test;
 
 import java.net.ConnectException;
@@ -13,6 +11,21 @@ import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 import cs.ualberta.ca.medlog.helper.Database;
 import static junit.framework.TestCase.assertEquals;
+
+/**
+ * <p>
+ *     Description: <br>
+ *         Test class for the Provider Controller.
+ * </p>
+ * <p>
+ *     Issues: <br>
+ *         None.
+ * </p>
+ *
+ * @author Kyle Androschuk
+ * @version 1.0
+ * @see ProviderController
+ */
 public class ProviderControllerTest {
 
     @Test
@@ -31,6 +44,4 @@ public class ProviderControllerTest {
 
 
     }
-
-
 }

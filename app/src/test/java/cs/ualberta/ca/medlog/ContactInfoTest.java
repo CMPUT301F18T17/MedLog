@@ -1,11 +1,3 @@
-/*
- * Test class for the ContactInfo entity
- *
- * Authors: Thomas Roskewich, Tem Tamre
- * Contact: roskewic@ualberta.ca, ttamre@ualberta.ca
- * Created: October 30, 2018
- */
-
 package cs.ualberta.ca.medlog;
 
 import org.junit.Test;
@@ -14,6 +6,20 @@ import cs.ualberta.ca.medlog.entity.user.ContactInfo;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * <p>
+ *     Description: <br>
+ *         Test class for the ContactInfo entity.
+ * </p>
+ * <p>
+ *     Issues: <br>
+ *         None.
+ * </p>
+ *
+ * @author Thomas Roskewich, Tem Tamre
+ * @version 1.0
+ * @see ContactInfo
+ */
 public class ContactInfoTest {
 
     @Test

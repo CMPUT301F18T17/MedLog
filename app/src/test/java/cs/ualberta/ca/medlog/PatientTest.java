@@ -1,11 +1,3 @@
-/*
- * Test class for the Patient entity
- *
- * Author: Tem Tamre
- * Contact: ttamre@ualberta.ca
- * Created: October 31, 2018
- */
-
 package cs.ualberta.ca.medlog;
 
 import cs.ualberta.ca.medlog.entity.Photo;
@@ -18,7 +10,20 @@ import java.util.Date;
 
 import static junit.framework.TestCase.assertEquals;
 
-
+/**
+ * <p>
+ *     Description: <br>
+ *         Test class for the Patient entity.
+ * </p>
+ * <p>
+ *     Issues: <br>
+ *         None.
+ * </p>
+ *
+ * @author Tem Tamre
+ * @version 1.0
+ * @see Patient
+ */
 public class PatientTest {
 
     @Test

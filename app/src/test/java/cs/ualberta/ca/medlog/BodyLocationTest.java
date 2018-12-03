@@ -18,6 +18,7 @@ import static junit.framework.TestCase.assertEquals;
  *
  * @author Thomas Roskewich, Tem Tamre
  * @version 1.0
+ * @see BodyLocation
  */
 public class BodyLocationTest {
 

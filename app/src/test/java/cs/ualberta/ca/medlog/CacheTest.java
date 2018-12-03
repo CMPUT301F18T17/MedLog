@@ -1,32 +1,24 @@
-/**
- *
- * <h1>
- *     CacheTest
- * </h1>
- *
- *  <p>
- *     Description: <br>
- *         Unit testing for the Cache class
- *
- * </p>
- *
- * @author Tem Tamre, Calvin Chomyc
- * @contact ttamre@ualberta.ca, chomyc1@ualberta.ca
- * @see cs.ualberta.ca.medlog.helper.Cache
- */
-
 package cs.ualberta.ca.medlog;
 
 import junit.framework.TestCase;
 import org.junit.Test;
 
-import cs.ualberta.ca.medlog.entity.user.CareProvider;
-import cs.ualberta.ca.medlog.entity.user.ContactInfo;
-import cs.ualberta.ca.medlog.entity.user.Patient;
-import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 import cs.ualberta.ca.medlog.helper.Cache;
-import cs.ualberta.ca.medlog.singleton.AppStatus;
 
+/**
+ * <p>
+ *     Description: <br>
+ *         Unit testing for the Cache class
+ * </p>
+ * <p>
+ *     Issues: <br>
+ *         None.
+ * </p>
+ *
+ * @author Tem Tamre, Calvin Chomyc
+ * @version 1.0
+ * @see Cache
+ */
 public class CacheTest extends TestCase {
 
     @Test
