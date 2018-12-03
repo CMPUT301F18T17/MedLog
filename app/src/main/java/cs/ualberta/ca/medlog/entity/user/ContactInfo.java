@@ -13,7 +13,7 @@ package cs.ualberta.ca.medlog.entity.user;
  * </p>
  *
  * @author Thomas Roskewich, Tem Tamre
- * @version 1.0
+ * @version 1.1
  * @see Patient
  */
 public class ContactInfo {
@@ -52,6 +52,7 @@ public class ContactInfo {
      * @param newEmail The new email address.
      */
     public void setEmail(String newEmail) {
+
         email = newEmail;
     }
 

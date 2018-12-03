@@ -14,6 +14,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Arrays;
 import cs.ualberta.ca.medlog.R;
+import cs.ualberta.ca.medlog.controller.SyncController;
 import cs.ualberta.ca.medlog.entity.BodyLocation;
 import cs.ualberta.ca.medlog.entity.MapLocation;
 import cs.ualberta.ca.medlog.entity.Photo;
@@ -122,10 +123,17 @@ public class ProviderSearchActivity extends AppCompatActivity {
         }
 
         if (!bodyPhotos.isEmpty()) {
-            Intent intent = new Intent(this, AddBodyLocationActivity.class);
-            intent.putExtra("BODY_PHOTOS", bodyPhotos);
-            startActivityForResult(intent, BODY_LOCATION_REQUEST);
-        } else {
+            SyncController sc = new SyncController(this);
+            if(sc.downloadAllPhotos(AppStatus.getInstance().getCurrentUser().getUsername(), bodyPhotos)) {
+                Intent intent = new Intent(this, AddBodyLocationActivity.class);
+                intent.putExtra("BODY_PHOTOS", bodyPhotos);
+                startActivityForResult(intent, BODY_LOCATION_REQUEST);
+            }
+            else {
+                Toast.makeText(this, R.string.activityProviderSearch_FailedPhotoDownload,Toast.LENGTH_SHORT).show();
+            }
+        }
+        else {
             Toast.makeText(this, R.string.activityProviderSearch_NoPatientBodyPhotos, Toast.LENGTH_SHORT).show();
         }
     }

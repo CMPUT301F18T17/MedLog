@@ -143,7 +143,7 @@ public class PatientProblemViewActivity extends AppCompatActivity implements Dat
             Intent intent = new Intent(this, SlideshowActivity.class);
             intent.putExtra("PHOTOS", photos);
             startActivity(intent);
-        }else{
+        } else{
             Toast.makeText(this,R.string.activityPatientProblemView_FailedPhotoDownload,Toast.LENGTH_SHORT).show();
         }
     }

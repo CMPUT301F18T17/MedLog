@@ -127,7 +127,7 @@ public class ProviderProblemViewActivity extends AppCompatActivity implements Te
             Intent intent = new Intent(this, SlideshowActivity.class);
             intent.putExtra("PHOTOS", photos);
             startActivity(intent);
-        }else{
+        } else{
             Toast.makeText(this,R.string.activityProviderProblemView_FailedPhotoDownload,Toast.LENGTH_SHORT).show();
         }
     }

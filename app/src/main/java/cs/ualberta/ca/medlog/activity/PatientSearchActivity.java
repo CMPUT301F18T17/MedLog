@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import cs.ualberta.ca.medlog.R;
+import cs.ualberta.ca.medlog.controller.SyncController;
 import cs.ualberta.ca.medlog.entity.BodyLocation;
 import cs.ualberta.ca.medlog.entity.MapLocation;
 import cs.ualberta.ca.medlog.entity.Photo;
@@ -115,9 +116,15 @@ public class PatientSearchActivity extends AppCompatActivity {
     private void openBodyLocationSelector() {
         ArrayList<Photo> bodyPhotos = ((Patient)AppStatus.getInstance().getCurrentUser()).getBodyPhotos();
         if (!bodyPhotos.isEmpty()) {
-            Intent intent = new Intent(this, AddBodyLocationActivity.class);
-            intent.putExtra("BODY_PHOTOS",bodyPhotos);
-            startActivityForResult(intent, BODY_LOCATION_REQUEST);
+            SyncController sc = new SyncController(this);
+            if(sc.downloadAllPhotos(AppStatus.getInstance().getCurrentUser().getUsername(), bodyPhotos)) {
+                Intent intent = new Intent(this, AddBodyLocationActivity.class);
+                intent.putExtra("BODY_PHOTOS",bodyPhotos);
+                startActivityForResult(intent, BODY_LOCATION_REQUEST);
+            }
+            else {
+                Toast.makeText(this, R.string.activityPatientSearch_FailedPhotoDownload,Toast.LENGTH_SHORT).show();
+            }
         }
         else {
             Toast.makeText(this,R.string.activityPatientSearch_NoBodyPhotos,Toast.LENGTH_SHORT).show();
@@ -149,7 +156,7 @@ public class PatientSearchActivity extends AppCompatActivity {
             startActivity(intent);
         }
         else {
-            Intent intent = new Intent(this,PatientProblemViewActivity.class);
+            Intent intent = new Intent(this,PatientRecordViewActivity.class);
             AppStatus.getInstance().setViewedProblem(selected.getProblem());
             AppStatus.getInstance().setViewedRecord(selected.getRecord());
             startActivity(intent);
