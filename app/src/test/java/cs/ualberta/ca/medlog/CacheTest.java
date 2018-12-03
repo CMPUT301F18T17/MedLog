@@ -44,7 +44,7 @@ public class CacheTest extends TestCase {
         ContactInfo info = new ContactInfo("0000000000", "email@email.ca");
         Patient patient = new Patient(info, "Test Patient");
         AppStatus.getInstance().setCurrentUser(patient);
-        Cache cache = new Cache(null); // Test fails with a null context
+        Cache cache = new Cache(InstrumentationRegistry.getInstrumentation().getTargetContext());
         cache.save();
         try {
             assertEquals(patient, cache.load(Patient.class));
@@ -61,7 +61,7 @@ public class CacheTest extends TestCase {
     public void testLoadProvider(){
         CareProvider provider = new CareProvider("Test Provider");
         AppStatus.getInstance().setCurrentUser(provider);
-        Cache cache = new Cache(null); // Test fails with a null context
+        Cache cache = new Cache(InstrumentationRegistry.getInstrumentation().getTargetContext());
         cache.save();
         try {
             assertEquals(provider, cache.load(CareProvider.class));
@@ -76,11 +76,12 @@ public class CacheTest extends TestCase {
      */
     @Test
     public void testInvalidLoad() {
-        Cache cache = new Cache(null); // Test fails with a null context
+        Cache cache = new Cache(InstrumentationRegistry.getInstrumentation().getTargetContext());
         try {
             cache.load(Patient.class);
+        }
+        catch (UserNotFoundException e) {
             fail();
         }
-        catch (UserNotFoundException e) {}
     }
 }
