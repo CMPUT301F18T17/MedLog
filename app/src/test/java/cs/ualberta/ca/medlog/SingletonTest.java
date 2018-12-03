@@ -29,11 +29,17 @@ import static org.junit.Assert.*;
  */
 public class SingletonTest {
 
+    /**
+     * Tests if an AppStatus's instance is successfully returned.
+     */
     @Test
     public void testGetInstance(){
         assertNotNull(AppStatus.getInstance());
     }
 
+    /**
+     * Tests if an AppStatus's currentUser is successfully set and returned.
+     */
     @Test
     public void testCurrentUser(){
         assertNull(AppStatus.getInstance().getCurrentUser());
@@ -48,6 +54,9 @@ public class SingletonTest {
         assertEquals(cp, ck);
     }
 
+    /**
+     * Tests if an AppStatus's viewedPatient is successfully set and returned.
+     */
     @Test
     public void testViewedPatient(){
         assertNull(AppStatus.getInstance().getViewedPatient());
@@ -57,6 +66,9 @@ public class SingletonTest {
         assertEquals(p, k);
     }
 
+    /**
+     * Tests if an AppStatus's viewedProblem is successfully set and returned.
+     */
     @Test
     public void testViewedProblem(){
         assertNull(AppStatus.getInstance().getViewedProblem());
@@ -71,6 +83,9 @@ public class SingletonTest {
         assertEquals(testProblem, retrievedProblem);
     }
 
+    /**
+     * Tests if an AppStatus's viewedRecord is successfully set and returned.
+     */
     @Test
     public void testViewedRecord(){
         assertNull(AppStatus.getInstance().getViewedRecord());

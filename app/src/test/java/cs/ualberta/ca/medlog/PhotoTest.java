@@ -27,18 +27,27 @@ import static org.junit.Assert.assertNull;
 @RunWith(RobolectricTestRunner.class)
 public class PhotoTest {
 
+    /**
+     * Tests if a Photo is is successfully created.
+     */
     @Test
     public void testCreatePhoto() {
         Photo p = new Photo("/d/test.png");
         assertNotNull(p);
     }
 
+    /**
+     * Tests if a Photo's path is successfully returned.
+     */
     @Test
     public void testGetPath() {
         Photo p = new Photo("/d/test.png");
         assertEquals(p.getPath(),"/d/test.png");
     }
 
+    /**
+     * Tests if a Photo's id is successfully set and returned.
+     */
     @Test
     public void testId() {
         Photo p = new Photo("/d/test.png");
@@ -48,12 +57,18 @@ public class PhotoTest {
         assertEquals(p.getId(),"Test ID");
     }
 
+    /**
+     * Tests if a Photo's bitmap is successfully returned.
+     */
     @Test
     public void testGetPhotoBitmap() {
         Photo p = new Photo("/d/test.png");
         assertNotNull(p.getBitmap());
     }
 
+    /**
+     * Tests if a Photo's label is successfully set and returned.
+     */
     @Test
     public void testLabel() {
         Photo p = new Photo("/d/test.png");

@@ -25,6 +25,24 @@ import static org.junit.Assert.assertTrue;
  */
 public class ProblemTest {
 
+    /**
+     * Tests if a Problem's id is successfully set and returned.
+     */
+    @Test
+    public void testId() {
+        String title = "ProblemTitleString";
+        Date date = new Date();
+        String description = "This is a problem description.";
+
+        Problem testProblem = new Problem(title, date, description);
+        assertEquals(-1, testProblem.getId());
+        testProblem.setId(5);
+        assertEquals(5, testProblem.getId());
+    }
+
+    /**
+     * Tests if a Problem's title is successfully returned.
+     */
     @Test
     public void testGetTitle() {
         String title = "ProblemTitleString";
@@ -35,6 +53,9 @@ public class ProblemTest {
         assertEquals(title, testProblem.getTitle());
     }
 
+    /**
+     * Tests if a Problem's date is successfully returned.
+     */
     @Test
     public void testGetDate() {
         String title = "ProblemTitleString";
@@ -45,6 +66,9 @@ public class ProblemTest {
         assertEquals(date, testProblem.getDate());
     }
 
+    /**
+     * Tests if a Problem's description is successfully returned.
+     */
     @Test
     public void testGetDescription() {
         String title = "ProblemTitleString";
@@ -55,8 +79,11 @@ public class ProblemTest {
         assertEquals(description, testProblem.getDescription());
     }
 
+    /**
+     * Tests if a single record is successfully added to and returned from a Problem.
+     */
     @Test
-    public void testGetRecords() {
+    public void testRecord() {
         String title = "ProblemTitleString";
         Date date = new Date();
         String description = "This is a problem description.";
@@ -74,6 +101,9 @@ public class ProblemTest {
         assertEquals(recordList, testProblem.getRecords());
     }
 
+    /**
+     * Tests if a Problem's title is successfully set and returned.
+     */
     @Test
     public void testSetTitle() {
         String title = "ProblemTitleString";
@@ -88,6 +118,9 @@ public class ProblemTest {
         assertEquals(newTitle, testProblem.getTitle());
     }
 
+    /**
+     * Tests if a Problem's date is successfully set and returned.
+     */
     @Test
     public void testSetDate() {
         String title = "ProblemTitleString";
@@ -102,6 +135,9 @@ public class ProblemTest {
         assertEquals(newDate, testProblem.getDate());
     }
 
+    /**
+     * Tests if a Problem's description is successfully set and returned.
+     */
     @Test
     public void testSetDescription() {
         String title = "ProblemTitleString";
@@ -116,8 +152,11 @@ public class ProblemTest {
         assertEquals(newDescription, testProblem.getDescription());
     }
 
+    /**
+     * Tests if multiple records are successfully added and returned from a Problem.
+     */
     @Test
-    public void testAddRecords() {
+    public void testMultipleRecords() {
         String title = "ProblemTitleString";
         Date date = new Date();
         String description = "This is a problem description.";
@@ -132,5 +171,43 @@ public class ProblemTest {
             assertEquals(record, testProblem.getRecords().get(i));
             assertEquals(i + 1, testProblem.getRecords().size());
         }
+    }
+
+    /**
+     * Tests if records are successfully removed from a Problem.
+     */
+    @Test
+    public void testRemoveRecord() {
+        String title = "ProblemTitleString";
+        Date date = new Date();
+        String description = "This is a problem description.";
+
+        Problem testProblem = new Problem(title, date, description);
+        assertEquals(0, testProblem.getRecords().size());
+
+        ArrayList<Record> recordList = new ArrayList<>();
+        Record record1 = new Record("Username1");
+        testProblem.addRecord(record1);
+        recordList.add(record1);
+        Record record2 = new Record("Username2");
+        testProblem.addRecord(record2);
+        recordList.add(record2);
+        Record record3 = new Record("Username3");
+        testProblem.addRecord(record3);
+        recordList.add(record3);
+
+
+        assertEquals(3, testProblem.getRecords().size());
+        testProblem.removeRecord(1);
+
+        assertEquals(2, testProblem.getRecords().size());
+        assertEquals(recordList.get(2), testProblem.getRecords().get(1)); // Index is different because we didn't remove the record from recordList
+        testProblem.removeRecord(1);
+
+        assertEquals(1, testProblem.getRecords().size());
+        assertEquals(recordList.get(0), testProblem.getRecords().get(0));
+        testProblem.removeRecord(0);
+
+        assertEquals(0, testProblem.getRecords().size());
     }
 }
