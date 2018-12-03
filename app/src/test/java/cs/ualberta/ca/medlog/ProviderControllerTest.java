@@ -41,7 +41,5 @@ public class ProviderControllerTest {
         }catch(UserNotFoundException | ConnectException e){}
 
         assertEquals(patient,provider.getPatients().get(0));
-
-
     }
 }

@@ -42,6 +42,7 @@ public class SingletonTest {
      */
     @Test
     public void testCurrentUser(){
+        AppStatus.getInstance().setCurrentUser(null);
         assertNull(AppStatus.getInstance().getCurrentUser());
         Patient p = new Patient(new ContactInfo("1234567894", "me@md.ca"), "super");
         AppStatus.getInstance().setCurrentUser(p);
