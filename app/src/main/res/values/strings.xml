@@ -39,7 +39,7 @@
     <string name="activityPatientSignUp.NoPhone">No Phone Number Entered</string>
     <string name="activityPatientSignUp.InvalidContact">Invalid Email or Phone Number</string>
     <string name="activityPatientSignUp.FailedSignUp">Failed to Sign Up Patient</string>
-    <string name="activityPatientSignUp.SignedUp">Signed Up Care Provider</string>
+    <string name="activityPatientSignUp.SignedUp">Signed Up Patient</string>
 
     <string name="activityPatientMenu.PatientText">Patient</string>
     <string name="activityPatientMenu.AddProblemButton">Add Problem</string>
