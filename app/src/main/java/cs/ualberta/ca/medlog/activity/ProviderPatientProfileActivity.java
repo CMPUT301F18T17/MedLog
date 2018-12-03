@@ -67,16 +67,6 @@ public class ProviderPatientProfileActivity extends AppCompatActivity {
         emailView.setText(patient.getContactInfo().getEmail());
         TextView phoneNumberView = findViewById(R.id.activityProviderPatientProfile_PhoneNumberView);
         phoneNumberView.setText(patient.getContactInfo().getPhoneNumber());
-
-        // Download the patients body photos.
-        Database db = new Database(this);
-        try {
-            for (Photo p : patient.getBodyPhotos()) {
-                db.downloadPhoto(patient.getUsername(), p);
-            }
-        }catch(IOException e){
-            e.printStackTrace();
-        }
     }
 
     private void openRecordsMap() {

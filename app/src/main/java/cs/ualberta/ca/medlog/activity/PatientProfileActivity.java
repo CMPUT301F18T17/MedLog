@@ -168,15 +168,9 @@ public class PatientProfileActivity extends AppCompatActivity implements TextEdi
     }
 
     private void openBodyPictures() {
-        SyncController sc = new SyncController(this);
-        if(sc.downloadAllPhotos(AppStatus.getInstance().getCurrentUser().getUsername(), patient.getBodyPhotos())) {
-            Intent intent = new Intent(this, PhotoSelectorActivity.class);
-            intent.putExtra("PHOTOS",patient.getBodyPhotos());
-            startActivityForResult(intent, PHOTO_REQUEST);
-        }
-        else {
-            Toast.makeText(this, R.string.activityProviderRecordView_FailedPhotoDownload,Toast.LENGTH_SHORT).show();
-        }
+        Intent intent = new Intent(this, PhotoSelectorActivity.class);
+        intent.putExtra("PHOTOS",patient.getBodyPhotos());
+        startActivityForResult(intent, PHOTO_REQUEST);
     }
 
     @Override

@@ -123,15 +123,9 @@ public class ProviderSearchActivity extends AppCompatActivity {
         }
 
         if (!bodyPhotos.isEmpty()) {
-            SyncController sc = new SyncController(this);
-            if(sc.downloadAllPhotos(AppStatus.getInstance().getCurrentUser().getUsername(), bodyPhotos)) {
-                Intent intent = new Intent(this, AddBodyLocationActivity.class);
-                intent.putExtra("BODY_PHOTOS", bodyPhotos);
-                startActivityForResult(intent, BODY_LOCATION_REQUEST);
-            }
-            else {
-                Toast.makeText(this, R.string.activityProviderSearch_FailedPhotoDownload,Toast.LENGTH_SHORT).show();
-            }
+            Intent intent = new Intent(this, AddBodyLocationActivity.class);
+            intent.putExtra("BODY_PHOTOS", bodyPhotos);
+            startActivityForResult(intent, BODY_LOCATION_REQUEST);
         }
         else {
             Toast.makeText(this, R.string.activityProviderSearch_NoPatientBodyPhotos, Toast.LENGTH_SHORT).show();

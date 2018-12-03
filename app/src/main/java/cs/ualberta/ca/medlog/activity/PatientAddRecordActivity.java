@@ -147,15 +147,9 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
     private void openBodyLocationSelector() {
         ArrayList<Photo> bodyPhotos = ((Patient)AppStatus.getInstance().getCurrentUser()).getBodyPhotos();
         if (!bodyPhotos.isEmpty()) {
-            SyncController sc = new SyncController(this);
-            if(sc.downloadAllPhotos(AppStatus.getInstance().getCurrentUser().getUsername(), bodyPhotos)) {
-                Intent intent = new Intent(this, AddBodyLocationActivity.class);
-                intent.putExtra("BODY_PHOTOS",bodyPhotos);
-                startActivityForResult(intent, BODY_LOCATION_REQUEST);
-            }
-            else {
-                Toast.makeText(this, R.string.activityPatientAddRecord_FailedPhotoDownload,Toast.LENGTH_SHORT).show();
-            }
+            Intent intent = new Intent(this, AddBodyLocationActivity.class);
+            intent.putExtra("BODY_PHOTOS",bodyPhotos);
+            startActivityForResult(intent, BODY_LOCATION_REQUEST);
         }
         else {
             Toast.makeText(this,R.string.activityPatientAddRecord_NoBodyPhotos,Toast.LENGTH_SHORT).show();
