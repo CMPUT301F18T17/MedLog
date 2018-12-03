@@ -224,7 +224,7 @@ public class Database {
                 cache.save();
 
                 if (provider == null) {
-                    throw new UserNotFoundException("Care Povider " + username + " was not found.");
+                    throw new UserNotFoundException("Care Provider " + username + " was not found.");
                 }
             } catch (Exception e){
                 throw new UserNotFoundException("Failed to load provider.");

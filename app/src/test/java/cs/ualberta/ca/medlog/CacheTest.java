@@ -3,6 +3,7 @@ package cs.ualberta.ca.medlog;
 import junit.framework.TestCase;
 import org.junit.Test;
 
+import androidx.test.platform.app.InstrumentationRegistry;
 import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.entity.user.ContactInfo;
 import cs.ualberta.ca.medlog.entity.user.Patient;
@@ -31,7 +32,7 @@ public class CacheTest extends TestCase {
      */
     @Test
     public void testCreation() {
-        Cache cache = new Cache(null);
+        Cache cache = new Cache(InstrumentationRegistry.getInstrumentation().getTargetContext());
         assertNotNull(cache);
     }
 
