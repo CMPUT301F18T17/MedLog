@@ -210,7 +210,6 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
         Toast.makeText(this,R.string.activityPatientAddRecord_RecordAdded,Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(this, PatientProblemViewActivity.class);
-        AppStatus.getInstance().setViewedRecord(newRecord);
         startActivity(intent);
     }
 }
