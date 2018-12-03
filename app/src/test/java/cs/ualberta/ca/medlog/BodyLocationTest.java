@@ -16,8 +16,9 @@ import static junit.framework.TestCase.assertEquals;
  *         None.
  * </p>
  *
- * @author Thomas Roskewich, Tem Tamre
- * @version 1.0
+ * @author Thomas Roskewich, Tem Tamre, Calvin Chomyc
+ * @version 1.1
+ * @see BodyLocation
  */
 public class BodyLocationTest {
 
@@ -40,7 +41,7 @@ public class BodyLocationTest {
         Photo photo = new Photo( null);
         BodyLocation location = new BodyLocation(photo, 0.1f, 0.5f);
 
-        assertEquals((int)location.getX(), 0.1f);
+        assertEquals(location.getX(), 0.1f);
     }
 
     /**
@@ -49,9 +50,20 @@ public class BodyLocationTest {
     @Test
     public void testGetY(){
         Photo photo = new Photo(null);
-        BodyLocation location = new BodyLocation(photo, 10, 5);
+        BodyLocation location = new BodyLocation(photo, 10, 5.8f);
 
-        assertEquals((int)location.getY(), 5);
+        assertEquals(location.getY(), 5.8f);
     }
 
+    /**
+     * Tests if a body location is equal to another with the same photo, x value, and y value.
+     */
+    @Test
+    public void testEquals(){
+        Photo photo = new Photo(null);
+        BodyLocation location1 = new BodyLocation(photo, 10, 0.8f);
+        BodyLocation location2 = new BodyLocation(photo, 10, 0.8f);
+
+        assertEquals(location1, location2);
+    }
 }

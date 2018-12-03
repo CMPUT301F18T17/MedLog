@@ -12,10 +12,12 @@ import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.net.ConnectException;
 
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.controller.ProviderController;
+import cs.ualberta.ca.medlog.entity.Photo;
 import cs.ualberta.ca.medlog.entity.user.CareProvider;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.exception.EncryptionException;
@@ -81,10 +83,19 @@ public class ProviderAddPatientActivity extends AppCompatActivity {
         Patient newPatient;
         try {
             newPatient = db.loadPatient(username);
+
+            // Download the patients body photos.
+            for (Photo p : newPatient.getBodyPhotos()) {
+                db.downloadPhoto(newPatient.getUsername(), p);
+            }
+
         } catch(UserNotFoundException e){
             Toast.makeText(this,R.string.activityProviderAddPatient_NoPatient,Toast.LENGTH_SHORT).show();
             return;
         } catch (ConnectException e) {
+            Toast.makeText(this,R.string.activityProviderAddPatient_NoServer,Toast.LENGTH_SHORT).show();
+            return;
+        } catch (IOException e) {
             Toast.makeText(this,R.string.activityProviderAddPatient_NoServer,Toast.LENGTH_SHORT).show();
             return;
         }

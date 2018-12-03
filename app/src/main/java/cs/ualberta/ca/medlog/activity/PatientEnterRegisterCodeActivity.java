@@ -9,10 +9,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.IOException;
+
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.controller.SyncController;
+import cs.ualberta.ca.medlog.entity.Photo;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.exception.EncryptionException;
+import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 import cs.ualberta.ca.medlog.helper.Database;
 import cs.ualberta.ca.medlog.helper.Encryption;
 import cs.ualberta.ca.medlog.singleton.AppStatus;
@@ -93,8 +97,16 @@ public class PatientEnterRegisterCodeActivity extends AppCompatActivity {
         Patient toLogin;
         try {
             toLogin = db.loadPatient(username);
-        } catch(Exception e){
+
+            // Download the patients body photos.
+            for (Photo p : toLogin.getBodyPhotos()) {
+                db.downloadPhoto(toLogin.getUsername(), p);
+            }
+        } catch(UserNotFoundException e){
             Toast.makeText(this, R.string.activityPatientEnterRegisterCode_NoRegister, Toast.LENGTH_SHORT).show();
+            return;
+        } catch (IOException e) {
+            Toast.makeText(this, R.string.activityPatientEnterRegisterCode_NoServer, Toast.LENGTH_SHORT).show();
             return;
         }
 

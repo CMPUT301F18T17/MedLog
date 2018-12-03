@@ -313,7 +313,7 @@ public class Database {
                 // Load the file, convert to bitmap, compress as JPEG, and then save the photo on ES
                 Bitmap bitmap = photo.getBitmap();
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 50,baos);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 35,baos);
                 String id =  new ElasticSearchController.SavePhotoTask().execute(baos.toByteArray()).get();
                 photo.setId(id);
                 return id;
@@ -537,48 +537,61 @@ public class Database {
         }
 
         for(Problem p : patient.getProblems()){
-            boolean added = false;
-            ArrayList<String> strings = new ArrayList<>();
+            ArrayList<String> problemStrings = new ArrayList<>();
             // If the keywords match the title or the description, add it.
-            strings.addAll(Arrays.asList(p.getDescription().toLowerCase().split(" ")));
-            strings.addAll(Arrays.asList(p.getTitle().toLowerCase().split(" ")));
+            problemStrings.addAll(Arrays.asList(p.getDescription().toLowerCase().split(" ")));
+            problemStrings.addAll(Arrays.asList(p.getTitle().toLowerCase().split(" ")));
+
+            // If the problem strings contains all keywords, we add it to the list.
+            if(keywords != null) {
+                if (problemStrings.containsAll(keywords)) {
+                    output.add(new SearchResult(patient, p, null));
+                }
+            }
 
             // If the record contains the map location or the body description, add it and stop.
             for(Record r : p.getRecords()){
+                ArrayList<String> recordStrings = new ArrayList<>();
                 if(r.getTitle() != null) {
-                    strings.addAll(Arrays.asList(r.getComment().toLowerCase().toLowerCase().split(" ")));
-                    strings.addAll(Arrays.asList(r.getTitle().toLowerCase().toLowerCase().split(" ")));
+                    recordStrings.addAll(Arrays.asList(r.getTitle().toLowerCase().toLowerCase().split(" ")));
+                }
+
+                if(r.getComment() != null) {
+                    recordStrings.addAll(Arrays.asList(r.getComment().toLowerCase().toLowerCase().split(" ")));
+                }
+
+                // If the record strings contain all the keywords.
+                if(keywords != null) {
+                    if (!recordStrings.containsAll(keywords)) {
+                        continue;
+                    }
                 }
 
                 // If there is a map we are searching for and the record has a map location
-                if(map != null && r.getMapLocation() != null){
-                    if(r.getMapLocation().isNear(map)){
-                        output.add(new SearchResult(patient, p, r));
-                        added = true;
-                        break;
+                if(map != null) {
+                    if(r.getMapLocation() != null) {
+                        if(!r.getMapLocation().isNear(map)) {
+                            continue;
+                        }
+                    }
+                    else {
+                        continue;
                     }
                 }
 
                 // If there is a body location we are searching for and a record has a body location
-                if(bl != null && r.getBodyLocation() != null){
-                    if(r.getBodyLocation().isNear(bl)){
-                        output.add(new SearchResult(patient, p, r));
-                        added = true;
-                        break;
+                if(bl != null) {
+                    if (r.getBodyLocation() != null) {
+                        if(!r.getBodyLocation().isNear(bl)) {
+                            continue;
+                        }
+                    }
+                    else {
+                        continue;
                     }
                 }
-            }
 
-            // If we added it already, we can skip the rest of the code. Do not want duplicates!
-            if(added){
-                continue;
-            }
-
-            // If the strings contains all keywords, we add it to the list.
-            if(keywords != null) {
-                if (strings.containsAll(keywords)) {
-                    output.add(new SearchResult(patient, p, null));
-                }
+                output.add(new SearchResult(patient,p,r));
             }
         }
         return output;

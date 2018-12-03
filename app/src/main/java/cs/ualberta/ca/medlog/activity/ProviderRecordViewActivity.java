@@ -151,7 +151,7 @@ public class ProviderRecordViewActivity extends AppCompatActivity {
         if(sc.downloadAllPhotos(AppStatus.getInstance().getViewedPatient().getUsername(), record.getPhotos())) {
             intent.putExtra("PHOTOS", record.getPhotos());
             startActivity(intent);
-        }else{
+        } else{
             Toast.makeText(this, R.string.activityProviderRecordView_FailedPhotoDownload,Toast.LENGTH_SHORT).show();
         }
     }

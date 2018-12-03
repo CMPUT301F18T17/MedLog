@@ -16,15 +16,20 @@ import cs.ualberta.ca.medlog.helper.Database;
 
 import static junit.framework.TestCase.assertEquals;
 
-/*
- * Test class for the Patient Controller
+/**
+ * <p>
+ *     Description: <br>
+ *         Test class for the Patient Controller.
+ * </p>
+ * <p>
+ *     Issues: <br>
+ *         Without context, these tests will always fail.
+ * </p>
  *
- * Author: Kyle Androschuk
- * Contact: kandrosc@ualberta.ca
- * Created: November 28, 2018
+ * @author Kyle Androschuk
+ * @version 1.0
+ * @see PatientController
  */
-
-// Wihtout context, these tests will always fail :/
 public class PatientControllerTest {
 
     @Test

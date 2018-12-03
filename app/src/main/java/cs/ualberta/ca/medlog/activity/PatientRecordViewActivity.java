@@ -145,7 +145,7 @@ public class PatientRecordViewActivity extends AppCompatActivity {
         if(sc.downloadAllPhotos(AppStatus.getInstance().getCurrentUser().getUsername(), record.getPhotos())) {
             intent.putExtra("PHOTOS", record.getPhotos());
             startActivity(intent);
-        }else{
+        } else{
             Toast.makeText(this,R.string.activityPatientRecordView_FailedPhotoDownload,Toast.LENGTH_SHORT).show();
         }
     }

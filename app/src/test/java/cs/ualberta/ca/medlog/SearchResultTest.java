@@ -25,16 +25,22 @@ import static org.junit.Assert.*;
  *
  * @author Calvin Chomyc
  * @version 1.0
+ * @see SearchResult
  */
-
 public class SearchResultTest {
 
+    /**
+     * Tests if a SearchResult is successfully created.
+     */
     @Test
     public void testCreateInstance(){
         SearchResult testResult = new SearchResult(null, null, null);
         assertNotNull(testResult);
     }
 
+    /**
+     * Tests if a SearchResult's Patient is successfully returned.
+     */
     @Test
     public void testGetPatient(){
         Patient testPatient = new Patient(new ContactInfo("1234567894", "me@md.ca"), "super");
@@ -42,6 +48,9 @@ public class SearchResultTest {
         assertEquals(testPatient, testResult.getPatient());
     }
 
+    /**
+     * Tests if a SearchResult's Problem is successfully returned.
+     */
     @Test
     public void testGetProblem(){
         String title = "ProblemTitleString";
@@ -53,6 +62,9 @@ public class SearchResultTest {
         assertEquals(testProblem, testResult.getProblem());
     }
 
+    /**
+     * Tests if a SearchResult's Record is successfully returned.
+     */
     @Test
     public void testGetRecord(){
         Record testRecord = new Record("John Does");

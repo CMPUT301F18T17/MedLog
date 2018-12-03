@@ -13,7 +13,7 @@ package cs.ualberta.ca.medlog.entity.user;
  * </p>
  *
  * @author Thomas Roskewich, Tem Tamre
- * @version 1.0
+ * @version 1.1
  * @see Patient
  */
 public class ContactInfo {
@@ -31,7 +31,7 @@ public class ContactInfo {
         this.email = email;
 
         // Temporary validation fixes, regex implementation should be used
-        if (this.phoneNumber.length() < 7 || this.phoneNumber.length() > 11) { // Phone numbers are at least 10 digits long
+        if (this.phoneNumber.length() < 7 || this.phoneNumber.length() > 11) {
             throw new RuntimeException();
         }
         if (!(this.email.contains("@"))) { // An email must include the "@" symbol
@@ -52,6 +52,7 @@ public class ContactInfo {
      * @param newEmail The new email address.
      */
     public void setEmail(String newEmail) {
+
         email = newEmail;
     }
 

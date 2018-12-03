@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import cs.ualberta.ca.medlog.R;
+import cs.ualberta.ca.medlog.controller.SyncController;
 import cs.ualberta.ca.medlog.entity.BodyLocation;
 import cs.ualberta.ca.medlog.entity.MapLocation;
 import cs.ualberta.ca.medlog.entity.Photo;
@@ -149,7 +150,7 @@ public class PatientSearchActivity extends AppCompatActivity {
             startActivity(intent);
         }
         else {
-            Intent intent = new Intent(this,PatientProblemViewActivity.class);
+            Intent intent = new Intent(this,PatientRecordViewActivity.class);
             AppStatus.getInstance().setViewedProblem(selected.getProblem());
             AppStatus.getInstance().setViewedRecord(selected.getRecord());
             startActivity(intent);

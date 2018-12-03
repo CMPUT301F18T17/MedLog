@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.controller.PatientController;
+import cs.ualberta.ca.medlog.controller.SyncController;
 import cs.ualberta.ca.medlog.entity.Photo;
 import cs.ualberta.ca.medlog.entity.user.Patient;
 import cs.ualberta.ca.medlog.singleton.AppStatus;
@@ -149,9 +150,9 @@ public class PatientProfileActivity extends AppCompatActivity implements TextEdi
                     Toast.makeText(this, R.string.activityPatientProfile_NoPhone, Toast.LENGTH_SHORT).show();
                     break;
                 }
-                controller.setPhoneNumber(patient,newText);
+                controller.setPhoneNumber(patient,newText.replace(" ", ""));
                 Toast.makeText(this, R.string.activityPatientProfile_PhoneSet, Toast.LENGTH_SHORT).show();
-                updatePhoneNumberDisplay(newText);
+                updatePhoneNumberDisplay(newText.replace(" ", ""));
                 break;
         }
     }

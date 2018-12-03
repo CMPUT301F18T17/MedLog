@@ -127,7 +127,7 @@ public class ProviderProblemViewActivity extends AppCompatActivity implements Te
             Intent intent = new Intent(this, SlideshowActivity.class);
             intent.putExtra("PHOTOS", photos);
             startActivity(intent);
-        }else{
+        } else{
             Toast.makeText(this,R.string.activityProviderProblemView_FailedPhotoDownload,Toast.LENGTH_SHORT).show();
         }
     }
@@ -149,23 +149,12 @@ public class ProviderProblemViewActivity extends AppCompatActivity implements Te
             return;
         }
 
-        Database db = new Database(this);
-        Patient patient;
-        try {
-            patient = db.loadPatient(patientUsername);
-        } catch(UserNotFoundException e) {
-            Toast.makeText(this,R.string.activityProviderProblemView_NoPatient, Toast.LENGTH_SHORT).show();
-            return;
-        } catch(ConnectException e) {
-            Toast.makeText(this, R.string.activityProviderProblemView_FailedPatientFind, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
         Record newRecord = new Record(AppStatus.getInstance().getCurrentUser().getUsername());
         newRecord.setTitleComment("Care Provider Comment",newText);
 
         ProblemController controller = new ProblemController(this);
-        controller.addRecord(patient,problem,newRecord);
+        controller.addRecord(AppStatus.getInstance().getViewedPatient(),problem,newRecord);
+        Toast.makeText(this, R.string.activityProviderProblemView_CommentAdded, Toast.LENGTH_SHORT).show();
     }
 
     private void openPatientProfile() {

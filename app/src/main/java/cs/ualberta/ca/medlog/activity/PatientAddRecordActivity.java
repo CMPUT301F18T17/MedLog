@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import cs.ualberta.ca.medlog.R;
 
 import cs.ualberta.ca.medlog.controller.ProblemController;
+import cs.ualberta.ca.medlog.controller.SyncController;
 import cs.ualberta.ca.medlog.entity.BodyLocation;
 import cs.ualberta.ca.medlog.entity.MapLocation;
 import cs.ualberta.ca.medlog.entity.Photo;
@@ -209,7 +210,6 @@ public class PatientAddRecordActivity extends AppCompatActivity implements TextE
         Toast.makeText(this,R.string.activityPatientAddRecord_RecordAdded,Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(this, PatientProblemViewActivity.class);
-        AppStatus.getInstance().setViewedRecord(newRecord);
         startActivity(intent);
     }
 }
