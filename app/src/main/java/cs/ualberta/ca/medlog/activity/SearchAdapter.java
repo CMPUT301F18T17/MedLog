@@ -36,13 +36,11 @@ public class SearchAdapter extends ArrayAdapter<SearchResult> {
     View getView(int position, View convertView, @NonNull ViewGroup parent) {
         SearchResult searchResult = getItem(position);
 
-        if(convertView == null) {
-            if (searchResult.getRecord() == null) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_problem_search_result, parent, false);
-            }
-            else {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_record_search_result, parent, false);
-            }
+        if (searchResult.getRecord() == null) {
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_problem_search_result, parent, false);
+        }
+        else {
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_record_search_result, parent, false);
         }
 
         if (searchResult.getRecord() == null) {
