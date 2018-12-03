@@ -8,11 +8,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.net.ConnectException;
 
 import cs.ualberta.ca.medlog.R;
 import cs.ualberta.ca.medlog.controller.SyncController;
 import cs.ualberta.ca.medlog.entity.user.Patient;
+import cs.ualberta.ca.medlog.entity.Photo;
 import cs.ualberta.ca.medlog.exception.UserNotFoundException;
 import cs.ualberta.ca.medlog.helper.Database;
 import cs.ualberta.ca.medlog.singleton.AppStatus;
@@ -96,10 +98,16 @@ public class PatientLoginActivity extends AppCompatActivity {
         Patient toLogin = null;
         try {
             toLogin = db.loadPatient(username);
+
+            // Download the patients body photos.
+            for(Photo p : toLogin.getBodyPhotos()){
+                db.downloadPhoto(toLogin.getUsername(), p);
+            }
+
         } catch(UserNotFoundException e){
             Toast.makeText(this, R.string.activityPatientLogin_NoPatient, Toast.LENGTH_SHORT).show();
             return;
-        } catch (ConnectException e) {
+        } catch (IOException e) {
             Toast.makeText(this, R.string.activityPatientLogin_NoServer, Toast.LENGTH_SHORT).show();
             return;
         }
