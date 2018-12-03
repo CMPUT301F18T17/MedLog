@@ -1,0 +1,9 @@
+cs.ualberta.ca.medlog
+cs.ualberta.ca.medlog.activity
+cs.ualberta.ca.medlog.controller
+cs.ualberta.ca.medlog.entity
+cs.ualberta.ca.medlog.entity.user
+cs.ualberta.ca.medlog.exception
+cs.ualberta.ca.medlog.helper
+cs.ualberta.ca.medlog.mock
+cs.ualberta.ca.medlog.singleton
