@@ -1,15 +1,25 @@
 # MedLog
-CMPUT301 F18 T17 project
 
-MedLog is our groups project to design an application that helps people to document their health issues for doctors to later
-examine.
+**MedLog is an android application that helps people track their medical issues**
 
-With this application: 
+[Video Demo](https://youtu.be/qowvspd6rEw)
 
-Patients can create different recorded health problems that they see.
 
-They can add records detailing the current status of those problems.
+With this application, patients can
 
-These recorded issues can then be viewed by Care Providers who are assigned to these patients.
+* Create records for new health concerns
 
-These Care Providers in turn can leave further comment records in response to these problems.
+* Add new information to existing records, such as
+  * Geolocation of the incident
+  * Affected area on on the body
+  * Images of the affected tissue/area
+  * Comments on the 
+
+
+While care providers can
+
+* Register patients to their care list
+
+* View medical records of patients in their care list
+
+* Ask questions about records by leaving comments
